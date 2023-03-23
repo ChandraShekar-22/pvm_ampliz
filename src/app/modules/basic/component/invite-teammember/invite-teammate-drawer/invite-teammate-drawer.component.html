@@ -1,0 +1,42 @@
+<div>
+  <div class="inviteTeammateBackdrop"></div>
+  <div class="inviteTeammateWrapper slide-in">
+    <div class="topSection">
+      <div class="row">
+        <div class="col flex1">
+          <div class="h5 text-grey mt-2 not-crct_header"></div>
+        </div>
+        <div>
+          <div class="float-end closeIcon">
+            <i class="fa fas fa-window-close" style="color: #c2c2c2;" (click)="handlerInviteTeammateDrawer()"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mainSection">
+      <div class="col">
+        <div class="imageClass">
+          <img src="assets/images/team1.png" alt="Teammate" />
+        </div>
+        <p class="toptitle">Invite Teammate</p>
+        <p class="bottomText mt-3">Start a new search using filters, and your activity will be saved here for the next time
+          you'll need it.
+        </p>
+        <form [formGroup]="emailForm" (submit)="inviteTeamMember()">
+        <div class="bodyWrap input-group-lg">
+          <label class="h5 text-dark mb-3" style="font-weight:normal;margin-bottom: 0;font-size:16px">Search
+            Teammate</label>
+            <app-hc-input
+            [isFormSubmitted]="emailForm.touched" 
+            [placeholder]="'email'" [c]="emailForm.controls.emailId" id="emailId"
+            formControlName="emailId"></app-hc-input>
+        </div>
+        <div class="mt-3 px-5 d-flex justify-content-end">
+          <button class="btn teammate_invite_cancel mr-2" (click)="handlerInviteTeammateDrawer()">Cancel</button>
+          <button type="submit" class="btn teammate_invite_btn ml-3">Invite</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

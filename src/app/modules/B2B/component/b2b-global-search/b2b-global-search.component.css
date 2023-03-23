@@ -1,0 +1,233 @@
+.search-container {
+  min-height: 68px;
+  margin-left: 20px;
+  position: relative;
+  z-index: 9999;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 4px;
+}
+
+.search-Input-container {
+  /* width: 743px; */
+  /* margin-top: 10px; */
+  /* padding: 0 5%; */
+  flex: 1;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #b7b7b7;
+  border-radius: 6px;
+  background-color: #fafafa;
+  transition: all 0.2s ease-out;
+}
+.search-Input-container:hover {
+  border: 1px solid #444444;
+  transition: all 0.2s ease-in;
+}
+
+.imageClass {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ddd;
+  padding: 2px;
+  border-radius: 4px;
+  margin-right: 9px;
+}
+.search-input-label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0 4.5% 0 6.5%;
+  margin: 0;
+  align-items: center;
+}
+
+.search-input {
+  border: none;
+  background-color: transparent;
+  flex: 1;
+  font-size: 1rem;
+  padding: 5px 10px 0;
+  color: #a4a4a4;
+}
+
+.search-input-label i {
+  font-size: 14px;
+  color: #969696;
+  line-height: 1.5;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.clearBtn {
+  cursor: pointer;
+  padding: 11px;
+}
+
+.search-result-conntainer {
+  position: absolute;
+  top: 65px;
+  min-width: 100%;
+  max-width: 85vw;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 25px;
+  padding-top: 12px;
+  max-height: 829px;
+  box-shadow: -2px 5px 13px -2px rgb(185 185 185 / 75%);
+  background-color: #fff;
+  border: 1px solid #ece9e9;
+  transition: all 2s;
+}
+
+.active {
+  display: block;
+}
+
+.search-result-conntainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-result-block {
+  display: flex;
+}
+
+.block-col {
+  padding-left: 30px;
+  width: 100%;
+  min-width: 335px;
+}
+
+.search-heading {
+  margin-bottom: 40px;
+}
+
+.search-heading span {
+  border-bottom: 3px solid #77a6f7;
+  padding-bottom: 5px;
+  font-size: 15px;
+  font-weight: 400;
+  transition: border-bottom 2s;
+}
+
+.block-col:hover .search-heading span {
+  border-bottom: 3px solid #354053;
+}
+
+.block-col li {
+  display: flex;
+  align-items: center;
+  margin: 18px 0;
+  color: #96989a;
+  transition: color 0.3s;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.block-col li:hover {
+  color: #5a5b5c;
+}
+
+.block-col .icon_image {
+  width: 38px;
+  height: 38px;
+  padding: 3px;
+  background-color: #ffffff;
+  border: 1px solid #d7d7d7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.block-col .list-Icon {
+  border: none;
+  width: 32px;
+}
+
+.block-col .hospital-ph {
+  font-size: 41px;
+  line-height: 0.8;
+}
+
+.highlightText {
+  color: #2d8cff;
+  background-color: transparent;
+}
+
+.search-overlay {
+  background: transparent;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  overflow: hidden;
+}
+
+/* addon css */
+
+.search-input {
+  border: none;
+  background-color: transparent;
+  flex: 1;
+  font-size: 14px !important;
+  padding: 2px 10px 0 !important;
+  color: #818283;
+}
+
+.srch_font {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px 8px;
+  color: #354053;
+}
+.physician_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  padding: 0;
+}
+.physician_imgContainer {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  position: relative;
+}
+img.img-empty-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 0px;
+}
+.physician_imgContainer.with-border {
+  border: 1px solid #989292;
+}
+.physician_content .mat-chip-list {
+  margin-left: -1px;
+  padding: 10px 0px;
+}
+.feather {
+  width: 20px;
+  position: absolute;
+  top: 6px;
+  left: 9px;
+}
+.mat {
+  font-size: 20px;
+  width: 20px;
+  position: absolute;
+  top: 8px;
+  left: 9px;
+}

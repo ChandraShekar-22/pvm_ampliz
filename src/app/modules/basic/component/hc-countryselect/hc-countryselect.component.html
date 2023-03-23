@@ -1,0 +1,23 @@
+<div class="dropdown mr-3">
+    <div class="form-control form-group text-box" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <span
+            class="flag-icon flag-icon-{{selectedCountry.flag.toLowerCase()}} flag-icon-squared mr-3"></span>
+        +{{selectedCountry.number}}
+    </div>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button class="dropdown-item d-flex align-items-center" type="button"
+            *ngFor="let country of countries"
+            (click)="countrySelected(country)"
+            >
+            <span
+                class="flag-icon flag-icon-{{country.flag.toLowerCase()}} mr-3 flag-icon-squared"></span>
+            <span style="flex:1">
+                {{country.name}}
+            </span>
+            <span style="color: #c5c0b0;">
+                (+{{country.number}})
+            </span>
+        </button>
+    </div>
+</div>

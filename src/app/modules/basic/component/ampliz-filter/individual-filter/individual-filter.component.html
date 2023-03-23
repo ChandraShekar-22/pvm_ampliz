@@ -1,0 +1,172 @@
+<mat-expansion-panel class="indFilter" #panelComp hideToggle style="width: 100%;"
+[disabled]="disabled"
+>
+  <mat-expansion-panel-header style="display: flex;flex-direction: row;"
+    [ngClass]="panelComp.expanded ? 'expanded' : ''" [collapsedHeight]="'70px'" [expandedHeight]="'70px'">
+    <mat-panel-title style="width:100%;">
+      <div class="mat-people-title">{{title}}</div>
+      <div class="sub-header" *ngIf="type!=='singleselectnumber'&&includedItems.length == 0&& !panelComp.expanded">
+        {{includePlaceholder}}
+      </div>
+      <!-- If it is single select we are dealing with numbers -->
+      <div class="sub-header" *ngIf="type=='singleselectnumber'&&includedItems == 0&& !panelComp.expanded">
+        {{includePlaceholder}}
+      </div>
+      
+      <div class="selected" *ngIf="includedItems.length > 0&&type!=='singleselectnumber'">
+        <mat-chip-list #includeItemList>
+          <mat-basic-chip class="selected">
+            {{ includedItems[0] }}
+          </mat-basic-chip>
+          <span *ngIf="includedItems?.length > 1" class="additional-selection">
+            + {{ includedItems.length - 1 }} more
+          </span>
+        </mat-chip-list>
+      </div>
+      <div class="selected" *ngIf="includedItems > 0&&type=='singleselectnumber'">
+        <mat-chip-list #includeItemList>
+          <mat-basic-chip class="selected">
+            {{ includedItems }}
+          </mat-basic-chip>
+        </mat-chip-list>
+      </div>
+    </mat-panel-title>
+    <mat-panel-description>
+      <mat-icon
+      *ngIf="!disabled"
+      class="matrl-plus">{{
+        panelComp.expanded ? "remove" : "add"
+        }}</mat-icon>
+      <mat-icon class="filter-title matrl-plus" *ngIf="disabled">lock</mat-icon>
+    </mat-panel-description>
+
+  </mat-expansion-panel-header>
+
+  <div *ngIf="type=='autocomplete'">
+    <mat-form-field class="example-chip-list individualAuto mt-3">
+      <mat-chip-list #includedItem aria-label="includedItem">
+        <mat-basic-chip *ngFor="let content of includedItems" [selectable]="true" [removable]="true"
+          (removed)="removeItem(content)" class="chip-list">
+          {{ content }}
+          <mat-icon matChipRemove class="chip-list">close</mat-icon>
+        </mat-basic-chip>
+        <input (focus)="totalItems=[]" [placeholder]="includePlaceholder" #includeItemInput
+          aria-label="Include Speciality" matInput [formControl]="totalItemsIncludeControl"
+          [matAutocomplete]="includeItemAuto" [matChipInputFor]="includedItem" autofocus />
+      </mat-chip-list>
+      <mat-icon matSuffix class="closeIcon" *ngIf="includedItems.length>0" (click)="clearItems()">close</mat-icon>
+      <mat-autocomplete #includeItemAuto="matAutocomplete" (optionSelected)="selectedItem($event)"
+        class="app-autocomplete">
+        <mat-option style="color: #c2c2c2" *ngIf="recentIncludeItems.length > 0">RECENTLY USED</mat-option>
+        <mat-option *ngFor="let item of recentIncludeItems" [value]="item">
+          <mat-icon style="color: #c2c2c2">access_time</mat-icon>
+          {{ labelKey!=''?item[labelKey]:item }}
+        </mat-option>
+        <hr *ngIf="recentIncludeItems.length > 0&&totalItems.length>0"/>
+        <mat-option *ngFor="let item of totalItems" [value]="item">
+          <div class="flex-row">
+            <div *ngIf="hasLogo" style="width: 40px;">
+              <img [src]="item.companyLogo" width="25" style="border-radius: 10px;" *ngIf="item.companyLogo!=''" />
+              <mat-icon style="color:#ccc;" *ngIf="item.companyLogo==''">business</mat-icon>
+            </div>
+            <div style="flex:1">
+              {{ labelKey!=''?item[labelKey]:item }}
+            </div>
+          </div>
+
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="mt-3" *ngIf="excludePlaceholder">
+      <mat-chip-list #excludeItemList>
+        <mat-basic-chip *ngFor="let item of excludedItems" [selectable]="selectable" [removable]="true"
+          (removed)="removeItem(item,'exclude')">
+          {{ item }}
+          <mat-icon matChipRemove>close</mat-icon>
+        </mat-basic-chip>
+        <input (focus)="totalItems=[]" [placeholder]="excludePlaceholder" #excludeItemInput matInput
+          [matChipInputFor]="excludeItemList" [formControl]="totalItemsExcludeControl"
+          [matAutocomplete]="excludeItemAuto" />
+      </mat-chip-list>
+      <mat-icon matSuffix class="closeIcon" *ngIf="excludedItems.length>0" (click)="clearItems('exclude')">close
+      </mat-icon>
+      <mat-autocomplete #excludeItemAuto="matAutocomplete" (optionSelected)="selectedItem($event, 'exclude')"
+        class="app-autocomplete">
+        <div *ngIf="recentExcludeItems.length > 0">
+          <mat-option style="color: #c2c2c2">RECENTLY USED</mat-option>
+          <mat-option *ngFor="let item of recentExcludeItems" [value]="item">
+            <mat-icon style="color: #c2c2c2">access_time</mat-icon>
+            {{ labelKey!=''?item[labelKey]:item }}
+          </mat-option>
+          <hr *ngIf="totalItems.length > 0" />
+        </div>
+        <mat-option *ngFor="let item of totalItems" [value]="item">
+          {{ labelKey!=''?item[labelKey]:item }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="type=='multiselect'">
+    <mat-form-field class="example-chip-list mt-3">
+      <mat-select [placeholder]="includePlaceholder" multiple (selectionChange)="multiSelectChange($event)"
+        [(ngModel)]="includedItems">
+        <mat-select-trigger>
+          <mat-chip-list>
+            <mat-basic-chip (removed)="removeIncludedMultiSelect(item)" *ngFor="let item of includedItems;index as i"
+              class="chip-list">
+              {{ item }}
+              <mat-icon matChipRemove class="chip-list">close</mat-icon>
+            </mat-basic-chip>
+          </mat-chip-list>
+        </mat-select-trigger>
+        <mat-option [value]="labelKey!==''?item[labelKey]:item" *ngFor="let item of totalItems">{{ labelKey!=''? item[labelKey]:item }}</mat-option>
+      </mat-select>
+      <mat-icon matSuffix class="closeIcon" *ngIf="includedItems.length>0" (click)="clearItems()">close</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="type=='singleselectnumber'">
+    <mat-form-field class="example-chip-list mt-3">
+      <mat-select [placeholder]="includePlaceholder" (selectionChange)="singleSelectChange()"
+        [(ngModel)]="includedItems">
+        <mat-select-trigger>
+          <mat-basic-chip (removed)="includedItems = defaultValue; singleSelectChange()" class="chip-list">
+            {{ includedItems }}
+            <mat-icon  matChipRemove class="chip-list">close</mat-icon>
+          </mat-basic-chip>
+        </mat-select-trigger>
+        <mat-option [value]="item" *ngFor="let item of totalItems">{{ item }}</mat-option>
+      </mat-select>
+      <mat-icon matSuffix class="closeIcon" *ngIf="includedItems.length>0"
+        (click)="clearItems('include')">close</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="type=='text'">
+    <mat-form-field class="example-chip-list mt-3">
+      <mat-chip-list #includedItem aria-label="includedItem">
+        <mat-basic-chip *ngFor="let content of includedItems" [selectable]="selectable"
+          [removable]="true" (removed)="removeItem(content)" class="chip-list">
+          {{ content }}
+          <mat-icon matChipRemove  class="chip-list">close</mat-icon>
+        </mat-basic-chip>
+        <input [placeholder]="includePlaceholder" #includeItemInput matInput
+          [formControl]="totalItemsIncludeControl" [matAutocomplete]="includeItemAuto"
+          [matChipInputFor]="includedItem" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="selectText($event)" />
+      </mat-chip-list>
+      <mat-icon matSuffix class="closeIcon" *ngIf="includedItems.length>0"
+        (click)="clearItems()">close</mat-icon>
+      <mat-autocomplete #includeItemAuto="matAutocomplete"
+        (optionSelected)="selectText($event,'recent')" class="app-autocomplete">
+        <mat-option style="color: #c2c2c2" *ngIf="recentIncludeItems.length > 0">RECENTLY USED</mat-option>
+        <mat-option *ngFor="let contact of recentIncludeItems" [value]="contact">
+          <mat-icon style="color: #c2c2c2">access_time</mat-icon>
+          {{ contact }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</mat-expansion-panel>

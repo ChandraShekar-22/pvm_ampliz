@@ -1,0 +1,83 @@
+<div class="container">
+    <!-- header-nav -->
+    <header class="header-area">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="">
+                    <img src="assets/images/Ampliz-logo-black.png" srcset="assets/images/Ampliz-logo-black.png 2x"
+                        alt="logo" style="height:50px;">
+                </a>
+            </div>
+        </nav>
+    </header>
+    <!-- signup-form -->
+    <section class="sign_up_area sign_up_bg_color">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sign_up_box col-lg-6 offset-md-3">
+                        <div class="text-center">
+                            <h2 class="f_p f_600 f_size_24 t_color3 mb_20 text-center fnt-fm">Signup</h2>
+                            <p class="f_size_18 text-center fnt-fm"
+                                style="font-size:13px!important;margin-top: -11px;padding-bottom:5px!important; font-weight: 400;"> No
+                                credit card required</p>
+                        </div>
+                        <form id="signup" class="needs-validation login-form sign-in-form mt-2" method="post"
+                            novalidate="" (submit)="onSubmit()" [formGroup]="signupForm">
+                            <app-hc-input [isFormSubmitted]="isFormSubmitted" formControlName="fullname"
+                                [placeholder]="'Name'" [c]="signupForm.controls.fullname" id="fullname">
+                            </app-hc-input>
+                            <app-hc-input formControlName="company_name" [placeholder]="'Company Name'" id="company"
+                                [c]="signupForm.controls.company_name" [isFormSubmitted]="isFormSubmitted">
+                            </app-hc-input>
+                            <app-hc-input id="email" formControlName="email" [placeholder]="'Your Business Email'"
+                                [c]="signupForm.controls.email" [isFormSubmitted]="isFormSubmitted"></app-hc-input>
+                            <div class="d-flex align-items-center">
+                                <app-hc-countryselect [selectedCountry]="selectedCountry" [countryCode]="countryCode"
+                                    (onCountrySelect)="handleCountrySelect($event)"></app-hc-countryselect>
+                                <app-hc-input id="phone" [isFormSubmitted]="isFormSubmitted" style="flex:1"
+                                    formControlName="phone" [placeholder]="'Your Phone Number (optional)'"
+                                    [c]="signupForm.controls.phone" [type]="'number'">
+                                </app-hc-input>
+                            </div>
+                            <div class="row">
+                                <app-hc-dropdown id="role" [isFormSubmitted]="isFormSubmitted" class="col-md-6"
+                                    [options]="roleOptions" formControlName="role" [placeholder]="'Select Role'"
+                                    [c]="signupForm.controls.role"></app-hc-dropdown>
+
+                                <app-hc-dropdown id="people" [isFormSubmitted]="isFormSubmitted" class="col-md-6"
+                                    [options]="peopleOptions" formControlName="no_of_sales_people_at_company"
+                                    [placeholder]="'Sales People at Company'"
+                                    [c]="signupForm.controls.no_of_sales_people_at_company"></app-hc-dropdown>
+                            </div>
+
+                            <app-hc-dropdown id="dataset" [isFormSubmitted]="isFormSubmitted" [options]="dataSetOptions"
+                                formControlName="dataset" [placeholder]="'Choose Dataset'" [c]="signupForm.controls.dataset">
+                            </app-hc-dropdown>
+
+                            <app-hc-input formControlName="password" [placeholder]="'Create a Password'"
+                                [c]="signupForm.controls.password" type="password"></app-hc-input>
+                            <!-- <div class="form-group text_box">
+                                <input type="password" class="form-control userInfo" name="password"
+                                    id="contact_password" placeholder="Create a Password" required="">
+                                <div class="alin-item invalid-feedback ">Required</div>
+                            </div> -->
+                            <p style="font-size: 11.5px;color: #9e9a9a;line-height: 23px;padding-left: 20px;padding-right: 20px; font-weight: 400;"
+                                class="text-center fnt-fm my-3">By clicking the "Signup" button, you are creating a
+                                Ampliz account, and you agree to Ampliz's<a
+                                    href="https://www.ampliz.com/terms-conditions"> Terms and Conditions </a><a> &amp;
+                                </a><a href="https://www.ampliz.com/privacy-policy">Privacy Policy</a> .</p>
+                            <div class="justify-content-between align-items-center mt-2" id="contact_submit">
+                                <button type="submit" id="ver_btn" style="width:100%;padding:10px;"
+                                    class="btn_three">Complete Signup</button>
+                            </div>
+                            <p style="font-size:13px;color: #000; font-weight: 400;" class="text-center fnt-fm mt-2">Already have an
+                                Account? <a href="/login">Login</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- footer -->
+</div>

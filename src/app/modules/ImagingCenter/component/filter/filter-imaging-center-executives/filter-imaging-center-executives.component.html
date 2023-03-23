@@ -1,0 +1,83 @@
+<div class="card column filter-component" style="width: 23rem">
+    <div class="image-filter">
+        <div class="flex-row filter-header">
+            <div>
+                <h6 class="card-title titleCardStyle">Showing results for</h6>
+            </div>
+            <div class="searchButton primary" [ngClass]="filterData.validateImagingSearch()?'primaryBtn':''" 
+            (click)="clearFilter()"
+            >
+                <span>
+                    Clear
+                </span>
+            </div>
+        </div>
+        <mat-accordion>
+            <app-individual-filter #companyAuto (valueChanges)="companyValueChanges($event)"
+                [totalItems]="companyList" [(includedItems)]="filterData.company" 
+                (includedItemsChange)="omitChanges()"
+                includePlaceholder="Center name" title="Center"
+                ></app-individual-filter>
+
+            <app-individual-filter #fullnameText type="text" [totalItems]="[]"
+                [(includedItems)]="filterData.fullName" (includedItemsChange)="omitChanges()"
+                includePlaceholder="Contact name" title="Full Name"
+                [disabled]="!isSubscribed"
+                >
+            </app-individual-filter>
+
+
+            <app-individual-filter #titleAuto (valueChanges)="titleValueChanges($event)"
+                [totalItems]="titleList" [(includedItems)]="filterData.titleInclude" [(excludedItems)]="filterData.titleExclude"
+                includePlaceholder="Include titles" title="Title" excludePlaceholder="Exclude title"
+                (includedItemsChange)="omitChanges()" (excludedItemsChange)="omitChanges()"
+                [disabled]="!isSubscribed"
+                >
+            </app-individual-filter>
+
+
+            <!-- <app-individual-filter #industryAuto (valueChanges)="industryValueChanges($event)"
+                [totalItems]="industryList" [(includedItems)]="filterData.industryInclude"
+                [(excludedItems)]="filterData.industryExclude" (includedItemsChange)="omitChanges()"
+                (excludedItemsChange)="omitChanges()" includePlaceholder="Include industry" title="Industry"
+                excludePlaceholder="Exclude industry"
+                [disabled]="!isSubscribed"
+                ></app-individual-filter> -->
+
+
+            <app-individual-filter #departmentMulti type="multiselect" [totalItems]="departmentList"
+                [(includedItems)]="filterData.department" (includedItemsChange)="omitChanges()"
+                includePlaceholder="Select Department" title="Department" 
+                [disabled]="!isSubscribed"
+                >
+            </app-individual-filter>
+
+
+            <app-individual-filter #seniorityMulti type="multiselect" [totalItems]="seniorityList"
+                [(includedItems)]="filterData.seniority" (includedItemsChange)="omitChanges()"
+                includePlaceholder="Select seniority level" title="Seniority"
+                [disabled]="!isSubscribed"
+                >
+            </app-individual-filter>
+            <app-individual-filter #noOfImgEqListMulti type="singleselectnumber" [totalItems]="numberOfImagingEquipmentList"
+                [(includedItems)]="filterData.numberOfImagingEquipments" (includedItemsChange)="omitChanges()"
+                includePlaceholder="No. of imaging equipments" title="Imaging equipments" 
+                [disabled]="!isSubscribed"
+                >
+            </app-individual-filter>
+
+            <div class="location">
+            <app-individual-location-filter
+            [countryList]="countryList"
+            (locationValueChanged)="hanldeLocationValueChange($event)"
+            [disabled]="!isSubscribed"
+            [selectedStatesFromFilter]="filterData.stateList"
+            [selectedCitiesFromFilter]="filterData.cityList"
+            >
+
+            </app-individual-location-filter>
+            </div>
+            <!-- <app-individual-filter></app-individual-filter> -->
+        </mat-accordion>
+    </div>
+</div>

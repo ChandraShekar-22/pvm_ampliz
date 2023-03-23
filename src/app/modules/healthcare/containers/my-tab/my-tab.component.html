@@ -1,0 +1,168 @@
+<div id="wrapper">
+  <app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+  <app-sidemenu elementName="mytab"></app-sidemenu>
+
+  <div class="content-page">
+    <!-- Start content -->
+    <div class="content row">
+      <app-filter-mytab
+        (onFilterChange)="filterChanged($event)"
+      ></app-filter-mytab>
+      <div class="mytab-content" style="position: relative">
+        <app-skeleton-loader
+          *ngIf="showLoader"
+          [loopCount]="10"
+        ></app-skeleton-loader>
+
+        <div class="mytab-content-header" *ngIf="totalSize > 0 && !noResult">
+          <div class="toggle-container pl-5">
+            <div
+              class="toggle"
+              [ngClass]="tab === 1 ? 'active' : ''"
+              (click)="ngTab(1)"
+              *ngIf="totalCount !== 0"
+            >
+              <span class="big-txt">{{ totalCount | numberWithCommas }}</span>
+              <span class="sm-txt">Total Result</span>
+            </div>
+            <!-- <div
+              class="toggle"
+              [ngClass]="tab === 2 ? 'active' : ''"
+              (click)="ngTab(2)"
+            >
+              <span class="big-txt" *ngIf="netNewCount; else loading">{{
+                netNewCount | numberWithCommas
+              }}</span>
+              <ng-template #loading>
+                <div class="loading"></div>
+              </ng-template>
+              <span class="sm-txt">Net New</span>
+            </div> -->
+            <ul class="list-unstyled topbar-right-menu">
+              <li class="hide-phone">
+                <span>
+                  <a
+                    type="button"
+                    class="btn btn-yellow"
+                    (click)="downloadCsvFile()"
+                    >Download</a
+                  >
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="toggle-container"></div>
+        </div>
+
+        <div class="" *ngIf="unLockDiv == false">
+          <div class="mytab-content-main" *ngIf="tab == 1">
+            <div *ngIf="totalSize > 0">
+              <div *ngFor="let item of totalSearchResult; index as i">
+                <app-physican-image
+                  [isPhysician]="false"
+                  [physicianData]="item"
+                  [currentCredit]="currentCredit"
+                  [dataIndex]="i"
+                ></app-physican-image>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="mytab-content-main" *ngIf="tab == 2">
+            <div class="totalSize > 0">
+              <div *ngFor="let item of totalSearchResult; let i = index">
+                <app-physican-image
+                  [isPhysician]="false"
+                  [physicianData]="item"
+                  (DataRefreshed)="refreshedData($event)"
+                  [currentCredit]="currentCredit"
+                  [dataIndex]="i"
+                ></app-physican-image>
+              </div>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="h-100" *ngIf="unLockDiv">
+          <app-upgrade></app-upgrade>
+        </div>
+
+        <div class="search_pagination_wrapper" *ngIf="!noResult">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="paginationWrapper" *ngIf="totalSize > 0">
+                <div class="pull-left paginationInfo">
+                  {{ offset + 1 | numberWithCommas }}-{{
+                    (offset + limit > totalSize ? totalSize : limit + offset)
+                      | numberWithCommas
+                  }}
+                  of {{ totalSize | numberWithCommas }}
+                </div>
+                <ul
+                  *ngIf="pager.pages && pager.pages.length"
+                  class="pagination"
+                  style="float: left !important"
+                >
+                  <li [ngClass]="{ disabled: pager.currentPage === 1 }">
+                    <a
+                      *ngIf="pager.currentPage === 1"
+                      style="border-radius: 5px 0 0 5px !important"
+                      ><i class="fa fa-chevron-left" aria-hidden="true"></i
+                    ></a>
+                    <a
+                      *ngIf="pager.currentPage !== 1"
+                      (click)="setPage(pager.currentPage - 1)"
+                      style="border-radius: 5px 0 0 5px !important"
+                      ><i class="fa fa-chevron-left" aria-hidden="true"></i
+                    ></a>
+                  </li>
+
+                  <li
+                    [ngClass]="{
+                      disabled:
+                        pager.currentPage === pager.totalPages ||
+                        (pager.currentPage === 2 && subscribed === false)
+                    }"
+                  >
+                    <a
+                      *ngIf="pager.currentPage === pager.totalPages"
+                      style="border-radius: 0 5px 5px 0 !important"
+                      ><i class="fa fa-chevron-right" aria-hidden="true"></i
+                    ></a>
+                    <a
+                      *ngIf="pager.currentPage !== pager.totalPages"
+                      (click)="setPage(pager.currentPage + 1)"
+                      style="border-radius: 0 5px 5px 0 !important"
+                      ><i class="fa fa-chevron-right" aria-hidden="true"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 p-0 m-0 pb-2 pt-3"></div>
+          </div>
+        </div>
+
+        <div class="layout h-100" *ngIf="noResult">
+          <div
+            class="
+              d-flex
+              justify-content-center
+              align-items-center align-self-center
+              h-100
+              flex-column
+            "
+          >
+            <div class="text-center">
+              <img src="assets/img/Physician.png" width="30%" />
+            </div>
+            <h5 class="text-center pa-4">
+              No results found, Try to search again
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

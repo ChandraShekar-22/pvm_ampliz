@@ -1,0 +1,280 @@
+<div class="selectBulkModal">
+  <!-- <div
+    #menuTrigger="matMenuTrigger"
+    [matMenuTriggerFor]="menu"
+    class="partiallySelected row"
+    (click)="handleTrigerClick()"
+  >
+    <div class="checkbox-container md-6">
+        <input
+          class="form-check-input dropdown-checkbox"
+          type="checkbox"
+          value=""
+          id="flexCheckDefault"
+          [checked]="allVisibleSelected || allContactsSelected ? true : false"
+          [disabled]="true"
+        />
+
+      <div class="form-check-input partiallySelected">
+        <div class="insideContent"></div>
+      </div>
+    </div>
+
+    <div class="icon-container md-6">
+      <mat-icon style="height: 14px; width: 14px; font-size: 14px">
+        keyboard_arrow_down
+      </mat-icon>
+    </div>
+  </div> -->
+  <div>
+    <button
+      type="button"
+      class="checkbox-container"
+      (click)="handleTrigerClick()"
+      #menuTrigger="matMenuTrigger"
+      [matMenuTriggerFor]="menu"
+    >
+      <label class="container">
+        <input type="checkbox" checked="checked" 
+        [checked]="allVisibleSelected || allContactsSelected ? true : false || partiallySelected"
+        [disabled]="true"
+        id="check-box"
+        (click)="handleTrigerClick()"
+        />
+        <span *ngIf="!partiallySelected" class="checkmark"></span>
+        <span *ngIf="partiallySelected" class="partiallySelected"></span>
+      </label>
+
+      <div class="icon-container">
+        <mat-icon class="drop-down-icon">
+          keyboard_arrow_down
+        </mat-icon>
+      </div>
+    </button>
+  </div>
+
+  <mat-menu class="selectBulkModal" #menu="matMenu" xPosition="after">
+    <div class="menuCont pb-1" (click)="$event.stopPropagation()">
+      <div
+        [ngClass]="{
+          activeOption: allVisibleSelected,
+          optionDisabled: !isSubscribed
+        }"
+        class="py-3 px-3 selectText primary-border selectBulkOpt flex-row"
+        (click)="handleSelectVisible()"
+      >
+        <span class="flex1">
+          {{ isCheckboxSelected ? "Deselect" : "Select" }} Visible
+        </span>
+        <i-feather
+          *ngIf="!isSubscribed"
+          name="Lock"
+          class="lockIcon"
+        ></i-feather>
+      </div>
+
+      <div class="py-3 px-3 selectText primary">Bulk save</div>
+      <div
+        class="py-3 px-3 selectText flex-row selectBulkOpt"
+        [ngClass]="{
+          activeOption: allContactsSelected,
+          optionDisabled: !isSubscribed
+        }"
+        (click)="handleSelectAll()"
+        *ngIf="!triggerSelectMax"
+      >
+        <span class="selectText flex1">
+          <!-- {{
+            allContactsSelected
+              ? "Deselect" + " " + totalSavableItemCount
+              : "Select" + " " + totalSavableItemCount 
+
+          }} -->
+          Select {{ totalSavableItemCount }}
+        </span>
+        <span class="selectText" *ngIf="totalItemCount > totalSavableItemCount">
+          Max
+          <i-feather
+            *ngIf="!isSubscribed"
+            name="Lock"
+            class="lockIcon"
+          ></i-feather>
+        </span>
+      </div>
+
+      <div
+        class="py-3 px-3 selectText flex-row selectBulkOpt"
+        *ngIf="triggerSelectMax"
+        (click)="deselectMax()"
+      >
+        <span class="selectText flex1">
+          Deselect {{ totalSavableItemCount }}
+        </span>
+        <span class="selectText" *ngIf="totalItemCount > totalSavableItemCount">
+          Max
+          <i-feather
+            *ngIf="!isSubscribed"
+            name="Lock"
+            class="lockIcon"
+          ></i-feather>
+        </span>
+      </div>
+
+      <div
+        *ngIf="totalItemCount > totalSavableItemCount"
+        class="py-3 px-3 flex-row selectBulkOpt"
+        (click)="openTalkToSales()"
+        [ngClass]="{ optionDisabled: !isSubscribed }"
+      >
+        <p class="flex1 selectText">Select All</p>
+        <div class="svgIcon">
+          <i-feather
+            style="height: 14px; padding: 0"
+            class="lockIcon"
+            name="Lock"
+          ></i-feather>
+        </div>
+      </div>
+
+      <div class="px-3 py-1 flex-row" [ngClass]="{ optionDisabled: !isSubscribed }">
+        <div class="selectText">Select number of people</div>
+        <div class="numberOfPeople">
+          <input
+            #contactInput
+            (focus)="handleContactFocus($event)"
+            (blur)="handleContactBlur($event)"
+            [(ngModel)]="numberOfContacts"
+            type="number"
+            class="contactInput"
+            [ngClass]="
+              numberOfContacts <= 0 && showInputError ? 'errorInput' : ''
+            "
+            *ngIf="isSubscribed"
+            [formControl]="numberOfPeopleForm"
+            min="0"
+          />
+          <input
+            #contactInput
+            [(ngModel)]="numberOfContacts"
+            type="number"
+            class="contactInput"
+            disabled="true"
+            *ngIf="!isSubscribed"
+            [formControl]="numberOfPeopleForm"
+            [ngClass]="{ optionDisabled: !isSubscribed }"
+            min="0"
+          />
+        </div>
+      </div>
+      <div
+        class="mt-3 mx-3 autoCont"
+        *ngIf="
+          ((numberOfContacts != null && numberOfContacts > 0) ||
+          (triggerSelectMax && totalSavableItemCount > 0) && !isSubscribed)
+        "
+      >
+        <div class="list-wrap" style="width: 100%">
+          <input
+            class="autoText"
+            type="text"
+            placeholder="List Name"
+            aria-label="List Name"
+            matInput
+            autofocus
+            #autoInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+            (focus)="handleInputFocus()"
+            (blur)="handleInputBlur()"
+            [ngClass]="listName == '' && showListError ? 'errorInput' : ''"
+            *ngIf="!b2b"
+          />
+          <mat-autocomplete
+            (optionSelected)="selectListFromAuto($event)"
+            #auto="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let option of filteredApacList"
+              [value]="option.listName"
+            >
+              {{ option.listName }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-form-field
+            class="matForm list-dropdown"
+            appearance="outline"
+            *ngIf="b2b"
+          >
+            <mat-label>Select list</mat-label>
+            <mat-select
+              name="select"
+              (valueChange)="selectListFromSelect($event)"
+            >
+              <mat-option
+                *ngFor="let option of filteredApacList"
+                [value]="option.listName"
+                >{{ option.listName }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="px-3 flex-row py-3" style="justify-content: flex-end">
+        <button
+          [disabled]="!isSubscribed"
+          class="searchButton"
+          (click)="exportBulkToCsv()"
+          *ngIf="!b2b"h
+        >
+          Export to csv
+          <i-feather
+            *ngIf="!isSubscribed"
+            name="Lock"
+            class="lockIcon buttonLocked"
+          ></i-feather>
+        </button>
+        <button
+          [disabled]="!isSubscribed"
+          class="searchButton primaryBtn"
+          (click)="handleSaveContactsBulk()"
+          [ngClass]="{ optionDisabled: !isSubscribed}"
+        >
+          Save
+          <i-feather
+            *ngIf="!isSubscribed"
+            name="Lock"
+            class="lockIcon buttonLocked"
+          ></i-feather>
+        </button>
+      </div>
+    </div>
+  </mat-menu>
+
+  <ng-template #myDialog>
+    <div class="dialogContainer">
+      <div class="py-3">
+        <i-feather
+          style="height: 24px; width: 24px"
+          name="Headphones"
+          class="feather"
+        ></i-feather>
+      </div>
+      <p class="modalTitle py-3">Lorem 200M ipsum dolor sit amet</p>
+      <p class="modalDesc py-3">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sodales in dui
+        facilisis orci, massa, interdum pellentesque. Gravida blandit tristique
+        quis nisi.
+      </p>
+      <div
+        class="searchButton primaryBtn py-2 px-3 my-2"
+        (click)="handleSaveContactsBulk()"
+      >
+        Talk to sales
+      </div>
+      <mat-icon (click)="closeTalkToSales()" class="dialogCloseIcon"
+        >close</mat-icon
+      >
+    </div>
+  </ng-template>
+</div>

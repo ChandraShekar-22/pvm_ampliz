@@ -1,0 +1,63 @@
+<div>
+  <div class="listBackdrop" *ngIf="recentViewMore === true"></div>
+  <div
+    id="recentViewmoreScroll"
+    class="createListWrapper"
+    [ngClass]="recentViewMore === true ? 'slide-in' : 'slide-out'"
+    style="overflow-x: hidden; overflow-y: scroll;"
+  >
+  <div *ngIf="datesList.length >0 || loading ">
+    <div class="topHeader">
+      <div class="row">
+        <div class="col flex1">
+          <div class="h5 text-grey mt-2 not-crct_header">Recent Searches</div>
+        </div>
+        <div>
+          <!-- <div class="float-end closeIcon" (click)="cancelSaveDiv()">
+            <i class="fa fas fa-window-close" style="color: #c2c2c2;" ></i>
+          </div> -->
+           <div class="float-end closeIcon" (click)="cancelSaveDiv()">
+              <i class="fa fa-times" style="color: #696969"></i>
+            </div>
+        </div>
+      </div>
+      <p class="detailText" >Load and rename your searches</p>
+    </div>
+   <div >
+    <div *ngFor="let date of datesList" class="credit-container" >
+      <div class="saveContact">{{ date | dateVal }}</div>
+      <app-recent-viewmore-card
+        *ngFor="let searchData of dateWiseSearchList[date]"
+        [searchData]="searchData"
+        (searchDataPressed)="searchContact(searchData)"
+        (saveSearchPressed)="handleSaveSearchPress(searchData)"
+      ></app-recent-viewmore-card>
+    </div></div>
+    </div>
+    <div *ngIf="datesList.length==0 && loading==false" >
+     
+        <div class="topSection">
+          <div class="row">
+            <div class="col flex1">
+              <div class="h5 text-grey mt-2 not-crct_header"></div>
+            </div>
+            <div>
+              <div class="float-end closeIcon">
+                <i class="fa fas fa-window-close" style="color: #c2c2c2;" (click)="cancelSaveDiv()"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+     <app-recent-no-data></app-recent-no-data>
+    </div>
+  </div>
+  <app-save-search-list
+  (searchSaved)="handleSearchSave()"
+  [searchCred]="searchCred"
+  [searchListDrawer]="saveSearchListDrawer"
+  (cancelBtnClick)="cancelSaveSearch()"
+  *ngIf="saveSearchListDrawer"
+  [type]="saveSearchType"
+>
+</app-save-search-list>
+</div>

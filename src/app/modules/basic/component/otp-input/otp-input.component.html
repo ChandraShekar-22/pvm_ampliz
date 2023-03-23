@@ -1,0 +1,16 @@
+<div class="form-group col-3 col-lg-3 col-md-3 col-sm-3 float-left text_box padding_boxes">
+    <input [(ngModel)]="valueArray[0]" type="text" #otp1 id="code1" autocomplete="off" maxlength="1"
+        (keyup)="moveToNext($event, '', otp1, otp2)" class="form-control inputs px-0 text-center" />
+</div>
+<div class="form-group col-3 col-lg-3 col-md-3 col-sm-3 float-left text_box padding_boxes">
+    <input [(ngModel)]="valueArray[1]" type="text" #otp2 id="code2" autocomplete="off" maxlength="1"
+        (keyup)="moveToNext($event, otp1, otp2, otp3)" class="form-control inputs px-0 text-center" />
+</div>
+<div class="form-group col-3 col-lg-3 col-md-3 col-sm-3 float-left text_box padding_boxes">
+    <input [(ngModel)]="valueArray[2]" type="text" #otp3 id="code3" autocomplete="off" maxlength="1"
+        (keyup)="moveToNext($event, otp2, otp3, otp4)" class="form-control inputs px-0 text-center" />
+</div>
+<div class="form-group col-3 col-lg-3 col-md-3 col-sm-3 float-left text_box padding_boxes">
+    <input [(ngModel)]="valueArray[3]" type="text" #otp4 id="code4" autocomplete="off" maxlength="1"
+        (keyup)="moveToNext($event, otp3, otp4, '')" class="form-control inputs px-0 text-center" />
+</div>

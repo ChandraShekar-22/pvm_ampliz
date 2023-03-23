@@ -1,0 +1,19 @@
+<div class="landingDashboardCard card ">
+    
+        <div class="commonCardTitle">
+            SENIORITY
+        </div>
+        <div class="landingCardContainer">
+            <div class="graphContainer">
+                <figure id="pie"></figure>
+                <div>
+                    <div class="flex-row" *ngFor="let dt of data">
+                        <div style="width:20px;height:20px;border-radius: 10px;margin: 10px;"
+                            [ngStyle]="{'background': dt.color?dt.color:'#fff'}"></div>
+                        <div style="flex:1">{{dt.Seniority}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>

@@ -1,0 +1,340 @@
+<div id="wrapper">
+  <app-header [user]="" style="width: 100%"></app-header>
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+  <app-sidemenu elementName="executive"></app-sidemenu>
+  <div class="content-page">
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-12">
+          <h5 class="text-body font-weight-normal">Executive Overview</h5>
+        </div>
+      </div>
+      <div class="row" *ngIf="executiveOverviewResult">
+        <div class="col-sm-12">
+          <div class="card">
+            <div
+              class="onboarding__home__guide-assistant__speech-bubble__right"
+            >
+              <div class="executive_imgContainer shadow">
+                <img src="assets/img/Executive-hc.png" class="p-2" />
+              </div>
+            </div>
+            <div class="topNameExecutive">
+              <h4 class="fnt-excutive">
+                {{ executiveOverviewResult?.healthExecutiveInfoData.fullName }}
+              </h4>
+              <h6 class="fnt-title">
+                {{ executiveOverviewResult?.healthExecutiveInfoData.title }}
+              </h6>
+            </div>
+          </div>
+
+          <div class="detailsCard">
+            <div class="row">
+              <div class="col-md-3 custom-col">
+                <div>
+                  <button
+                    class="btn-blue-bordered"
+                    (click)="handleSaveButtonPress()"
+                    *ngIf="showSaveButton"
+                  >
+                    {{saveButtonText}}
+                  </button>
+                  <span
+                    class="btn-grey-bordered"
+                    (click)="notCorrectDrawer = true"
+                    >Not correct</span
+                  >
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div
+                  style="
+                    display: flex;
+                    align-items: flex-start;
+                    align-content: flex-start;
+                    flex-wrap: wrap;
+                  "
+                >
+                  <div
+                    class="executive_hospital col-md-8 info-width"
+                    *ngIf="
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        ?.hospitalName.length > 0 &&
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        ?.hospitalName !== undefined
+                    "
+                  >
+                    <i class="mdi mdi-hospital-building icon"></i>
+                    <span
+                      >{{
+                        executiveOverviewResult?.healthExecutiveInfoData
+                          .hospitalName
+                      }}
+                    </span>
+                  </div>
+                  <div
+                    class="executive_hospital col-md-4 info-width"
+                    *ngIf="
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        ?.phoneNumber.length > 0 &&
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        .phoneNumber !== undefined
+                    "
+                  >
+                    <i class="mdi mdi-phone-in-talk icon"></i
+                    ><span
+                      >{{
+                        executiveOverviewResult?.healthExecutiveInfoData
+                          .phoneNumber
+                      }}
+                    </span>
+                  </div>
+                  <div
+                    class="executive_hospital col-md-4 info-width"
+                    *ngIf="
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        ?.faxNumber.length > 0 &&
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        ?.faxNumber !== undefined
+                    "
+                  >
+                    <i class="mdi mdi-fax icon"></i>
+                    <span>{{
+                      executiveOverviewResult?.healthExecutiveInfoData.faxNumber
+                    }}</span>
+                  </div>
+                  <div
+                    class="executive_hospital col-md-4 info-width"
+                    *ngIf="
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        ?.linkedInUrl.length > 0 &&
+                      executiveOverviewResult?.healthExecutiveInfoData
+                        ?.linkedInUrl !== undefined
+                    "
+                  >
+                    <i class="mdi mdi-linkedin icon"></i>
+                    <span
+                      ><a
+                        style="color: dodgerblue"
+                        href="{{
+                          executiveOverviewResult?.healthExecutiveInfoData
+                            ?.linkedInUrl
+                        }}"
+                        target="_blank"
+                        >Check linkedin profile</a
+                      ></span
+                    >
+                  </div>
+
+                  <div
+                    class="physician_hospital col-md-4"
+                    *ngIf="!showSaveButton"
+                  >
+                    <span
+                      class="spanAlign"
+                      *ngIf="
+                        executiveOverviewResult.healthExecutiveInfoData
+                          .emailAddress[0] !== ''
+                      "
+                    >
+                      <i class="mdi mdi-email-outline icon mr-2"></i
+                      >{{
+                        executiveOverviewResult.healthExecutiveInfoData
+                          .emailAddress
+                      }}</span
+                    >
+                  </div>
+                  <div
+                    class="physician_hospital col-md-4"
+                    *ngIf="showSaveButton"
+                  >
+                    <span class="spanAlign">
+                      <i class="mdi mdi-email-outline icon mr-2"></i
+                      ><a
+                        style="color: dodgerblue"
+                        href="mailto: {{
+                          executiveOverviewResult?.healthExecutiveInfoData
+                            ?.emailAddress
+                        }}"
+                        >{{
+                          executiveOverviewResult?.healthExecutiveInfoData
+                            .emailAddress
+                        }}</a
+                      ></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 pdd-lft-rgt">
+            <div style="padding-top: 10px">
+              <div class="physician-content">
+                <mat-tab-group>
+                  <mat-tab label="Location Information">
+                    <div class="p-5">
+                      <div class="row">
+                        <div
+                          class="col-sm-12 col-md-4 mb-3"
+                          *ngIf="
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.address1 !==
+                              undefined &&
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.address1
+                              .length > 0
+                          "
+                        >
+                          <div class="align-self-center">
+                            <div class="executive_hospital">
+                              <strong class="text-dark"
+                                >Address 1 : &nbsp;</strong
+                              >
+                              {{
+                                executiveOverviewResult
+                                  .helathExecutiveHospitalInfoData.address1
+                              }}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-sm-12 col-md-4 mb-3"
+                          *ngIf="
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.address2 !==
+                              undefined &&
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.address2
+                              .length > 0
+                          "
+                        >
+                          <div class="align-self-center">
+                            <div class="executive_hospital">
+                              <strong class="text-dark"
+                                >Address2 : &nbsp;</strong
+                              >
+                              {{
+                                executiveOverviewResult
+                                  .helathExecutiveHospitalInfoData.address2
+                              }}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="col-sm-12 col-md-4 mb-3"
+                          *ngIf="
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.city !==
+                              undefined &&
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.city.length > 0
+                          "
+                        >
+                          <div class="align-self-center">
+                            <div class="executive_hospital">
+                              <strong class="text-dark">City : &nbsp;</strong>
+                              {{
+                                executiveOverviewResult
+                                  .helathExecutiveHospitalInfoData.city
+                              }}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-sm-12 col-md-4 mb-3"
+                          *ngIf="
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.state !==
+                              undefined &&
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.state.length >
+                              0
+                          "
+                        >
+                          <div class="align-self-center">
+                            <div class="executive_hospital">
+                              <strong class="text-dark">State : &nbsp;</strong>
+                              {{
+                                executiveOverviewResult
+                                  .helathExecutiveHospitalInfoData.state
+                              }}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-sm-12 col-md-4"
+                          *ngIf="
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.country !==
+                              undefined &&
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.country
+                              .length > 0
+                          "
+                        >
+                          <div class="align-self-center">
+                            <div class="executive_hospital">
+                              <strong class="text-dark"
+                                >Country : &nbsp;</strong
+                              >
+                              {{
+                                executiveOverviewResult
+                                  .helathExecutiveHospitalInfoData.country
+                              }}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-sm-12 col-md-4"
+                          *ngIf="
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.zipCode !==
+                              undefined &&
+                            executiveOverviewResult
+                              ?.helathExecutiveHospitalInfoData?.zipCode
+                              .length > 0
+                          "
+                        >
+                          <div class="align-self-center">
+                            <div class="executive_hospital">
+                              <strong class="text-dark"
+                                >Zip-Code : &nbsp;</strong
+                              >
+                              {{
+                                executiveOverviewResult
+                                  .helathExecutiveHospitalInfoData.zipCode
+                              }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-savelist
+  [saveListDiv]="saveDrawer"
+  [physicianId]="executiveOverviewResult?.healthExecutiveInfoData?.physicianId"
+  [executiveId]="executiveOverviewResult?.healthExecutiveInfoData?.executiveId"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  (refreshedData)="refreshedData($event)"
+  [currentCredit]="currentCredit || 0"
+  *ngIf="saveDrawer"
+></app-savelist>
+<app-notcorrect
+  [notCorrectDiv]="notCorrectDrawer"
+  [physicianId]="executiveOverviewResult?.healthExecutiveInfoData?.physicianId"
+  [physicianName]="executiveOverviewResult?.healthExecutiveInfoData?.fullName"
+  [executiveId]="executiveOverviewResult?.healthExecutiveInfoData?.executiveId"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  *ngIf="notCorrectDrawer"
+></app-notcorrect>

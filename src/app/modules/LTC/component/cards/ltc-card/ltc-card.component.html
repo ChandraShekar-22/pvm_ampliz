@@ -1,0 +1,135 @@
+<div class="physican_container card-animate">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-8">
+          <div class="physician_card">
+            <div class="form-check">
+              <input
+                *ngIf="!checkboxDisabled&&isSubscribed"
+                [(ngModel)]="checkboxSelected"
+                (change)="handleCheckboxChange($event)"
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                [disabled]="!isSubscribed"
+              />
+              <div *ngIf="checkboxDisabled" class="form-check-input partiallySelected">
+                <div class=" insideContent">
+                </div>
+              </div>
+              <!-- <i-feather *ngIf="!isSubscribed" name="Lock" class=" lockIcon"></i-feather> -->
+            </div>
+            <!-- <div
+              class="physician_imgContainer"
+              [ngClass]="{ 'with-border': ltcInfo?.profileIconLink === '' }"
+            >
+              <img
+                [src]="ltcInfo.profileIconLink"
+                class="physician_img"
+                [ngClass]="{ 'img-empty-avatar': ltcInfo?.profileIconLink === '' }"
+                *ngIf="ltcInfo.profileIconLink !== ''"
+              />
+              <i-feather
+                name="User"
+                class="feather"
+                *ngIf="ltcInfo.profileIconLink === ''"
+              ></i-feather>
+            </div> -->
+            <div class="physician_content">
+              <h5
+                class="physician_name"
+                (click)="onLtcNameClicked(ltcInfo)"
+              >
+                {{ ltcInfo?.fullName }}
+              </h5>
+              <div class="physician_info">
+                <span (click)="doSearchLTC('titleInclude',ltcInfo?.title)" style="cursor: pointer;">{{ ltcInfo?.title.toString() }}</span>
+                <span
+                  class="physican_location"
+                  [style.paddingLeft]="
+                  ltcInfo?.executiveId ? '0px' : '15px'
+                  "
+                  ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i
+                  >{{ location }}</span
+                >
+              </div>
+              <div
+              *ngIf="ltcInfo.companyName!==''"
+              (click)="doSearchLTC('companyList',ltcInfo.companyName)"
+              class="company_cont">
+              <i class="fa fa-hospital-o pr-2" aria-hidden="true"></i>
+                <span style="color: #999;">{{
+                  ltcInfo.companyName
+                }}</span>
+                <i class="fa fa-bed px-2" aria-hidden="true"></i>
+                <span style="color: #999;" *ngIf="ltcInfo.noOfBeds>0">{{
+                  ltcInfo.noOfBeds
+                }}</span>
+                <span style="color: #999;" *ngIf="ltcInfo.noOfBeds==0">Not Available</span>
+              </div>
+              <!------------>
+              <mat-chip-list>
+                <mat-chip
+                  disableRipple="true"
+                  selectable="false"
+                  class="bottomChip"
+                  selected="false"
+                  disabled="true"
+                  (click)="doSearchLTC('skillInclude',skill)"
+                  *ngFor="let skill of industryAndSkillset | slice: 0:sliceLength"
+                >
+                  {{ skill }}
+                </mat-chip>
+                <span *ngIf="industryAndSkillset.length>sliceLength" class="moreButton" (click)="handleShowMore()">
+                  {{ showMore ? "More +" : "Less -" }}
+                </span>
+              </mat-chip-list>
+              <!------------>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <div class="physican_additionInfo">
+  
+            <ng-container *ngIf="ltcInfo.email!=null &&ltcInfo.email!=''">
+              <span>
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <a [href]="'mailto:' + ltcInfo.email" class="physican_email">{{
+                  ltcInfo.email
+                }}</a>
+              </span>
+            </ng-container>
+            <ng-container *ngIf="ltcInfo.phoneNumber.length>0&&ltcInfo.phoneNumber != null">
+              <span class="physican_phone">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                {{
+                    ltcInfo.phoneNumber
+                }}</span
+              >
+            </ng-container>
+            
+            <div class="flex1" style="flex:1;display: flex;"></div>
+            <div class="saveBtn_wrp">
+              <!-- <button class="physician_save" (click)="invokeSaveList()">
+                Save
+              </button> -->
+              <app-save-ltc-modal
+              *ngIf="showSaveButton"
+              [selectedItems]="[ltcInfo.ltcExecutiveId]"
+              [isSaveButton]="isSaveButton"
+              [fromCard]="true"
+              ></app-save-ltc-modal>
+              <app-ltc-not-correct [ltcId]="ltcInfo.ltcExecutiveId"></app-ltc-not-correct>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-b2b-savelist
+    [b2bSaveDrawer]="b2bSaveDrawer"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    *ngIf="b2bSaveDrawer"
+  ></app-b2b-savelist>
+  

@@ -1,0 +1,46 @@
+.form-control {
+    border: 1px solid gainsboro;
+    border-radius: 4px;
+    max-width: 100%;
+    height: 55px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-size: 14px;
+}
+
+.custom-select.is-invalid,
+.form-control.is-invalid,
+.was-validated .custom-select:invalid,
+.was-validated .form-control:invalid {
+    border-color: #dc3545;
+}
+
+.text_box input {
+    font: 400 20px/61px "Proxima Nova", Arial, sans-serif !important;
+    color: #222d39;
+    height: 55px;
+    border-radius: 4px;
+    background-color: white;
+    -webkit-box-shadow: 0px 2px 4px 0px rgb(12 0 46 / 4%);
+    box-shadow: 0px 2px 4px 0px rgb(12 0 46 / 4%);
+    width: 100%;
+    border: 1px solid #dcd7d7;
+    padding-left: 40px;
+}
+
+input[type=text] {
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.text_box input:focus {
+    border-color: #f2effc;
+    -webkit-box-shadow: 0 10px 14px 0 rgb(12 0 46 / 6%);
+    box-shadow: 0 10px 14px 0 rgb(12 0 46 / 6%);
+    outline: none;
+}
+
+.padding_boxes {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}

@@ -1,0 +1,171 @@
+.sign_up_bg_color {
+    background-color: #fff;
+}
+
+.sign_up_box{
+    border: 10px solid #fff;
+    background: #f5f5fb;
+    padding: 22px 25px;
+    /* padding-right: 26px!important; */
+    /* padding-bottom: 15px; */
+    -webkit-box-shadow: 0 50px 100px 0 rgb(12 0 46 / 5%);
+    box-shadow: 0 50px 100px 0 rgb(12 0 46 / 5%);
+    border-radius: 12.8px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+a{
+   color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.fnt-fm {
+    font-family: roboto,sans-serif!important;
+}
+
+.mb_20 {
+    margin-bottom: 20px;
+}
+.t_color3 {
+    color: #040404;
+}
+.f_600 {
+    font-weight: 600;
+}
+.f_p {
+    font-family: roboto,sans-serif;
+}
+.f_size_24 {
+    font-size: 24px;
+}
+.text-center {
+    text-align: center!important;
+}
+
+.alin-item {
+    text-align: right!important;
+}
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 1px;
+    margin-bottom: -9px!important;
+    font-size: 11px;
+    font-weight: 400;
+    color: #dc3545;
+}
+
+::ng-deep body .userInfo::placeholder {
+    color:#9ca3b9 !important;
+}
+
+select.form-control:not([size]):not([multiple]) {
+    font: 400 13px/60px "Proxima Nova",Arial,sans-serif!important;
+    height: 40px;
+    font-size: 14px;
+    padding-left: 24px;
+    font-weight: 400;
+    color: #9ca3b9;
+    cursor: pointer;
+}
+
+.error {
+    font-size: 11px;
+    font-weight: 400;
+    color: #dc3545;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+}
+
+.zo-padd {
+    padding-left: 0!important;
+    padding-right: 0!important;
+    margin-bottom: -21px;
+}
+
+.lf-padd {
+    padding-left: 10px!important;
+    padding-right: 0!important;
+}
+
+.pull-left {
+    float: left;
+}
+
+
+.padd-left {
+    padding-left: 0!important;
+    padding-right: 8px!important;
+}
+
+.pull-right {
+    float: right;
+}
+
+.padd-right {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
+
+.login-form .btn_three {
+    width: 100%!important;
+    font: 400 15px/18px "Roboto",sans-serif!important;
+    background: #0071eb;
+    padding: 14px!important;
+    border-radius: 50px;
+    color: #fff;
+    border: 1px solid #0071eb;
+    margin-top: 0px;
+}
+
+[type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+
+/* media queries */
+
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1250px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 1550px) {
+    p {
+        font-size: 22px;
+        color: #3e4852;
+        font-family: proxima nova, Arial, sans-serif;
+    }
+}

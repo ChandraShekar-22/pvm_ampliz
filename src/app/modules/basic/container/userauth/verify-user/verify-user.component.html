@@ -1,0 +1,73 @@
+<div class="container">
+    <!-- header-nav -->
+    <header class="header-area navbar_fixed">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="">
+                    <img src="assets/images/Ampliz-logo-black.png" srcset="assets/images/Ampliz-logo-black.png 2x"
+                        alt="logo" style="height:50px;">
+                </a>
+            </div>
+        </nav>
+    </header>
+    <!-- OTP verification area -->
+    <section class="sign_in_area bg_color pt-4">
+        <div class="container">
+            <div class="">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="login_info sign_info col-lg-6 offset-md-3 pt-5 ">
+                        <div class="text-center">
+                            <h2 class="f_p f_600 f_size_24 t_color3 mb_20 text-center">Signup Verification</h2>
+                            <p class="f_size_18 mb-4" style="font-size:13px!important" id="email_message">Code Sent!
+                                Please check your email  <span style="color:green">{{email}}</span>  and
+                                use the box below to submit the verification code. Check your Spam, Junk and
+                                Promotion folder if you don't find our email in your inbox!</p>
+                        </div>
+                        <div id="error_alert" class="alert1 mt-2 mb-3 alert-danger text-center fade show" role="alert"
+                            style="display:none">
+                            <span id="verifyError" class="error pl-2 show_alert"></span>
+                        </div>
+                        <div id="success_alert" class="alert1 mt-2 mb-3  alert-success text-center fade show"
+                            role="alert" style="display:none">
+                            <span class="success pl-2 text-center show_alert"></span>
+                            <span id="successverify" class="success pl-2 show_alert"></span>
+                        </div>
+                        <div id="success_alert2" class="alert2 mt-2 mb-3  alert-success text-center fade show"
+                            role="alert" style="display:none">
+                            <span id="ver_success" class="success pl-2 show_alert"></span>
+                        </div>
+                        <!-- Form input area -->
+                        <form id="verifyForm" class="needs-validation login-form sign-in-form mb-5" method="post">
+
+                            <app-otp-input [(otp)]="otp"></app-otp-input>
+
+                            <br>
+                            <div class="justify-content-between align-items-center text-center pt-4"
+                                style="margin-top:30px;" id="contact_submit">
+
+                            <!-- verify button for OTP submission -->
+                                <button type="submit" (click)="verifyInviteSignup()" id="ver_btn" style="width:100%;padding:10px;"
+                                    class="btn_three cursor">Verify Code</button>
+                                <p class="text-center mt-3 cursor" style="font-size:15px;"> Didn't get the email?
+                                    <a style="color: #2d8cff;cursor: pointer;font-family: sans-serif;" (click)="resendVerificationcode()"
+                                        stye="color:blue;">Resend code to my email
+                                    </a>
+                                </p>
+                                <p class="text-center mt-3" style="font-size:15px;">
+                                    <a class="cursor" style="color: #2d8cff;font-family: sans-serif;" (click)="backToSignUp()"
+                                        stye="cursor:pointer;color:blue;">
+                                        <i class="fa fa-angle-double-left" aria-hidden="true">
+                                        </i> &nbsp; Return to
+                                        Signup
+                                    </a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,22 @@
+<div class="inline-alert default" [class.success]="success==true" [class.border]="border==true"
+    [class.hasError]="hasError==true" [class.row]="row==true">
+    <div>
+        <i-feather name="check"></i-feather>
+    </div>
+    <div>
+        <div style="display:flex; flex-direction: row; justify-content: space-around; align-content: center; align-items: center;">
+            <p class="status" [class.success]="success==true" [class.hasError]="hasError==true">{{success==true ?
+                "Success!!" : hasError == true ? "Error !!" : ""}} </p>
+            <p class="ml-2"> {{componentHeading}}</p>
+        </div>
+        <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center; align-content: center;">
+            <p class="text-secondary">{{componentSubHeading}}</p>
+            <div class="primary-button">
+                <span (click)="callBack()" style="cursor: pointer">
+                    Request Invitation
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>

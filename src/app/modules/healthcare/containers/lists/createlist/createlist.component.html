@@ -1,0 +1,27 @@
+<div>
+    <div class="backdrop" *ngIf="createListDiv"></div>
+    <div class="createListWrapper" [ngClass]="createListDiv ===  true ? 'slide-in' : sideNav === true ? 'slide-out':''">
+        <form [formGroup]="createListForm" (ngSubmit)="createList()" novalidate class="form-horizontal" >
+        <div class="topHeader">
+            <div class="row">
+                <div class="col-4">
+                    <div class="h4 text-dark mt-2 crt_lst" style="font-weight:normal;margin-bottom: 0;" >Create List </div>  
+                </div>
+                <div class="col">
+                    <div class="float-end">
+                        <button type="submit"  class="btn btn-new float-right" >Create List</button>
+                        <button type="button" class="btn btn-outline-light btn-cancel pull-right mr-3" (click)="cancelCreateDiv()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bodyWrap input-group-lg">
+            <label class="h5 text-dark mb-3" style="font-weight:normal;margin-bottom: 0;font-size:16px">List Name</label>
+            <input type="text" formControlName="listName" class="form-control" style="font-weight:normal;margin-bottom: 0;font-size:16px"  placeholder="List Name" name="listName"/>
+            <div  class="text-danger" >
+                <small  *ngIf="createListForm.get('listName').hasError('required') && formSubmitAttempt">List Name is required</small>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div
+  style="
+    border: 0.5px solid #bbc5ce;
+    padding: 0px 10px;
+    height: 32px;
+    display: flex;
+    color: #696969;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+  "
+  #menuTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="menu"
+>
+  <span><i class="fa fa-ellipsis-h"></i></span>
+</div>
+
+<mat-menu class="dropdown" #menu="matMenu" xPosition="after">
+  <!-- For List Details Page -->
+  <button mat-menu-item (click)="openDialog()">Delete</button>
+  <button mat-menu-item *ngIf="!fromListDetail">Edit</button>
+
+
+</mat-menu>
+
+<ng-template let-data #confirmDialog>
+  <mat-dialog-content>
+    <p class="delete-message">
+      {{ data.message }}
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="delete-btn" (click)="deleteConfirmed()" tabindex="1">
+      {{ data.buttonText.delete }}
+    </button>
+    <button class="cancel-btn" mat-raised-button mat-dialog-close tabindex="-1">
+      {{ data.buttonText.cancel }}
+    </button>
+  </mat-dialog-actions>
+</ng-template>

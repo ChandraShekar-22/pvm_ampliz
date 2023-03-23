@@ -1,0 +1,42 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  /* td, th {
+    width: 15%;
+  } */
+
+  ::ng-deep .mat-sort-header-content {
+    font-weight: normal;
+    justify-content: center;
+  }
+
+  .status {
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: grey;
+    font-size: 12px !important;
+  }
+
+  .actionBtn {
+    border-radius: 20px;
+    padding: 12px;
+    border: 1px solid #c8c8c8;
+    margin: 0px 5px;
+    font-size: 16px !important;
+    color: #c8c8c8;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+  }
+
+  .isLink {
+    cursor: pointer;
+  }

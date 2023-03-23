@@ -1,0 +1,64 @@
+<div>
+  <div class="backdrop" *ngIf="searchListDrawer === true"></div>
+  <div
+    class="createListWrapper"
+    [ngClass]="searchListDrawer === true ? 'slide-in' : 'slide-out'"
+  >
+    <form (ngSubmit)="saveList()" novalidate class="form-horizontal">
+      <div class="topHeader">
+        <div class="row">
+          <div class="col">
+            <div class="h5 text-grey mt-3 not-crct_header">
+              Save your search
+            </div>
+          </div>
+          <div class="col">
+            <div class="float-end closeIcon" (click)="closeDiv()">
+              <i class="fa fa-times" style="color: #696969"></i>
+            </div>
+          </div>
+        </div>
+        <p class="detailText">
+          Give your search a name. Search name will easly allow you to find it
+          and continue were you left off
+        </p>
+      </div>
+      <div class="save-container">
+        <div class="saveList">Save New Search</div>
+      </div>
+
+      <div class="bodyWrap input-group-sm">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="saveSearchName"
+          style="
+            font-weight: normal;
+            margin-bottom: 0;
+            font-size: 16px;
+            height: 50px;
+          "
+          placeholder="Example: Amazon, United States, New York"
+          name="listName"
+        />
+      </div>
+      <div class="col">
+        <div class="float-right" style="margin-right: 10px">
+          <span class="close-btn" (click)="closeDiv()"> Close </span>
+          <!-- <input
+          class="btn btn-lg btn-outline-light btn-not-correct  mr-3"
+          [ngClass]="validateSaveSearch()?'primaryBtn':''"
+
+          type="submit" value="Save Search"> -->
+          <span
+            class="save-btn"
+            [ngClass]="validateSaveSearch() ? 'primaryBtn' : ''"
+            (click)="saveList()"
+          >
+            Save Search
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

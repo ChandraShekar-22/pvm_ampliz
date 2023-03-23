@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+.csv-btn {
+  display: flex;
+  align-items: center;
+  font-weight: 200;
+  height: 32px;
+  background-color: #eff8ff !important;
+  border: 0.5px solid #0071eb !important;
+  color: #0071eb !important;
+  border-radius: 5px !important;
+  min-width: 0;
+  padding: 6px 20px;
+  font-size: 12px !important;
+  margin-right: 7px;
+}
+.disable {
+  background-color: #F6F5F5 !important;
+  color: #696969 !important;
+  border: 0.5px solid #A4A4A4 !important;
+  pointer-events: none;
+}

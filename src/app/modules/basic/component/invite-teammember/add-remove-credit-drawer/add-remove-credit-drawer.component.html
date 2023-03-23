@@ -1,0 +1,45 @@
+<div>
+    <div class="addRemoveCreditBackdrop"></div>
+    <div id="recentViewmoreScroll" class="addRemoveCreditWrapper slide-in" style="overflow-x: hidden; overflow-y: scroll;">
+      <div class="topSection">
+        <div class="row">
+          <div class="col flex1">
+            <div class="h5 text-grey mt-2 not-crct_header"></div>
+          </div>
+          <div>
+            <div class="float-end closeIcon">
+              <i class="fa fas fa-window-close" style="color: #c2c2c2;" (click)="handlerAddRemoveTeammateDrawer()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mainSection">
+        <div class="col">
+          <div class="imageClass">
+            <img src="assets/images/credit-card1.png" alt="Teammate" />
+          </div>
+          <p class="toptitle">Add or Remove Credits</p>
+          <p class="bottomText mt-3">
+            Your remaining credits: {{allocatedCreditType=='Recurring'?seatsCreditsStatus.availableRecurringCredits:seatsCreditsStatus.availableCredits}}
+          </p>
+          <div class="text-center add_remove_box p-0 w-50 mt-3">
+            <span><button class="remove_cr_btn cursor" (click)="removeCreditHandler()">-</button></span>
+            <span>{{credits}} credits</span>
+            <span><button class="add_cr_btn cursor" (click)="addCreditHandler()">+</button></span>
+          </div>
+          <p class="xSmallText my-2 flex-r align-center" *ngIf="showInfo" >
+            <mat-icon class="mr-2">info</mat-icon>
+            {{user.userEmail}}'s new  credit will be : {{credits}}
+          </p>
+          
+
+
+          <div class="form-check mt-4" style="display: flex; align-items:center; padding-left: 0px !important; ">
+            <div class="mr-4"><input id="recurring" [checked]="allocatedCreditType=='Recurring'" (click)="handleCreditTypeChange('Recurring')" type="checkbox"/>Recurring</div>
+            <div class="mx-4"><input id="onetime" [checked]="allocatedCreditType=='OneTime'" (click)="handleCreditTypeChange('OneTime')" type="checkbox"/>OneTime</div>
+          </div>
+        </div>
+        <button (click)="submitCredit()" class="submit_btn mt-5 mr-1 cursor" type="submit">Submit</button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,29 @@
+<div class="addphone-container">
+<div *ngIf="!showChrmBtn" class="row">
+    <div class="col-6 col-lg-6">
+        <div class="header-title m-t-0 m-b-20 mt-1 pull-right">
+            <h3 class="text-info mb-4">
+                Getting Started With The Ampliz Plugin
+            </h3>
+            <p class="chrm-info mb-4">
+                Add SalesBuddy plugin to quickly find contact information on
+                web address. <br />
+
+                Get the Plugin for your favorite browser.
+            </p>
+
+            <a href="https://chrome.google.com/webstore/detail/ampliz-sales-buddy/abgoaphadkcmbkapnamhkcgkaddlmfal?hl=en"
+                style="cursor: pointer" target="blank" type="button" class="btn btn-yellow">
+                <i class="fa fa-chrome" aria-hidden="true"> </i> Install
+                Plugin
+            </a>
+        </div>
+    </div>
+    <div class="col-6 col-lg-6 mr" style="padding: 0px 0px 0px 0px">
+        <img class="pl-5" src="https://www.ampliz.com/assets/img/erp-home/4-updated.png" style="height: 190px" />
+    </div>
+</div>
+<div *ngIf="showChrmBtn" class="row">
+    <p>Already Installed</p>
+</div>
+</div>

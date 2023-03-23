@@ -1,0 +1,167 @@
+<div id="wrapper">
+    <!-- Top Bar Start -->
+<!-- <div *ngIf="!subscribed" >
+  <app-header [header-data]="headerData" [user]="user"></app-header>
+</div> -->
+  <app-header [user]="user" style="width:100%"></app-header>
+
+  <!-- {{user}} -->
+    <!-- Top Bar End -->
+    <!-- ========== Left Sidebar Start ========== -->
+
+    <app-sidemenu elementName="Edit-profile"></app-sidemenu>
+
+    <!-- Left Sidebar End -->
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page enlarged">
+        <!-- Start content -->
+
+        <div class="content mx-auto">
+
+            <!-- container -->
+            <h4 class="header-title">Edit Profile </h4>
+            <!-- Begin page -->
+            <div id="wrapper">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <!-- Start Edit profile row -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 class="m-b-20 header-title d-none d-sm-block">Edit Profile</h4>
+                                <div class="row">
+                                    <div class="col-md-12 bg-ray pt-4 pb-4">
+                                        <form *ngIf="profileForm" class="form-horizontal" role="form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                                            <div class="col-md-6 pull-left">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-form-label brod" for="First-name">First Name</label> 
+                                                    <div class="col-md-10">
+                                                        <input type="text" class="form-control" placeholder="Enter first name" formControlName="FirstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }">
+                                                        <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.FirstName.errors.required">Required</div>
+                                                            <div *ngIf="f.FirstName.errors.minlength">First Name must be at least 3 characters</div>
+                                                            <div *ngIf="f.FirstName.errors.pattern">Only Alphabets allowed</div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-form-label brod" for="Company-name">Company Name</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" class="form-control" placeholder="Enter Company name" formControlName="CompanyName" [ngClass]="{ 'is-invalid': submitted && f.CompanyName.errors }">
+                                                        <div *ngIf="submitted && f.CompanyName.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.CompanyName.errors.required">Required</div>
+                                                            <div *ngIf="f.CompanyName.errors.minlength">Company Name must be at least 3 characters</div>
+                                                            <div *ngIf="f.CompanyName.errors.pattern">Only Alphabets allowed</div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6 pull-right">
+
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-form-label brod" for="Last-name">Last Name</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" class="form-control" placeholder="Enter last name" formControlName="LastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.LastName.errors }">
+                                                        <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
+                                                            <!-- <div *ngIf="f.LastName.errors.required">Last Name is required</div> -->
+                                                            <div *ngIf="f.LastName.errors.minlength">Last Name must be at least 3 characters</div>
+                                                            <div *ngIf="f.LastName.errors.pattern">Only Alphabets allowed</div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-form-label brod" for="Phone-No">Phone Number</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" class="form-control" placeholder="Enter phone no" formControlName="Phone"
+                                                        maxlength="15" minlength="10" [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }">
+                                                        <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
+                                                            <!-- <div *ngIf="f.Phone.errors.required">Phone Number is required</div> -->
+                                                            <div *ngIf="f.Phone.errors.minlength">Phone Number must be at least 10 digits</div>
+                                                            <div *ngIf="f.Phone.errors.pattern">Enter only digits</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <button type="submit" class="btn btn-primary btn-rounded m-t-10 pull-right">Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                        <br/>
+                                        <!-- <a class=" cancle_sub" (click)="test()">Cancel test    </a> 
+                                        <a class=" cancle_sub" (click)="notest()">sorry test    </a>  -->
+
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4 class="m-b-20 header-title">Change Password</h4>
+                                        <div class="row">
+                                            <div class="col-md-12 bg-ray pt-4 pb-4">
+                                                <form class="form-horizontal" [formGroup]="passwordForm" (ngSubmit)="onPwdFormSubmit()">
+                                                    <div class="col-md-6 pull-left">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-form-label brod" for="new-password">New Password</label>
+                                                            <div class="col-md-10">
+                                                                <input type="password" class="form-control" placeholder="Enter new password" formControlName="password" [ngClass]="{ 'is-invalid': pwdSubmitted && pf.password.errors }">
+                                                                <div *ngIf="pwdSubmitted && pf.password.errors" class="invalid-feedback">
+                                                                    <div *ngIf="pf.password.errors.required">Password is required</div>
+                                                                    <div *ngIf="pf.password.errors.minlength">Password must be at least 6 characters</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 pull-right">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-form-label brod" for="Confirm-password">Confirm Password</label>
+                                                            <div class="col-md-10">
+                                                                <input type="password" class="form-control" placeholder="Re-enter password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': pwdSubmitted && pf.confirmPassword.errors }">
+                                                                <div *ngIf="pwdSubmitted && pf.confirmPassword.errors" class="invalid-feedback">
+                                                                    <div *ngIf="pf.confirmPassword.errors.required">Confirm Password is required</div>
+                                                                    <div *ngIf="pf.confirmPassword.errors.mustMatch">Password must match</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <button type="submit" class="btn btn-primary btn-rounded m-t-10 pull-right">Change Password</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end row -->
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- End Edit profile row -->
+                        <br />
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- content -->
+            </div>
+            <!-- END wrapper -->
+
+        </div>
+        <!-- content -->
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Right content here -->
+    <!-- ============================================================== -->
+
+    <app-footer></app-footer>
+</div>
+
+
+<!-- main app container -->

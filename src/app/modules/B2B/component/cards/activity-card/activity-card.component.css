@@ -1,0 +1,57 @@
+.activity-container {
+  border-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  cursor: pointer;
+}
+.activity-container .activity-content {
+  display: flex;
+  align-items: center;
+}
+.activity-container .activity-content span {
+  display: block;
+}
+.feather {
+  width: 25px;
+  margin: 0 10px 0 0;
+}
+.primary {
+  color: #0071eb;
+}
+:host {
+  width: 100%;
+}
+.backIcon {
+  cursor: pointer;
+  color: #000;
+  padding-bottom: 50px;
+  padding-right: 30px;
+}
+
+.mainBackIcon {
+  padding-bottom: 50px;
+  cursor: pointer;
+  color: #000;
+}
+.smallSearch {
+  padding-left: 10px !important;
+}
+.solid {
+  border-top: 1px solid #e4e2e2;
+}
+.activityHead {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+}
+.subHead {
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 14px;
+}

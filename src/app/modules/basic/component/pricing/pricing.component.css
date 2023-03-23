@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css?family=Hind:400,500,700|Noto+Sans:400,700");
+.cancle_sub{
+    /* color: #458bc4 !important; */
+    cursor: pointer;
+    /* text-decoration: underline !important; */
+    height: 24px;
+    width: auto;
+    border: none;
+    margin: 3px;
+    border-radius: 4px;
+    float: right;
+    font-size: 12px;
+    margin-top: 22px;
+}

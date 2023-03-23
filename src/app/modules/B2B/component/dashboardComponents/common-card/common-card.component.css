@@ -1,0 +1,20 @@
+
+.icon {
+    color: #2e8cff;
+    font-size: 25px;
+    margin: 0px 20px;
+}
+
+
+.commonTitle {
+    font-size: 25px ;
+    font-weight: normal;
+    color: #000;
+  }
+  
+  .commonCardNormal {
+    font-size: 13px;
+    font-weight: lighter;
+    color: #000;
+    text-align: right;
+  }

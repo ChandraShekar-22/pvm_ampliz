@@ -1,0 +1,150 @@
+<!-- Start Preloader -->
+<div id="preload-block">
+  <div class="square-block"></div>
+</div>
+<!--header section starts-->
+
+<!--Header section Ends-->
+<!-- Preloader End -->
+
+<div class="content">
+  <section class="design_tab_area sec_pad">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 padd-rt-lf">
+          <img
+            class="img-fluid mt-4 mb-4"
+            style="height: 39px; margin-left: -8px;"
+            src="assets/images/Ampliz-logo-black.png"
+          />
+          <div
+            class="sec_title mb_70 wow fadeInUp pb-5"
+            data-wow-delay="0.3s"
+            style="
+              visibility: visible;
+              animation-delay: 0.3s;
+              animation-name: fadeInUp;
+            "
+          >
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="f_p f_size_30 l_height50 f_600 t_color3">
+                  <span class="">Hey, <span style="color: #0071EB"> {{username | titlecase }} </span> What would you like to do?</span>
+                </h4>
+                <p class="f_400 mb-0 prt-p">
+                  This is just to get you started.You can always do more later.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- <div class="col-md-6">
+                            <div class="text-center card-boxs" style="box-shadow: -3px 4px 0px 3px #ffc107;cursor: pointer;" routerLink="/company_search">
+                                <div class="member-card ">
+                                    <div class="thumb-xl member-thumb m-b-10 center-page">
+                                        <img src="assets/images/Company-Information.png" class=" img-thumbnail" alt="Company-Information">
+                                    </div>
+                                    <div class="">
+                                        <h6 class="m-b-5 lt-hgt mt-2">Company Information<p class="pt-2">9 Million</p></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+            <div class="col-md-6">
+              <div
+                class="text-center card-boxs"
+                style="box-shadow: -15px 12px 0px 0px #08f3ff; cursor: pointer; margin-right: 20px;"
+                routerLink="/b2b"
+              >
+                <div class="member-card">
+                  <div class="thumb-xl member-thumb m-b-10 center-page">
+                    <!-- <img
+                      src="assets/images/Decision-Makers.png"
+                      class="img-thumbnail"
+                      alt="Decision-Makers"
+                    /> -->
+                    <svg viewBox="0 0 24 24" width="50" height="50" stroke="black" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                  </div>
+                  <div class="">
+                    <h5 class="m-b-5 lt-hgt">People <p class="pt-2">32 Million</p></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end col -->
+
+            <div class="col-md-6">
+              <div
+                class="text-center card-boxs"
+                style="box-shadow: -15px 12px 0px 0px #ff216b; cursor: pointer; margin-right: 20px;"
+                (click)="changeTabToCompany()"
+              >
+                  <div class="member-card">
+
+                      <img
+                        src="assets/images/Company.svg"
+                        class="img-thumbnail"
+                        alt="company"
+                      />
+
+                    <div class="">
+                      <h5 class="m-b-5 lt-hgt">Company <p class="pt-2">44 Million</p></h5>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="text-center card-boxs"
+                style="box-shadow: -15px 12px 0px 0px #4153ff; cursor: pointer; margin-right: 20px;"
+              >
+                <a
+                  href="https://chrome.google.com/webstore/detail/ampliz-sales-buddy/abgoaphadkcmbkapnamhkcgkaddlmfal?hl=en"
+                  target="_blank"
+                >
+                  <div class="member-card">
+                    <div class="thumb-xl member-thumb m-b-10 center-page">
+                     <svg viewBox="0 0 24 24" width="50" height="50" stroke="black" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
+                    </div>
+                    <div class="">
+                      <h5 class="m-b-5 lt-hgt">
+                        Install LinkedIn Prospector
+                      </h5>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="text-center card-boxs"
+                style="box-shadow: -15px 12px 0px 0px #FFE91A; cursor: pointer; margin-right: 20px;"
+              >
+                <a href="https://www.ampliz.com/talk-to-us" target="_blank">
+                  <div class="member-card">
+                    <div class="thumb-xl member-thumb m-b-10 center-page">
+                     <svg viewBox="0 0 24 24" width="50" height="50" stroke="black" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                    </div>
+                    <div class="">
+                      <h5 class="m-b-5 lt-hgt">Talk To US<br /></h5>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 right-side">
+          <div class="tab-content">
+            <img
+              class="img-fluid tab_img"
+              style="height: auto"
+              src="assets/images/Right-Prospector.gif"
+              alt="Right-Prospector"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

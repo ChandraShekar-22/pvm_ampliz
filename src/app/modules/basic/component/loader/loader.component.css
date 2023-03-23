@@ -1,0 +1,36 @@
+.loader {
+    z-index:1052;
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid  #06648a;
+    width: 40px; 
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    position: fixed;
+    text-align: center;
+    margin: 0 auto;
+    left: 48%;
+    /* top: 46%; */
+    bottom: 50%;
+  }
+  .overlay {
+    width: 100%;
+    height: 100%;
+    background :rgba(0,0,0, 0.2);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index:1051;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

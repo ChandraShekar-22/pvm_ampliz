@@ -1,0 +1,708 @@
+<div class="card column filter-component" style="width: 23rem">
+  <div class="people-filter">
+    <div class="flex-row card-body">
+      <div>
+        <h6 class="card-title titleCardStyle">Showing results for</h6>
+      </div>
+      <!-- <div class="searchButton" [ngClass]="validateSaveSearch()?'primaryBtn':''">
+        <span (click)="invokeSearchList()">
+          Save Search
+        </span>
+      </div> -->
+       <div *ngIf="validateSaveSearch()" class="active-filter-container">
+        <app-clear-filter [activeFilterCount]="activeFilterCount" (clearAllFilters)="clearAll()"></app-clear-filter>
+        <div
+          class="searchButton"
+          [ngClass]="validateSaveSearch() ? 'primaryBtn' : ''"
+        >
+          <span (click)="invokeSearchList()"> Save Search </span>
+        </div>
+      </div>
+    </div>
+    <div class="solid"></div>
+    <app-search-quota *ngIf="searchQuota!==0 && isSubscribed === false" [progress]="searchQuota"></app-search-quota>
+    <div>
+    <mat-accordion>
+      
+      <!------Domain-->
+      <mat-expansion-panel #panelDomain hideToggle [disabled]="searchQuota<=0" >
+        <mat-expansion-panel-header
+          [ngClass]="panelDomain.expanded ? 'expanded' : ''"
+          [collapsedHeight]="'70px'"
+          [expandedHeight]="'70px'"
+        >
+          <mat-panel-title>
+            <div class="mat-people-title">Domain</div>
+            <div class="sub-header" *ngIf="includedDominList.length == 0&&!panelDomain.expanded">
+              Domain name
+            </div>
+            <div class="selected" *ngIf="includedDominList.length > 0">
+              <mat-chip-list
+                #includeSpecialityList
+                aria-label="Included domain"
+              >
+                <mat-basic-chip
+                  *ngIf="includedDominList?.length > 0"
+                  [ngClass]="'selected'"
+                >
+                  {{ includedDominList[0].name }}
+                </mat-basic-chip>
+                <span
+                  *ngIf="includedDominList?.length > 1"
+                  class="additional-selection"
+                >
+                  + {{ includedDominList.length - 1 }} more
+                </span>
+              </mat-chip-list>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="searchQuota>0" class="matrl-plus">{{
+              panelDomain.expanded ? "remove" : "add"
+              }}</mat-icon>
+              <mat-icon class="filter-title lock-icon" *ngIf="searchQuota<=0">lock</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <div>
+            <mat-form-field class="example-chip-list mt-3">
+              <mat-chip-list #includedDomain aria-label="includedDomain">
+                <mat-basic-chip
+                  *ngFor="let content of includedDominList"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removeDomain(content)"
+                  class="chip-list"
+                >
+                  {{ content.name }}
+                  <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                    >close</mat-icon
+                  >
+                </mat-basic-chip>
+                <input
+                  placeholder="Domain name"
+                  #includedomainInput
+                  aria-label="Include domain"
+                  matInput
+                  [formControl]="domainListControl"
+                  [matAutocomplete]="includeCompanyAuto"
+                  [matChipInputFor]="includedDomain"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  
+                />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="includedDominList.length>0" (click)="clearItems('includedDominList')">close</mat-icon>
+              <mat-autocomplete
+                #includeCompanyAuto="matAutocomplete"
+                (optionSelected)="selectedDomain($event, 'auto')"
+                class="app-autocomplete"
+              >
+              <div *ngIf="recentDomain.length>0">
+                <mat-option style="color: #c2c2c2;" >RECENTLY USED</mat-option>
+                  <mat-option *ngFor="let domain of recentDomain" [value]="domain.name">
+                    <mat-icon style="color: #c2c2c2;">access_time</mat-icon> {{ domain.name }}
+                  </mat-option>
+                  <hr *ngIf="companyList.length>0">
+                </div>
+                <mat-option *ngFor="let spec of domainList" [value]="spec">
+                  {{ spec }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <!-- Domain end -->
+      <!-- Industry Expansion panel -->
+      <mat-expansion-panel #panelIndustry hideToggle [disabled]="searchQuota<=0" >
+        <mat-expansion-panel-header
+          [ngClass]="panelIndustry.expanded ? 'expanded' : ''"
+          [collapsedHeight]="'70px'"
+          [expandedHeight]="'70px'"
+        >
+          <mat-panel-title>
+            <div class="mat-people-title">Industry</div>
+            <div class="sub-header" *ngIf="includedIndustryList.length == 0&&!panelIndustry.expanded">
+              Select Industry
+            </div>
+            <div class="selected" *ngIf="includedIndustryList.length > 0">
+              <mat-chip-list
+                #includeSpecialityList
+                aria-label="Included industry"
+              >
+                <mat-basic-chip
+                  *ngIf="includedIndustryList?.length > 0"
+                  [ngClass]="'selected'"
+                >
+                  {{ includedIndustryList[0] }}
+                </mat-basic-chip>
+                <span
+                  *ngIf="includedIndustryList?.length > 1"
+                  class="additional-selection"
+                >
+                  + {{ includedIndustryList.length - 1 }} more
+                </span>
+              </mat-chip-list>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="searchQuota>0" class="matrl-plus">{{
+              panelIndustry.expanded ? "remove" : "add"
+              }}</mat-icon>
+              <mat-icon class="filter-title lock-icon" *ngIf="searchQuota<=0">lock</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div>
+          <div>
+            <mat-form-field class="mt-3">
+              <mat-chip-list
+                #includeIndustryList
+                aria-label="Include speciality input"
+              >
+                <mat-basic-chip
+                  *ngFor="let industry of includedIndustryList"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removeIndustry(industry)"
+                >
+                  {{ industry }}
+                  <mat-icon matChipRemove>close</mat-icon>
+                </mat-basic-chip>
+                <input
+                  [placeholder]="'Include industry'"
+                  (focus)="industryList = []"
+                  #includeIndustryInput
+                  aria-label="Include Industry"
+                  matInput
+                  [formControl]="includeIndustryControl"
+                  [matAutocomplete]="includeIndustryAuto"
+                  floatPlaceholder="never"
+                  [matChipInputFor]="includeIndustryList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  
+                />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="includedIndustryList.length>0" (click)="clearItems('includedIndustryList')">close</mat-icon>
+              <mat-autocomplete
+                #includeIndustryAuto="matAutocomplete"
+                (optionSelected)="includeIndustry($event, 'auto')"
+                class="app-autocomplete"
+              >
+              <div *ngIf="recentIncludeIndustry.length>0">
+                <mat-option style="color: #c2c2c2;" >RECENTLY USED</mat-option>
+                <mat-option *ngFor="let industry of recentIncludeIndustry" [value]="industry">
+                  <mat-icon style="color: #c2c2c2;">access_time</mat-icon> {{ industry }}
+                </mat-option>
+                <hr *ngIf="industryList.length>0">
+              </div>
+                <mat-option
+                  *ngFor="let industry of industryList"
+                  [value]="industry"
+                >
+                  {{ industry }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-chip-list aria-label="Terms selection" #includedTerms>
+              <mat-basic-chip
+                *ngFor="let st of selectedIndustryList"
+                class="suggested"
+                [selectable]="true"
+                value="st"
+                [selected]="st"
+              >
+                <span class="chip-body"> {{ st }}</span>
+                <span class="chip-add" > +</span>
+                <span class="chip-remove"
+                  >-
+                </span>
+              </mat-basic-chip>
+            </mat-chip-list>
+
+            <mat-form-field class="mt-3">
+              <mat-chip-list #excludeIndustryList aria-label="Exclude Industry">
+                <mat-basic-chip
+                  *ngFor="let industry of excludedIndustryList"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removeExcludeIndustry(industry)"
+                >
+                  {{ industry }}
+                  <mat-icon matChipRemove>close</mat-icon>
+                </mat-basic-chip>
+
+                <input
+                  placeholder="Exclude Industry"
+                  (focus)="industryList = []"
+                  #excludeIndustryInput
+                  matInput
+                  [matChipInputFor]="excludeIndustryList"
+                  [formControl]="excludeIndustryControl"
+                  [matAutocomplete]="excludeIndustryAuto"
+                  floatPlaceholder="never"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  
+                />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="excludedIndustryList.length>0" (click)="clearItems('excludedIndustryList')">close</mat-icon>
+              <mat-autocomplete
+                #excludeIndustryAuto="matAutocomplete"
+                (optionSelected)="excludeIndustry($event, 'auto')"
+                class="app-autocomplete"
+              >
+              <div *ngIf="recentExcludeIndustry.length>0">
+                <mat-option style="color: #c2c2c2;" >RECENTLY USED</mat-option>
+                <mat-option *ngFor="let industry of recentExcludeIndustry" [value]="industry">
+                  <mat-icon style="color: #c2c2c2;">access_time</mat-icon> {{ industry }}
+                </mat-option>
+                <hr *ngIf="industryList.length>0">
+              </div>
+                <mat-option
+                  *ngFor="let industry of industryList"
+                  [value]="industry"
+                >
+                  {{ industry }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <!-- Industry end -->
+      <!-- HQ Location panel -->
+
+      <mat-expansion-panel #panelLoc hideToggle [disabled]="searchQuota<=0" >
+        <mat-expansion-panel-header [ngClass]="panelLoc.expanded ? 'expanded' : ''" [collapsedHeight]="'70px'"
+          [expandedHeight]="'70px'">
+          <mat-panel-title>
+            <div class="mat-people-title">Location</div>
+            <div class="sub-header" *ngIf="selectedCountry.length==0&&!panelLoc.expanded">
+              Select location
+            </div>
+
+          <mat-chip-list
+          *ngIf="selectedCountry.length>0"
+          cdkDropList cdkDropListOrientation="horizontal" >
+            <mat-basic-chip [ngClass]="'selected'"  [selectable]="false"
+              [removable]="false" >
+              {{ selectedCountry[0].country }}
+              <!-- <mat-icon (click)="removeCountry()" matChipRemove class="existing-chip-list">close</mat-icon> -->
+            </mat-basic-chip>
+            <span
+                  *ngIf="selectedCountry?.length > 1"
+                  class="additional-selection"
+                >
+                  + {{ selectedCountry.length - 1 }} more
+              </span>
+          </mat-chip-list>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="searchQuota>0" class="matrl-plus">{{
+              panelLoc.expanded ? "remove" : "add"
+              }}</mat-icon>
+              <mat-icon class="filter-title lock-icon" *ngIf="searchQuota<=0">lock</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+
+          <div>
+
+            <mat-form-field class="mt-3">
+              <mat-chip-list #countryChipList aria-label="Country input">
+                <mat-basic-chip *ngFor=" let country of selectedCountry" [selectable]="selectable" [removable]="removable"
+                  (removed)="removeCountry(country.countryId)">
+                  {{ country.country }}
+                  <mat-icon matChipRemove>close</mat-icon>
+                </mat-basic-chip>
+                <input placeholder="Country" #countryInput aria-label="stateList" matInput
+                  [formControl]="countryControl" [matAutocomplete]="countryAuto" floatPlaceholder="never"
+                  [matChipInputFor]="countryChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="selectedCountry.length>0" (click)="removeCountry('all')">close</mat-icon>
+
+              <mat-autocomplete #countryAuto="matAutocomplete" (optionSelected)="countrySelected($event)"
+                panelClass="app-autocomplete" class="app-autocomplete">
+                <mat-option *ngFor="let country of countryList" [value]="country">
+                  {{ country.country }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-chip-list #statesChipList aria-label="State input">
+                <mat-basic-chip *ngFor="let state of selectedStates" [selectable]="selectable" [removable]="removable"
+                  (removed)="removeState(state)">
+                  {{ state.stateFullName }}
+                  <mat-icon matChipRemove>close</mat-icon>
+                </mat-basic-chip>
+                <input placeholder="State" #stateInput aria-label="stateList" matInput [formControl]="stateControl"
+                  [matAutocomplete]="stateAuto" floatPlaceholder="never" [matChipInputFor]="statesChipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="selectedStates.length>0" (click)="clearState()">close</mat-icon>
+
+              <mat-autocomplete #stateAuto="matAutocomplete" (optionSelected)="selectStates($event)"
+                panelClass="app-autocomplete" class="app-autocomplete">
+                <mat-option *ngFor="let state of stateList" [value]="state">
+                  {{ state.stateFullName }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+
+            <mat-form-field>
+              <mat-chip-list #cityListChip aria-label="city name input">
+                <mat-basic-chip *ngFor="let city of selectedCities" [selectable]="selectable" [removable]="removable"
+                  (removed)="onCityDeselect(city)">
+                  {{ city.city }}
+                  <mat-icon matChipRemove>close</mat-icon>
+                </mat-basic-chip>
+                <input placeholder="City" #cityInput aria-label="Search city" matInput [formControl]="cityControl"
+                  [matAutocomplete]="cityAutoComplete" floatPlaceholder="never" [matChipInputFor]="cityListChip"
+                  [matChipInputSeparatorKeyCodes]="[]" />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="selectedCities.length>0" (click)="clearItems('selectedCities')">close</mat-icon>
+
+              <mat-autocomplete #cityAutoComplete="matAutocomplete" class="app-autocomplete">
+                <mat-option *ngFor="let city of cityList" [value]="city" (click)="onCitySelect(city)">
+                  {{ city.city }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <!-- Location end -->
+
+      
+      <!-- Technology panel -->
+
+      <!-- <mat-expansion-panel #panelSeniority hideToggle [disabled]="searchQuota<=0" >
+        <mat-expansion-panel-header
+          [ngClass]="panelSeniority.expanded ? 'expanded' : ''"
+          [collapsedHeight]="'70px'"
+          [expandedHeight]="'70px'"
+        >
+          <mat-panel-title>
+            <div class="mat-people-title">Technology</div>
+            <div class="sub-header" *ngIf="includedTechnologyList.length == 0&&!panelSeniority.expanded">
+              Select Technology
+            </div>
+            <div class="selected" *ngIf="includedTechnologyList.length > 0">
+              <mat-chip-list
+                #includeTechnologyList
+                aria-label="Included Technology"
+              >
+                <mat-basic-chip
+                  *ngIf="includedTechnologyList?.length > 0"
+                  [ngClass]="'selected'"
+                >
+                  {{ includedTechnologyList[0].name }}
+                </mat-basic-chip>
+                <span
+                  *ngIf="includedTechnologyList?.length > 1"
+                  class="additional-selection"
+                >
+                  + {{ includedTechnologyList.length - 1 }} more
+                </span>
+              </mat-chip-list>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="searchQuota>0" class="matrl-plus">{{
+              panelSeniority.expanded ? "remove" : "add"
+              }}</mat-icon>
+              <mat-icon class="filter-title lock-icon" *ngIf="searchQuota<=0">lock</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <div>
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list
+                #includedTechnology
+                aria-label="includedTechnology"
+              >
+                <mat-basic-chip
+                  *ngFor="let content of includedTechnologyList"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removeTechnology(content)"
+                  class="chip-list"
+                >
+                  {{ content.name }}
+                  <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                    >close</mat-icon
+                  >
+                </mat-basic-chip>
+                <input
+                  placeholder="Select Technology"
+                  #includeTechnologyInput
+                  aria-label="Include Technology"
+                  matInput
+                  [formControl]="technologyListControl"
+                  [matAutocomplete]="includeTechnologyAuto"
+                  [matChipInputFor]="includedTechnology"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="includedTechnologyList.length>0" (click)="clearItems('includedTechnologyList')">close</mat-icon>
+              <mat-autocomplete
+                #includeTechnologyAuto="matAutocomplete"
+                (optionSelected)="selectedTechnology($event, 'auto')"
+                class="app-autocomplete"
+              >
+              <div *ngIf="recentTechnology.length>0">
+                <mat-option style="color: #c2c2c2;" >RECENTLY USED</mat-option>
+                <mat-option *ngFor="let tech of recentTechnology" [value]="tech.name">
+                  <mat-icon style="color: #c2c2c2;">access_time</mat-icon> {{ tech.name }}
+                </mat-option>
+                <hr *ngIf="technologyList.length>0">
+              </div>
+                <mat-option *ngFor="let spec of technologyList" [value]="spec">
+                  {{ spec }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel> -->
+      <!-- Technology end -->
+     <!-- Employee panel -->
+
+     <mat-expansion-panel [disabled]="searchQuota<=0" #panelEmployee hideToggle>
+      <mat-expansion-panel-header [ngClass]="panelEmployee.expanded ? 'expanded' : ''" [collapsedHeight]="'70px'"
+        [expandedHeight]="'70px'">
+        <mat-panel-title>
+          <div class="mat-people-title">Employee</div>
+          <div class="sub-header" *ngIf="includedEmployeeRange.length<=0 && !panelEmployee.expanded">
+            Select employee range
+          </div>
+          <div class="selected" *ngIf="includedEmployeeRange.length>0">
+            <mat-chip-list #includeEmployeeList aria-label="Included Employee">
+              <mat-basic-chip *ngIf="includedEmployeeRange?.length > 0" [ngClass]="'selected'">
+                {{ includedEmployeeRange[0] }}
+              </mat-basic-chip>
+              <span *ngIf="includedEmployeeRange?.length > 1" class="additional-selection">
+                + {{ includedEmployeeRange.length - 1 }} more
+              </span>
+            </mat-chip-list>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon *ngIf="searchQuota>0" class="matrl-plus">{{
+            panelEmployee.expanded ? "remove" : "add"
+            }}</mat-icon>
+            <mat-icon class="filter-title lock-icon" *ngIf="searchQuota<=0">lock</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <mat-form-field class="example-chip-list mt-3">
+          <mat-select
+          placeholder="Select Employee Range"
+          multiple (selectionChange)="omitChanges()" [(ngModel)]="includedEmployeeRange"
+           >
+            <mat-select-trigger>
+              <mat-chip-list >
+              <mat-basic-chip
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeEmployeeRange(i)"
+              *ngFor="let item of includedEmployeeRange;index as i" class="chip-list">
+                {{ item }}
+                <mat-icon matChipRemove class="chip-list">close</mat-icon>
+              </mat-basic-chip>
+            </mat-chip-list>
+            </mat-select-trigger>
+            <mat-option [value]="employee" *ngFor="let employee of employeeList">{{ employee }}</mat-option>
+          </mat-select>
+          <mat-icon matSuffix class="closeIcon" *ngIf="includedEmployeeRange.length>0" (click)="clearItems('includedEmployeeRange')">close</mat-icon>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+    <!-- Employee range end -->
+
+    <!-------company-->
+      <mat-expansion-panel #panelComp hideToggle [disabled]="searchQuota<=0">
+        <mat-expansion-panel-header
+          [ngClass]="panelComp.expanded ? 'expanded' : ''"
+          [collapsedHeight]="'70px'"
+          [expandedHeight]="'70px'"
+        >
+          <mat-panel-title>
+            <div class="mat-people-title">Company</div>
+            <div class="sub-header" *ngIf="includedCompanyList.length == 0 && !panelComp.expanded">
+              Company name
+            </div>
+            <div class="selected" *ngIf="includedCompanyList.length > 0">
+              <mat-chip-list
+                #includeSpecialityList
+                aria-label="Included speciality"
+              >
+                <mat-basic-chip
+                  *ngIf="includedCompanyList?.length > 0"
+                  [ngClass]="'selected'"
+                >
+                  {{ includedCompanyList[0].name }}
+                </mat-basic-chip>
+                <span
+                  *ngIf="includedCompanyList?.length > 1"
+                  class="additional-selection"
+                >
+                  + {{ includedCompanyList.length - 1 }} more
+                </span>
+              </mat-chip-list>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="searchQuota>0" class="matrl-plus">{{
+              panelComp.expanded ? "remove" : "add"
+              }}</mat-icon>
+              <mat-icon class="filter-title lock-icon" *ngIf="searchQuota<=0">lock</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <div>
+            <mat-form-field class="example-chip-list mt-3">
+              <mat-chip-list #includedCompany aria-label="includedCompany">
+                <mat-basic-chip
+                  *ngFor="let content of includedCompanyList"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removeCompany(content)"
+                  class="chip-list"
+                >
+                  {{ content.name }}
+                  <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                    >close</mat-icon
+                  >
+                </mat-basic-chip>
+                <input
+                  placeholder="Company name"
+                  #includeCompanyInput
+                  aria-label="Include Speciality"
+                  matInput
+                  [formControl]="companyListControl"
+                  [matAutocomplete]="includeCompanyAutoInCompany"
+                  [matChipInputFor]="includedCompany"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  
+                  autofocus
+                />
+              </mat-chip-list>
+              <mat-icon matSuffix class="closeIcon" *ngIf="includedCompanyList.length>0" (click)="clearItems('includedCompanyList')">close</mat-icon>
+              <mat-autocomplete
+                #includeCompanyAutoInCompany="matAutocomplete"
+                (optionSelected)="selectedCompany($event, 'auto')"
+                class="app-autocomplete"
+              >
+              <div *ngIf="recentCompany.length>0">
+              <mat-option style="color: #c2c2c2;" >RECENTLY USED</mat-option>
+                <mat-option *ngFor="let comapny of recentCompany" [value]="comapny">
+                  <mat-icon style="color: #c2c2c2;">access_time</mat-icon> {{ comapny.companyName }}
+                </mat-option>
+                <hr *ngIf="companyList.length>0">
+              </div>
+                <mat-option *ngFor="let spec of companyList" [value]="spec">
+                  <div class="flex-row">
+                    <div style="width: 40px;">
+                      <img [src]="spec.companyLogo" width="25" style="border-radius: 10px;"
+                        *ngIf="spec.companyLogo!=''" />
+                      <mat-icon style="color:#ccc;" *ngIf="spec.companyLogo==''">business</mat-icon>
+                    </div>
+                    <div style="flex:1">
+                      {{ spec.companyName }}
+                    </div>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <!-- Company end -->
+
+      <!-- Revenue panel -->
+
+      <mat-expansion-panel #panelRevenue hideToggle [disabled]="searchQuota<=0" >
+        <mat-expansion-panel-header
+          [ngClass]="panelRevenue.expanded ? 'expanded' : ''"
+          [collapsedHeight]="'70px'"
+          [expandedHeight]="'70px'"
+        >
+          <mat-panel-title>
+            <div class="mat-people-title">Revenue</div>
+            <div class="sub-header" *ngIf="includedRevenueRange.length>0 &&!panelRevenue.expanded">
+              Select revenue range
+            </div>
+            <div class="selected" *ngIf="includedRevenueRange.length>0">
+              <mat-chip-list #includeEmployeeList aria-label="Included Revenue">
+                <mat-basic-chip
+                  *ngIf="includedRevenueRange.length>0"
+                  [ngClass]="'selected'"
+                >
+                  {{ includedRevenueRange }}
+                </mat-basic-chip>
+              </mat-chip-list>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon *ngIf="searchQuota>0" class="matrl-plus">{{
+              panelRevenue.expanded ? "remove" : "add"
+              }}</mat-icon>
+              <mat-icon class="filter-title lock-icon" *ngIf="searchQuota<=0">lock</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <div>
+            <mat-form-field class="example-chip-list">
+              <mat-select
+              placeholder="Select revenue range"
+              (selectionChange)="omitChanges()"
+                [(ngModel)]="includedRevenueRange"
+                multiple
+                
+              >
+                <mat-select-trigger>
+                  <mat-basic-chip
+                    *ngFor="let item of includedRevenueRange; index as i"
+                    (removed)="includedRevenueRange.length>0;omitChanges()"
+                    class="chip-list"
+                  >
+                    {{ item }}
+                    <mat-icon
+                      *ngIf="includedRevenueRange.length>0"
+                      matChipRemove
+                      class="chip-list"
+                      >close</mat-icon
+                    >
+                  </mat-basic-chip>
+                </mat-select-trigger>
+                <mat-option
+                  [value]="revenue"
+                  *ngFor="let revenue of revenueList"
+                  >{{ revenue }}</mat-option
+                >
+              </mat-select>
+              <mat-icon matSuffix class="closeIcon" *ngIf="includedRevenueRange.length>0" (click)="clearItems('includedRevenueRange','array')">close</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      
+      <!-- Revenue panel -->
+    </mat-accordion>
+  </div>
+  </div>
+</div>
+<app-save-search-list
+type="Company"
+(searchSaved)="handleSearchSave()"
+[searchCred]="searchCompanyInput"
+[searchListDrawer] = "searchListDrawer"
+(cancelBtnClick)="cancelBtnClick($event)"
+*ngIf="searchListDrawer"
+>
+
+</app-save-search-list>

@@ -1,0 +1,100 @@
+<div class="hospital_container card-animate">
+  <div class="row">
+    <div class="col-sm-12 col-md-9">
+      <div class="hospital_card">
+        <div class="hospital_imgContainer">
+          <img
+            src="assets/img/hospital-hc.png"
+            *ngIf="!hospitalData.iconLink"
+            width="100%"
+          />
+          <img
+            [src]="hospitalData.iconLink"
+            *ngIf="hospitalData.iconLink"
+            width="100%"
+          />
+        </div>
+
+        <div class="hospital_content">
+          <h5 class="hospital_name">
+            <a
+              [href]="'/hospitalOverView/' + hospitalData.hospitalId"
+              target="_blank"
+              style="color: dodgerblue"
+              >{{ hospitalData.hospitalName }}</a
+            >
+          </h5>
+
+          <div class="hospital_info">
+            <div class="hospital_type">{{ hospitalData.hospitalType }}</div>
+            <div class="hospital_address">
+              <i class="fa fa-map-marker pr-1" aria-hidden="true"></i
+              >{{ hospitalData.city }}{{ ", " + hospitalData.state
+              }}{{ ", " + hospitalData.country }}
+            </div>
+          </div>
+          <div class="hospital_hospital">
+            <i class="fa fa-bed pr-1" aria-hidden="true"></i>
+            <span
+              >{{ hospitalData.numberOFBeds }}
+              {{ hospitalData.numberOFBeds > 1 ? "Beds" : "Bed" }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-3">
+      <div class="hospital_additionInfo">
+        <span class="hospital_url" *ngIf="hospitalData.webAddress"
+          ><i class="mdi mdi-web icon"></i
+          ><a
+            href="{{ 'http://' + hospitalData.webAddress }}"
+            target="_blank"
+            [title]="hospitalData.webAddress"
+            >View website</a
+          ></span
+        >
+        <span *ngIf="hospitalData.hospitalPhone.length > 0">
+          <span
+            class="hospital_phone"
+            *ngFor="let phone of hospitalData.hospitalPhone"
+            ><i class="fa fa-phone" aria-hidden="true"></i>{{ phone }}</span
+          >
+        </span>
+        <span class="hospital_contacts"
+          ><i class="fa fa-user-circle-o" aria-hidden="true"></i>
+          <a
+            href="javascript:void(0)"
+            (click)="gotoContacts(hospitalData.hospitalName)"
+            *ngIf="hospitalData.totalContacts > 0"
+            >{{ hospitalData.totalContacts | numberWithCommas }} Physician</a
+          >
+          <span *ngIf="hospitalData.totalContacts == 0"> 0 Physician</span>
+        </span>
+        <div class="social_icon_wrap">
+          <ul>
+            <li *ngIf="hospitalData.linkedInLink" ><img src="assets/img/socialicons/linkedin.png" width="15px" height="15px" (click)="openSocial(hospitalData.linkedInLink)" class="clickable" /></li>
+            <li  *ngIf="hospitalData.twitterLink"><img src="assets/img/socialicons/twitter.png" width="15px" height="15px" (click)="openSocial(hospitalData.twitterLink)" class="clickable"/></li>
+            <li  *ngIf="hospitalData.facebookLink"><img src="assets/img/socialicons/facebook.png" width="15px" height="15px" (click)="openSocial(hospitalData.facebookLink)" class="clickable" /></li>
+            <li  *ngIf="hospitalData.instagramLink"><img src="assets/img/socialicons/instagram.png" width="15px" height="15px" (click)="openSocial(hospitalData.instagramLink)" class="clickable" /></li>
+            <li  *ngIf="hospitalData.googleLink"><img src="assets/img/socialicons/search.png" width="15px" height="15px" (click)="openSocial(hospitalData.googleLink)" class="clickable" /></li>
+            <li  *ngIf="hospitalData.pinterestLink"><img src="assets/img/socialicons/pinterest.png" width="15px" height="15px" (click)="openSocial(hospitalData.pinterestLink)" class="clickable" /></li>
+          </ul>
+        </div>
+        <div class="saveBtn_wrp">
+          <span class="notCorrect" (click)="notCorrectDrawer = true"
+            >Not correct</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <app-savelist [saveListDiv]="saveDrawer" (cancelBtnClick)="cancelBtnClick($event)" *ngIf="saveDrawer"></app-savelist> -->
+</div>
+<app-hospital-notcorrect
+  [notCorrectDiv]="notCorrectDrawer"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  [hospitalId]="hospitalData.hospitalId"
+  [hospitalName]="hospitalData.hospitalName"
+  *ngIf="notCorrectDrawer"
+></app-hospital-notcorrect>

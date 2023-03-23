@@ -1,0 +1,17 @@
+<div class="form-group">
+    <select #input class="form-control  " id="{{id}}" (blur)="onChange($event, input.value)">
+        <option value="">{{placeholder}} </option>
+        <option *ngFor="let option of options" [value]="option">{{option}}</option>
+    </select>
+    <div style="height:0px;" *ngIf="c.invalid && isFormSubmitted" class="align-item  float-right error">
+        <p *ngIf="c.errors?.required">
+            Required
+          </p>
+          <p *ngIf="c.errors?.minlength">
+            Not a valid {{placeholder}}
+          </p>
+          <p *ngIf="c.errors?.email">
+            Not a valid {{placeholder}}
+          </p>
+  </div>
+</div>

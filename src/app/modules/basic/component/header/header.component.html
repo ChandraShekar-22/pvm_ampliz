@@ -1,0 +1,131 @@
+<div class="topbar">
+  <!-- LOGO -->
+  <div class="topbar-left">
+    <a class="logo">
+      <span>
+        <img src="assets/images/brand-logo.png" alt="" />
+      </span>
+      <i>
+        <img
+          style="height: 30px"
+          src="assets/images/small-logo-white.png"
+          alt=""
+        />
+      </i>
+    </a>
+  </div>
+  <!-- <app-search></app-search> -->
+  <nav class="navbar-custom">
+    <ul class="list-inline menu-left mb-0 d-block float-left d-sm-none">
+      <li class="float-left">
+        <button
+          class="button-menu-mobile open-left waves-light waves-effect"
+          (click)="toggleSideMenu()"
+        >
+          <i class="mdi mdi-menu"></i>
+        </button>
+      </li>
+    </ul>
+    <app-search *ngIf="dataSet == 'healthcare'"></app-search>
+    <!-- <app-b2b-global-search *ngIf="dataSet == 'B2B'"></app-b2b-global-search> -->
+
+    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+      <!-- <li class="hide-phone">
+                <a   *ngIf="showChrmBtn"  type="button" class="btn btn-primary ">{{chrome_button}}</a>{{showChrmBtn}}
+            </li> -->
+      <li class="hide-phone">
+        <!-- <a *ngIf="showBtn"  (click)= "openItem('pricing')" type="button" class="btn btn-primary ">{{button}}</a> -->
+        <span
+          *ngIf="
+            showBtn &&
+            router.url != '/payment' &&
+            router.url != '/editprofile' &&
+            router.url != '/hcupgrade' &&
+            router.url != '/mytab' &&
+            !isSpecialityUser
+          "
+        >
+          <a
+            *ngIf="dataSet == 'B2B'"
+            type="button"
+            class="btn btn-yellow"
+            (click)="openItem(dataSet)"
+            type=""
+            >{{ data }}</a
+          >
+          <a
+            *ngIf="dataSet == 'healthcare'"
+            type="button"
+            class="btn btn-yellow"
+            (click)="requestPricing()"
+            type=""
+            >{{ data }}</a
+          >
+        </span>
+        <!-- <span
+          *ngIf="
+            router.url != '/payment' &&
+            router.url != '/editprofile' &&
+            router.url != '/hcupgrade' &&
+            router.url != '/mytab' &&
+            router.url != '/lists' &&
+            router.url != '/hospital' &&
+            router.url != '/geneateapi' &&
+            !router.url.includes('executiveOverview')&&
+            !router.url.includes('physicianOverview')&&
+            isSpecialityUser
+          "
+        >
+          <a
+            type="button"
+            class="btn btn-yellow"
+            (click)="requestSearch()"
+            type=""
+            >Request</a
+          >
+        </span> -->
+      </li>
+      <li class="dropdown notification-list">
+        <a
+          class="nav-link dropdown-toggle waves-effect waves-light nav-user"
+          data-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-haspopup="false"
+          aria-expanded="false"
+        >
+          <img
+            src="/assets/images/users/Unknwn.png"
+            alt="user"
+            class="rounded-circle"
+          />
+          <span class="ml-1" style="z-index: 9999999"
+            >{{ user }} <i class="mdi mdi-chevron-down"></i>
+          </span>
+        </a>
+        <div
+          id="navbarDropdown"
+          class="dropdown-menu dropdown-menu-right profile-dropdown"
+        >
+          <!-- item-->
+          <a
+            class="link dropdown-item notify-item"
+            (click)="navigatePage('editprofile')"
+          >
+            <i class="fa fa-gear"></i> <span> Edit Profile </span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            (click)="logout()"
+            class="dropdown-item notify-item"
+          >
+            <i class="ti-power-off"></i> <span>Logout</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+<app-loader *ngIf="showLoader == true"></app-loader>
+<app-success *ngIf="showSuccessMesssage"></app-success>
+<app-error *ngIf="showError"></app-error>

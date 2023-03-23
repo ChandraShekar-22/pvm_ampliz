@@ -1,0 +1,55 @@
+<div>
+  <div class="backdrop" *ngIf="b2bSaveDrawer === true"></div>
+  <div
+    class="createListWrapper"
+    [ngClass]="b2bSaveDrawer === true ? 'slide-in' : 'slide-out'"
+  >
+    <form
+      class="form-horizontal"
+    >
+      <div class="topHeader">
+        <div class="row">
+          <div class="col">
+            <div class="h5 text-grey mt-2 not-crct_header">Select List</div>
+          </div>
+          <div class="col">
+            <div class="float-end closeIcon">
+              <i class="fa fas fa-window-close" style="color: #c2c2c2;" (click)="closeDiv()"></i>
+            </div>
+          </div>
+        </div>
+        <p class="detailText">
+          Give your search a name.search name will easly allow you to find it
+          and continue were you left off
+        </p>
+      </div>
+      <div class="credit-container">
+        <div class="saveContact">Save Conatct In</div>
+      </div>
+
+      <div class="bodyWrap input-group-sm">
+        <select
+          id="saveList"
+          name="saveList"
+        >
+          <option value="">Select an Option</option>
+          <option>one</option>
+        </select>
+      </div>
+      <div class="col">
+        <div class="float-end">
+        <span class="btn btn-lg mr-3 createList">
+            Create New List
+        </span>
+          <button
+            type="button"
+            class="btn btn-lg btn-outline-light btn-not-correct  mr-3"
+            (click)="closeDiv()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

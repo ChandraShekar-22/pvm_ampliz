@@ -1,0 +1,304 @@
+.physican_container {
+    width: 99%;
+    min-height: 140px;
+    border-bottom: 1px solid #e2e4e7;
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.physician_card {
+    display: flex;
+    flex-direction: row;
+    flex: 3;
+}
+
+.physician_imgContainer {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #ebebeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.physician_content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 4px 30px;
+}
+
+.physician_name {
+    color: #2d8cff;
+    margin: 0px;
+    padding: 0px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.physician_info {
+    color: #86888a;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    padding-top: 10px;
+}
+
+.physican_location {
+    padding-left: 15px;
+}
+
+.physican_location img {
+    padding-right: 5px;
+}
+
+.physician_hospital {
+    color: #2d8cff;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    font-weight: 400;
+    /* cursor: pointer; */
+}
+
+.physician_hospital img {
+    margin-right: 5px;
+}
+
+.physican_additionInfo {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 0px;
+    flex-direction: column;
+    flex: 1;
+}
+
+.physican_additionInfo i {
+    padding-right: 15px;
+    color: #858789;
+}
+
+.physican_additionInfo>span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.physican_email {
+    color: #2d8cff;
+    font-weight: 400;
+}
+
+.physican_phone {
+    color: #86888a;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.saveBtn_wrp {
+    margin-top: 25px;
+}
+
+.physician_save {
+    border: 1px solid #2d8cff;
+    background: transparent;
+    outline: none;
+    color: #2d8cff;
+    border-radius: 5px;
+    padding: 5px 15px;
+    margin-right: 20px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 55px;
+}
+
+.notCorrect {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    padding: 7px;
+    border-radius: 6px;
+}
+
+.requestInfo {
+    color: #2d8cff;
+    cursor: pointer;
+}
+
+
+/* .physican_cancel {
+  background: transparent;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 0px 5px;
+  border: 0px solid #2d8cff;
+  color: #86888a;
+} */
+
+
+/* addon css start */
+
+.physician_imgContainer {
+    width: 90px !important;
+    height: 90px !important;
+    border: 1px solid #ebebeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.physician_name {
+    color: #2d8cff;
+    margin: 0px;
+    padding: 0px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.physician_info {
+    color: #86888a;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    padding-top: 10px;
+}
+
+.physician_hospital {
+    color: #2d8cff;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    font-weight: 400;
+    font-size: 13px !important;
+}
+
+.physican_location img {
+    padding-right: 5px;
+    height: 15px !important;
+}
+
+.physician_hospital img {
+    margin-right: 5px;
+    height: 14px !important;
+}
+
+.physican_email {
+    color: #2d8cff;
+    font-weight: 400;
+    font-size: 13px !important;
+}
+
+.physican_phone {
+    color: #86888a;
+    font-weight: 400;
+    font-size: 13px !important;
+}
+
+.physician_save {
+    border: 1px solid #2d8cff;
+    background: transparent;
+    outline: none;
+    color: #2d8cff;
+    border-radius: 3px;
+    padding: 5px 15px;
+    margin-right: 10px !important;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.notCorrect {
+    cursor: pointer;
+    border: none;
+    padding: 7px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.saveBtn_wrp {
+    margin-top: 10px !important;
+}
+
+.physican_container {
+    width: 99%;
+    min-height: 120px !important;
+    border-bottom: 1px solid #e2e4e7;
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+/* addon css end */
+
+.physician_hospital .fa-hospital-o {
+    color: #b5b5b5!important;
+    font-size: 14px;
+}
+
+.physican_location .fa-map-marker {
+    color: #b5b5b5!important;
+    font-size: 14px;
+}
+
+.card-animate{
+  animation-name: fadeInBottom;
+    animation-duration: 350ms;
+    animation-delay: calc(var(--animation-order) * 100ms);
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+  }
+  .clickable {
+      cursor: pointer;
+  }
+  @keyframes fadeInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to { opacity: 1 }
+  }
+
+  .form-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+
+.insideContent {
+    background-color: #c2c2c2;
+    width: 10px;
+    height: 10px;
+    margin:auto;
+    cursor:default;
+    
+  }
+  
+  .partiallySelected {
+    content: "";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    margin-top: -2px;
+    /* margin-right: 5px; */
+    border: 1px solid #c2c2c2;
+    border-radius: 2px;
+    transition: 240ms;
+    position: relative;
+    margin-bottom: -4px;
+    cursor: pointer;
+  }
+  

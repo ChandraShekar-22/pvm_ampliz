@@ -1,0 +1,17 @@
+<div class="landingDashboardCard card">
+    <div class="commonCardTitle">
+        INDUSTRY
+    </div>
+    <app-contacts-company-tab
+    [activeLink]="selectedTab"
+    (tabChanged)="selectedTab=$event"
+    ></app-contacts-company-tab>
+    <div class="landingCardContainer">
+    <div class="indCardItems" (click)="makeSearch($event,item)"  *ngFor="let item of listItems">
+        <div class="row">
+            <div class="col-md-9"><span style="font-weight: normal;">{{item.name}}</span></div>
+            <div class="col-md-3" style="text-align: right;">{{item.count}}</div>
+        </div>
+    </div>
+    </div>
+</div>

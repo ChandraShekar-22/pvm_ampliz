@@ -1,0 +1,71 @@
+<div class="main">
+  <img src="assets/images/noresult.png" alt="no-result" class="image" />
+  <div class="messageText py-3">
+    We couldn't find results matching your search.
+    <span class="primary" style="cursor: pointer" (click)="clearFilter()"
+      >Clear all filter</span
+    >
+  </div>
+  <div class="buildCustom my-3">
+    <div class="buildCustomHead pr-1">
+      <svg
+        width="34"
+        height="34"
+        viewBox="0 0 34 34"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 21.275C1.14712 21.2194 2.11776 20.7713 2.91192 19.9307C3.70608 19.0902 4.10316 18.091 4.10316 16.9332C4.10316 18.091 4.50024 19.0902 5.2944 19.9307C6.08856 20.7713 7.05921 21.2194 8.20633 21.275C7.05921 21.3307 6.08856 21.7788 5.2944 22.6194C4.50024 23.4599 4.10316 24.4591 4.10316 25.6169C4.10316 24.4591 3.70608 23.4599 2.91192 22.6194C2.11776 21.7788 1.14712 21.3307 0 21.275ZM4.10316 8.4499C6.33122 8.33857 8.22011 7.46742 9.76983 5.83644C11.3195 4.20547 12.0944 2.25999 12.0944 0C12.0944 2.25999 12.872 4.20547 14.4273 5.83644C15.9825 7.46742 17.8741 8.33857 20.1022 8.4499C18.6352 8.5167 17.2895 8.93697 16.0652 9.71071C14.8409 10.4844 13.873 11.5087 13.1616 12.7834C12.4501 14.0581 12.0944 15.4414 12.0944 16.9332C12.0944 14.6621 11.3195 12.7083 9.76983 11.0717C8.22011 9.43517 6.33122 8.56123 4.10316 8.4499ZM9.9601 27.6375C11.6367 27.5596 13.0595 26.9055 14.2287 25.6753C15.3979 24.4452 15.9825 22.9784 15.9825 21.275C15.9825 22.9784 16.5643 24.4452 17.728 25.6753C18.8916 26.9055 20.3118 27.5596 21.9883 27.6375C20.3118 27.7155 18.8916 28.3695 17.728 29.5997C16.5643 30.8299 15.9825 32.2967 15.9825 34C15.9825 32.2967 15.3979 30.8299 14.2287 29.5997C13.0595 28.3695 11.6367 27.7155 9.9601 27.6375ZM21.9883 19.1876C23.6649 19.1097 25.0822 18.4584 26.2404 17.2338C27.3985 16.0092 27.9776 14.5396 27.9776 12.8251C27.9776 14.5285 28.5622 15.9953 29.7314 17.2254C30.9006 18.4556 32.3234 19.1097 34 19.1876C32.3234 19.2656 30.9006 19.9168 29.7314 21.1415C28.5622 22.3661 27.9776 23.8301 27.9776 25.5334C27.9776 23.8301 27.3985 22.3661 26.2404 21.1415C25.0822 19.9168 23.6649 19.2656 21.9883 19.1876Z"
+          fill="#040404"
+        />
+      </svg>
+    </div>
+    <div>
+      <div class="buildCustomHead pb-3">Build Custom B2B Data</div>
+      <p>
+        Ampliz helps differentiate you from your competitors by giving you
+        access to custom real time data that enables you to have truly
+        meaningful buyer centric conversations based on that custom relevant and
+        contextual data.
+      </p>
+      <div class="row">
+        <div
+          *ngFor="let changedItem of changedItems | slice : 0 : sliceLength"
+          class="my-1 changedItem"
+        >
+          <span class="title-text"> {{ changedItem.title }}&nbsp;:&nbsp; </span>
+
+          {{
+            changedItem.type == "array"
+              ? changedItem.value[0]
+              : changedItem.value.substring(0, 15)
+          }}
+        </div>
+        <span
+          *ngIf="changedItems.length > 3"
+          class="moreButton"
+          (click)="handleShowMore()"
+        >
+          {{ showMore ? "More +" : "Less -" }}
+        </span>
+      </div>
+      <form class="row my-4" [formGroup]="additionalForm">
+        <input
+          class="col-sm-8 noteInput"
+          placeholder="Additional notes..."
+          formControlName="additionalNote"
+        />
+        <div class="col-sm-2">
+          <button
+            (click)="requestData()"
+            [disabled]="additionalForm.get('additionalNote').invalid"
+            class="inviteButton"
+          >
+            Request
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

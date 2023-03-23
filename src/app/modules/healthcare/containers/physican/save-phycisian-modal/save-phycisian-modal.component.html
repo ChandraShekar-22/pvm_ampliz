@@ -1,0 +1,91 @@
+<div
+(click)="handleSaveTrigger()"
+mat-button [matMenuTriggerFor]="menu" class="searchButton primaryBtn" *ngIf="!isDisabled"
+#menuTrigger="matMenuTrigger"
+>
+    {{title}}
+  </div>
+  <mat-menu #menu="matMenu" xPosition="after" >
+    <div class="flex-row mx-3 mt-2">
+      <div class="flex1">
+        <mat-icon (click)="handleCreateNewPress($event)" *ngIf="showCreateNew==true" class="matrl-plus">chevron_left</mat-icon>
+        <mat-slide-toggle (click)="$event.stopPropagation();" *ngIf="showCreateNew==false" [disabled]="selectedItems.length===0"
+          (change)="bulkUploadDataChanged($event)"
+          [checked]="bulkSaveEnabled"
+          [color]="'primary'"
+          ><span style="font-size: 12px;">Bulk save</span></mat-slide-toggle>
+      </div>
+      <mat-icon class="matrl-plus">close</mat-icon>
+    </div>
+    
+    <div [@enterAnimation] *ngIf="showCreateNew==false" class="menuWrapper">
+      <!-- <div> -->
+        <span class="creditText mr-4"
+          ><img src="assets/img/wallet-hc.png" style="width:18px"/>&nbsp;<b>{{ updatedCredits }}</b> Available credits</span
+        >
+      <!-- </div> -->
+      <!-- <div class="flex-justify-end"> -->
+        <span *ngIf="!isSpecialityUser" class="creditText primary" (click)="openItem('hcpayment')" style="cursor: pointer;">
+          <span class="icon-wrapper"><img src="assets/img/Add-hc.png" style="width:18px"/></span
+          >&nbsp;Add credits
+        </span>
+      <!-- </div> -->
+        <!-- <span class="creditText mr-4" [ngClass]="updatedCredits==0?'nocredit':'primary'">{{updatedCredits }} Available Credits</span>
+        <span class="creditText primary" style="cursor: pointer;"
+        (click)="openItem('hcpayment')"
+        >Add Credits</span> -->
+      <div class="my-3 menuTitle">
+          
+        <span *ngIf="bulkSaveEnabled" >
+          Select 
+        <input
+            #physicianInput
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="numberOfPhysicians"
+            type="number" class="physicianInput"
+            [ngClass]="numberOfPhysicians<=0?'error':''"
+            />
+            physician
+          </span>
+          
+        <span *ngIf="!bulkSaveEnabled" class="primary">{{selectedItems.length}} selected </span>
+        <!-- physician save in -->
+      </div>
+      <form [formGroup]="listGroup" (submit)="handleSavePress($event)">
+      <mat-form-field class="matForm" appearance="outline" (click)="$event.stopPropagation()">
+        <mat-label>Choose a List</mat-label>
+        <mat-select
+        name="select"
+        formControlName="select">
+          <mat-option *ngFor="let apac of apacList" [value]="apac">{{apac.listName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="flex-row" style="justify-content: flex-end;">
+        <div class="secRectButton" (click)="handleCreateNewPress($event)" >New list</div>
+        <button (click)="$event.stopPropagation()" type="submit" class="priRectButton" style="margin-left: 10px;">
+          Save
+        </button>
+      </div>
+    </form>
+    </div>
+
+    <div [@leaveAnimation] *ngIf="showCreateNew==true" class="menuWrapper">
+      <div class="my-3 menuTitle">
+        Create new list
+      </div>
+      <form [formGroup]="listNameGroup" (submit)="createB2bApackList($event)">
+      <mat-form-field class="matForm" appearance="outline" (click)="$event.stopPropagation()">
+        <mat-label>Enter list name</mat-label>
+        <input
+        formControlName="listName"
+        matInput placeholder="Enter list name">
+      </mat-form-field>
+      <div class="flex-row" style="justify-content: flex-end;">
+        <div class="secRectButton" (click)="handleCreateNewPress($event)" >Cancel</div>
+        <button type="submit" class="priRectButton" (click)="$event.stopPropagation()" style="margin-left: 10px;">
+          Create
+        </button>
+      </div>
+    </form>
+    </div>
+  </mat-menu>

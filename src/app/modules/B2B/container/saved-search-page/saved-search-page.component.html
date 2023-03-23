@@ -1,0 +1,20 @@
+<div>
+    <h5 class="topTitle">Your Saved Searches</h5>
+    <div *ngIf="datasource.length==0" class="noDataWrapper" >
+        <app-saved-no-data></app-saved-no-data>
+      </div>
+    <div *ngIf="datasource.length>0" class="recent-content" style="position: relative">
+        <div class="recent-content-main">
+            <!-- <app-saved-search></app-saved-search> -->
+                <div class="recent_container" *ngFor="let item of datasource">
+                    <app-save-search-card [searchData]="item"></app-save-search-card>
+                </div>
+            <div *ngIf="isViewmoreButtonVisible">
+                <p class="viewMore" (click)="viewMoreClicked()">View more</p>
+            </div>
+        </div>
+    </div>
+    <app-saved-view-more [savedSearchViewMore]="savedSearchViewMore" *ngIf="savedSearchViewMore"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    ></app-saved-view-more>
+</div>

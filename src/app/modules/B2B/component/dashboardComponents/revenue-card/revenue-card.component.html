@@ -1,0 +1,12 @@
+<div class="landingDashboardCard card">
+    <div class="commonCardTitle">
+        REVENUE
+    </div>
+    <app-contacts-company-tab
+    [activeLink]="selectedTab"
+    (tabChanged)="selectedTab=$event"
+    ></app-contacts-company-tab>
+    <div class="landingCardContainer">
+        <figure id="bar"></figure>
+    </div>
+</div>

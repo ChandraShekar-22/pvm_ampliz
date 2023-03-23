@@ -1,0 +1,58 @@
+<div class="recent-content">
+    <div class="recent_card">
+        <div class="form-check">
+            <mat-chip class="searchIcon"><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </mat-chip>
+        </div>
+        <div class="flex-row flex1">
+            
+            <div class="flex-col">
+            <span class="comapany_name">{{searchData.searchType}} </span>
+            <span class="date_text">{{searchData.searchAt| minuteDay}} </span>
+        </div>
+        </div>
+        <div class="flex-row " style="margin:10px;cursor: pointer;">
+
+            <!-- <span (click)="searchContactPressed(searchData)" class="searchButton"> Search</span> -->
+
+            <div mat-button [matMenuTriggerFor]="menu1" class="optionIcon">
+                <i class="fa fas fa-ellipsis-v" style="font-size: 20px; color: gray"></i>
+            </div>
+
+            <mat-menu #menu1="matMenu" position="before">
+                <div class="menuWrapper">
+                    <div mat-menu-item (click)="handleSave()">
+                        <i class="fa fas fa-pencil"></i>
+                        Save
+                    </div>
+                    <button mat-menu-item (click)="searchContactPressed(searchData)"><i
+                            class="fa fas fa-repeat"></i>Search again</button>
+                </div>
+            </mat-menu>
+        </div>
+
+    </div>
+    <div class="bottomLine"></div>
+    <div class="detailsCont">
+        <div *ngFor="let chip of searchData['includedSearchChips']| slice: 0:sliceLength">
+            <div class="companyData">
+                <p>{{chip.title}}</p>
+                <div class="chipStyle">
+                    <mat-chip-list *ngIf="chip.type=='array'">
+                        <mat-chip class="bottomChip" *ngFor="let val of searchData[searchType][chip.key]" selected class="bottomChip">
+                            {{chip.subkey ?val[chip.subkey]:val}}
+                        </mat-chip>
+                    </mat-chip-list>
+                    <mat-chip-list *ngIf="chip.type=='text'">
+                        <mat-chip class="bottomChip" selected class="bottomChip">
+                            {{chip.subkey?searchData[searchType][chip.key][chip.subkey]:searchData[searchType][chip.key]}}
+                        </mat-chip>
+                    </mat-chip-list>
+                    
+                </div>
+            </div>
+        </div>
+        <span class="moreButton" (click)="handleShowMore()" *ngIf="searchData['includedSearchChips'].length>3">{{sliceLength<=3?'Show More':'Show Less'}}</span>
+       
+    </div>
+</div>

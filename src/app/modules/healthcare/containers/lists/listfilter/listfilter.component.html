@@ -1,0 +1,197 @@
+<div class="right-wrapper-filter">
+  <div class="listFilterHeader">
+    <div class="p-3">
+      <div class="headerText mb-2">Lead Quick Filter</div>
+      <div class="row align-items-center justify-content-center">
+        <div class="col text-left">
+          <button
+            type="button"
+            class="btn btn-lg btn-outline-light btn-cancel-filter"
+            (click)="cancelFilter()"
+          >
+            Cancel
+          </button>
+        </div>
+        <div class="col text-right">
+          <button
+            type="button"
+            (click)="applyLeadFilter()"
+            class="btn btn-lg btn-apply"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="acc-wrapper" id="myDIV">
+      <div class="row justify-content-between">
+        <div class="col-9 text-left" (click)="toggleLeadLocation()">
+          <span class="text-dark font-size-large">Lead Location</span>
+        </div>
+        <div class="col-3 text-right" (click)="toggleLeadLocation()">
+          <i
+            class="iIcon font-weight-normal"
+            [ngClass]="showLeadLocation ? 'fa fa-minus' : 'fa fa-plus'"
+            style="font-size: 20px"
+          ></i>
+        </div>
+
+        <div class="col-12 mt-3" id="lead" *ngIf="showLeadLocation">
+          <div class="mb-4 bx-fnt">
+            <ng-multiselect-dropdown
+              [data]="stateList"
+              [(ngModel)]="leadState"
+              [settings]="stateListSettings"
+              (onSelect)="onStateSelect($event)"
+              (onDeSelect)="OnStateDeSelect($event)"
+              badgeShowLimit="3"
+              [placeholder]="'Select State'"
+            ></ng-multiselect-dropdown>
+          </div>
+          <!-- <div class="selectWrapper mb-4">
+                            <select [(ngModel)]="leadState" (change)="loadCityList($event)">
+                                <option *ngFor="let item of stateList" [value]="item.stateId">{{item.state}}</option>
+                            </select>
+                        </div> -->
+          <div class="mb-4 bx-fnt">
+            <ng-multiselect-dropdown
+              [data]="leadCityArr"
+              [(ngModel)]="leadCity"
+              [settings]="cityListSettings"
+              (onSelect)="onCitySelect($event)"
+              (onDeSelect)="onCityDeSelect($event)"
+              badgeShowLimit="3"
+              [placeholder]="'Select City'"
+            ></ng-multiselect-dropdown>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row justify-content-between"
+        [ngClass]="showLeadLocation ? 'mt-3' : 'mt-4'"
+      >
+        <div class="col-9 text-left" (click)="toggleHospitalLocation()">
+          <span class="text-dark font-size-large">Hospital Location</span>
+        </div>
+        <div class="col-3 text-right" (click)="toggleHospitalLocation()">
+          <i
+            class="iIcon font-weight-normal"
+            [ngClass]="showHospitalLocation ? 'fa fa-minus' : 'fa fa-plus'"
+            style="font-size: 20px"
+          ></i>
+        </div>
+        <div class="col-12 mt-3" id="lead" *ngIf="showHospitalLocation">
+          <div class="mb-4 bx-fnt">
+            <ng-multiselect-dropdown
+              [data]="stateList"
+              [(ngModel)]="hospitalState"
+              [settings]="stateListSettings"
+              (onSelect)="onStateSelectHospital($event)"
+              (onDeSelect)="OnStateDeSelectHospital($event)"
+              badgeShowLimit="3"
+              [placeholder]="'Select State'"
+            ></ng-multiselect-dropdown>
+          </div>
+          <!-- <div class="selectWrapper mb-4">
+                                <select [(ngModel)]="leadState" (change)="loadCityList($event)">
+                                    <option *ngFor="let item of stateList" [value]="item.stateId">{{item.state}}</option>
+                                </select>
+                            </div> -->
+          <div class="mb-4 bx-fnt">
+            <ng-multiselect-dropdown
+              [data]="hospitalCityArr"
+              [(ngModel)]="hospitalCity"
+              [settings]="cityListSettings"
+              (onSelect)="onCitySelectHospital($event)"
+              (onDeSelect)="onCityDeSelectHospital($event)"
+              badgeShowLimit="3"
+              [placeholder]="'Select City'"
+            ></ng-multiselect-dropdown>
+          </div>
+
+          <!-- <div class="selectWrapper mb-4">
+                            <select [(ngModel)]="hospitalState" (change)="loadHospitalCityList($event)">
+                                <option *ngFor="let item of stateList" [value]="item.stateId">{{item.state}}</option>
+                            </select>
+                        </div>
+
+                        <div class="selectWrapper">
+                            <select [(ngModel)]="hospitalCity" (change)="AutoloadHospitalCity($event)">
+                                <option *ngFor="let item of cityListHospital" [value]="item.cityId">{{item.city}}</option>
+
+                            </select>
+                        </div> -->
+        </div>
+      </div>
+      <div
+        class="row justify-content-between"
+        [ngClass]="showHospitalLocation ? 'mt-3' : 'mt-4'"
+      >
+        <div class="col-9 text-left">
+          <span class="text-dark font-size-large">Hospital</span>
+        </div>
+        <!-- <div class="col-3 text-right" (click)="toggleHospitalLocation()">
+                        <i  class="plusIcon font-weight-normal" [ngClass]="showHospitalLocation ? 'fa fa-minus' : 'fa fa-plus'" style="font-size: 20px"></i>
+                    </div> -->
+        <div class="col-12 mt-3" id="lead">
+          <div class="selectWrapper mb-4">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="searchLeadFilter.hospitalName"
+              placeholder="Select Hospital"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col-9 text-left">
+          <span class="text-dark font-size-large">Added Date Range</span>
+        </div>
+        <!-- <div class="col-3 text-right" (click)="toggleHospitalLocation()">
+                        <i  class="plusIcon font-weight-normal" [ngClass]="showHospitalLocation ? 'fa fa-minus' : 'fa fa-plus'" style="font-size: 20px"></i>
+                    </div> -->
+        <div class="col-12 mt-3" id="lead">
+          <div class="selectWrapper mb-4">
+            <input
+              type="text"
+              class="form-control"
+              startKey="addedStartDate"
+              endKey="addedEndDate"
+              [(ngModel)]="dateRange"
+              placeholder="Start Date - End Date"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-between">
+        <div class="col-9 text-left">
+          <span class="text-dark font-size-large">Lead With Direct Dials</span>
+        </div>
+        <!-- <div class="col-3 text-right" (click)="toggleHospitalLocation()">
+                        <i  class="plusIcon font-weight-normal" [ngClass]="showHospitalLocation ? 'fa fa-minus' : 'fa fa-plus'" style="font-size: 20px"></i>
+                    </div> -->
+        <div class="col-12 mt-3" id="lead">
+          <div class="selectWrapper mb-4">
+            <div class="onoffswitch">
+              <input
+                type="checkbox"
+                name="onoffswitch"
+                class="onoffswitch-checkbox"
+                id="emailonoffswitch"
+                tabindex="0"
+                [(ngModel)]="searchLeadFilter.leadWithPhone"
+              />
+              <label class="onoffswitch-label" for="emailonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

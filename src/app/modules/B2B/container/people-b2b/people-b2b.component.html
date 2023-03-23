@@ -1,0 +1,182 @@
+<div id="wrapper">
+  <div class="row col people-wrapper">
+    <app-filter-people
+      (onFilterChange)="filterChanged($event)"
+      [isSubscribed]="subscribed"
+    ></app-filter-people>
+    <!--  && searchQuotaUsed < 100 -->
+    <div class="col" *ngIf="showLandingDashboard">
+      <app-landing-dashboard></app-landing-dashboard>
+    </div>
+    <div
+      class="col-sm-7 activity-wrapper"
+      *ngIf="!showLandingDashboard && showActivityCards"
+    >
+      <app-activity-card
+        [showBackButton]="showActivityBack"
+        (closeClick)="showActivityCards = false; showActivityBack = false"
+      ></app-activity-card>
+    </div>
+    <div class="b2b-content" style="position: relative" *ngIf="showResult">
+      <div class="b2b-content-main">
+        <app-low-credit-card
+          *ngIf="lowCreditAlert"
+          (closeClicked)="lowCreditAlert = true"
+          (getFreeClicked)="openActivityComponents()"
+        ></app-low-credit-card>
+        <div [class.topBorder]="!lowCreditAlert" class="other-border">
+          <app-top-tab
+            #topTab
+            [allSelected]="
+              selectedContactsInCurrentPage.length >= selectedFilter.count
+            "
+            [partiallySelected]="partiallySelected"
+            [haveCheckbox]="false"
+            [tabItems]="tabItems"
+            [isPrimary]="true"
+            (tabChanged)="handleTabChange($event)"
+            [activeLink]="currentTab"
+            [showLoader]="showLoader"
+            [isBorder]="!lowCreditAlert"
+            [haveSelectBox]="true"
+            [allVisibleSelected]="allVisibleSelected"
+            (selectVisibleChanged)="handleSelectVisible($event)"
+            (selectAllChanged)="handleSelectAll($event)"
+            [allContactsSelected]="allContactsSelected"
+            [totalItemCount]="totalItemCount"
+            [totalSavableItemCount]="totalSavableItemCount"
+            (successfullySaved)="handleContactAddList()"
+            [selectedFilter]="selectedFilter"
+            [showHeader]="false"
+          >
+            <!-- save and export part start -->
+            <div class="flex1 flex-row">
+              <!-- <app-save-contact-modal (successfullyAdded)="handleContactAddList()" [selectedItems]="selectedContacts"
+              title="Save +"></app-save-contact-modal>
+            <div *ngIf="selectedContacts.length>0" class="searchButton">
+              Export CSV <mat-icon style="font-size: 10px;">download-outline</mat-icon>
+            </div> -->
+              <div style="flex: 1"></div>
+
+              <div class="opt mx-3">
+                <mat-form-field
+                  style="max-width: 50px; border: none; padding-top: 10px"
+                >
+                  <!-- <mat-label>Records</mat-label> -->
+                  <mat-select
+                    [disabled]="!isSubscribed"
+                    [(ngModel)]="selectedFilter.count"
+                    (selectionChange)="handleRecordsChange()"
+                  >
+                    <mat-option
+                      [value]="opt"
+                      *ngFor="let opt of pageNumberOptions"
+                      >{{ opt }}</mat-option
+                    >
+                  </mat-select>
+                  <div *ngIf="!isSubscribed" class="my-1 selectDisabled">
+                    <!-- <div class="selectDisabledOverlay"></div> -->
+                    <!-- <i-feather style="height: 24px;width: 24px;" name="Lock" class="feather lockIcon"></i-feather> -->
+                  </div>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- save and export part end -->
+
+            <!-- pagination part start -->
+            <div class="paginationText">
+              {{ offset + 1 }}
+              -
+              {{
+                offset + selectedFilter.count < totalItemCount
+                  ? offset + selectedFilter.count
+                  : totalItemCount
+              }}
+              of {{ totalItemCount | numberWithCommas }} people
+            </div>
+            <mat-icon
+              (click)="decrementPage()"
+              class="leftIcon"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              [ngClass]="decrementEnabled ? '' : 'disabled'"
+            >
+              keyboard_arrow_left</mat-icon
+            >
+            <mat-icon
+              (click)="incrementPage()"
+              class="rightIcon"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              [ngClass]="incrementEnabled ? '' : 'disabled'"
+            >
+              keyboard_arrow_right</mat-icon
+            >
+            <!-- pagination part end -->
+          </app-top-tab>
+          <app-bulk-save-card
+            *ngIf="selectedContacts.length >= 1 || allContactsSelected"
+            [selectedContacts]="selectedContacts"
+            [selectedContactsInCurrentPage]="selectedContactsInCurrentPage"
+            (successfullyAdded)="handleContactAddList()"
+            [allContactsSelected]="allContactsSelected"
+            [totalItemCount]="totalSavableItemCount"
+            (clearPress)="clearSave(); topTab.clearAll()"
+            [selectedFilter]="selectedFilter"
+          ></app-bulk-save-card>
+          <div *ngIf="!showLoader && !showUpgradeCard">
+            <app-people-card
+              *ngFor="let contact of contactsList.contacts; index as i"
+              [contactInfo]="contact"
+              (checkboxChange)="handleCheckboxChange($event, contact)"
+              [isSubscribed]="isSubscribed"
+              [checkboxSelected]="
+                selectedContacts.includes(contact.contactId) ||
+                (allContactsSelected && offset + i < totalSavableItemCount)
+              "
+              [checkboxDisabled]="peopleCheckboxDisabled(contact)"
+              (contactViewed)="getViewedListCount()"
+            ></app-people-card>
+          </div>
+          <div class="h-100" *ngIf="showUpgradeCard">
+            <app-upgrade *ngIf="!showLoader" type="b2b"></app-upgrade>
+          </div>
+          <app-b2b-loader *ngIf="showLoader" [loopCount]="10"></app-b2b-loader>
+        </div>
+      </div>
+    </div>
+    <div class="col h-100" *ngIf="showNoResult">
+      <app-no-result [searchParams]="selectedFilter"></app-no-result>
+      <!-- <div class="main">
+  <div>
+    <img src="assets/images/no-result.png" alt="no-result" class="image">
+  </div>
+</div>
+  <h5 class="text-center pa-4">
+   It seems you haven't saved any searches yet
+  </h5> -->
+    </div>
+    <div
+      class="col h-100"
+      *ngIf="
+        showLandingDashboard == false &&
+        isRecentVisible == true &&
+        searchQuotaUsed < 100 &&
+        !showActivityCards
+      "
+    >
+      <app-recent-search-page> </app-recent-search-page>
+    </div>
+    <div
+      class="col h-100"
+      *ngIf="
+        showLandingDashboard == false &&
+        isSaveVisible == true &&
+        searchQuotaUsed < 100
+        !showActivityCards
+      "
+    >
+      <app-saved-search-page> </app-saved-search-page>
+    </div>
+  </div>
+</div>

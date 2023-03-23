@@ -1,0 +1,50 @@
+.clear-filter-btn {
+  border: 1.2px solid #e4e2e2;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  transition: all 0.3s ease-in;
+}
+.filter-count {
+  font-size: 13px;
+  font-weight: 300;
+}
+.close-icon-container {
+  position: relative;
+  margin: 9px;
+  cursor: pointer;
+}
+.leftright {
+  height: 0.75px;
+  width: 9px;
+  position: absolute;
+  background-color: #4d4a4a;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  transition: all 0.3s ease-in;
+}
+.rightleft {
+  height: 0.75px;
+  width: 9px;
+  position: absolute;
+  background-color: #4d4a4a;
+  border-radius: 2px;
+  transform: rotate(-45deg);
+  transition: all 0.3s ease-in;
+}
+
+.clear-filter-btn:hover .leftright {
+  transform: rotate(-45deg);
+  background-color: #2e8cff;
+}
+.clear-filter-btn:hover .rightleft {
+  transform: rotate(45deg);
+  background-color: #2e8cff;
+}
+.clear-filter-btn:hover {
+  transition: all 0.3s ease-in;
+  color: #2d8cff;
+  border: 1.2px solid #2d8cff;
+}

@@ -1,0 +1,24 @@
+{
+  "/ADB/*": {
+    "target": "https://go.ampliz.com",
+    "security": false,
+    "changeOrigin": true
+  },
+
+  "/amplizhcreadapi/*": {
+    "target": "https://hcapi.ampliz.com",
+    "security": false,
+    "changeOrigin": true,
+    "headers": {
+      "Connection": "keep-alive"
+    }
+  },
+  "/amplizhcwriteapi/*": {
+    "target": "https://hcapi.ampliz.com",
+    "security": false,
+    "changeOrigin": true,
+    "headers": {
+      "Connection": "keep-alive"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+<div class="addphone-container">
+    <!-- Add phone number start -->
+    <div *ngIf="showContent == 'addphone'">
+        <p class="addPhoneTitle"> Add your phone number and get 20% search limit</p>
+        <p class="sub-content"><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam ipsum
+                porttitor diam at massa. Enim pharetra nulla velit nunc, orci laoreet.</small></p>
+        <div class="form-container">
+            <div class="phone-container">
+                <mat-form-field class="country">
+                    <mat-select (selectionChange)="countryCodeChanged()" [(ngModel)]="countryCode">
+                        <mat-select-trigger *ngIf="selectedCountry" style="padding-left:10px">
+                            <span class="flag-icon flag-icon-{{selectedCountry.flag.toLowerCase()}} flag-icon-squared" ></span>
+                            (+{{selectedCountry.number}})
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let country of countries" [value]="country.number">
+                            <span class="flag-icon flag-icon-{{country.flag.toLowerCase()}} flag-icon-squared"></span>
+                            (+{{country.number}})
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="phone" floatLabel=never>
+                    <input 
+                    [(ngModel)]="phoneNumber"
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    type="tel" matInput placeholder="Enter your phone number">
+                </mat-form-field>
+            </div>
+            <div (click)="addPhone($event)" class="saveButton primaryBtn" style="margin-left: 10px;">
+                Send Code
+            </div>
+        </div>
+    </div>
+    <!-- Add phone number end -->
+    <!-- verify phone number start -->
+    <div *ngIf="showContent == 'verify'">
+        <p class="addPhoneTitle">Verify your phone number and get 20% search limit</p>
+        <p class="sub-content"><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam ipsum porttitor diam at massa. Enim pharetra nulla velit nunc, orci laoreet. </small></p>
+        <p>Enter 6 dight code we sent to <span class="mobileText"> +{{selectedCountry.number}}  {{phoneNumber}}</span></p>
+        <div class="verifyphone-form">
+            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6}"></ng-otp-input>
+            <div
+            (click)="addContactToList($event)" class="saveButton primaryBtn verify mx-5" style="margin-left: 10px;">
+                Verify
+            </div>
+        </div>
+        <div class="row greyText col my-3">
+            <span style="cursor: pointer;" (click)="showContent='addphone'">Cancel</span>
+            <div class="mx-5 ">Didn't received code? <span class="mobileText" [ngClass]="!resendButtonActivated?'disabledText':''" style="cursor: pointer;"
+                (click)="resendOtp($event)"
+                >Resend</span></div>
+        </div>
+    </div>
+    <!-- verify phone number end -->
+</div>

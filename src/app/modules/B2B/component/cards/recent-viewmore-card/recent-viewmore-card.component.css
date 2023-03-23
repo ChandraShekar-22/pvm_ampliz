@@ -1,0 +1,186 @@
+
+  .recent-content {
+    /* margin-left: 20px !important; */
+    margin-top: 20px !important;
+    border: 1px solid #ebebeb !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-height: 25px !important;
+    border-radius: 10px !important;
+    /* margin-right: 10px !important; */
+    justify-content: space-between;
+    width: 100%;
+    background-color: #fff;
+  }
+  .recent-content-main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  .bottomLine {
+    border-bottom: 1px solid rgb(205, 202, 202);
+    width: 100%;
+  }
+  
+  .form-check {
+    padding-bottom: 10px !important;
+    padding-right: 0px !important;
+    padding-top: 10px !important;
+  }
+  .recent_card {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    /* align-items: center; */
+    width: 100%;
+    /* margin-right: 20px; */
+  }
+  
+  .comapany_name {
+    color: #030609;
+    font-size: 14px;
+    /* margin-bottom: 10px !important; */
+    /* margin-right: 80px !important; */
+    padding-top: 10px !important;
+  }
+  .searchIcon {
+    background-color: #f2f8ff!important;
+    border-radius: 5px;
+    color: #2e8cff!important;
+    transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+    display: inline-flex;
+    padding: 0 5px;
+    align-items: center;
+    cursor: default;
+    min-height: 28px!important;
+    min-width: 28px!important;
+    height: 5px!important;
+    font-size: 16px!important;
+    cursor: pointer;
+    margin: 6px 18px 0px 0px;
+    font-weight: 500;
+    justify-content: center;
+  }
+  .optionIcon {
+    align-content: flex-end !important;
+    padding: 0px 10px;
+  }
+  .searchButton {
+    border-radius: 25px;
+    border: 1px solid #f2f2f2;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .companyData {
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+  }
+  .bottomChip {
+    background-color: #dcedf9 !important;
+    border: 1px solid #2e8cff;
+    border-radius: 15px;
+    margin: 0 5px;
+    margin-bottom: 5px;
+    color: #414852 !important;
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    padding: 2px 5px;
+    align-items: center;
+    min-height: 24px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 300;
+  }
+  .chipStyle {
+    margin-left: 20px !important;
+    flex:1;
+  }
+  
+  .detailsCont {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row; 
+    align-items: center !important;
+  }
+  .flex-col {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center !important;
+  }
+  .flex1 {
+    flex:1;
+  }
+  .date_text {
+    font-size: 12px;
+    font-weight: lighter;
+    color: #c2c2c2;
+  }
+
+  :host {
+    width: 100%;
+  }
+  
+
+.moreButton {
+    color: #2e8cff !important;
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    padding: 2px 5px;
+    align-items: center;
+    cursor: default;
+    min-height: 24px;
+    height: 1px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 300;
+    margin: 5px;
+  }
+
+  .bottomChip {
+    background-color: #f2f8ff !important;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    /* margin-bottom: 5px; */
+    color: #0071eb !important;
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    padding: 2px 5px;
+    align-items: center;
+    cursor: default;
+    min-height: 24px;
+    height: 1px;
+    font-size: 12px;
+    /* margin-top: 25px !important; */
+    font-weight: 300;
+  }
+
+
+.menuWrapper {
+  margin: 10px;
+  color: #000;
+  font-weight: normal !important;
+  font-size: 15px;
+}
+.menuWrapper i {
+  margin-right: 20px;
+  color: #c2c2c2 !important;
+}
+.menuWrapper .mat-menu-item {
+  line-height: 38px !important;
+  height: 38px !important;
+}

@@ -1,0 +1,241 @@
+/* .ins {
+    background-color: #d9edf7;
+}
+
+.gt-dash {
+    background-color: #395a69;
+    padding-right: 15px;
+    padding-left: 18px;
+    padding-top: 6px;
+    padding-bottom: 7px;
+    border-radius: 18px;
+} */
+
+@import url("https://fonts.googleapis.com/css?family=Hind:400,500,700|Proxima+Nova:400,500,700|Noto+Sans:400,700");
+
+/* Metis Menu css */
+
+
+html {
+    min-height: 100%
+}
+
+body {
+    color: #888ea8;
+    height: 100%;
+    font-size: 0.875rem;
+    background: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    letter-spacing: 0.0312rem;
+    font-family: 'proxima nova', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: black;
+}
+
+:focus {
+    outline: none;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0.625rem;
+    color: #94949a;
+    font-size: 17px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #f1f2f3;
+}
+
+strong {
+    font-weight: 600;
+}
+
+code {
+    color: #e7515a;
+}
+
+.padd-rt-lf {
+    padding-right: 90px;
+    padding-left: 110px;
+}
+
+.tab-content {
+    padding: 0px 0 0 0;
+}
+
+.img-thumbnail {
+    padding: 0;
+    border: none;
+    height: 56px;
+    margin-bottom: 14px;
+}
+@media screen and (max-width: 1920px) {
+    .card-boxs {
+        background-color: #ffffff;
+        border: 3px solid #000;
+        padding: 15px;
+        padding-top: 50px;
+        margin-bottom: 35px;
+        padding-bottom: 20px;
+        border-radius: 15px;
+        height: 240px;
+        max-width: 200px;
+    }
+    .lt-hgt {
+        color: black;
+        font-weight: 500;
+        line-height: 45px;
+    }
+    .right-side{
+        background-color: #ebf3fb;
+        height: 967px;
+    }
+    .lt-hgt p {
+        font-weight:400;
+        line-height: 14px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .card-boxs {
+        background-color: #ffffff;
+        border: 3px solid #000;
+        padding: 15px;
+        padding-top: 40px;
+        margin-bottom: 35px;
+        padding-bottom: 20px;
+        border-radius: 15px;
+        height: 200px;
+        max-width: 200px;
+    }
+    .lt-hgt {
+        color: black;
+        font-weight: 500;
+        line-height: 23px;
+    }
+    .right-side{
+        background-color: #ebf3fb;
+        height: auto;
+    }
+    .lt-hgt p {
+        font-weight: 400;
+        line-height: 14px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .card-boxs {
+        background-color: #ffffff;
+        border: 3px solid #000;
+        padding: 15px;
+        padding-top: 40px;
+        margin-bottom: 35px;
+        padding-bottom: 20px;
+        border-radius: 15px;
+        height: 200px;
+        max-width: 200px;
+    }
+    .lt-hgt {
+        color: black;
+        font-weight: 500;
+        line-height: 23px;
+    }
+    .right-side{
+        background-color: #ebf3fb;
+        height: auto;
+    }
+    .lt-hgt p {
+        font-weight: 500;
+        line-height: 14px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .card-boxs {
+        background-color: #ffffff;
+        border: 3px solid #000;
+        padding: 15px;
+        margin-bottom: 35px;
+        padding-bottom: 20px;
+        border-radius: 15px;
+        height: 171px;
+        max-width: 171px;
+    }
+    .lt-hgt {
+        color: black;
+        font-weight: 500;
+        line-height: 23px;
+    }
+    .right-side{
+        background-color: #ebf3fb;
+        height: auto;
+    }
+    .lt-hgt p {
+        font-weight: 400;
+        line-height: 14px;
+        font-size: 14px;
+    }
+}
+
+
+
+@media screen and (max-width: 1280px) {
+    .card-boxs {
+        background-color: #ffffff;
+        border: 3px solid #000;
+        padding: 15px;
+        padding-top: 30px;
+        margin-bottom: 35px;
+        padding-bottom: 20px;
+        border-radius: 15px;
+        height: 200px;
+        max-width: 200px;
+    }
+    .lt-hgt {
+        color: black;
+        font-weight: 500;
+        line-height: 23px;
+    }
+    .right-side{
+        background-color: #ebf3fb;
+        height: auto;
+    }
+    .lt-hgt p {
+        font-weight: 400;
+        line-height: 14px;
+        font-size: 14px;
+    }
+}
+
+
+
+.thumb-xl {
+    height: 70px;
+    width: 83px;
+}
+
+.back-clr {
+    color: #000000;
+    background: #ffc107;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.prt-p {
+    font-size: 14px;
+    font-weight: 300;
+}

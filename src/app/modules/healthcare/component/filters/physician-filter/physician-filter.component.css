@@ -1,0 +1,148 @@
+.card {
+  /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2); */
+  /* transition: 0.3s; */
+  width: 35%;
+  border: #ebebeb;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 0px;
+  min-width: 23rem;
+  /* background-color: rgba(165, 163, 163, 0); */
+}
+
+/* .card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+} */
+
+.container {
+  padding: 2px 16px;
+}
+
+.allign {
+  /* column-count: 2; */
+  /* column-gap: 40%; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-right: 10px;
+  padding-top: 10px;
+  overflow: hidden;
+}
+.allign-active {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-right: 10px;
+  background-color: rgb(245, 242, 242);
+}
+/* .divBackground {
+  background-color: rgb(216, 222, 216);
+}
+.divBackground-active {
+  background-color: darkgreen;
+} */
+.searchIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-right: 10px;
+}
+.solid {
+  border-top: 0.01rem solid rgb(235, 229, 229);
+  /* padding-top: 10px; */
+  /* padding-bottom: 10px; */
+  border-width: 150%;
+}
+.titleCardStyle {
+  font-size: 16px;
+  color: rgb(75, 73, 73);
+  padding-top: 10px;
+  font-family: Arial, sans-serif;
+}
+.plusIcon {
+  font-size: 28px;
+  color: dodgerblue;
+  font-weight: normal;
+  padding-top: 5px;
+  cursor: pointer;
+}
+.filterInput {
+  padding: 0px 0px 10px 10px;
+  width: 90%;
+}
+.changeNameClass {
+  padding-left: 10px;
+  width: 90%;
+}
+.input-field {
+  border: 0;
+  outline: 0;
+  /* background: rgb(245, 245, 245); */
+  border-bottom: 1px solid rgb(198, 197, 197);
+  border-width: auto;
+  width: 300px;
+}
+.input-fieldSearch {
+  border: 0;
+  outline: 0;
+  /* background: rgb(245, 245, 245); */
+  border-bottom: 1px solid rgb(198, 197, 197);
+  width: 260px !important;
+}
+.example-chip-list {
+  max-width: 170%;
+}
+.chip-list {
+  background-color: rgb(237, 237, 238);
+  border-radius: 3px;
+  border: #0e0e0e;
+  color: rgb(59, 150, 240) !important;
+}
+mat-form-field {
+  width: 180%;
+  border-radius: 5px;
+}
+.clearAll {
+  padding-left: 10px;
+  color: dodgerblue;
+  padding-top: 8px;
+}
+.nameClass {
+  background-color: #dcdcdc;
+  border: #a9a9a9;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 3px;
+}
+.form-check {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.close {
+  font-size: 28px;
+  color: dodgerblue;
+  font-weight: normal;
+  cursor: pointer;
+  padding-left: 50px !important;
+  padding-top: 20px;
+}
+.matChipClose {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.existing-chip-list {
+  background-color: rgb(237, 237, 238);
+  border-radius: 3px;
+  border: #0e0e0e;
+  color: #676262 !important;
+}
+.disabbledInput {
+  padding-bottom: 5px;
+  border-color: darkslategray;
+}

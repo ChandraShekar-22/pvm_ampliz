@@ -1,0 +1,399 @@
+
+<div class="left side-menu in">
+  <!--- Sidemenu -->
+  <div id="sidebar-menu">
+    <!-- Left Menu Start -->
+    <ul class="metismenu" id="side-menu" *ngIf="dataSet === 'B2B'">
+      <!--<li class="menu-title">Navigation</li>-->
+      <li class="active d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('dashboard')"
+          data-tooltip="Dashboard"
+          [ngClass]="{ activeElement: elementName == 'dashboard' }"
+        >
+          <i class="mdi mdi-airplay"></i>
+        </a>
+      </li>
+
+      <!-- <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('contacts')"
+          data-tooltip="Favourite Contacts"
+          [ngClass]="{ activeElement: elementName == 'contacts' }"
+        >
+          <i class="mdi mdi-heart-multiple-outline"></i>
+        </a>
+      </li> -->
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('freecredits')"
+          data-tooltip="Free Credits"
+          [ngClass]="{ activeElement: elementName == 'freecredits' }"
+        >
+          <i class="mdi mdi-gift"></i>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('pricing')"
+          data-tooltip="Subscription"
+          [ngClass]="{ activeElement: elementName == 'pricing' }"
+        >
+          <i class="mdi mdi-settings-outline"></i>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('company_search')"
+          data-tooltip="Company
+          Search"
+          [ngClass]="{ activeElement: elementName == 'company_search' }"
+        >
+          <i class="ti-world"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('idealprofile')"
+          data-tooltip="Ideal Customer Profile"
+          [ngClass]="{ activeElement: elementName == 'idealprofile' }"
+        >
+          <i class="ti-id-badge"></i>
+        </a>
+      </li>
+      <!-- uncomment on final build -->
+      <!-- <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('b2b')"
+          data-tooltip="B2B"
+          [ngClass]="{ activeElement: elementName == 'b2b' }"
+        >
+          <i class="ti-search"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('b2b-list')"
+          data-tooltip="Lists"
+          [ngClass]="{ activeElement: elementName == 'b2b-list' }">
+          <i class="ti-list"></i>
+        </a>
+      </li> -->
+      <!-- uncomment on final build till here-->
+      <!-- <li class="active d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('dashboard')"
+          data-tooltip="Dashboard"
+          [ngClass]="{ activeElement: elementName == 'dashboard' }"
+        >
+          <i class="mdi mdi-airplay"></i><span>Dashboard</span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('contacts')"
+          data-tooltip="Favourite Contacts"
+          [ngClass]="{ activeElement: elementName == 'contacts' }"
+        >
+          <i class="mdi mdi-heart-multiple-outline"></i
+          ><span>Favourite Contacts</span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('freecredits')"
+          data-tooltip="Free Credits"
+          [ngClass]="{ activeElement: elementName == 'freecredits' }"
+        >
+          <i class="mdi mdi-gift"></i> <span>Free Credits </span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('pricing')"
+          data-tooltip="Subscription"
+          [ngClass]="{ activeElement: elementName == 'pricing' }"
+        >
+          <i class="mdi mdi-settings-outline"></i> <span>Subscription </span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('company_search')"
+          data-tooltip="Company Search"
+          [ngClass]="{ activeElement: elementName == 'company_search' }"
+        >
+          <i class="ti-world"></i> <span>Company Search </span>
+        </a>
+      </li>
+
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('b2b')"
+          data-tooltip="Company Search"
+          [ngClass]="{ activeElement: elementName == 'b2b' }"
+        >
+          <i class="ti-world"></i> <span>B2B </span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a class="link tooltip-right" (click)="openItem('b2b-list')" data-tooltip="Lists" [ngClass]="{'activeElement': elementName=='b2b-list'}">
+            <i class="ti-list"></i> <span>List </span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('idealprofile')"
+          data-tooltip="Ideal Customer Profile"
+          [ngClass]="{ activeElement: elementName == 'idealprofile' }"
+        >
+          <i class="ti-id-badge"></i> <span>Ideal Customer Profile </span>
+        </a>
+      </li> -->
+    </ul>
+
+    <ul class="metismenu" id="side-menu" *ngIf="dataSet !== 'B2B'">
+      <li class="active d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('hcdashboard')"
+          data-tooltip="Dashboard"
+          [ngClass]="{ activeElement: elementName == 'hcdashboard' }"
+        >
+          <i class="mdi mdi-airplay"></i>
+        </a>
+      </li>
+
+      <!-- <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('contacts')"
+          data-tooltip="Favourite Contacts"
+          [ngClass]="{ activeElement: elementName == 'contacts' }"
+        >
+          <i class="mdi mdi-heart-multiple-outline"></i>
+        </a>
+      </li> -->
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('freecredits')"
+          data-tooltip="Free Credits"
+          [ngClass]="{ activeElement: elementName == 'freecredits' }"
+        >
+          <i class="mdi mdi-gift"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block" *ngIf="isSpecialityUser == true">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('mytab')"
+          data-tooltip="My Data"
+          [ngClass]="{ activeElement: elementName == 'mytab' }"
+        >
+        <i class="fa fa-database"></i> <span>My Data</span>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('pricing')"
+          data-tooltip="Subscription"
+          [ngClass]="{ activeElement: elementName == 'pricing' }"
+        >
+          <i class="mdi mdi-settings-outline"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('physician')"
+          data-tooltip="Physician"
+          [ngClass]="{ activeElement: elementName == 'physician' }"
+        >
+          <i class="fa fa-user-md"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('hospital')"
+          data-tooltip="Hospital"
+          [ngClass]="{ activeElement: elementName == 'hospital' }"
+        >
+          <i class="fa fa-hospital-o"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('executive')"
+          data-tooltip="Executive"
+          [ngClass]="{ activeElement: elementName == 'executive' }"
+        >
+          <i class="fa fa-user-circle"></i><span></span>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('imaging')"
+          data-tooltip="Imaging"
+          [ngClass]="{ activeElement: elementName == 'imaging' }"
+        >
+          <!-- <i class="fa fa-bolt"></i> -->
+          <mat-icon>
+            filter_frames
+          </mat-icon>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('ltc')"
+          data-tooltip="LTC"
+          [ngClass]="{ activeElement: elementName == 'ltc' }"
+        >
+        <mat-icon>
+          accessible
+        </mat-icon>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('lists')"
+          data-tooltip="Lists"
+          [ngClass]="{ activeElement: elementName == 'lists' }"
+        >
+          <i class="mdi mdi-format-list-bulleted"></i>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('geneateapi')"
+          data-tooltip="Generate Api Key"
+          [ngClass]="{ activeElement: elementName == 'apis' }"
+        >
+          <i class="fa fa-code"></i>
+        </a>
+      </li>
+
+      <!-- <li class="active d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('hcdashboard')"
+          data-tooltip="Dashboard"
+          [ngClass]="{ activeElement: elementName == 'dashboard' }"
+        >
+          <i class="mdi mdi-airplay"></i><span>Dashboard</span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('contacts')"
+          data-tooltip="Favourite Contacts"
+          [ngClass]="{ activeElement: elementName == 'contacts' }"
+        >
+          <i class="mdi mdi-heart-multiple-outline"></i
+          ><span>Favourite Contacts</span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('freecredits')"
+          data-tooltip="Free Credits"
+          [ngClass]="{ activeElement: elementName == 'freecredits' }"
+        >
+          <i class="mdi mdi-gift"></i> <span>Free Credits </span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('mytab')"
+          data-tooltip="Physician"
+          [ngClass]="{ activeElement: elementName == 'mytab' }"
+        >
+          <i class="fa fa-user-md"></i> <span>My Data</span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('physician')"
+          data-tooltip="Physician"
+          [ngClass]="{ activeElement: elementName == 'physician' }"
+        >
+          <i class="fa fa-user-md"></i> <span>Physician</span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('hospital')"
+          data-tooltip="Hospital"
+          [ngClass]="{ activeElement: elementName == 'hospital' }"
+        >
+          <i class="fa fa-hospital-o"></i><span>Hospital</span>
+        </a>
+      </li>
+      <li class="d-block d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('executive')"
+          data-tooltip="Executive"
+          [ngClass]="{ activeElement: elementName == 'executive' }"
+        >
+          <i class="fa fa-user"></i><span>Executive</span>
+        </a>
+      </li>
+      <li class="d-none d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('lists')"
+          data-tooltip="Lists"
+          [ngClass]="{ activeElement: elementName == 'lists' }"
+        >
+          <i class="mdi mdi-format-list-bulleted"></i>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-none">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('geneateapi')"
+          data-tooltip="Generate Api Key"
+          [ngClass]="{ activeElement: elementName == 'apis' }"
+        >
+          <i class="fa fa-code"></i>
+        </a>
+      </li> -->
+    </ul>
+  </div>
+  <!-- Sidebar -->
+  <div class="clearfix"></div>
+</div>

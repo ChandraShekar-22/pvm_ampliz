@@ -1,0 +1,91 @@
+<div class="physican_container card-animate">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 "
+        [ngClass]="smallResolution?'col-md-8':'col-md-9'"
+        >
+          <div class="physician_card">
+            <!-- <div class="form-check">
+              <input
+                *ngIf="!checkboxDisabled&&isSubscribed"
+                [(ngModel)]="checkboxSelected"
+                (change)="handleCheckboxChange($event)"
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                [disabled]="!isSubscribed"
+              />
+              <div *ngIf="checkboxDisabled" class="form-check-input partiallySelected">
+                <div class=" insideContent">
+                </div>
+              </div>
+            </div> -->
+           
+            <div class="physician_content ml-3">
+              <h5
+                class="physician_name"
+                (click)="onImagingNameClicked(imagingInfo)"
+              >
+                {{ imagingInfo?.centerName }}
+              </h5>
+              <div class="physician_info">
+                <span
+                  class="physican_location"
+                  ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i
+                  >{{ location }}</span
+                >
+              </div>
+              <!------------>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12"
+        [ngClass]="smallResolution?'col-md-4':'col-md-3'"
+        >
+          <div class="physican_additionInfo">
+  
+            <ng-container *ngIf="imagingInfo.web_Address!=null &&imagingInfo.web_Address!=''">
+              <span>
+                <!-- <i class="fa fa-globe" aria-hidden="true"></i> -->
+                <i-feather
+                name="Globe"
+                class="imgCardIcon mr-2"
+                ></i-feather>
+                <a [href]="imagingInfo.web_Address" class="physican_email" target="_blank">
+                    View Website
+                </a>
+              </span>
+            </ng-container>
+
+            <ng-container *ngIf="imagingInfo.noOfExecutive!=null && imagingInfo.noOfExecutive">
+                <span (click)="doSearchImaging('company',imagingInfo.centerName)">
+                    <i class="ml-1 fa fa-user" aria-hidden="true"  ></i>
+                  <a class="physican_email" >
+                      {{imagingInfo.noOfExecutive}} Executive{{imagingInfo.noOfExecutive<=1?'':'s'}}
+                  </a>
+                </span>
+              </ng-container>
+            <ng-container *ngIf="imagingInfo.phoneNumber.length>0&&imagingInfo.phoneNumber != null">
+              <span class="physican_phone">
+                <i class="ml-1 fa fa-phone" aria-hidden="true"></i>
+                {{
+                    imagingInfo.phoneNumber
+                }}</span
+              >
+            </ng-container>
+            
+            <div class="flex1" style="flex:1;display: flex;"></div>
+            <div class="saveBtn_wrp imgCenterCard">
+              <app-imaging-not-correct
+              [notCorrectType]="'imaging-center'"
+              [notCorrectReasons]="notCorrectReasons"
+              [imagingId]="imagingInfo.imagingCenterId"></app-imaging-not-correct>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

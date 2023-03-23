@@ -1,0 +1,54 @@
+:host {
+    width: 25rem;
+}
+
+.searchQuota {
+    background-color: #f5f5f5;
+    min-height: 60px;
+    padding: 5px 20px;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex1 {
+    flex: 1;
+}
+
+.progressbar {
+    height:5px;
+    width:100%;
+    background-color:#ccc;
+    border-radius: 10px;
+    position: relative;
+}
+
+.progressLine {
+    position: absolute;
+    height: 5px;
+    border-radius: 10px;
+    width: 0px;
+    transition: width 1s;
+    max-width: 100%;
+}
+
+.searchQuotaTitle {
+    color: #000;
+    padding-top: 5px;
+    font-size: 14px;
+}
+
+.searchQuotaSub {
+    font-size: 12px;
+    color: #000;
+    font-weight: normal;
+    padding-top: 5px;
+}
+
+.searchIcon {
+    color: #000;
+    font-size: 20px;
+}

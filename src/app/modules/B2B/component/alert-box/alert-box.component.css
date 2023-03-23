@@ -1,0 +1,59 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+.main-box{
+  border-radius:8px;
+  /* border-left:#4BB543 5px solid; */
+  background-color: #ffff;
+  width: 550px;
+  height: 85px;
+  z-index: 1;
+  box-shadow: 8px 8px 8px 0px rgb(12 0 46 / 20%);
+  /* top: 25px; */
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position:fixed;
+  margin-right: 60px;
+  z-index: 9999;
+  transition: top 0.5s ease 0s;;
+}
+
+.close-icon{
+  color: #0071EB;
+  margin-top: 15px;
+  float:right;
+  font-size: 15px;
+}
+
+.icon-box .icon{
+  background-color: rgba(75, 181, 67, 0.5);
+  border-radius: 60px;
+  padding: 5px;
+  color: green;
+  font-size: 20px;
+  float: left;
+}
+
+.error-border {
+  border-left:#FF9494ed 5px solid;
+}
+.success-border {
+  border-left:#4BB543 5px solid;
+}
+
+
+.icon-box .error-icon{
+  background-color: #FF9494;
+  border-radius: 60px;
+  padding: 5px;
+  color: red;
+  font-size: 20px;
+  float: left;
+}
+
+.success-text {
+  color: #4BB543;
+}
+
+.error-text {
+  color: red;
+}

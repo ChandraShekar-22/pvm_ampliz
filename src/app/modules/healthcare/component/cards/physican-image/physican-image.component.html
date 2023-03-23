@@ -1,0 +1,203 @@
+<div class="physican_container card-animate">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12"
+      [ngClass]="smallResolution?'col-md-8':'col-md-9'"
+      >
+        <div class="physician_card">
+          <!-- <div class="form-check " *ngIf="isPaid==true||isSpecialityUser==true"> -->
+            <div class="form-check">
+            <input 
+            *ngIf="!checkboxDisabled"
+            [disabled]="checkboxDisabled"
+            class="form-check-input" type="checkbox" 
+              id="flexCheckDefault" (change)="checkboxValueChange($event)"
+              [(ngModel)]="checkboxValue"
+              />
+              <div *ngIf="checkboxDisabled" class="form-check-input partiallySelected">
+                <div class=" insideContent">
+                </div>
+              </div>
+          </div>
+          <div class="physician_imgContainer">
+            <img
+              [src]="
+                physicianData.gender === 'M'
+                  ? 'assets/images/doctor-M.png'
+                  : physicianData.gender === 'F'
+                  ? 'assets/images/Doctor-F.png'
+                  : 'assets/img/Physician-hc.png'
+              "
+              width="100%"
+              class="p-2"
+              *ngIf="physicianData.physicianId"
+            />
+            <img
+              [src]="
+                physicianData.gender === 'M'
+                  ? 'assets/images/Executive-M.png'
+                  : physicianData.gender === 'F'
+                  ? 'assets/images/Execuitve-F.png'
+                  : 'assets/img/Executive-hc.png'
+              "
+              width="100%"
+              class="p-2"
+              *ngIf="physicianData.executiveId"
+            />
+          </div>
+
+          <div class="physician_content">
+            <h5
+              class="physician_name"
+              (click)="onPhysicianNameClicked(physicianData)"
+            >
+              {{ physicianData.fullName }}
+            </h5>
+            <div class="physician_info">
+              <span>{{ physicianData.specialty }}</span>
+              <span
+                class="physican_location"
+                [style.paddingLeft]="physicianData.executiveId ? '0px' : '15px'"
+                ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i
+                >{{ physicianData.city
+                }}{{ ",
+              " + physicianData.state
+                }}{{ ", " + physicianData.country }}</span
+              >
+            </div>
+            <div class="physician_hospital">
+              <i class="fa fa-hospital-o pr-2" aria-hidden="true"></i>
+              <span
+                class="clickable"
+                (click)="goToHospital(physicianData.hospitalId)"
+                *ngIf="physicianData.showHospitalLink"
+                >{{ physicianData.hospitalName }}</span
+              >
+              <span
+                style="color: #999; cursor: text"
+                *ngIf="physicianData.showHospitalLink == false"
+                >{{ physicianData.hospitalName }}</span
+              >
+            </div>
+            <div class="physician_info">
+              <span style="color: #999; cursor: text">{{
+                physicianData.title
+              }}</span>
+            </div>
+            <!-- <div class="physician_hospital" *ngIf="physicianData.executiveId">
+            <i class="fa fa-hospital-o  pr-2" aria-hidden="true"></i>
+            <span
+              class="clickable"
+              (click)="goToHospital(physicianData.hospitalId)"
+              >{{ physicianData.hospitalName }}</span
+            >
+
+          </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12"
+      [ngClass]="smallResolution?'col-md-4':'col-md-3'"
+      >
+        <div class="physican_additionInfo">
+          <ng-container *ngIf="physicianData.email.length > 0 && !isRequestEmail">
+            <span *ngFor="let email of physicianData.email">
+              <i
+                class="fa fa-envelope-o"
+                aria-hidden="true"
+                ></i>
+                <!-- *ngIf="email !== '' && email.length !== 1" -->
+              <a
+                [href]="'mailto:' + email"
+                class="physican_email"
+                *ngIf="physicianData.inSavedList !== false"
+                >{{ email }}</a
+              >
+              <span
+                class="disabled font-weight-normal font-13"
+                *ngIf="physicianData.inSavedList == false"
+                >{{ email }}</span
+              >
+            </span>
+          </ng-container>
+
+          <!-- If no email found -->
+          <ng-container *ngIf="isRequestEmail && !showReqesutButton">
+            <span>
+              <i
+                class="fa fa-envelope-o"
+                aria-hidden="true"
+                ></i>
+                <!-- *ngIf="email !== '' && email.length !== 1" -->
+               <span
+                class="disabled font-weight-normal font-13 requestInfo"
+                (click)="request('Request Email Access', physicianData.physicianId)"
+                >Request email</span
+              >
+            </span>
+          </ng-container>
+
+          <ng-container *ngIf="physicianData.phoneNumber.length > 0">
+            <span
+              class="physican_phone"
+              *ngFor="let phone of physicianData.phoneNumber"
+            >
+              <i
+                class="fa fa-phone"
+                aria-hidden="true"
+                *ngIf="phone !== '' && phone.length !== 1"
+              ></i
+              >{{ phone }}</span
+            >
+          </ng-container>
+        
+          <div class="saveBtn_wrp" *ngIf="!(isSpecialityUser === true && isPhysician==true) && showReqesutButton==false">
+            <button
+              class="physician_save"
+              (click)="handleSaveButton()"
+              *ngIf="showSaveButton"
+            >
+              <span *ngIf="!showButtonLoader">
+                {{saveButtonText}}
+              </span>
+                <app-circle-loader
+                [radius]="13"
+                *ngIf="showButtonLoader"></app-circle-loader>
+            </button>
+            <span class="notCorrect" (click)="notCorrectDrawer = true"
+              >Not correct</span
+            >
+          </div>
+          <!-- Request Contact Button -->
+          <div class="saveBtn_wrp" *ngIf="!(isSpecialityUser === true && isPhysician==true) && (showReqesutButton==true)">
+            <button
+              class="physician_save"
+              (click)="request('Request Email Access', physicianData.physicianId)"
+            >
+              <span>
+                Request Contact
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-savelist
+  [saveListDiv]="saveDrawer"
+  [physicianId]="physicianData.physicianId"
+  [executiveId]="physicianData.executiveId"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  (refreshedData)="refreshedData($event)"
+  [currentCredit]="currentCredit"
+  *ngIf="saveDrawer"
+></app-savelist>
+<app-notcorrect
+  [notCorrectDiv]="notCorrectDrawer"
+  [physicianId]="physicianData.physicianId"
+  [physicianName]="physicianData.fullName"
+  [executiveId]="physicianData.executiveId"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  *ngIf="notCorrectDrawer"
+></app-notcorrect>

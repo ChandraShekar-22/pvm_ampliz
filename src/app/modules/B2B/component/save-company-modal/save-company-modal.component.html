@@ -1,0 +1,46 @@
+<div>
+    <div mat-button [matMenuTriggerFor]="menu" class="searchButton primaryBtn">
+      {{title}}
+    </div>
+    <mat-menu #menu="matMenu" xPosition="after">
+      <div class="flex-row mx-3 mt-2">
+        <div class="flex1">
+          <mat-icon (click)="handleCreateNewPress($event)" *ngIf="showCreateNew==true" class="matrl-plus">chevron_left</mat-icon>
+        </div>
+        <mat-icon class="matrl-plus">close</mat-icon>
+      </div>
+      <div [@enterAnimation] *ngIf="showCreateNew==false" class="menuWrapper">
+        <div class="my-3 menuTitle">
+          <span class="primary">{{selectedItems.length}} selected </span>company save in
+        </div>
+        <mat-form-field class="matForm" appearance="outline" (click)="$event.stopPropagation()">
+          <mat-label>Select an option</mat-label>
+          <mat-select [(ngModel)]="selectedList">
+            <mat-option *ngFor="let apac of apacList" [value]="apac">{{apac.listName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="flex-row" style="justify-content: flex-end;">
+          <div class="primary createBtn" (click)="handleCreateNewPress($event)" >Create new list</div>
+          <div (click)="addCompanyToList($event)" class="saveButton" style="margin-left: 10px;">
+            save
+          </div>
+        </div>
+      </div>
+
+      <div [@leaveAnimation] *ngIf="showCreateNew==true" class="menuWrapper">
+        <div class="my-3 menuTitle">
+          Create new list
+        </div>
+        <mat-form-field class="matForm" appearance="outline" (click)="$event.stopPropagation()">
+          <mat-label>Enter list name</mat-label>
+          <input [(ngModel)]="listName" matInput placeholder="Enter list name">
+        </mat-form-field>
+        <div class="flex-row" style="justify-content: flex-end;">
+          <div class="primary createBtn" (click)="handleCreateNewPress($event)" >Cancel</div>
+          <div class="searchButton" (click)="createB2bApackList($event)" style="margin-left: 10px;">
+            Create
+          </div>
+        </div>
+      </div>
+    </mat-menu>
+  </div>

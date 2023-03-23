@@ -1,0 +1,107 @@
+<div class="search-container float-left">
+  <div *ngIf="letSearch" class="search-Input-container">
+    <label class="search-input-label">
+      <i
+        class="fa fa-search mr-1"
+        aria-hidden="true"
+        style="font-size: 22px !important; color: #696969"
+      ></i>
+      <input
+        class="search-input"
+        (ngModelChange)="getB2BSearchData($event)"
+        [ngModel]="searchVal"
+        placeholder="Search for contact and company"
+        style="font-size: 17px !important; color: #a4a4a4"
+      />
+      <i
+        *ngIf="searchVal"
+        class="fa fa-times clearBtn"
+        aria-hidden="true"
+        (click)="hideModel($event)"
+      ></i>
+    </label>
+  </div>
+
+  <div *ngIf="modelState" class="search-result-conntainer">
+    <ul class="search-result-block">
+      <li *ngIf="searchState.companyList.length" class="block-col">
+        <h2 class="search-heading">
+          <span class="border5">{{ "company" | uppercase }}</span>
+        </h2>
+        <ul>
+          <li *ngFor="let item of searchState.companyList">
+            <div
+              class="physician_imgContainer"
+              [ngClass]="{
+                'with-border':
+                  item?.companyLogo === '' || item?.companyLogo === undefined
+              }"
+            >
+              <img
+                [src]="item?.companyLogo"
+                class="physician_img"
+                [ngClass]="{ 'img-empty-avatar': item?.companyLogo === '' }"
+                *ngIf="
+                  item?.companyLogo !== '' && item?.companyLogo !== undefined
+                "
+              />
+              <mat-icon
+                *ngIf="
+                  item?.companyLogo === '' || item?.companyLogo == undefined
+                "
+                aria-hidden="false"
+                aria-label="business icon"
+                class="mat"
+                >business</mat-icon
+              >
+            </div>
+            <span
+              class="list-label srch_font"
+              innerHTML="{{ item.companyName | texthighlight: searchVal }}"
+            ></span>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="searchState.contactList.length" class="block-col">
+        <h2 class="search-heading">
+          <span>{{ "contact" | uppercase }}</span>
+        </h2>
+        <ul>
+          <li class="list-text" *ngFor="let item of searchState.contactList">
+            <div
+              class="physician_imgContainer"
+              [ngClass]="{
+                'with-border':
+                  item?.imageUrl === '' || item?.imageUrl === undefined
+              }"
+            >
+              <img
+                [src]="item?.imageUrl"
+                class="physician_img"
+                [ngClass]="{ 'img-empty-avatar': item?.imageUrl === '' }"
+                *ngIf="item?.imageUrl !== '' && item?.imageUrl !== undefined"
+              />
+              <i-feather
+                name="User"
+                class="feather"
+                *ngIf="item?.imageUrl === '' || item?.imageUrl == undefined"
+              ></i-feather>
+            </div>
+            <span
+              class="list-label srch_font"
+              innerHTML="{{ item.contactName | texthighlight: searchVal }}"
+            ></span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- <div class="text-center mt-2" *ngIf="searchState.savedList.length === 0 && searchState.hospitalList.length === 0 && searchState.physicianList.length === 0 && searchState.healthExecuticeList.length === 0">Sorry, No result found !!!</div> -->
+  </div>
+</div>
+
+<div
+  *ngIf="modelState"
+  class="search-overlay"
+  (click)="outsideClickHandler()"
+></div>

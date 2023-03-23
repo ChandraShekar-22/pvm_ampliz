@@ -1,0 +1,24 @@
+
+.delete-btn {
+  background: #0071eb;
+  border: none;
+  border-radius: 50px;
+  padding: 5px 10px;
+  color: white;
+  margin-right: 5px;
+  font-size: 12px;
+  border: 1px solid #0071eb;
+  cursor: pointer;
+}
+.cancel-btn {
+  color: black;
+  border: none;
+  background: transparent;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.delete-message {
+  font-size: 14px;
+  font-weight: 400;
+}

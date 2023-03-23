@@ -1,0 +1,143 @@
+<div id="wrapper">
+  <div class="row col people-wrapper">
+    <app-filter-company
+      (onFilterChange)="filterChanged($event)"
+    ></app-filter-company>
+    <div class="col" *ngIf="showLandingDashboard && searchQuotaUsed < 100">
+      <app-landing-dashboard></app-landing-dashboard>
+    </div>
+    <div
+      class="col-sm-7 activity-wrapper"
+      *ngIf="!showLandingDashboard && showActivityCards && !isSubscribed"
+    >
+      <app-activity-card
+        [showBackButton]="showActivityBack"
+        (closeClick)="showActivityCards = false; showActivityBack = false"
+      ></app-activity-card>
+    </div>
+    <div class="b2b-content" style="position: relative" *ngIf="showResult">
+      <div class="b2b-content-main">
+        <app-low-credit-card
+          *ngIf="lowCreditAlert"
+          (closeClicked)="lowCreditAlert = false"
+          (getFreeClicked)="openActivityComponents()"
+        ></app-low-credit-card>
+        <!-- <div [class.topBorder]="!lowCreditAlert" class="other-border"> -->
+          <app-top-tab
+            (selectAllChanged)="handleSelectAll($event)"
+            [allSelected]="selectedCompanies.length >= selectedFilter.count"
+            [partiallySelected]="
+              selectedCompanies.length < selectedFilter.count &&
+              selectedCompanies.length > 0
+            "
+            [haveCheckbox]="false"
+            [tabItems]="tabItems"
+            [isPrimary]="true"
+            [activeLink]="currentTab"
+            [showLoader]="showLoader"
+            [isBorder]="!lowCreditAlert"
+          >
+            <!-- save and export part start -->
+            <div class="flex1 flex-row" *ngIf="selectedCompanies.length > 0">
+              <app-save-company-modal
+                [selectedItems]="selectedCompanies"
+                title="Save +"
+              ></app-save-company-modal>
+              <div class="csvButton">
+                Export to CSV
+                <mat-icon style="font-size: 10px">download-outline</mat-icon>
+              </div>
+            </div>
+
+            <div class="opt mx-3">
+              <mat-form-field style="max-width: 50px">
+                <!-- <mat-label>Records</mat-label> -->
+                <mat-select
+                  [(ngModel)]="selectedFilter.count"
+                  (selectionChange)="handleRecordsChange()"
+                >
+                  <mat-option
+                    [value]="opt"
+                    *ngFor="let opt of pageNumberOptions"
+                    >{{ opt }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- save and export part end -->
+            <div class="paginationText">
+              {{ currentItemNumber + 1 }}
+              -
+              {{
+                currentItemNumber + selectedFilter.count < totalItemCount
+                  ? currentItemNumber + selectedFilter.count
+                  : totalItemCount
+              }}
+
+              of
+
+              {{ totalItemCount | numberWithCommas }}
+              company
+            </div>
+            <mat-icon
+              (click)="decrementPage()"
+              class="leftIcon"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              [ngClass]="decrementEnabled ? '' : 'disabled'"
+              >keyboard_arrow_left</mat-icon
+            >
+            <mat-icon
+              (click)="incrementPage()"
+              class="rightIcon"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              [ngClass]="incrementEnabled ? '' : 'disabled'"
+              >keyboard_arrow_right</mat-icon
+            >
+          </app-top-tab>
+          <div *ngIf="!showLoader && !showUpgradeCard">
+            <app-company-card
+              *ngFor="let company of companyList"
+              [companyInfo]="company"
+              (checkboxChange)="handleCheckboxChange($event, company)"
+              [checkboxSelected]="selectedCompanies.includes(company.companyId)"
+              (employeesSearched)="searchEmployee()"
+            ></app-company-card>
+          </div>
+          <div class="h-100" *ngIf="showUpgradeCard">
+            <app-upgrade *ngIf="!showLoader" type="b2b"></app-upgrade>
+          </div>
+          <app-b2b-loader *ngIf="showLoader" [loopCount]="10"></app-b2b-loader>
+        <!-- </div> -->
+      </div>
+    </div>
+    <div class="col h-100" *ngIf="noResult && !showActivityCards">
+      <app-no-result [searchParams]="selectedFilter"></app-no-result>
+    </div>
+    <div
+      class="col h-100"
+      *ngIf="
+        showLandingDashboard == false &&
+        isRecentVisible == true &&
+        searchQuotaUsed < 100 &&
+        !showActivityCards
+      "
+    >
+      <app-recent-search-page
+        *ngIf="isRecentVisible == true"
+      ></app-recent-search-page>
+    </div>
+    <div
+      class="col h-100"
+      *ngIf="
+        showLandingDashboard == false &&
+          isSaveVisible == true &&
+          searchQuotaUsed < 100!;
+        showActivityCards
+      "
+    >
+      <app-saved-search-page></app-saved-search-page>
+    </div>
+  </div>
+</div>

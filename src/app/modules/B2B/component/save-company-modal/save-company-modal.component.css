@@ -1,0 +1,72 @@
+.searchButton {
+  border: 1px solid #f2f2f2;
+  background: transparent;
+  outline: none;
+
+  border-radius: 25px;
+  padding: 5px 15px;
+  margin-right: 10px !important;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.saveButton {
+  border: 1px solid #f2f2f2;
+  background: transparent;
+  outline: none;
+  border-radius: 25px;
+  padding: 5px 15px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: normal;
+}
+.matForm {
+  font-size: 12px !important;
+}
+
+.primaryBtn {
+  color: #2d8cff;
+  border: 1px solid #2d8cff;
+}
+.b2b-content-main .mat-tab-label-active {
+  color: #2d8cff !important;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.primaryBtn {
+  color: #2d8cff !important;
+  border-color: #2d8cff !important;
+}
+
+.primary {
+  color: #2d8cff !important;
+}
+
+.menuWrapper {
+  padding: 10px 20px;
+}
+
+.createBtn {
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.menuTitle {
+  font-weight: normal;
+  color: #000 !important;
+}
+.matrl-plus {
+  cursor: pointer;
+  font-size: 18px;
+}

@@ -1,0 +1,356 @@
+.physican_container {
+  width: 99%;
+  min-height: 140px;
+  border-bottom: 2px solid #e2e4e7;
+  margin-top: 20px;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.physician_card {
+  display: flex;
+  flex-direction: row;
+  flex: 3;
+}
+
+.physician_content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 4px 30px;
+}
+
+.physician_name {
+  color: #090b0e !important;
+  margin: 0px;
+  padding: 0px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.physician_info {
+  color: #86888a;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+.company-domain {
+  color: #2d8cff !important;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.bottomChip {
+  background-color: #f2f8ff !important;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  /* margin-bottom: 5px; */
+  color: #0071eb !important;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  padding: 2px 5px;
+  align-items: center;
+  cursor: pointer;
+  min-height: 24px;
+  height: 1px;
+  font-size: 12px;
+  /* margin-top: 25px !important; */
+  font-weight: 300;
+}
+.moreButton {
+  margin: 0 5px;
+  margin-bottom: 5px;
+  color: #2e8cff !important;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  padding: 2px 5px;
+  align-items: center;
+  cursor: default;
+  min-height: 24px;
+  height: 1px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 25px !important;
+  margin-bottom: 20px !important;
+  font-weight: 300;
+}
+.physican_location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.physican_location img {
+  padding-right: 5px;
+}
+
+.physician_hospital {
+  color: #2d8cff;
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  font-weight: 400;
+  /* cursor: pointer; */
+}
+
+.physician_hospital img {
+  margin-right: 5px;
+}
+
+.physican_additionInfo {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0px;
+  flex-direction: column;
+  flex: 1;
+}
+
+.physican_additionInfo i {
+  padding-right: 15px;
+  color: #858789;
+}
+
+.physican_additionInfo > span {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.physican_email {
+  color: #2d8cff;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.physican_phone {
+  color: #86888a;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.saveBtn_wrp {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.physician_save {
+  border: 1px solid #2d8cff !important;
+  background: transparent;
+  outline: none;
+  color: #2d8cff;
+  border-radius: 15px !important;
+  padding: 5px 15px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.notCorrect {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 7px;
+  border-radius: 15px !important;
+}
+
+/* .physican_cancel {
+  background: transparent;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 0px 5px;
+  border: 0px solid #2d8cff;
+  color: #86888a;
+} */
+
+/* addon css start */
+
+.physician_imgContainer {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px !important;
+  margin-top: 5px;
+}
+.form-check {
+  border-radius: 12px !important;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+.physician_name {
+  color: #2d8cff;
+  margin: 0px;
+  padding: 0px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.physician_info {
+  color: #86888a;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  padding-top: 10px;
+}
+
+.physician_hospital {
+  color: #2d8cff;
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  font-weight: 400;
+  font-size: 13px !important;
+}
+
+.physican_location img {
+  padding-right: 5px;
+  height: 15px !important;
+}
+
+.physician_hospital img {
+  margin-right: 5px;
+  height: 14px !important;
+}
+
+.physican_email {
+  color: #2d8cff !important; 
+  font-weight: 400;
+  font-size: 13px !important;
+}
+
+.physican_phone {
+  color: #86888a;
+  font-weight: 400;
+  font-size: 13px !important;
+}
+
+.physician_save {
+  border: 1px solid #2d8cff;
+  background: transparent;
+  outline: none;
+  color: #2d8cff;
+  border-radius: 3px;
+  padding: 5px 15px;
+  margin-right: 10px !important;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.notCorrect {
+  cursor: pointer;
+  border: none;
+  padding: 7px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.saveBtn_wrp {
+  margin-top: 10px !important;
+}
+
+/* addon css end */
+
+.physician_hospital .fa-hospital-o {
+  color: #b5b5b5 !important;
+  font-size: 14px;
+}
+
+.physican_location .fa-map-marker {
+  color: #b5b5b5 !important;
+  font-size: 14px;
+}
+
+.card-animate {
+  animation-name: fadeInBottom;
+  animation-duration: 350ms;
+  animation-delay: calc(var(--animation-order) * 100ms);
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+.clickable {
+  cursor: pointer;
+}
+.filter-component .mat-basic-chip.selected {
+  background-color: #ebebeb;
+  border: 1px solid #a8a8a8;
+  color: #a8a8a8;
+}
+
+.filter-component div.selected {
+  margin-top: 5px;
+}
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+  }
+}
+.physician_img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  border: none;
+  padding: 0;
+}
+.physician_imgContainer {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  border: none;
+}
+img.img-empty-avatar {
+  width: 49px;
+  height: 49px;
+  border-radius: 0px;
+}
+.physician_imgContainer.with-border {
+  border: 1px solid #989292;
+}
+.physician_content .mat-chip-list {
+  margin-left: -1px;
+  padding: 10px 0px;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-disabled.bottomChip {
+  opacity: 1;
+}
+.mat {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  /* position: absolute; */
+  /* top: 24px; */
+}
+.employeeLocIcon {
+  margin-right: 6px;
+  height: 20px;
+  width: 15px
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media screen and (max-width: 1300px) {
+  .physician_content {
+    margin: 4px 10px !important;
+  }
+
+  .physician_imgContainer {
+    border: none;
+  }
+}

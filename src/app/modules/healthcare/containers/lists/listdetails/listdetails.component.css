@@ -1,0 +1,143 @@
+.backArrow {
+    font-size: 12px;
+    vertical-align: text-top;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.left-wrapper-details,
+.right-wrapper-filter {
+    border-radius: 3px;
+    border: 1px solid #eff1ef;
+    overflow: hidden;
+}
+
+.boxHeader {
+    padding: 22px;
+    background-color: #f4f7f6;
+    color: #595b5a;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.view-listName {
+    font-size: 15px;
+    color: #595b5a;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.PaginationWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.iconfont-size {
+    font-size: 15px!important;
+    padding-left: 5px;
+}
+
+
+/* .iconfont-size img {
+    width: 20px;
+} */
+
+.dropdown-menu {
+    min-width: 309px;
+    width: auto;
+    box-shadow: 0 0 8px 2px #ddd;
+    padding: 0 20px;
+}
+
+.csv-btn {
+    background-color: #f0f6ff !important;
+    border: 1px solid #2d8cff !important;
+    color: #2d8cff !important;
+    border-radius: 50px !important;
+    min-width: 0;
+    padding: 6px 13px;
+    font-size: 13px!important;
+}
+
+.textExport {
+    color: #302f2f;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.subTextExport {
+    color: #afb0b2;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.black {
+    color: #333;
+}
+
+.paginationInfo {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 19px 12px 0;
+    color: #838486;
+}
+
+.inputBoxWrapper {
+    width: 90%;
+    background: #fff;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.inputBoxWrapper input[type='text'] {
+    width: 76%;
+    border: none;
+    font-size: 20px;
+    color: #666;
+}
+
+.inputBoxWrapper input[type='text']:focus {
+    border: none;
+    outline: none;
+}
+
+.listLink {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ag-ltr .ag-row.ag-cell-last-left-pinned {
+    border-right: none !important;
+}
+
+.ag-cell-last-left-pinned.eCellfirst {
+    color: #333 !important;
+}
+
+.btn-export {
+    background-color: #2d8cff!important;
+    border: 1px solid #2d8cff !important;
+    color: #ffffff!important;
+    border-radius: 50px;
+    padding: 8px 20px 8px 20px !important;
+    box-shadow: 0px 5px 11px 0px rgb(92 162 255 / 17%);
+    font-size: 14px;
+}
+
+.deleteIcon-disabled {
+    background: #f1f1f1;
+    display: flex;
+    padding: 8px 10px;
+    vertical-align: middle;
+    border-radius: 5px;
+    cursor: not-allowed;
+}
+
+.deleteIcon-disabled .fa {
+    font-size: 16px;
+    color: #a5a5a5 !important;
+}
+
+
+/* .ag-ltr .ag-row.ag-cell-last-left-pinned, .ag-theme-material .ag-ltr .ag-cell.ag-cell-last-left-pinned */

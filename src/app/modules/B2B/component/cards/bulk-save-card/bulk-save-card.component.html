@@ -1,0 +1,25 @@
+<div class="flex-row bulkSaveCardCont">
+  <p class="selectedText mr-3">
+    <span class="count">
+      {{ allContactsSelected ? totalItemCount : selectedContacts.length }}
+    </span>
+    Contacts are selected
+  </p>
+  <p class="mr-3 clearText" (click)="handleClearPress()">Clear Selection</p>
+  <div class="flex-row flex1">
+    <app-save-contact-modal
+      (successfullyAdded)="handleContactAddList()"
+      title="Save"
+      [allContactsSelected]="allContactsSelected"
+      [selectedItems]="selectedContacts"
+      [totalItemCount]="totalItemCount"
+      [selectedFilter]="selectedFilter"
+    ></app-save-contact-modal>
+    <!-- <div class="searchButton" (click)="handleExportClick()">
+    Export CSV <i-feather
+    name="Download"
+    class="exportIcon"
+  ></i-feather>
+  </div> -->
+  </div>
+</div>

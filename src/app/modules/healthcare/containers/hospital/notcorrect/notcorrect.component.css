@@ -1,0 +1,27 @@
+.nameText {
+    color: #2d8cff;
+}
+
+.notCorrectWrap {
+    display:block;
+    padding:0 20px;
+    margin-top:10px;
+   
+}
+
+
+ .custom_container {
+    display: inline-block;
+    width: 50%;
+    font-size: 14px;
+    color: #4e4e4e;
+    font-weight: 500;
+    padding-bottom: 9px;
+}
+
+
+ .not-crct_header  {
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 500;
+}

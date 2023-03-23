@@ -1,0 +1,111 @@
+.rowwrapper {
+    padding: 0 60px;
+}
+.price-box-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    margin: 0 auto;
+    
+}
+.price-box-wrapper.starter {
+    border: 1px solid #354052;
+    /* box-shadow: 0 0 1px 1px #5b6572; */
+}
+
+.price-box-wrapper.enterprise {
+    border: 1px solid #348ffb;
+    /* box-shadow: 0 0 1px 1px #95c2f8; */
+}
+
+.price-header {
+    height: 120px;
+    border-radius: 10px 10px 0 0;
+    position:relative
+}
+.btn-pos-abs {
+    position:absolute;
+    bottom: -19px; 
+}
+
+.greybtn {
+    background-color :#354052 !important;
+    border:1px solid #354052 !important;
+}
+.price-box-wrapper.starter  .price-header {
+    background-color: #d4d6da;
+    
+}
+.price-box-wrapper.enterprise  .price-header {
+    background-color: #aad0fd;
+    
+}
+
+.details-points {
+    padding: 40px 50px;
+}
+
+.details-points  .heading  {
+    color: #000;
+    font-weight:normal;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.details-points ul.list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-weight: normal;
+   list-style-position: inside;
+
+}
+
+.details-points ul.list li {
+color: #77797b;
+font-size: 14px;
+font-weight: normal;
+list-style-position: inside;
+padding: 10px 0
+}
+
+li:before {
+    content: "\f058"; /* FontAwesome Unicode */
+    font-family: FontAwesome;
+    display: inline-block;
+    color: #354052;
+    margin-right: 10px;
+     /* same as padding-left set on li */
+    width: 1.3em; /* same as padding-left set on li */
+  }
+
+.plan-type {
+    font-size: 20px;
+    font-weight:bold;
+    color :#354052
+}
+
+.save-more {
+    font-size: 24px;
+    color:#354052;
+    display:block;
+}
+
+.with-good-plans {
+ font-size:30px;
+ color: #348ffb;
+ display:block;
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 480px) {
+}
+
+@media (max-width: 419px) {
+    .rowwrapper {
+        padding: 0 20px;
+    }
+}

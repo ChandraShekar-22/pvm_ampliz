@@ -1,0 +1,54 @@
+<div>
+  <div class="listBackdrop" *ngIf="savedSearchViewMore === true"></div>
+  <div
+    id="scrollingContainerViewMore"
+    class="createListWrapper"
+    [ngClass]="savedSearchViewMore === true ? 'slide-in' : 'slide-out'"
+    style="overflow-y: scroll;overflow-x: hidden;"
+  >
+  <div  *ngIf="datesList.length > 0 || loading">
+    <div class="topHeader">
+      <div class="row">
+        <div class="col flex1">
+          <div class="h5 text-grey mt-2 not-crct_header">Saved Searches</div>
+        </div>
+        <div>
+          <div class="float-end closeIcon">
+            <i
+              class="fa fas fa-window-close"
+              style="color: #c2c2c2"
+              (click)="cancelSaveDiv()"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <p class="detailText">Load and rename your searches</p>
+    </div>
+    </div>
+    <div>
+      <div *ngFor="let date of datesList" class="credit-container">
+        <div class="saveContact">{{ date | dateVal }}</div>
+        <app-viewmore-card
+          *ngFor="let searchData of dateWiseSearchList[date]"
+          [searchData]="searchData"
+          (searchDataPressed)="searchContact(searchData)"
+        ></app-viewmore-card>
+      </div>
+    </div>
+    <div *ngIf="datesList.length == 0 && loading == false">
+    <div class="topSection">
+        <div class="row">
+            <div class="col flex1">
+                <div class="h5 text-grey mt-2 not-crct_header"></div>
+            </div>
+            <div>
+                <div class="float-end closeIcon">
+                    <i class="fa fas fa-window-close" style="color: #c2c2c2;" (click)="cancelSaveDiv()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-saved-no-data></app-saved-no-data>
+    </div>
+  </div>
+</div>

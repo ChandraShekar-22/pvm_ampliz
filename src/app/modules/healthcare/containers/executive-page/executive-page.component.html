@@ -1,0 +1,258 @@
+<div id="wrapper">
+  <app-header [user]="" style="width: 100%"></app-header>
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+  <app-sidemenu elementName="executive"></app-sidemenu>
+  <div class="content-page">
+    <!-- Start content -->
+    <div class="content row">
+      <app-filter-executive
+        [leadWithEmail]="leadWithEmail"
+        [leadWithPhone]="leadWithPhone"
+        (onFilterChange)="filterChanged($event)"
+        [isSubscribed]="subscribed"
+      ></app-filter-executive>
+      <div class="executive-content" style="position: relative">
+        <app-skeleton-loader
+          *ngIf="showLoader"
+          [loopCount]="5"
+        ></app-skeleton-loader>
+        <div class="" >
+          <div class="executive-content-header" >
+            <div class="toggle-container ml-2">
+              <div class="form-check" *ngIf="totalSearchResult.length>0" >
+                <input *ngIf="showSaveAllCheckbox" class="form-check-input" type="checkbox" 
+                  id="flexCheckDefault" (change)="checkSelectAll($event.target.checked)"
+                  [checked]="selectedExecutiveInCurrentPage.length==totalSearchResult.length"
+                  [disabled]="!(isPaid==true||isSpecialityUser==true)"
+                  />
+                <div (click)="checkSelectAll(false)" *ngIf="showSaveAllPArtial" class="form-check-input partiallySelected">
+                  <div class=" insideContent">
+                  </div>
+                </div>
+              </div>
+              <div
+                class="toggle"
+                [ngClass]="tab === 1 ? 'active' : ''"
+                (click)="ngTab(1)"
+                
+              >
+                <span class="big-txt">{{ totalCount | numberWithCommas }}</span>
+                <span class="sm-txt">Total Result</span>
+              </div>
+
+              <div
+                class="toggle"
+                [ngClass]="tab === 2 ? 'active' : ''"
+                (click)="ngTab(2)"
+              >
+                <span class="big-txt">{{
+                  netNewCount | numberWithCommas
+                }}</span>
+                <div
+                  class="loading"
+                  *ngIf="!netNewCount || netNewCount === 0"
+                ></div>
+                <span class="sm-txt">Net New</span>
+              </div>
+              <div class="toggle">
+                <app-unlock></app-unlock>
+              </div>
+              <div class="toggle" *ngIf="selectedExecutive.length>0">
+              <app-save-executive-modal
+                [selectedItems]="selectedExecutive"
+                title="Save +"
+                (successfullyAdded)="selectedExecutive=[];selectedExecutiveInCurrentPage=[];getExecutiveSearchData()"
+                [filterParams]="bulkSaveParams"
+                ></app-save-executive-modal>
+              </div>
+              <!-- <div class="toggle" *ngIf="netNewCount == 0">
+                <div class="loading"></div>
+              </div> -->
+              
+            </div>
+            <div class="toggle-container">
+              <!-- <div
+                class="toggle">
+              <app-save-executive-modal></app-save-executive-modal>
+            </div>   -->
+              <div class="toggle width-auto">
+                <span class="text-grey font-13">Leads With Email</span>
+                <div class="onoffswitch">
+                  <input
+                    type="checkbox"
+                    name="onoffswitch"
+                    class="onoffswitch-checkbox"
+                    id="emailonoffswitch"
+                    tabindex="0"
+                    [(ngModel)]="leadWithEmail"
+                    (change)="handleChange(leadWithEmail, 'leadWithEmail')"
+                  />
+                  <label class="onoffswitch-label" for="emailonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="toggle width-auto">
+                <span class="text-grey font-13">Leads With Phone</span>
+                <div class="onoffswitch">
+                  <input
+                    type="checkbox"
+                    name="onoffswitch"
+                    class="onoffswitch-checkbox"
+                    id="phoneonoffswitch"
+                    tabindex="1"
+                    [(ngModel)]="leadWithPhone"
+                    (change)="handleChange(leadWithPhone, 'leadWithPhone')"
+                  />
+                  <label class="onoffswitch-label" for="phoneonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-skeleton-loader
+            *ngIf="showLoader"
+            [loopCount]="5"
+          ></app-skeleton-loader>
+          <div class="" *ngIf="unLockDiv == false">
+            <div class="executive-content-main" *ngIf="tab == 1">
+              <div *ngIf="totalSearchResult.length > 0">
+                <div *ngFor="let item of totalSearchResult; index as i">
+                  <app-physican-image
+                  [isPaid]="isPaid"
+                  [checkboxDisabled]="item.leadSaveStatus=='Saved'|| !(isPaid==true||isSpecialityUser==true)"
+                  [checkboxValue]="selectedExecutive.indexOf(item.executiveId)!==-1"
+                  (checkBoxChanged)="handleIndividualCheckboxChange($event, item)"
+                  [isPhysician]="false"
+                    [physicianData]="item"
+                    (DataRefreshed)="getExecutiveSearchData()"
+                    [currentCredit]="currentCredit"
+                    [dataIndex]="i"
+                  ></app-physican-image>
+                </div>
+              </div>
+            </div>
+
+            <div class="executive-content-main" *ngIf="tab == 2">
+              <div *ngIf="totalSearchResult.length > 0">
+                <div *ngFor="let item of totalSearchResult; index as i">
+                  <app-physican-image
+                  [isPaid]="isPaid"
+                  [checkboxDisabled]="item.leadSaveStatus=='Saved'|| !(isPaid==true||isSpecialityUser==true)"
+                  [checkboxValue]="selectedExecutive.indexOf(item.executiveId)!==-1"
+                  (checkBoxChanged)="handleIndividualCheckboxChange($event, item)"
+                  [isPhysician]="false"
+                    [physicianData]="item"
+                    (DataRefreshed)="getExecutiveSearchData()"
+                    [currentCredit]="currentCredit"
+                    [dataIndex]="i"
+                  ></app-physican-image>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="h-100" *ngIf="unLockDiv">
+            <app-upgrade></app-upgrade>
+          </div>
+
+        <div class="layout h-100" *ngIf="noResult">
+          <div
+            class="
+              d-flex
+              justify-content-center
+              align-items-center align-self-center
+              h-100
+              flex-column
+            "
+          >
+            <div class="text-center">
+              <img src="assets/img/Executive.png" width="30%" />
+            </div>
+            <h5 class="text-center pa-4">
+              No results found, Try to search again
+            </h5>
+          </div>
+        </div>
+
+          <div class="search_pagination_wrapper">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="paginationWrapper" >
+                  <div class="pull-left paginationInfo">
+                    {{ offset + 1 | numberWithCommas }} -
+                    {{
+                      (offset + limit > totalSize ? totalSize : limit + offset)
+                        | numberWithCommas
+                    }}
+                    of {{ totalSize | numberWithCommas }}
+                  </div>
+                  <ul
+                    *ngIf="pager.pages && pager.pages.length"
+                    class="pagination"
+                    style="float: left !important"
+                  >
+                    <!-- <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a *ngIf="pager.currentPage === 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                    <a (click)="setPage(1)" *ngIf="pager.currentPage !== 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                    </li> -->
+                    <li [ngClass]="{ disabled: pager.currentPage === 1 }">
+                      <a
+                        *ngIf="pager.currentPage === 1"
+                        style="border-radius: 5px 0 0 5px !important"
+                        ><i class="fa fa-chevron-left" aria-hidden="true"></i
+                      ></a>
+                      <a
+                        *ngIf="pager.currentPage !== 1"
+                        (click)="setPage(pager.currentPage - 1, true)"
+                        style="border-radius: 5px 0 0 5px !important"
+                        ><i class="fa fa fa-chevron-left" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <!-- <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="setPage(page)">{{page}}</a>
+                                    </li> -->
+                    <li
+                      [ngClass]="{
+                        disabled:
+                          pager.currentPage === pager.totalPages ||
+                          (pager.currentPage === 2 && subscribed === false)
+                      }"
+                    >
+                      <a
+                        *ngIf="pager.currentPage === pager.totalPages"
+                        style="border-radius: 0 5px 5px 0 !important"
+                        ><i class="fa fa-chevron-right" aria-hidden="true"></i
+                      ></a>
+                      <a
+                        *ngIf="pager.currentPage !== pager.totalPages"
+                        (click)="setPage(pager.currentPage + 1, false)"
+                        style="border-radius: 0 5px 5px 0 !important"
+                        ><i class="fa fa-chevron-right" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <li class="opt">
+                      <mat-form-field class="mx-3" style="max-width: 70px;" >
+                        <mat-label>count</mat-label>
+                        <mat-select [(ngModel)]="limit" (selectionChange)="handleRecordsChange()" >
+                          <mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{opt}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </li>
+                    <!-- <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                        <a *ngIf="pager.currentPage === pager.totalPages"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                    <a  *ngIf="pager.currentPage !== pager.totalPages" (click)="setPage(pager.totalPages)"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                    </li> -->
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12 p-0 m-0 pb-2 pt-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.requestContact {
+  cursor: pointer;
+  border: none;
+  border: 1px solid #2d8cff;
+  font-size: 12px;
+  font-weight: 400;
+  color: #2d8cff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.b2b_card {
+  border-radius: 30px;
+  padding: 5px 15px;
+}
+
+.healthcare_card {
+  border-radius: 3px;
+  padding: 7px;
+}

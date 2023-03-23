@@ -1,0 +1,412 @@
+<div id="wrapper">
+  <!-- Top Bar Start -->
+  <app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+
+  <app-sidemenu elementName="pricing"></app-sidemenu>
+  <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="p-0 text-center">
+              <div class="member-card">
+                <div class="">
+                  <!-- <h5 class="m-b-5 mt-3">Mark A. McKnight</h5> -->
+                  <!-- <p class="text-muted">@webdesigner</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+        <div class="m-t-30">
+          <ul class="nav nav-tabs tabs-bordered">
+            <li class="nav-item">
+              <a
+                href="#home-b1"
+                data-toggle="tab"
+                aria-expanded="false"
+                class="nav-link active"
+              >
+                Overview
+              </a>
+              <!-- </li>
+                        <li class="nav-item">
+                            <a href="#profile-b1" data-toggle="tab" aria-expanded="true" class="nav-link ">
+                                Billing
+                            </a>
+                        </li> -->
+            </li>
+
+            <li class="nav-item">
+              <a
+                href="#history-b1"
+                data-toggle="tab"
+                aria-expanded="true"
+                class="nav-link"
+              >
+                Billing History
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="home-b1">
+              <div class="row">
+                <div class="col-md-8">
+                  <!-- Personal-Information -->
+                  <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">
+                        Your Current Plan:
+                        <span *ngIf="subActive || usrsubactive">{{
+                          plan
+                        }}</span>
+                        <span *ngIf="!subActive">Basic </span>
+                      </h3>
+                    </div>
+                    <div class="panel-body">
+                      <div *ngIf="!oncancleActive" class="m-b-20">
+                        <!-- <strong>No Upcoming Bill</strong><br><br> -->
+                        <p class="font-16">
+                          <strong style="color: black">0</strong> credits used
+                          out of
+                          <strong style="color: black">0 </strong> credits
+                        </p>
+
+                        <!-- <p class="mt-3">You are on free plan, so you dont have any upcoming charges
+                                                </p> -->
+                      </div>
+                      <div *ngIf="!isActive && oncancleActive" class="m-b-20">
+                        <!-- <strong>No Upcoming Bill</strong><br><br> -->
+                        <p class="font-16">
+                          <strong style="color: black">
+                            {{ remainingCredit }}</strong
+                          >
+                          credits used out of
+                          <strong style="color: black"
+                            >{{ subscriptionsCredit }}
+                          </strong>
+                          credits
+                        </p>
+
+                        <!-- <p class="mt-3">You are on free plan, so you dont have any upcoming charges
+                                                </p> -->
+                      </div>
+                      <div *ngIf="isActive && oncancleActive" class="m-b-20">
+                        <p class="font-16">
+                          <strong style="color: black">
+                            {{ remainingCredit }}</strong
+                          >
+                          credits used out of
+                          <strong style="color: black"
+                            >{{ subscriptionsCredit }}
+                          </strong>
+                          credits
+                        </p>
+                      </div>
+                      <div class="mt-3">
+                        <!-- <h5 class="font-14 mb-3 text-uppercase m-t-30 m-b-20">Skills</h5> -->
+                        <div class="m-b-15">
+                          <!-- <div class="progress">
+                                                        <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                                            <span class="sr-only">50% Complete</span>
+                                                        </div>
+                                                    </div> -->
+                          <!-- <p>{{remainingCredit}} credits remaining on your selected plan</p> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Personal-Information -->
+                </div>
+                <div class="col-md-4">
+                  <!-- Personal-Information -->
+                  <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Billing Information</h3>
+                    </div>
+                    <div class="panel-body">
+                      <div
+                        *ngIf="!usrsubactive || !oncancleActive"
+                        class="m-b-20"
+                      >
+                        <strong>No Upcoming Bill</strong>
+                        <p class="mt-3">
+                          You are on free plan, so you dont have any upcoming
+                          charges
+                        </p>
+                      </div>
+
+                      <div
+                        *ngIf="usrsubactive && oncancleActive"
+                        class="m-b-20"
+                      >
+                        <strong
+                          >Your Selected Plan Amount : $ {{ amount }}</strong
+                        >
+                        <br /><br />
+                        <strong
+                          >Upcoming Bill:
+                          {{ nextbillingdate | date: "fullDate" }}</strong
+                        ><br />
+
+                        <p class="mt-3">
+                          You are in {{ SubscriptionName }} plan and you will be
+                          charged accordingly
+                        </p>
+                      </div>
+
+                      <div class="about-info-p m-b-0">
+                        <a
+                          (click)="openItem()"
+                          type="button"
+                          class="btn btn-primary m-t-10"
+                          >Change Plan</a
+                        >
+                        <button
+                          class="cancle_sub"
+                          *ngIf="usrsubactive"
+                          (click)="cancle()"
+                        >
+                          Cancel Plan
+                        </button>
+                        <!-- <a class=" cancle_sub" (click)="test()">Cancel test    </a>  -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Personal-Information -->
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="profile-b1">
+              <div class="row">
+                <div class="col-md-8">
+                  <!-- Personal-Information -->
+                  <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">
+                        Your Current Plan:
+                        <span *ngIf="subActive || usrsubactive">{{
+                          plan
+                        }}</span>
+                        <span *ngIf="!subActive">Basic </span>
+                      </h3>
+                    </div>
+                    <div class="panel-body">
+                      <strong>Your current plan details</strong>
+                      <div class="mt-3">
+                        <div class="m-b-15">
+                          <p>
+                            <strong>Includes:</strong>
+                            <span *ngIf="subActive"> 50 </span>
+                            <span *ngIf="!subActive"> 10 </span>Credits
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Personal-Information -->
+                </div>
+                <div class="col-md-4">
+                  <!-- Personal-Information -->
+                  <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Billing Information</h3>
+                    </div>
+                    <div class="panel-body">
+                      <div
+                        *ngIf="!usrsubactive || !oncancleActive"
+                        class="m-b-20"
+                      >
+                        <strong>No Upcoming Bill</strong>
+                        <p class="mt-3">
+                          You are on free plan, so you dont have any upcoming
+                          charges
+                        </p>
+                      </div>
+
+                      <div *ngIf="isActive && oncancleActive" class="m-b-20">
+                        <strong
+                          >Your Selected Plan Amount : $ {{ amount }}</strong
+                        >
+                        <strong
+                          >Upcoming Bill:
+                          {{ nextbillingdate | date: "fullDate" }}</strong
+                        ><br />
+
+                        <p class="mt-3">
+                          You are in {{ SubscriptionName }} plan and you will be
+                          charged accordingly
+                        </p>
+                      </div>
+
+                      <div class="about-info-p m-b-0">
+                        <a
+                          routerLink="/payment"
+                          type="button"
+                          class="btn btn-primary m-t-10"
+                          >Change Plan</a
+                        >
+                        <button
+                          class="cancle_sub"
+                          *ngIf="usrsubactive"
+                          (click)="cancle()"
+                        >
+                          Cancel Plan {{ isActive }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Personal-Information -->
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="history-b1">
+              <div class="row">
+                <div class="col-md-8">
+                  <!-- Personal-Information -->
+                  <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">
+                        Your Current Plan:
+                        <span *ngIf="subActive || usrsubactive">{{
+                          plan
+                        }}</span>
+                        <span *ngIf="!subActive">Basic </span>
+                      </h3>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table m-t-30">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Transaction</th>
+                            <th>Amount</th>
+                            <!-- <th>Reason</th> -->
+                            <!-- <th class="text-right">Action</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="let item of billing_history; let i = index"
+                          >
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              <b>AMPLIZTRAN00000{{ i + 1 }} </b> <br />
+                              {{ item.plan_name }} Plan ,
+                              <span
+                                *ngIf="
+                                  item.event_type ===
+                                  'A billing agreement was activated.'
+                                "
+                              >
+                                Auto Renew</span
+                              ><br />
+                              {{ item.status_update_time | date: "fullDate" }}
+                            </td>
+                            <td>$ {{ item.amount }}</td>
+                            <!-- <td>{{item.event_type}}</td> -->
+                            <!-- <td>{{item.start_time | date}}</td> -->
+                          </tr>
+                          <!-- <tr>
+                                                        <td>1</td>
+                                                        <td>
+                                                            <b class="color-blue">TRAN000001</b> <br> Yearly Plan (100 Credits/Month) <br> Thu ,August 10,2020 ,12:30 PM
+                                                        </td>
+                                                        <td><b>$480</b> </td>
+                                                        <td class="text-right"><button type="button" class="btn btn-default">View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>
+                                                            <b class="color-blue">TRAN000001</b> <br> Yearly Plan (100 Credits/Month) <br> Thu ,July 10,2020 ,12:30 PM
+                                                        </td>
+                                                        <td><b>$480</b></td>
+                                                        <td class="text-right"><button type="button" class="btn btn-default">View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>
+                                                            <b class="color-blue">TRAN000003</b> <br> Monthly Plan (100 Credits/Month)<br> Thu ,June 10,2020 ,12:30 PM
+                                                        </td>
+
+                                                        <td><b>$50</b></td>
+                                                        <td class="text-right"><button type="button" class="btn btn-default">View</button></td>
+                                                    </tr> -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- Personal-Information -->
+                </div>
+                <div class="col-md-4">
+                  <!-- Personal-Information -->
+                  <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Billing Information</h3>
+                    </div>
+                    <div class="panel-body">
+                      <div
+                        *ngIf="!usrsubactive || !oncancleActive"
+                        class="m-b-20"
+                      >
+                        <strong>No Upcoming Bill</strong>
+                        <p class="mt-3">
+                          You are on free plan, so you dont have any upcoming
+                          charges
+                        </p>
+                      </div>
+
+                      <div *ngIf="isActive && oncancleActive" class="m-b-20">
+                        <strong
+                          >Your Selected Plan Amount : $ {{ amount }}</strong
+                        >
+                        <br />
+                        <br />
+                        <strong
+                          >Upcoming Bill:
+                          {{ nextbillingdate | date: "fullDate" }}</strong
+                        ><br />
+
+                        <p class="mt-3">
+                          You are in {{ SubscriptionName }} plan and you will be
+                          charged accordingly
+                        </p>
+                      </div>
+
+                      <div class="about-info-p m-b-0">
+                        <a
+                          (click)="openItem()"
+                          type="button"
+                          class="btn btn-primary m-t-10"
+                          >Change Plan</a
+                        >
+                        <button
+                          class="cancle_sub"
+                          *ngIf="usrsubactive"
+                          (click)="cancle()"
+                        >
+                          Cancel Plan
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Personal-Information -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- container -->
+    </div>
+    <!-- content -->
+  </div>
+
+  <app-footer></app-footer>
+</div>
+
+<!-- main app container -->

@@ -1,0 +1,10 @@
+.icon-wrapper {
+margin-left: 36px;
+}
+.deleteIcon {
+  background: #ddd;
+  display: flex;
+  padding: 5px 10px;
+  vertical-align: middle;
+  border-radius: 5px;
+}

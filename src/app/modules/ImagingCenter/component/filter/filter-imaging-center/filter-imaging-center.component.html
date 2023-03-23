@@ -1,0 +1,35 @@
+<div class="card column filter-component" style="width: 23rem">
+    <div class="image-filter">
+        <div class="flex-row filter-header">
+            <div>
+                <h6 class="card-title titleCardStyle">Showing results for</h6>
+            </div>
+            <div class="searchButton primary" [ngClass]="filterData.validateImagingSearch()?'primaryBtn':''"
+                (click)="clearFilter()">
+                <span>
+                    Clear
+                </span>
+            </div>
+        </div>
+        <mat-accordion>
+            <app-individual-filter #companyAuto (valueChanges)="companyValueChanges($event)" [totalItems]="companyList"
+                [(includedItems)]="filterData.centerName" (includedItemsChange)="omitChanges()"
+                includePlaceholder="Center" title="Center name"></app-individual-filter>
+
+           
+            <app-individual-filter #noOfImgEqListMulti type="singleselectnumber"
+                [totalItems]="numberOfImagingEquipmentList" [(includedItems)]="filterData.noOfEqupment"
+                (includedItemsChange)="omitChanges()" includePlaceholder="No. of imaging equipments"
+                title="Imaging equipments" [disabled]="!isSubscribed">
+            </app-individual-filter>
+
+            <div class="location">
+                <app-individual-location-filter [countryList]="countryList"
+                    (locationValueChanged)="hanldeLocationValueChange($event)" [disabled]="!isSubscribed"
+                    [selectedStatesFromFilter]="filterData.stateList" [selectedCitiesFromFilter]="filterData.cityList">
+
+                </app-individual-location-filter>
+            </div>
+        </mat-accordion>
+    </div>
+</div>

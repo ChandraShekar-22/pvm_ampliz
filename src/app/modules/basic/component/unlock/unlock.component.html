@@ -1,0 +1,22 @@
+<span>
+    <button
+    *ngIf="isSpecialityUser"
+    type="button" class="btn btn-yellow" [disabled]="filteredKeys.length==0" (click)="openModal(mytemplate)" type="" mat-raised-button
+        matTooltip="Unlock">Unlock</button>
+</span>
+
+<ng-template #mytemplate>
+    <!-- <h1 mat-dialog-title>Unlock</h1> -->
+    <div *ngFor="let key of filteredKeys">
+        <span class="searchData">
+            {{key+':'}}<span class="searchChip">{{selectedSearchData[key]}}</span>
+        </span>
+    </div>
+    <div mat-dialog-actions class="mt-5">
+        <span class="notCorrect" mat-dialog-close>Close</span>
+        <span class="btn-blue-bordered" mat-dialog-close
+        (click)="requestSearch()"
+        >Confirm</span>
+
+    </div>
+</ng-template>

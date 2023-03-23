@@ -1,0 +1,93 @@
+<div class="search-container float-left">
+
+    <div *ngIf="showSearch" class="search-Input-container">
+        <label class="search-input-label">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input class="search-input" (ngModelChange)="getSearchData($event)" [ngModel]="searchVal"
+                placeholder="Search for Physician Name, Hospital Name and Executive Name" />
+            <i *ngIf="searchVal" class="fa fa-times clearBtn" aria-hidden="true" (click)="hideModel($event)"></i>
+        </label>
+    </div>
+
+    <div *ngIf="modelState" class="search-result-conntainer">
+        <ul class="search-result-block">
+
+            <li *ngIf="searchState.healthExecuticeList.length" class="block-col">
+                <h2 class="search-heading"><span class="border5">{{"executive"|uppercase}}</span></h2>
+                <ul>
+                    <li *ngFor="let item of searchState.healthExecuticeList">
+                        <a style="display: flex;" [routerLink]="['/executiveOverview/', item.healthExecutiveId]" target="_blank">
+                           <img [src]="item.gender === 'M'
+                                ? 'assets/images/Executive-M.png'
+                                : item.gender === 'F'
+                                ? 'assets/images/Execuitve-F.png'
+                                : 'assets/img/Executive-hc.png'" alt="Executive" class="imageClass" />
+
+                            <span class="list-label srch_font" innerHTML="{{item.fullName|texthighlight:searchVal}}"></span>
+                        </a>
+
+
+                    </li>
+                </ul>
+            </li>
+
+            <li *ngIf="searchState.physicianList.length" class="block-col">
+                <h2 class="search-heading"><span>{{"physician"|uppercase}}</span></h2>
+                <ul>
+                    <li *ngFor="let item of searchState.physicianList">
+                        <a style="display: flex;" [routerLink]="['/physicianOverview/', item.physicianId]" target="_blank">
+                            <!-- <span class="icon_image">
+                                <img [src]="item.gender==='M'? 'https://drive.google.com/thumbnail?id=1xxuLN8APUD-C0nB82nxSEs67oakAFjFN' : 'https://drive.google.com/thumbnail?id=1Vf4mzlWQGLjEyCGkKEkfTZvheqoVlDh-'"
+                                alt="Doctor" width="100%"></span> -->
+
+
+                                <img [src]="item.gender === 'M'
+                                ? 'assets/images/doctor-M.png'
+                                : item.gender === 'F'
+                                ? 'assets/images/Doctor-F.png'
+                                : 'assets/img/Physician-hc.png'"
+                                alt="Doctor"  class="imageClass"/>
+
+
+                            <span class="list-label srch_font" innerHTML="{{item.fullName|texthighlight:searchVal}}"></span>
+                        </a>
+
+                    </li>
+                </ul>
+            </li>
+
+            <li *ngIf="searchState.hospitalList.length" class="block-col">
+                <h2 class="search-heading"><span>{{"hospital"|uppercase}}</span></h2>
+                <ul>
+                    <li *ngFor="let item of searchState.hospitalList">
+                        <a style="display: flex;" [routerLink]="['/hospitalOverView/', item.hospitalId]" target="_blank">
+                            <!-- <span *ngIf="item.profileIconLink!=''; else iconplaceholder" class="icon_image list-Icon"> -->
+                                <img [src]="item.profileIconLink !== ''
+                                ? item.profileIconLink 
+                                : 'assets/img/hospital-hc.png'"
+                                alt="Hospital" class="imageClass"/>
+                            
+                            <span class="list-label srch_font" innerHTML="{{item.hospitalName|texthighlight:searchVal}}"></span>
+                        </a>
+
+                    </li>
+                </ul>
+            </li>
+
+            <li *ngIf="searchState.savedList.length" class="block-col">
+                <h2 class="search-heading"><span>{{"lists"|uppercase}}</span></h2>
+                <ul>
+                    <li *ngFor="let item of searchState.savedList" (click)="searchClickHandler('lists',item.listName)">
+                        <span class="icon_image list-Icon"><img src="/assets/images/list-Icon.png"
+                                alt="list-Icon"></span>
+                        <span class="list-label srch_font" innerHTML="{{item.listName|texthighlight:searchVal}}"></span>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+        <div class="text-center mt-2" *ngIf="searchState.savedList.length === 0 && searchState.hospitalList.length === 0 && searchState.physicianList.length === 0 && searchState.healthExecuticeList.length === 0">Sorry, No result found !!!</div>
+    </div>
+</div>
+
+<div *ngIf="modelState" class="search-overlay" (click)="outsideClickHandler()"></div>

@@ -1,0 +1,363 @@
+<div id="wrapper">
+  <app-header
+    [user]="user"
+    style="width: 100%"
+    [header-data]="headerData"
+  ></app-header
+  >{{ user }}
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+  <app-sidemenu elementName="lists"></app-sidemenu>
+  <app-createlist
+    [createListDiv]="createDrawer"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    *ngIf="createDrawer"
+  ></app-createlist>
+  <app-footer></app-footer>
+  <div class="content-page enlarged">
+    <!-- Start content -->
+    <div class="content mx-auto">
+      <div class="container-fluid">
+        <!-- <div class="row mt-4 mb-4">
+                </div> -->
+        <div class="row">
+          <div class="col-12">
+            <div class="left-wrapper-details">
+              <div class="boxHeader">
+                <div class="row align-items-center">
+                  <div class="col-6 align-self-start">
+                    <div class="view-listName" *ngIf="showName">
+                      {{ listName }}
+                      <span class="pa-1 pl-2" (click)="editName()"
+                        ><i class="fa fa-pencil" aria-hidden="true"></i
+                      ></span>
+                    </div>
+                    <div class="edit-listName" *ngIf="!showName">
+                      <div class="inputBoxWrapper">
+                        <input type="text" [(ngModel)]="listName" />
+                        <button
+                          class="btn blue-btn pull-right"
+                          (click)="saveLeadName()"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="listLink">
+                      <a
+                        [routerLink]="['/lists']"
+                        class="font-weight-normal mt-0"
+                        ><i
+                          class="fa fa-angle-double-left"
+                          aria-hidden="true"
+                        ></i>
+                        Lists</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; height: 100%">
+                <div class="container py-4 px-2">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="row align-items-center">
+                        <div class="col-2 align-self-center">
+                          <div class="text-center">
+                            <input
+                              type="checkbox"
+                              (change)="selectAll()"
+                              [(ngModel)]="selectAllCheck"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="col-4 align-self-center justify-content-start"
+                        >
+                          <div class="dropdown show">
+                            <button
+                              type="button"
+                              class="btn btn-lg btn-export pull-left"
+                              role="button"
+                              id="dropdownMenuLink"
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              Export
+                              <span class="iconfont-size"
+                                ><i
+                                  class="fa fa-external-link"
+                                  aria-hidden="true"
+                                ></i
+                              ></span>
+                            </button>
+
+                            <div
+                              class="dropdown-menu"
+                              aria-labelledby="dropdownMenuLink"
+                            >
+                              <div class="p-4">
+                                <div class="row align-items-center mb-3">
+                                  <div class="col">
+                                    <div class="textExport">Export all</div>
+                                    <span class="subTextExport"
+                                      >{{ totalSize }} items</span
+                                    >
+                                  </div>
+                                  <div>
+                                    <a
+                                      href="javascript:void(0)"
+                                      (click)="downloadAllCsv()"
+                                      class="btn csv-btn pull-left"
+                                      ><span class="iconfont-size"
+                                        ><i
+                                          class="fa fa-external-link"
+                                          aria-hidden="true"
+                                        ></i
+                                      ></span>
+                                      CSV
+                                    </a>
+                                    <!-- <button type="submit" class="btn csv-btn pull-left" (click)="downloadAllCsv()"> <span class="iconfont-size"><img src="assets/images/copy.png" /></span> CSV </button> -->
+                                  </div>
+                                </div>
+                                <div class="row align-items-center">
+                                  <div class="col">
+                                    <div class="textExport">
+                                      Export selected
+                                    </div>
+                                    <span class="subTextExport"
+                                      >{{ clickedLeadIdList.length }}
+                                      {{
+                                        clickedLeadIdList.length > 1
+                                          ? "items"
+                                          : "item"
+                                      }}</span
+                                    >
+                                  </div>
+                                  <div *ngIf="clickedLeadIdList.length > 0">
+                                    <a
+                                      href="javascript:void(0)"
+                                      (click)="downloadCsv()"
+                                      class="btn csv-btn pull-left"
+                                      ><span class="iconfont-size"
+                                        ><i
+                                          class="fa fa-external-link"
+                                          aria-hidden="true"
+                                        ></i
+                                      ></span>
+                                      CSV
+                                    </a>
+                                    <!-- <button type="button" class="btn csv-btn pull-left" (click)="downloadSelectedCsv()"> <span class="iconfont-size"><img src="assets/images/copy.png" /></span> CSV </button> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <button type="button" class="btn btn-lg btn-new pull-left">  Export <span class="iconfont-size"><img src="assets/images/export.svg" /></span></button> -->
+                        </div>
+                        <div class="align-self-center">
+                          <div class="">
+                            <a
+                              href="javascript:void(0)"
+                              class="deleteIcon"
+                              data-toggle="modal"
+                              data-target="#confirmDeleteMultiple"
+                              *ngIf="datasource?.length == 0"
+                              ><i class="fa fa-trash-o" aria-hidden="true"></i
+                            ></a>
+                            <!-- <span *ngIf="clickedLeadIdList.length > 0" class="deleteIcon-disabled"><i class="fa fa-trash-o" aria-hidden="true"></i
+                            ></span> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="paginationWrapper" *ngIf="totalSize > 0">
+                        <ul
+                          *ngIf="pager.pages && pager.pages.length"
+                          class="pagination"
+                        >
+                          <!-- <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                                    <a *ngIf="pager.currentPage === 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                                    <a (click)="setPage(1)" *ngIf="pager.currentPage !== 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                                    </li> -->
+                          <li [ngClass]="{ disabled: pager.currentPage === 1 }">
+                            <a
+                              *ngIf="pager.currentPage === 1"
+                              style="border-radius: 5px 0 0 5px !important"
+                              ><i
+                                class="fa fa-chevron-left"
+                                aria-hidden="true"
+                              ></i
+                            ></a>
+                            <a
+                              *ngIf="pager.currentPage !== 1"
+                              (click)="setPage(pager.currentPage - 1)"
+                              style="border-radius: 5px 0 0 5px !important"
+                              ><i
+                                class="fa fa fa-chevron-left"
+                                aria-hidden="true"
+                              ></i
+                            ></a>
+                          </li>
+                          <!-- <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                                    <a (click)="setPage(page)">{{page}}</a>
+                                                    </li> -->
+                          <li
+                            [ngClass]="{
+                              disabled: pager.currentPage === pager.totalPages
+                            }"
+                          >
+                            <a
+                              *ngIf="pager.currentPage === pager.totalPages"
+                              style="border-radius: 0 5px 5px 0 !important"
+                              ><i
+                                class="fa fa-chevron-right"
+                                aria-hidden="true"
+                              ></i
+                            ></a>
+                            <a
+                              *ngIf="pager.currentPage !== pager.totalPages"
+                              (click)="setPage(pager.currentPage + 1)"
+                              style="border-radius: 0 5px 5px 0 !important"
+                              ><i
+                                class="fa fa-chevron-right"
+                                aria-hidden="true"
+                              ></i
+                            ></a>
+                          </li>
+                          <!-- <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                                        <a *ngIf="pager.currentPage === pager.totalPages"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                                    <a  *ngIf="pager.currentPage !== pager.totalPages" (click)="setPage(pager.totalPages)"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                                    </li> -->
+                        </ul>
+                        <div class="pull-right paginationInfo">
+                          {{ offset + 1 }}-{{
+                            offset + count > totalSize
+                              ? totalSize
+                              : count + offset
+                          }}
+                          of {{ totalSize }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="overflow: hidden">
+                  <ag-grid-angular
+                    style="width: 100%; height: calc(100vh - 335px)"
+                    class="ag-theme-material listDetails"
+                    (gridReady)="onGridReady($event)"
+                    #agGrid
+                    [defaultColDef]="defaultColDef"
+                    [columnDefs]="columnDefs"
+                    [rowHeight]="rowHeight"
+                    [rowSelection]="rowSelection"
+                    [suppressRowClickSelection]="true"
+                    [animateRows]="true"
+                    (cellClicked)="onCellClicked($event)"
+                    [sortingOrder]="sortingOrders"
+                    (firstDataRendered)="onFirstDataRendered($event)"
+                    [paginationPageSize]="paginationPageSize"
+                    (rowSelected)="onRowSelected($event)"
+                  >
+                  </ag-grid-angular>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-3">
+            <app-listfilter
+              (applyBtnClick)="applyBtnClick($event)"
+              (cancelBtnClick)="cancelBtnClick($event)"
+            ></app-listfilter>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="confirmDelete" role="dialog">
+      <div class="modal-dialog modal-sm cancel-modal">
+        <div class="modal-content cancel-modal">
+          <form #confirmDelete>
+            <div class="modal-header">
+              <h6 class="modal-title">
+                <i class="fa fa-times" aria-hidden="true"></i> Confirmation!
+              </h6>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                ×
+              </button>
+            </div>
+            <div class="modal-body">Are you sure want to delete this Lead?</div>
+            <div class="modal-footer" style="display: block; overflow: hidden">
+              <button
+                type="button"
+                class="btn btn-default btn-sm pull-left"
+                data-dismiss="modal"
+                #hideCancelOption
+              >
+                No
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-danger btn-sm pull-right"
+                (click)="deleteLeadSingle()"
+              >
+                Yes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="confirmDeleteMultiple" role="dialog">
+      <div class="modal-dialog modal-sm cancel-modal">
+        <div class="modal-content cancel-modal">
+          <form #confirmDelete>
+            <div class="modal-header">
+              <h6 class="modal-title">
+                <i class="fa fa-times" aria-hidden="true"></i> Confirmation!
+              </h6>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                ×
+              </button>
+            </div>
+            <div class="modal-body">Are you sure want to delete this Lead?</div>
+            <div class="modal-footer" style="display: block; overflow: hidden">
+              <button
+                type="button"
+                class="btn btn-default btn-sm pull-left"
+                data-dismiss="modal"
+                #hideCancelMultple
+              >
+                No
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-danger btn-sm pull-right"
+                (click)="deleteLeadMultiple()"
+              >
+                Yes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

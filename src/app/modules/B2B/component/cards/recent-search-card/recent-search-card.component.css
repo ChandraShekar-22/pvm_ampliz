@@ -1,0 +1,103 @@
+.form-check {
+    /* padding-top: 5px;
+    padding-bottom: 10px;
+    padding-right: 20px; */
+    padding: 5px 20px 10px 0px;
+  }
+  .recent_card {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin-right: 20px;
+  }
+  :host {
+    width: 100%;
+  }
+  
+  .recent_content {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px;
+    /* flex:1; */
+  }
+  .comapany_name {
+    color: #030609;
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+  }
+  .active_ago {
+    color: #2d8cff;
+    display: flex;
+    align-items: center;
+    padding-top: 2px;
+    font-weight: 400;
+    font-size: 13px !important;
+  }
+  .searchIcon {
+    background-color: #F2F8FF !important;
+    border-radius: 5px;
+    margin: 0 5px;
+    margin-bottom: 5px;
+    color: #2e8cff !important;
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    padding: 0px 5px;
+    align-items: center;
+    cursor: default;
+    min-height: 28px !important;
+    min-width: 28px !important;
+    height: 5px !important;
+    font-size: 16px !important;
+    cursor: pointer;
+    margin-top: 0px !important;
+    margin-bottom: 20px !important;
+    font-weight: 500;
+    justify-content: center;
+  }
+  .optionIcon {
+    margin-top: 6px !important;
+    align-content: flex-end !important;
+    margin-bottom: 25px;
+    position: absolute;
+    right: 0;
+    width: 30px;
+    margin-right: 18px;
+  }
+  .menuWrapper {
+    margin: 10px;
+    color: #000;
+    font-weight: normal !important;
+    font-size: 15px;
+  }
+  .menuWrapper i {
+    margin-right: 12px;
+    color: #c2c2c2 !important;
+  }
+  .menuWrapper .mat-menu-item {
+    line-height: 38px !important;
+    height: 38px !important;
+  }
+
+
+
+
+  .flex-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  }
+.menu-icon {
+  font-size: 20px;
+  cursor: pointer;
+  color: #BBB9B9;
+  text-align: center;
+  padding-bottom: 3px;
+}
+
+.menu-icon:hover {
+  cursor: pointer;
+  background: #f2f2f2;
+  border-radius: 5px;
+}

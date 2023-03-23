@@ -1,0 +1,25 @@
+
+.notCorrect {
+    border: 1px solid #ddd;
+    background: transparent;
+    outline: none;
+    color: #000;
+    border-radius: 3px;
+    padding: 5px 15px;
+    margin-right: 10px !important;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.searchData {
+    font-size: 12px;
+}
+
+.searchChip {
+    background-color: #ebebeb;
+    border: 1px solid #a8a8a8;
+    color: #a8a8a8;
+    padding: 1px 10px;
+    border-radius: 5px;
+    margin: 0px 10px;
+}

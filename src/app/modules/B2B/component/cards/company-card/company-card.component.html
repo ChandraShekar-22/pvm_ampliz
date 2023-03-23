@@ -1,0 +1,157 @@
+<div class="physican_container card-animate">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8">
+        <div class="physician_card">
+          <div class="form-check">
+            <!-- <input
+              [(ngModel)]="checkboxSelected"
+              (change)="handleCheckboxChange($event)"
+              class="form-check-input"
+              type="checkbox"
+              id="flexCheckDefault"
+            /> -->
+          </div>
+          <div
+            class="physician_imgContainer"
+            [ngClass]="{
+              'with-border':
+                companyInfo?.companyLogo === '' && companyInfo?.companyLogo
+            }"
+          >
+            <img
+              [src]="companyInfo?.companyLogo"
+              class="physician_img"
+              *ngIf="companyInfo?.companyLogo !== ''"
+            />
+            <mat-icon
+              *ngIf="companyInfo?.companyLogo === ''"
+              aria-hidden="false"
+              aria-label="business icon"
+              class="mat"
+              >business</mat-icon
+            >
+          </div>
+          <div class="physician_content">
+            <h5 class="physician_name">
+              {{ companyInfo.companyName }}
+            </h5>
+            <div class="physician_info" *ngIf="companyInfo.domain !== null || location !== ''">
+              <a
+                (click)="openUrl('domain')"
+                *ngIf="companyInfo.domain !== null"
+                class="company-domain"
+                >{{ companyInfo.domain | trimUnwantedString }}</a
+              >
+              <!-- <span class="physican_location" *ngIf="companyInfo.employees !== null"
+                ><i-feather name="Users" class="employeeLocIcon"></i-feather
+                >{{ companyInfo.employees | trimUnwantedString }}</span
+              > -->
+              <span class="physican_location" *ngIf="location !== ''"
+                ><i
+                  class="fa fa-map-marker employeeLocIcon"
+                  aria-hidden="true"
+                ></i
+                >{{ location | trimUnwantedString }}</span
+              >
+            </div>
+            <div
+              class="physician_hospital"
+              *ngIf="companyInfo.companyDescription !== null"
+            >
+              <span style="color: #999; cursor: text">{{
+                companyInfo.companyDescription | trimUnwantedString
+              }}</span>
+            </div>
+            <!------------>
+            <mat-chip-list *ngIf="industry.length > 0">
+              <mat-chip
+                disableRipple="true"
+                selectable="false"
+                class="bottomChip"
+                selected="false"
+                disabled="true"
+                (click)="doSearchCompany('industryInclude', ind)"
+                *ngFor="let ind of industry | slice : 0 : sliceLength"
+              >
+                {{ ind | trimUnwantedString }}
+              </mat-chip>
+              <span
+                class="moreButton"
+                *ngIf="industry.length > sliceLength"
+                (click)="handleShowMore()"
+              >
+                {{ showMore ? "More +" : "Less -" }}
+              </span>
+            </mat-chip-list>
+
+            <!-- <mat-chip-list>
+              <mat-chip
+                selected
+                class="bottomChip"
+                *ngFor="
+                  let ind of industryAndTechnologies | slice: 0:sliceLength
+                "
+              >
+                {{ ind }}
+              </mat-chip>
+              <span
+                class="moreButton"
+                *ngIf="industryAndTechnologies.length > 5"
+                (click)="handleShowMore()"
+              >
+                {{ showMore == true ? "More +" : "Less -" }}
+              </span>
+            </mat-chip-list> -->
+            <!------------>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="physican_additionInfo">
+          <ng-container
+            *ngIf="
+              companyInfo.employees != null &&
+              companyInfo.employees != 0
+            "
+          >
+            <span class="flex-row">
+              <i-feather
+                name="Users"
+                class="mr-2"
+                style="width: 18px; height: 18px;"
+              ></i-feather>
+              <!-- companyInfo.linkedinFollowers -->
+              <a class="physican_email mt-2" (click)="doSearchContact('companyList', companyInfo.companyName)"
+                >{{
+                  companyInfo.employees | trimUnwantedString
+                }}
+                people</a
+              >
+            </span>
+          </ng-container>
+          <ng-container
+            *ngIf="companyInfo.phone != '' && companyInfo.phone != null"
+          >
+            <span class="physican_phone">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              {{ companyInfo.phone | trimUnwantedString }}</span
+            >
+          </ng-container>
+          <div class="saveBtn_wrp">
+            <i
+              *ngIf="companyInfo.linkedinURL"
+              (click)="openUrl('linkedinURL')"
+              class="fa fa-brands fa-linkedin"
+            ></i>
+            <!-- <i *ngIf="companyInfo.linkedinURL" class="fa fa-brands fa-facebook"></i>
+            <i *ngIf="companyInfo.linkedinURL" class="fa fa-brands fa-twitter"></i>
+            <i *ngIf="companyInfo.linkedinURL" class="fa fa-brands fa-hand-peace"></i>
+            <i *ngIf="companyInfo.linkedinURL" class="fa fa-brands fa-google"></i>
+            <i *ngIf="companyInfo.linkedinURL" class="fa fa-brands fa-instagram"></i> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

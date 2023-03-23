@@ -1,0 +1,482 @@
+<div id="wrapper">
+  <app-header [user]="" style="width: 100%"></app-header>
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+  <app-sidemenu elementName="physician"></app-sidemenu>
+
+  <div class="content-page" *ngIf="physicianOverviewResult !== undefined">
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-12">
+          <h5 class="text-body font-weight-normal">Physician Overview</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div
+              class="onboarding__home__guide-assistant__speech-bubble__right"
+            >
+              <div class="physician_imgContainer shadow">
+                <img src="assets/img/Physician-hc.png" class="p-2" />
+              </div>
+            </div>
+            <div class="topNameExecutive">
+              <div class="topNamePhysician">
+                <h4 class="fnt-physician">
+                  {{ physicianOverviewResult.physicianInfoData.fullName }}
+                </h4>
+                <span class="fnt-title">{{
+                  physicianOverviewResult.physicianInfoData.specialty
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="detailsCard">
+            <div class="physicianDetails">
+              <div class="row">
+                <div class="col-md-3 custom-col">
+                  <div>
+                    <button
+                      class="btn-blue-bordered"
+                      (click)="handleSaveButtonPress()"
+                      *ngIf="showSaveButton"
+                    >
+                    <span  *ngIf="!showButtonLoader">
+                      {{saveButtonText}}
+                    </span>
+                    <app-circle-loader
+                    [radius]="13"
+                    *ngIf="showButtonLoader"></app-circle-loader>
+                    </button>
+                    <span
+                      class="btn-grey-bordered"
+                      (click)="notCorrectDrawer = true"
+                      >Not correct</span
+                    >
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div
+                    style="
+                      display: flex;
+                      align-items: flex-start;
+                      align-content: flex-start;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <!-- <div class="col-md-4" *ngIf="physicianOverviewResult.physicianInfoData.specialty !== undefined && physicianOverviewResult.physicianInfoData.specialty.length > 0">
+                                    <div class="physician_hospital">
+                                        <span class="spanAlign">
+                      <i class="mdi mdi-seal icon"></i
+                      >{{
+                        physicianOverviewResult.physicianInfoData.specialty
+                      }}</span
+                    >
+                  </div>
+                </div> -->
+                    <div
+                      class="col-md-8"
+                      *ngIf="
+                        physicianOverviewResult.physicianInfoData
+                          .hospitalName !== undefined &&
+                        physicianOverviewResult.physicianInfoData.hospitalName
+                          .length > 0
+                      "
+                    >
+                      <div class="physician_hospital">
+                        <span class="spanAlign">
+                          <i class="fa fa-hospital-o icon"></i
+                          >{{
+                            physicianOverviewResult.physicianInfoData
+                              .hospitalName
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div
+                        class="physician_hospital"
+                        *ngIf="showSaveButton"
+                      >
+                        <span class="spanAlign">
+                          <i class="fa fa-envelope-o icon"></i
+                          >{{
+                            physicianOverviewResult.physicianInfoData
+                              .emailAddress
+                          }}</span
+                        >
+                      </div>
+                      <div
+                        class="physician_hospital"
+                        *ngIf="!showSaveButton"
+                      >
+                        <span class="spanAlign">
+                          <i class="mdi mdi-email-outline icon"></i
+                          ><a
+                            style="color: dodgerblue"
+                            href="mailto: {{
+                              physicianOverviewResult.physicianInfoData
+                                .emailAddress
+                            }}"
+                            >{{
+                              physicianOverviewResult.physicianInfoData
+                                .emailAddress
+                            }}</a
+                          ></span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="col-md-4"
+                      *ngIf="
+                        physicianOverviewResult.physicianInfoData
+                          .phoneNumber !== undefined &&
+                        physicianOverviewResult.physicianInfoData.phoneNumber
+                          .length > 0
+                      "
+                    >
+                      <div class="physician_hospital">
+                        <span class="spanAlign">
+                          <i class="mdi mdi-phone-in-talk icon"></i
+                          >{{
+                            physicianOverviewResult.physicianInfoData
+                              .phoneNumber
+                          }}</span
+                        >
+                      </div>
+                    </div>
+
+                    <div
+                      class="col-md-4"
+                      *ngIf="
+                        physicianOverviewResult.physicianInfoData.npiNumber !==
+                          undefined &&
+                        physicianOverviewResult.physicianInfoData.npiNumber
+                          .length > 0
+                      "
+                    >
+                      <div class="physician_hospital">
+                        <span class="spanAlign"
+                          ><strong class="text-dark">NPI Number : &nbsp;</strong
+                          >{{
+                            physicianOverviewResult.physicianInfoData.npiNumber
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="col-md-4"
+                      *ngIf="
+                        physicianOverviewResult.physicianInfoData
+                          .state_License_Number !== undefined &&
+                        physicianOverviewResult.physicianInfoData
+                          .state_License_Number.length > 0
+                      "
+                    >
+                      <div class="physician_hospital">
+                        <span class="spanAlign"
+                          ><strong class="text-dark"
+                            >State Licence Number : &nbsp;</strong
+                          >{{
+                            physicianOverviewResult.physicianInfoData
+                              .state_License_Number
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="col-md-4"
+                      *ngIf="
+                        physicianOverviewResult.physicianInfoData.address1 !==
+                          undefined &&
+                        physicianOverviewResult.physicianInfoData.address1
+                          .length > 0
+                      "
+                    >
+                      <div class="physician_hospital">
+                        <span class="spanAlign">
+                          <i class="mdi mdi-map-marker-radius icon"></i
+                          >{{
+                            physicianOverviewResult.physicianInfoData.address1
+                          }}
+
+                          <span
+                            *ngIf="
+                              physicianOverviewResult.physicianInfoData
+                                ?.address2 !== ''
+                            "
+                          >
+                            ,
+                            {{
+                              physicianOverviewResult.physicianInfoData
+                                ?.address2
+                            }}
+                          </span>
+                          <span
+                            *ngIf="
+                              physicianOverviewResult.physicianInfoData
+                                ?.city !== ''
+                            "
+                          >
+                            ,
+                            {{
+                              physicianOverviewResult.physicianInfoData?.city
+                            }}
+                          </span>
+                          <span
+                            *ngIf="
+                              physicianOverviewResult.physicianInfoData
+                                ?.state !== ''
+                            "
+                          >
+                            ,
+                            {{
+                              physicianOverviewResult.physicianInfoData?.state
+                            }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="col-md-4"
+                      *ngIf="
+                        physicianOverviewResult.physicianInfoData
+                          .state_License_Code !== undefined &&
+                        physicianOverviewResult.physicianInfoData
+                          .state_License_Code.length > 0
+                      "
+                    >
+                      <div class="physician_hospital">
+                        <span class="spanAlign"
+                          ><strong class="text-dark"
+                            >State Licence Code : &nbsp;</strong
+                          >{{
+                            physicianOverviewResult.physicianInfoData
+                              .state_License_Code
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div style="padding-top: 10px">
+            <div class="physician-content">
+              <mat-tab-group (selectedTabChange)="tabClick($event)">
+                <mat-tab label="Hospital Information">
+                  <div class="p-5" *ngIf="!isBlankHospitalInfo">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4 mb-4">
+                        <div
+                          class="align-self-center"
+                          *ngIf="
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .webAddress !== undefined &&
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .webAddress.length > 0
+                          "
+                        >
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Web Address : &nbsp;</strong
+                            >
+                            <a
+                              href="{{
+                                'http://' +
+                                  physicianOverviewResult
+                                    .physicianHospitalInfoData.webAddress
+                              }}"
+                              style="color: dodgerblue"
+                              target="_blank"
+                              >Visit website</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-4 mb-4"
+                        *ngIf="
+                          physicianOverviewResult.physicianHospitalInfoData
+                            .hospitalFax !== undefined &&
+                          physicianOverviewResult.physicianHospitalInfoData
+                            .hospitalFax > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark">Fax : &nbsp;</strong>
+                            {{
+                              physicianOverviewResult.physicianHospitalInfoData
+                                .hospitalFax
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-4 mb-4">
+                        <div
+                          class="align-self-center"
+                          *ngIf="
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .address !== undefined &&
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .address.length > 0
+                          "
+                        >
+                          <div class="executive_hospital">
+                            <strong class="text-dark">Address : &nbsp;</strong>
+                            {{
+                              physicianOverviewResult.physicianHospitalInfoData
+                                .address
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-4 mb-4">
+                        <div
+                          class="align-self-center"
+                          *ngIf="
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .city !== undefined &&
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .city.length > 0
+                          "
+                        >
+                          <div class="executive_hospital">
+                            <strong class="text-dark">City : &nbsp;</strong>
+                            {{
+                              physicianOverviewResult.physicianHospitalInfoData
+                                .city
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-4 mb-4">
+                        <div
+                          class="align-self-center"
+                          *ngIf="
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .state !== undefined &&
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .state.length > 0
+                          "
+                        >
+                          <div class="executive_hospital">
+                            <strong class="text-dark"> State: &nbsp;</strong>
+                            {{
+                              physicianOverviewResult.physicianHospitalInfoData
+                                .state
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-4 mb-4">
+                        <div
+                          class="align-self-center"
+                          *ngIf="
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .country !== undefined &&
+                            physicianOverviewResult.physicianHospitalInfoData
+                              .country.length > 0
+                          "
+                        >
+                          <div class="executive_hospital">
+                            <strong class="text-dark">Country : &nbsp;</strong>
+                            {{
+                              physicianOverviewResult.physicianHospitalInfoData
+                                .country
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="
+                      p-5
+                      d-flex
+                      justify-content-center
+                      align-items-center align-self-center align-center
+                    "
+                    *ngIf="isBlankHospitalInfo"
+                  >
+                    <button
+                      (click)="request('Request Hospital Access')"
+                      class="btn btn-new"
+                    >
+                      Request Hospital Info
+                    </button>
+                  </div>
+                </mat-tab>
+                <mat-tab
+                  label="This Prescriber's Drugs"
+                  *ngIf="DataResult && DataResult.length > 0"
+                >
+                  <div class="p-3 w-100">
+                    <button
+                      (click)="request('Request Drug Info Access')"
+                      class="btn btn-new pull-right mb-1"
+                    >
+                      Request Drug Info
+                    </button>
+                    <div class="" style="clear: both"></div>
+                    <div class="tabTableWrapper">
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col" class="text-muted">Drug Name</th>
+                            <th scope="col" class="text-muted">Total Claim</th>
+                            <th scope="col" class="text-muted">
+                              Total Drug Cost
+                            </th>
+                            <th scope="col" class="text-muted">
+                              Total Drug Cost For 65+
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of DataResult">
+                            <td class="light-muted">
+                              {{ item.prescribingDrugName }}
+                            </td>
+                            <td class="light-muted">{{ item.totalClaims }}</td>
+                            <td class="light-muted">
+                              {{ item.totalDrugCost }}
+                            </td>
+                            <td class="light-muted">
+                              {{ item.totalDrugCostFor65 }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-savelist
+    [saveListDiv]="saveDrawer"
+    [physicianId]="physicianOverviewResult?.physicianInfoData?.physicianId"
+    [executiveId]="physicianOverviewResult?.physicianInfoData?.executiveId"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    (refreshedData)="refreshedData($event)"
+    [currentCredit]="currentCredit || 0"
+    *ngIf="saveDrawer"
+  ></app-savelist>
+  <app-notcorrect
+    [notCorrectDiv]="notCorrectDrawer"
+    [physicianId]="physicianOverviewResult?.physicianInfoData?.physicianId"
+    [physicianName]="physicianOverviewResult?.physicianInfoData?.fullName"
+    [executiveId]="physicianOverviewResult?.physicianInfoData?.executiveId"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    *ngIf="notCorrectDrawer"
+  ></app-notcorrect>
+</div>

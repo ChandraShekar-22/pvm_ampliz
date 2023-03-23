@@ -1,0 +1,60 @@
+.addphone-container{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px;
+    border: 1px solid #E4E2E2;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+.sub-content{
+    word-wrap: break-word;
+}
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+.phone-container{
+    border: 1px solid #A4A4A4;
+    border-radius: 8px;
+    width: 75%;
+}
+.country{
+    width: 20%;
+    border-right: 1px solid #A4A4A4;
+}
+.phone{
+    width: 80%;
+    padding-left: 10px;
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    padding-bottom: .75rem;
+}
+
+.saveButton {
+    border: 1px solid #f2f2f2;
+    background: transparent;
+    outline: none;
+    border-radius: 25px;
+    padding: 15px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal;
+    height: 50px;
+  }
+  .primaryBtn {
+    color: #2d8cff;
+    border: 1px solid #2d8cff;
+  }
+  .form-container, .verifyphone-form{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: center;
+      width: 100%;
+      padding-top: 20px;
+  }
+  .verify{
+    padding: 15px 25px;
+  }

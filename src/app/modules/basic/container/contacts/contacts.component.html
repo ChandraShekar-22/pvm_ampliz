@@ -1,0 +1,68 @@
+<div id="wrapper">
+  <!-- Top Bar Start -->
+  <app-header [user]="user" style="width: 100%"></app-header>
+  {{ user }}
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+  <app-sidemenu elementName="contacts"></app-sidemenu>
+  <!-- ============================================================== -->
+  <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
+            <h4 class="header-title pull-left">Favourite Contacts</h4>
+            <button
+              type="button"
+              class="btn btn-primary pull-right"
+              (click)="exportCsv()"
+            >
+              <i class="mdi mdi-export"></i> Export to CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12" *ngIf="contactDetails.length > 0">
+            <div class="table-responsive">
+              <!-- <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"> -->
+              <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Phone</th>
+                    <th>Email Address</th>
+                    <th>Date</th>
+                    <!-- <th class="text-center">Action</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of contactDetails; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.FullName }}</td>
+                    <td>{{ item.Title }}</td>
+                    <td>{{ item.CompanyName }}</td>
+                    <td>{{ item.DirectDial }}</td>
+                    <td>{{ item.EmailAddress }}</td>
+                    <td>{{ item.MarkedOn | date: "dd/MM/yyyy" }}</td>
+                    <!-- <td class="text-center "><a href="#"><i class="mdi mdi-cards-heart fv-con"></i></a></td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-12" *ngIf="!contactDetails.length">
+            <p>No contacts to show</p>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- container -->
+      <app-footer></app-footer>
+    </div>
+    <!-- content -->
+  </div>
+</div>

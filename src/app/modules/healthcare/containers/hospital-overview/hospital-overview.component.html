@@ -1,0 +1,898 @@
+<div id="wrapper">
+  <app-header [user]="" style="width: 100%"></app-header>
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+  <app-sidemenu elementName="hospital"></app-sidemenu>
+  <div class="content-page">
+    <div class="content" *ngIf="hospitalOverviewResult !== undefined">
+      <div class="row">
+        <div class="col-sm-12">
+          <h5 class="text-body font-weight-normal">Hospital Overview</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div
+              class="onboarding__home__guide-assistant__speech-bubble__right"
+            >
+              <div class="executive_imgContainer shadow">
+                <img
+                  [src]="hospitalOverviewResult.hospitalInfoData.logoLink"
+                  width="90px"
+                  height="90px"
+                />
+              </div>
+            </div>
+            <div class="topNameExecutive">
+              <h4 class="fnt-Hospital">
+                {{ hospitalOverviewResult.hospitalInfoData.hospitalName }}
+              </h4>
+            </div>
+          </div>
+
+          <div class="detailsCard">
+            <div class="hospitalDetails">
+              <div class="row">
+                <div class="col-md-3 custom-col">
+                  <div>
+                    <div>
+                      <button
+                        class="btn-blue-bordered"
+                        (click)="saveDrawer = true"
+                        *ngIf="
+                          hospitalOverviewResult?.hospitalInfoData
+                            ?.inSavedList === false
+                        "
+                      >
+                        Save
+                      </button>
+                      <span
+                        class="btn-grey-bordered"
+                        (click)="notCorrectDrawer = true"
+                        >Not correct</span
+                      >
+                    </div>
+                  </div>
+                  <div class="social_icon_wrap">
+                    <ul>
+                      <li
+                        *ngIf="
+                          hospitalOverviewResult?.hospitalInfoData?.linkedInLink
+                        "
+                      >
+                        <img
+                          src="assets/img/socialicons/linkedin.png"
+                          width="15px"
+                          height="15px"
+                          (click)="
+                            openSocial(
+                              hospitalOverviewResult?.hospitalInfoData
+                                ?.linkedInLink
+                            )
+                          "
+                          class="clickable"
+                        />
+                      </li>
+                      <li
+                        *ngIf="
+                          hospitalOverviewResult?.hospitalInfoData?.twitterLink
+                        "
+                      >
+                        <img
+                          src="assets/img/socialicons/twitter.png"
+                          width="15px"
+                          height="15px"
+                          (click)="
+                            openSocial(
+                              hospitalOverviewResult?.hospitalInfoData
+                                ?.twitterLink
+                            )
+                          "
+                          class="clickable"
+                        />
+                      </li>
+                      <li
+                        *ngIf="
+                          hospitalOverviewResult?.hospitalInfoData?.facebookLink
+                        "
+                      >
+                        <img
+                          src="assets/img/socialicons/facebook.png"
+                          width="15px"
+                          height="15px"
+                          (click)="
+                            openSocial(
+                              hospitalOverviewResult?.hospitalInfoData
+                                ?.facebookLink
+                            )
+                          "
+                          class="clickable"
+                        />
+                      </li>
+                      <li
+                        *ngIf="
+                          hospitalOverviewResult?.hospitalInfoData
+                            ?.instagramLink
+                        "
+                      >
+                        <img
+                          src="assets/img/socialicons/instagram.png"
+                          width="15px"
+                          height="15px"
+                          (click)="
+                            openSocial(
+                              hospitalOverviewResult?.hospitalInfoData
+                                ?.instagramLink
+                            )
+                          "
+                          class="clickable"
+                        />
+                      </li>
+                      <li
+                        *ngIf="
+                          hospitalOverviewResult?.hospitalInfoData?.googleLink
+                        "
+                      >
+                        <img
+                          src="assets/img/socialicons/search.png"
+                          width="15px"
+                          height="15px"
+                          (click)="
+                            openSocial(
+                              hospitalOverviewResult?.hospitalInfoData
+                                ?.googleLink
+                            )
+                          "
+                          class="clickable"
+                        />
+                      </li>
+                      <li
+                        *ngIf="
+                          hospitalOverviewResult?.hospitalInfoData
+                            ?.pinterestLink
+                        "
+                      >
+                        <img
+                          src="assets/img/socialicons/pinterest.png"
+                          width="15px"
+                          height="15px"
+                          (click)="
+                            openSocial(
+                              hospitalOverviewResult?.hospitalInfoData
+                                ?.pinterestLink
+                            )
+                          "
+                          class="clickable"
+                        />
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-9">
+                  <div
+                    style="
+                      display: flex;
+                      align-items: flex-start;
+                      align-content: flex-start;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <div
+                      class="executive_hospital info-width"
+                      *ngIf="
+                        hospitalOverviewResult.hospitalInfoData.webAddress
+                          .length > 0 &&
+                        hospitalOverviewResult.hospitalInfoData.webAddress !==
+                          undefined
+                      "
+                    >
+                      <a
+                        style="color: dodgerblue"
+                        [href]="
+                          'http://' +
+                          hospitalOverviewResult.hospitalInfoData.webAddress
+                        "
+                        target="_blank"
+                        ><i class="mdi mdi-web icon"></i>View website</a
+                      >
+                    </div>
+                    <div
+                      class="executive_hospital info-width"
+                      *ngIf="
+                        hospitalOverviewResult.hospitalInfoData.hospitalPhone
+                          .length > 0 &&
+                        hospitalOverviewResult.hospitalInfoData
+                          .hospitalPhone !== undefined
+                      "
+                    >
+                      <span
+                        ><i class="mdi mdi-phone-in-talk icon"></i
+                        >{{
+                          hospitalOverviewResult.hospitalInfoData.hospitalPhone
+                        }}</span
+                      >
+                    </div>
+                    <div
+                      class="executive_hospital info-width"
+                      *ngIf="
+                        hospitalOverviewResult.hospitalInfoData.hospitalFax
+                          .length > 0 &&
+                        hospitalOverviewResult.hospitalInfoData.hospitalFax !==
+                          undefined
+                      "
+                    >
+                      <span
+                        ><i class="mdi mdi-fax icon"></i
+                        >{{
+                          hospitalOverviewResult.hospitalInfoData.hospitalFax
+                        }}</span
+                      >
+                    </div>
+                    <div
+                      class="executive_hospital info-width"
+                      *ngIf="
+                        hospitalOverviewResult.hospitalInfoData.address1
+                          .length > 0 ||
+                        hospitalOverviewResult.hospitalInfoData.address2
+                          .length > 0
+                      "
+                    >
+                      <span
+                        ><i class="mdi mdi-map-marker-radius icon"></i
+                        >{{ hospitalOverviewResult.hospitalInfoData.address1 }}
+                        {{
+                          hospitalOverviewResult.hospitalInfoData.address2
+                        }}</span
+                      >
+                    </div>
+
+                    <div
+                      class="executive_hospital info-width"
+                      *ngIf="
+                        hospitalOverviewResult.hospitalInfoData.region.length >
+                          0 &&
+                        hospitalOverviewResult.hospitalInfoData.region !==
+                          undefined
+                      "
+                    >
+                      <strong class="text-dark-14">Region : &nbsp;</strong>
+                      {{ hospitalOverviewResult.hospitalInfoData.region }}
+                    </div>
+                    <div
+                      class="executive_hospital"
+                      *ngIf="
+                        hospitalOverviewResult.hospitalInfoData
+                          .geographic_Classification.length > 0 &&
+                        hospitalOverviewResult.hospitalInfoData
+                          .geographic_Classification !== undefined
+                      "
+                    >
+                      <strong class="text-dark-14"
+                        >Geo Classification : &nbsp;</strong
+                      >
+                      {{
+                        hospitalOverviewResult.hospitalInfoData
+                          .geographic_Classification
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div style="padding-top: 10px">
+            <div class="physician-content">
+              <mat-tab-group (selectedTabChange)="tabClick($event)">
+                <mat-tab label="Overview">
+                  <div class="p-5">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4 mb-4">
+                        <div
+                          class="align-self-center"
+                          *ngIf="
+                            hospitalOverviewResult.hospitalInfoData.firmType !==
+                              undefined &&
+                            hospitalOverviewResult.hospitalInfoData.firmType
+                              .length > 0
+                          "
+                        >
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Entity Type : &nbsp;</strong
+                            >
+                            {{
+                              hospitalOverviewResult.hospitalInfoData.firmType
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-5 mb-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData
+                            .hospitalType !== undefined &&
+                          hospitalOverviewResult.hospitalInfoData.hospitalType
+                            .length > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Hospital Type : &nbsp;</strong
+                            >
+                            {{
+                              hospitalOverviewResult.hospitalInfoData
+                                .hospitalType
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-3 mb-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData
+                            .companyStatus !== undefined &&
+                          hospitalOverviewResult.hospitalInfoData.companyStatus
+                            .length > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Hospital Status : &nbsp;</strong
+                            >
+                            {{
+                              hospitalOverviewResult.hospitalInfoData
+                                .companyStatus
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-4 mb-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData.ownership !==
+                            undefined &&
+                          hospitalOverviewResult.hospitalInfoData.ownership
+                            .length > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Ownership Type : &nbsp;</strong
+                            >
+                            {{
+                              hospitalOverviewResult.hospitalInfoData.ownership
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-5 mb-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData.cBSA !==
+                            undefined &&
+                          hospitalOverviewResult.hospitalInfoData.cBSA.length >
+                            0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Core-Based Statistical Area : &nbsp;</strong
+                            >
+                            {{ hospitalOverviewResult.hospitalInfoData.cBSA }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-3 mb-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData
+                            .fIPS_County_Code !== undefined &&
+                          hospitalOverviewResult.hospitalInfoData
+                            .fIPS_County_Code.length > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >FIPS Country Code : &nbsp;</strong
+                            >
+                            {{
+                              hospitalOverviewResult.hospitalInfoData
+                                .fIPS_County_Code
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData
+                            .accreditation_Agency !== undefined &&
+                          hospitalOverviewResult.hospitalInfoData
+                            .accreditation_Agency.length > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Accreditation Agency : &nbsp;</strong
+                            >
+                            {{
+                              hospitalOverviewResult.hospitalInfoData
+                                .accreditation_Agency
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData
+                            .market_Concentration_Index !== undefined &&
+                          hospitalOverviewResult.hospitalInfoData
+                            .market_Concentration_Index.length > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark"
+                              >Market Concentration Index : &nbsp;</strong
+                            >
+                            {{
+                              hospitalOverviewResult.hospitalInfoData
+                                .market_Concentration_Index
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-4"
+                        *ngIf="
+                          hospitalOverviewResult.hospitalInfoData
+                            .medicare_Administrative_Contractors !==
+                            undefined &&
+                          hospitalOverviewResult.hospitalInfoData
+                            .medicare_Administrative_Contractors.length > 0
+                        "
+                      >
+                        <div class="align-self-center">
+                          <div class="executive_hospital">
+                            <strong class="text-dark">MAC/Fis : &nbsp;</strong>
+                            {{
+                              hospitalOverviewResult.hospitalInfoData
+                                .medicare_Administrative_Contractors
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab [label]="'Physician (' + physicianCount + ')'">
+                  <div class="p-4">
+                    <div class="" *ngIf="unLockDiv == false">
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col" class="text-muted">
+                              Physician Name
+                            </th>
+                            <th scope="col" class="text-muted">Title</th>
+                            <th scope="col" class="text-muted">
+                              Email Address
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of totalSearchResult">
+                            <td scope="row" class="light-muted">
+                              <a
+                                [routerLink]="[
+                                  '/physicianOverview',
+                                  item.physicianId
+                                ]"
+                                target="_blank"
+                                style="color: #2d8cff"
+                                >{{ item.fullName }}</a
+                              >
+                            </td>
+                            <td class="light-muted">{{ item.specialty }}</td>
+                            <td class="fnt_email-ff">
+                              {{ item.emailAddress }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="h-100" *ngIf="unLockDiv">
+                      <app-upgrade></app-upgrade>
+                    </div>
+                    <div class="search_pagination_wrapper">
+                      <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                          <div class="paginationWrapper" *ngIf="totalSize > 0">
+                            <div
+                              class="pull-left paginationInfo"
+                              *ngIf="totalSize > 0"
+                            >
+                              {{ offset + 1 | numberWithCommas }}-{{
+                                (offset + count > totalSize
+                                  ? totalSize
+                                  : count + offset
+                                ) | numberWithCommas
+                              }}
+                              of {{ totalSize | numberWithCommas }}
+                            </div>
+                            <ul
+                              *ngIf="pager.pages && pager.pages.length"
+                              class="pagination"
+                              style="float: left !important"
+                            >
+                              <!-- <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                        <a *ngIf="pager.currentPage === 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                        <a (click)="setPage(1)" *ngIf="pager.currentPage !== 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                      </li> -->
+                              <li
+                                [ngClass]="{
+                                  disabled: pager.currentPage === 1
+                                }"
+                              >
+                                <a
+                                  *ngIf="pager.currentPage === 1"
+                                  style="border-radius: 5px 0 0 5px !important"
+                                  ><i
+                                    class="fa fa-chevron-left"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                                <a
+                                  *ngIf="pager.currentPage !== 1"
+                                  (click)="setPage(pager.currentPage - 1)"
+                                  style="border-radius: 5px 0 0 5px !important"
+                                  ><i
+                                    class="fa fa fa-chevron-left"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                              </li>
+                              <!-- <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                        <a (click)="setPage(page)">{{page}}</a>
+                                      </li> -->
+                              <li
+                                [ngClass]="{
+                                  disabled:
+                                    pager.currentPage === pager.totalPages ||
+                                    (pager.currentPage === 2 &&
+                                      subscribed === false)
+                                }"
+                              >
+                                <a
+                                  *ngIf="pager.currentPage === pager.totalPages"
+                                  style="border-radius: 0 5px 5px 0 !important"
+                                  ><i
+                                    class="fa fa-chevron-right"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                                <a
+                                  *ngIf="pager.currentPage !== pager.totalPages"
+                                  (click)="setPage(pager.currentPage + 1)"
+                                  style="border-radius: 0 5px 5px 0 !important"
+                                  ><i
+                                    class="fa fa-chevron-right"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                              </li>
+                              <!-- <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                          <a *ngIf="pager.currentPage === pager.totalPages"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                        <a  *ngIf="pager.currentPage !== pager.totalPages" (click)="setPage(pager.totalPages)"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                      </li> -->
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 p-0 m-0 pb-2 pt-3"></div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab
+                  [label]="'Executive(' + executiveCount + ')'"
+                  *ngIf="executiveCount > 0"
+                >
+                  <div class="p-4">
+                    <div class="" *ngIf="unLockDiv == false">
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col" class="text-muted">
+                              Executive Name
+                            </th>
+                            <th scope="col" class="text-muted">Title</th>
+                            <th scope="col" class="text-muted">
+                              Email Address
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of totalSearchResult">
+                            <td scope="row" class="light-muted">
+                              <a
+                                [routerLink]="[
+                                  '/executiveOverview',
+                                  item.executiveId
+                                ]"
+                                target="_blank"
+                                style="color: #2d8cff"
+                                >{{ item.fullName }}</a
+                              >
+                            </td>
+                            <td class="light-muted">{{ item.title }}</td>
+                            <td class="fnt_email-ff">
+                              {{ item.emailAddress }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="h-100" *ngIf="unLockDiv">
+                      <app-upgrade></app-upgrade>
+                    </div>
+                    <div class="search_pagination_wrapper">
+                      <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                          <div class="paginationWrapper" *ngIf="totalSize > 0">
+                            <div
+                              class="pull-left paginationInfo"
+                              *ngIf="totalSize > 0"
+                            >
+                              {{ offset + 1 | numberWithCommas }}-{{
+                                (offset + count > totalSize
+                                  ? totalSize
+                                  : count + offset
+                                ) | numberWithCommas
+                              }}
+                              of {{ totalSize | numberWithCommas }}
+                            </div>
+                            <ul
+                              *ngIf="pager.pages && pager.pages.length"
+                              class="pagination"
+                              style="float: left !important"
+                            >
+                              <!-- <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                        <a *ngIf="pager.currentPage === 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                        <a (click)="setPage(1)" *ngIf="pager.currentPage !== 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                                      </li> -->
+                              <li
+                                [ngClass]="{
+                                  disabled: pager.currentPage === 1
+                                }"
+                              >
+                                <a
+                                  *ngIf="pager.currentPage === 1"
+                                  style="border-radius: 5px 0 0 5px !important"
+                                  ><i
+                                    class="fa fa-chevron-left"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                                <a
+                                  *ngIf="pager.currentPage !== 1"
+                                  (click)="setPageE(pager.currentPage - 1)"
+                                  style="border-radius: 5px 0 0 5px !important"
+                                  ><i
+                                    class="fa fa fa-chevron-left"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                              </li>
+                              <!-- <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                        <a (click)="setPage(page)">{{page}}</a>
+                                      </li> -->
+                              <li
+                                [ngClass]="{
+                                  disabled:
+                                    pager.currentPage === pager.totalPages ||
+                                    (pager.currentPage === 2 &&
+                                      subscribed === false)
+                                }"
+                              >
+                                <a
+                                  *ngIf="pager.currentPage === pager.totalPages"
+                                  style="border-radius: 0 5px 5px 0 !important"
+                                  ><i
+                                    class="fa fa-chevron-right"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                                <a
+                                  *ngIf="pager.currentPage !== pager.totalPages"
+                                  (click)="setPageE(pager.currentPage + 1)"
+                                  style="border-radius: 0 5px 5px 0 !important"
+                                  ><i
+                                    class="fa fa-chevron-right"
+                                    aria-hidden="true"
+                                  ></i
+                                ></a>
+                              </li>
+                              <!-- <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                          <a *ngIf="pager.currentPage === pager.totalPages"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                        <a  *ngIf="pager.currentPage !== pager.totalPages" (click)="setPage(pager.totalPages)"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                                      </li> -->
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 p-0 m-0 pb-2 pt-3"></div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Finance">
+                  <div class="verticalTab">
+                    <mat-tab-group
+                      (selectedTabChange)="vtabClick($event)"
+                      [selectedIndex]="0"
+                    >
+                      <mat-tab label="Earnings" class="justify-content-start">
+                        <div class="vTabTableWrapper">
+                          <table class="table">
+                            <tbody>
+                              <tr *ngFor="let item of dataResult | keyvalue">
+                                <td class="light-muted w-75">
+                                  {{ item.key | startcase }}
+                                </td>
+                                <td class="align-right light-body">
+                                  <strong class="fnt-dllr">{{
+                                    item.value
+                                  }}</strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Cost and Budget">
+                        <div class="vTabTableWrapper">
+                          <table class="table">
+                            <tbody>
+                              <tr *ngFor="let item of dataResult | keyvalue">
+                                <td class="light-muted w-75">
+                                  {{ item.key | startcase }}
+                                </td>
+                                <td class="align-right light-body">
+                                  <strong class="fnt-dllr">{{
+                                    item.value
+                                  }}</strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Income and EBITDA">
+                        <div class="vTabTableWrapper">
+                          <table class="table">
+                            <tbody>
+                              <tr *ngFor="let item of dataResult | keyvalue">
+                                <td class="light-muted w-75">
+                                  {{ item.key | startcase }}
+                                </td>
+                                <td class="align-right light-body">
+                                  <strong class="fnt-dllr">{{
+                                    item.value
+                                  }}</strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Assets">
+                        <div class="vTabTableWrapper">
+                          <table class="table">
+                            <tbody>
+                              <tr *ngFor="let item of dataResult | keyvalue">
+                                <td class="light-muted w-75">
+                                  {{ item.key | startcase }}
+                                </td>
+                                <td class="align-right light-body">
+                                  <strong class="fnt-dllr">{{
+                                    item.value
+                                  }}</strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Liabilities">
+                        <div class="vTabTableWrapper">
+                          <table class="table">
+                            <tbody>
+                              <tr *ngFor="let item of dataResult | keyvalue">
+                                <td class="light-muted w-75">
+                                  {{ item.key | startcase }}
+                                </td>
+                                <td class="align-right light-body">
+                                  <strong class="fnt-dllr">{{
+                                    item.value
+                                  }}</strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </mat-tab>
+                    </mat-tab-group>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Specification">
+                  <div class="vTabTableWrapper2">
+                    <table class="table">
+                      <tbody>
+                        <tr *ngFor="let item of dataResult | keyvalue">
+                          <td class="light-muted w-75">
+                            {{ item.key | startcase }}
+                          </td>
+                          <td class="align-right light-body">
+                            <strong class="fnt-dllr">{{ item.value }}</strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Hospital Stats">
+                  <div class="vTabTableWrapper2">
+                    <table class="table">
+                      <tbody>
+                        <tr *ngFor="let item of dataResult | keyvalue">
+                          <td class="light-muted w-75">
+                            {{ item.key | startcase }}
+                          </td>
+                          <td class="align-right light-body">
+                            <strong class="fnt-dllr">{{ item.value }}</strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Alliances">
+                  <div class="vTabTableWrapper2">
+                    <table class="table">
+                      <tbody>
+                        <tr *ngFor="let item of dataResult | keyvalue">
+                          <td class="light-muted w-75">
+                            {{ item.key | startcase }}
+                          </td>
+                          <td class="align-right light-body">
+                            <strong class="fnt-dllr">{{ item.value }}</strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-hospital-notcorrect
+    [notCorrectDiv]="notCorrectDrawer"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    [hospitalId]="hospitalOverviewResult?.hospitalInfoData?.hospitalId"
+    [hospitalName]="hospitalOverviewResult?.hospitalInfoData?.hospitalName"
+    *ngIf="notCorrectDrawer"
+  ></app-hospital-notcorrect>
+</div>

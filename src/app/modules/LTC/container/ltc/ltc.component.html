@@ -1,0 +1,89 @@
+<div id="wrapper">
+    <app-header style="width: 100%"></app-header>
+    <!-- <app-header *ngIf="!subscribed" ></app-header> -->
+    <app-sidemenu elementName="ltc"></app-sidemenu>
+    <div class="content-page">
+        <div class="row col ltc-wrapper">
+            <app-filter-ltc (onFilterChange)="handleFilterChanged($event)" [isSubscribed]="subscribed"></app-filter-ltc>
+            <div class="ltc-content" style="position: relative">
+                <div class="ltc-content-main">
+                    <div class="other-border">
+                        <app-hc-top-tab [allSelected]="allSelected"
+                            [partiallySelected]="isPartiallySelected"
+                            [showLoader]="showLoader" 
+                            [haveCheckbox]="savedLTCs.length<selectedFilter.limit && subscribed
+                            &&ltcList.lTCInfoList.length>0"
+                            [tabItems]="tabItems" (selectAllChanged)="handleSelectVisible($event)" [isPrimary]="true"
+                            (tabChanged)="handleTabChange($event)">
+                            <div class="flex1 flex-row">
+                                <div style="flex:1"></div>
+
+                                <div class="opt selectVal">
+                                    <mat-form-field style="max-width: 50px;border: none;padding-top: 10px;">
+                                        <mat-select [disabled]="!subscribed" [(ngModel)]="selectedFilter.limit"
+                                            (selectionChange)="handleRecordsChange()">
+                                            <mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{opt}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <div *ngIf="!subscribed" class="my-1 selectDisabled">
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- pagination part start -->
+                                <div class="paginationText">
+                                    {{ offset+1 }}
+                                    -
+                                    {{ paginationEndCount - 1}} of {{ 
+                                        selectedFilter.searchType == "NETNEW"?(netNewCount  | numberWithCommas):(totalItemCount| numberWithCommas) 
+                                     }} people </div>
+                                        <mat-icon (click)="decrementPage()" class="leftIcon" aria-hidden="false"
+                                            aria-label="Example home icon" [ngClass]="decrementEnabled?'':'disabled'">
+                                            keyboard_arrow_left</mat-icon>
+                                        <mat-icon (click)="incrementPage()" class="rightIcon" aria-hidden="false"
+                                            aria-label="Example home icon" [ngClass]="incrementEnabled?'':'disabled'">
+                                            keyboard_arrow_right</mat-icon>
+                                </div>
+                        </app-hc-top-tab>
+                        <app-bulk-save-ltc-card *ngIf="selectedLTCs.length>0" [selectedLTCs]="selectedLTCs"
+                            [selectedLTCsInCurrentPage]="selectedLTCsInCurrentPage"
+                            (successfullyAdded)="handleLTCAddList()" [totalItemCount]="totalItemCount"
+                            (clearPress)="clearSave()" [selectedFilter]="selectedFilter" [allLTCsSelected]="false">
+
+                        </app-bulk-save-ltc-card>
+                        <div *ngIf="!showUpgradeCard">
+
+                            <div *ngIf="!showLoader">
+                            <app-ltc-card *ngFor="let ltc of ltcList.lTCInfoList;index as i" [ltcInfo]="ltc"
+                                (checkboxChange)="handleCheckboxChange($event,ltc)" [isSubscribed]="subscribed"
+                                [checkboxSelected]="selectedLTCs.includes(ltc.ltcExecutiveId)"
+                                [checkboxDisabled]="peopleCheckboxDisabled(ltc)"></app-ltc-card>
+                            </div>
+                        </div>
+
+                        <div class="h-100" *ngIf="showUpgradeCard">
+                            <app-upgrade></app-upgrade>
+                          </div>
+                        <div class="layout h-100" *ngIf="noResult&&!showLoader">
+                            <div class="
+                            d-flex
+                            justify-content-center
+                            align-items-center align-self-center
+                            h-100
+                            flex-column
+                          ">
+                                <div class="text-center">
+                                    <img src="assets/img/Physician.png" width="30%" />
+                                </div>
+                                <h5 class="text-center pa-4">
+                                    No results found, Try to search again
+                                </h5>
+                            </div>
+                        </div>
+                        <app-b2b-loader *ngIf="showLoader" [loopCount]="5"></app-b2b-loader>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

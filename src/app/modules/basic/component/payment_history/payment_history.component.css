@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Hind:400,500,700|Noto+Sans:400,700");
+.SucccessBox {
+    margin: 40px auto;
+}
+
+.SucccessBox1 {
+    margin: 10px auto;
+}
+
+.hero_image_success {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.text_success {
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1.25rem!important;
+    color: green;
+}
+
+.text_table_center {
+    text-align: center;
+}
+
+.table td,
+.table th {
+    padding: .75rem;
+    vertical-align: top;
+    line-height: 27px;
+    border-top: 1px solid #dee2e6;
+}

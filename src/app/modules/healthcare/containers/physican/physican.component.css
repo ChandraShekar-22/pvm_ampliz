@@ -1,0 +1,366 @@
+.physician-content {
+  display: flex;
+  margin-left: 20px;
+  border: 1px solid #ebebeb;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  min-height: 435px;
+}
+
+.physician-content-header {
+  border-bottom: 2px solid #e2e4e7;
+  padding: 0px 25px 0 30px;
+  height: 85px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.toggle-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* .filter-container{
+
+} */
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  max-width: 144px;
+  border-bottom: 2px solid transparent;
+  flex-direction: column;
+  margin: 0 20px -1px;
+  font-weight: 400;
+  width: 192px;
+  cursor: pointer;
+}
+
+.toggle.active {
+  color: #2d8cff;
+  /* border-bottom-color: #2d8cff; */
+  position: relative;
+}
+
+.toggle.active:after {
+  position: absolute;
+  width: 100%;
+  content: "";
+  border-bottom: 4px solid #2d8cff;
+  bottom: -4px;
+}
+
+.big-txt {
+  font-size: 24px;
+  font-weight: 400;
+  color: #000;
+}
+
+.toggle.active .big-txt {
+  color: #2d8cff;
+}
+
+.sm-txt {
+  font-size: 15px;
+  /* color: #4596f9; */
+}
+
+.width-auto {
+  width: auto;
+}
+
+.physician-content-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 25px 0 30px;
+}
+
+.onoffswitch {
+  position: relative;
+  width: 78px;
+  margin-top: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  margin-bottom: 0;
+}
+
+.onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
+  font-size: 16px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+  content: "On";
+  padding-left: 12px;
+  background-color: #2d8cff;
+  color: #ffffff;
+}
+
+.onoffswitch-inner:after {
+  content: "Off";
+  padding-right: 12px;
+  background-color: #999999;
+  color: #ebebeb;
+  text-align: right;
+}
+
+.onoffswitch-switch {
+  display: block;
+  width: 16px;
+  margin: 4px;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 50px;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  transition: all 0.3s ease-in 0s;
+  box-sizing: content-box;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+}
+
+.text-grey {
+  color: #4d4e4f;
+  font-weight: 500;
+}
+
+.font-15 {
+  font-size: 15px;
+}
+
+.font-13 {
+  font-size: 13px;
+}
+
+.paginationInfo {
+  padding: 20px 25px;
+  font-size: 14px;
+}
+
+/* addon css start */
+
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  margin-bottom: 0;
+  height: 28px !important;
+  width: 66px !important;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 30px;
+  padding: 0;
+  padding-right: 12px !important;
+  line-height: 25px !important;
+  font-size: 14px !important;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+  content: "On";
+  padding-left: 12px !important;
+  background-color: #2d8cff;
+  color: #ffffff;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 12px !important;
+}
+
+.font-13 {
+  font-size: 13px;
+}
+
+.big-txt {
+  font-size: 22px !important;
+  font-weight: 500;
+  color: #000;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.loading::after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 5px solid #dddddd;
+  border-top-color: #cacccc;
+  border-radius: 50%;
+  animation: loading 1s ease infinite;
+}
+.lockBtn {
+  border:1px solid #ccc;
+  padding: 10px;
+  opacity: 0.5;
+  pointer-events:none;
+  position:relative;
+}
+
+.lockBtn .lockimg {
+  position: absolute;
+    right: 0;
+    top: 14px;
+    color: #f5b616;
+    display:block
+}
+.lockimg {
+  display:none;
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.form-check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.insideContent {
+  background-color: #2d8cff;
+  width: 10px;
+  height: 10px;
+  margin:auto;
+  
+}
+
+.partiallySelected {
+  content: "";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: -2px;
+  /* margin-right: 5px; */
+  border: 1px solid #c2c2c2;
+  border-radius: 2px;
+  transition: 240ms;
+  position: relative;
+  margin-bottom: -4px;
+  cursor: pointer;
+}
+
+
+.csvButton {
+  border-radius: 25px;
+  border: 1px solid #f2f2f2;
+  margin-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 13px;
+  font-weight: normal;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+}
+
+
+mat-form-field.mat-form-field {
+  font-size: 12px;
+  height: 18px;
+}
+
+.opt .mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 0 !important;
+}
+
+.placeholder-item {
+  border-radius: 30px;
+    background-color: #eee;
+    width: 75%;
+    height: 10px;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1279px) {
+
+.physician-content-header {
+  
+  padding: 0px;
+}  
+
+.physician-content-main {
+  padding: 0 5px 0 0px;
+}
+.physician-content {
+  
+  margin-left: 0px;
+}
+
+.toggle {
+  width: 95px;
+}
+.big-txt {
+  font-size: 18px !important; 
+}
+.sm-txt {
+  font-size: 13px;
+}
+}

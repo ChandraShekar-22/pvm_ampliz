@@ -1,0 +1,18 @@
+
+    <div class=" searchQuota flex-row">
+        <i class="fa fa-search searchIcon" aria-hidden="true"></i>
+        <div class="flex1 mx-3">
+            <p class="searchQuotaTitle">Your search quota usage is {{progress}}%</p>
+            <div class="progressbar">
+                <div class="progressLine" 
+                [style.width]="progress+'%'"
+                [style.background-color]="progress>90?'red':'#FFDE06'"
+                ></div>
+            </div>
+            <p class="searchQuotaSub">
+                <span
+                (click)="openPayment()"
+                style="color: #2e8cff;cursor: pointer">Upgrade plan </span>to increase your search limit</p>
+        </div>
+    </div>
+

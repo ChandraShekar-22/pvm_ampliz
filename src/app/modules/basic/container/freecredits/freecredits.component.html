@@ -1,0 +1,101 @@
+<div id="wrapper">
+  <!-- Top Bar Start -->
+  <app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header>    Top Bar End -->
+  <!-- ========== Left Sidebar Start ========== -->
+
+  <app-sidemenu elementName="freecredits"></app-sidemenu>
+
+  <!-- Left Sidebar End -->
+  <!-- ============================================================== -->
+  <!-- Start right Content here -->
+  <!-- ============================================================== -->
+  <div class="content-page enlarged">
+    <div class="content mx-auto">
+      <div class="col-sm-12">
+        <div class="wrapper-page">
+          <div
+            class="m-t-40 card-box"
+            style="
+              background-image: url('assets/images/gift-box.jpg');
+              background-size: contain;
+            "
+          >
+            <div class="text-center"></div>
+            <div class="account-content">
+              <div class="text-center m-b-20">
+                <div class="m-b-20">
+                  <img
+                    src="assets/img/icons/gift-icon.png"
+                    class="rounded-circle"
+                    alt="thumbnail"
+                    style="height: 88px"
+                  />
+                </div>
+                <h5 class="m-b-0">Reedem Coupon</h5>
+                <!-- <p class="text-muted m-b-0 font-13 line-h-24">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, </p> -->
+              </div>
+              <form
+                class="form-horizontal"
+                [formGroup]="validateReedemCodeForm"
+                (ngSubmit)="onSubmit()"
+              >
+                <div *ngIf="submitted && f.code.errors" class="">
+                  <div *ngIf="f.code.errors.required" class="inv-code">
+                    Coupon code is required
+                  </div>
+                  <div class="col-12 inv-code" *ngIf="f.code.errors.minlength">
+                    Atleast 6 characters are required
+                  </div>
+                </div>
+                <div
+                  *ngIf="successStatus || errorStatus"
+                  class="inv-code"
+                  [ngStyle]="{ color: successStatus ? '#64d264' : 'red' }"
+                >
+                  {{ responseStatus }}
+                </div>
+
+                <div class="form-group m-b-20">
+                  <div class="col-12">
+                    <label style="visibility: hidden" for="password"
+                      >Coupon code</label
+                    >
+                    <input
+                      class="input_width"
+                      type="text"
+                      (ngModelChange)="somethingChanged()"
+                      formControlName="code"
+                      placeholder="Enter coupon code"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted }"
+                    />
+                  </div>
+                </div>
+                <div class="form-group account-btn text-center m-t-10">
+                  <div class="col-12">
+                    <button class="btn btn-lg btn-new btn-block" type="submit">
+                      Reedem
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <!-- end card-box-->
+        </div>
+        <!-- end wrapper -->
+      </div>
+    </div>
+    <!-- Start content -->
+
+    <app-footer></app-footer>
+    <!-- content -->
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- End Right content here -->
+  <!-- ============================================================== -->
+</div>

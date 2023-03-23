@@ -1,0 +1,9 @@
+<span
+  class="requestContact"
+  (click)="request('Request Email Access')"
+  [ngClass]="{
+    b2b_card: platform === 'b2b',
+    healthcare_card: platform === 'healthcare'
+  }"
+  >Request</span
+>

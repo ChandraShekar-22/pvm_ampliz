@@ -1,0 +1,462 @@
+<div class="card column" style="width: 23rem">
+    <div class="card-body">
+        <div class="flex-row">
+            <div>
+                <h6 class="card-title titleCardStyle">Showing results for</h6>
+            </div>
+            <a href="#" (click)="clearAll()" class="clearAll">Clear </a>
+        </div>
+        <div class="solid"></div>
+        <div class="pos-relative">
+            <i (click)="openSpeciality()" class="plusIcon" [ngClass]="isSpecialityOpened ? 'fa fa-minus' : 'fa fa-plus'" style="top: 10px"></i>
+            <div>
+                <h6 class="header pt20">Speciality</h6>
+                <p class="sub-header" (click)="openSpeciality()" *ngIf="isSpecialityOpened == false && includedSpeciality.length <= 0" style="padding-bottom: 14px">
+                    Filter speciality
+                </p>
+                <div *ngIf="isSpecialityOpened == false && includedSpeciality.length > 0">
+                    <mat-chip-list cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                        <mat-chip class="selected-data" *ngFor="let content of includedSpeciality" [selectable]="selectable" [removable]="removable" (removed)="remove(content)">
+                            {{ content.name }}
+                            <mat-icon matChipRemove class="existing-chip-list">close</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+                <div *ngIf="isSpecialityOpened">
+                    <mat-chip-list cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                        <mat-chip class="selected-data" *ngFor="let content of includedSpeciality" [selectable]="selectable" [removable]="removable" (removed)="remove(content)">
+                            {{ content.name }}
+                            <mat-icon matChipRemove class="existing-chip-list">close</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                    <!-- <h5 class="card-title header">Include Speciality</h5> -->
+                    <div>
+                        <mat-form-field class="example-chip-list">
+                            <mat-label>Include speciality</mat-label>
+                            <mat-chip-list #includedTitle aria-label="includedTitle">
+                                <mat-chip *ngFor="let content of includedSpeciality" [selectable]="selectable" [removable]="removable" (removed)="remove(content)" class="chip-list">
+                                    {{ content.name }}
+                                    <mat-icon matChipRemove *ngIf="removable" class="chip-list">close</mat-icon>
+                                </mat-chip>
+                                <input [matChipInputAddOnBlur]="addOnBlur" [matChipInputFor]="includedTitle" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)" />
+                            </mat-chip-list>
+                        </mat-form-field>
+                    </div>
+                    <!-- <h6 class="card-title header">Exclude Speciality</h6> -->
+                    <div>
+                        <mat-form-field class="example-chip-list">
+                            <mat-label>Exclude speciality</mat-label>
+                            <mat-chip-list #excludeSpeciality aria-label="Exclude Speciality">
+                                <mat-chip *ngFor="let content of excludedSpeciality" [selectable]="selectable" [removable]="removable" (removed)="removeExclude(content)" class="chip-list">
+                                    {{ content.name }}
+                                    <mat-icon matChipRemove *ngIf="removable" class="chip-list">close</mat-icon>
+                                </mat-chip>
+                                <input [matChipInputFor]="excludeSpeciality" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addExclude($event)" [matChipInputAddOnBlur]="addOnBlur" />
+                            </mat-chip-list>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="solid"></div>
+        <div class="pos-relative">
+            <i (click)="div1Function()" class="plusIcon" [ngClass]="first_label ? 'fa fa-plus' : 'fa fa-minus'"></i>
+            <div>
+                <h6 class="card-title header">Name</h6>
+                <p class="sub-header" *ngIf="first_label && personName == ''">
+                    Person Name
+                </p>
+                <div (click)="div1Function()">
+                    <span class="selected-data" *ngIf="first_label && personName !== ''">{{ personName }}</span
+          >
+        </div>
+        <div *ngIf="div1" class="filterInput">
+          <input [(ngModel)]="personName" (ngModelChange)="test($event)" />
+        </div>
+      </div>
+    </div>
+    <div class="solid"></div>
+    <div class="pos-relative">
+      <div>
+        <h6 class="card-title header">Hospital Name</h6>
+        <p
+          class="sub-header"
+          *ngIf="hospitalSelection == false && hospitalName == ''"
+        >
+          Search Hospitals
+        </p>
+        <div *ngIf="hospitalSelection == false">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <mat-chip
+              class="existing-chip-list"
+              *ngFor="let hospital of hospitalName"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeHospital(country)"
+            >
+              {{ hospital }}
+              <mat-icon matChipRemove class="existing-chip-list"
+                >close</mat-icon
+              >
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="hospitalSelection" class="filterInput">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <mat-chip
+              class="existing-chip-list"
+              *ngFor="let hospital of hospitalName"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeHospital(country)"
+            >
+              {{ hospital }}
+              <mat-icon matChipRemove class="existing-chip-list"
+                >close</mat-icon
+              >
+            </mat-chip>
+          </mat-chip-list>
+
+          <div style="width: 90%">
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #searchHospital aria-label="Hospital search">
+                <mat-chip
+                  class="chip-list"
+                  *ngFor="let hospital of hospitalName"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removeHospital(hospital)"
+                >
+                  {{ hospital }}
+                  <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                    >close</mat-icon
+                  >
+                </mat-chip>
+                <input
+                  placeholder="Select hospitals"
+                  [formControl]="hospitalCtrl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="searchHospital"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  #triggerHospital="matAutocompleteTrigger"
+                />
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let hospital of filteredHospitals"
+                  [value]="hospital"
+                  (click)="addHospital($event, trigger)"
+                >
+                  {{ hospital.hospitalName }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <i
+        (click)="selectHospital()"
+        class="plusIcon"
+        [ngClass]="hospitalSelection ? 'fa fa-minus' : 'fa fa-plus'"
+      ></i>
+    </div>
+    <div class="solid"></div>
+    <div class="pos-relative">
+      <div>
+        <h6 class="card-title header">NPI Number</h6>
+        <p
+          class="sub-header"
+          *ngIf="npiNumberSelection == false && npiNumber == ''"
+        >
+          NPI Number
+        </p>
+        <div *ngIf="npiNumberSelection == false">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <mat-chip
+              class="existing-chip-list"
+              *ngFor="let content of npiNumber"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeNPI(content)"
+            >
+              {{ content.name }}
+              <mat-icon matChipRemove class="existing-chip-list"
+                >close</mat-icon
+              >
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <div *ngIf="npiNumberSelection">
+          <!-- <mat-chip-list
+              class="example-chip"
+              cdkDropList
+              cdkDropListOrientation="horizontal"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <mat-chip
+                class="existing-chip-list"
+                *ngFor="let content of npiNumber"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removeNPI(content)"
+              >
+                {{ content.name }}
+                <mat-icon matChipRemove class="existing-chip-list"
+                  >close</mat-icon
+                >
+              </mat-chip>
+            </mat-chip-list> -->
+          <!-- <p class="titleCardStyle">NPI number</p> -->
+          <div>
+            <mat-form-field class="example-chip-list">
+              <mat-label>NPI numbers</mat-label>
+              <mat-chip-list #npiNumberInput aria-label="Exclude Speciality">
+                <mat-chip
+                  *ngFor="let content of npiNumber"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removeNPI(content)"
+                  class="chip-list"
+                >
+                  {{ content.name }}
+                  <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                    >close</mat-icon
+                  >
+                </mat-chip>
+                <input
+                  [matChipInputFor]="npiNumberInput"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="addNPI($event)"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                />
+              </mat-chip-list>
+            </mat-form-field>
+            <!-- <mat-form-field class="example-chip-list">
+                <mat-label>NPI number</mat-label>
+                <mat-chip-list
+                  #npiNumber
+                  aria-label="Fruit
+                  selection"
+                >
+                  <mat-chip
+                    *ngFor="let content of npiNumber"
+                    [selectable]="selectable"
+                    [removable]="removable"
+                    (removed)="removeNPI(content)"
+                    class="chip-list"
+                  >
+                    {{ content.name }}
+                    <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                      >close</mat-icon
+                    >
+                  </mat-chip>
+                  <input
+                    [matChipInputFor]="npiNumber"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="addNPI($event)"
+                  />
+                </mat-chip-list>
+              </mat-form-field> -->
+          </div>
+        </div>
+      </div>
+      <i
+        (click)="selectNPINumber()"
+        class="plusIcon"
+        [ngClass]="npiNumberSelection ? 'fa fa-minus' : 'fa fa-plus'"
+      ></i>
+    </div>
+    <div class="solid"></div>
+    <div class="pos-relative">
+      <div>
+        <h6 class="card-title header">Location</h6>
+        <p
+          class="sub-header"
+          (click)="selectLocation()"
+          *ngIf="locationSelection === false"
+        >
+          State,City
+        </p>
+        <!-- <div *ngIf="locationSelection == true && countries !== ''">
+            <p
+              class="sub-header"
+              (click)="selectLocation()"
+              *ngIf="locationSelection == false"
+            >
+              State
+            </p>
+            <mat-chip-list
+              class="example-chip"
+              cdkDropList
+              cdkDropListOrientation="horizontal"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <mat-chip
+                class="existing-chip-list"
+                *ngFor="let country of countries"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removePlaces(country)"
+              >
+                {{ country }}
+                <mat-icon matChipRemove class="existing-chip-list"
+                  >close</mat-icon
+                >
+              </mat-chip>
+            </mat-chip-list>
+            <p
+              class="card-title col-12"
+              (click)="selectLocation()"
+              *ngIf="locationSelection == false && cityNameChange !== ''"
+            >
+              City
+            </p>
+            <mat-chip-list
+              *ngIf="locationSelection == false && cityNameChange !== ''"
+              class="existing-chip-list"
+              cdkDropList
+              cdkDropListOrientation="horizontal"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <mat-chip class="existing-chip-list" cdkDrag>
+                {{ cityNameChange }}
+              </mat-chip>
+            </mat-chip-list>
+          </div> -->
+        <div *ngIf="locationSelection" class="filterInput">
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <mat-chip
+              class="existing-chip-list"
+              *ngFor="let state of states"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removePlaces(state)"
+            >
+              {{ state }}
+              <mat-icon matChipRemove class="existing-chip-list"
+                >close</mat-icon
+              >
+            </mat-chip>
+          </mat-chip-list>
+          <div>
+            <mat-form-field class="example-chip-list">
+              <mat-label>Select State</mat-label>
+              <mat-chip-list
+                #countriesInput
+                aria-label="Country
+                  selection"
+              >
+                <mat-chip
+                  class="chip-list"
+                  *ngFor="let state of states"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="removePlaces(country)"
+                >
+                  {{ state }}
+                  <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                    >close</mat-icon
+                  >
+                </mat-chip>
+                <input
+                  #countryInput
+                  [formControl]="stateCtrl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="countriesInput"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="selectState($event)"
+                />
+              </mat-chip-list>
+              <mat-autocomplete
+                #auto="matAutocomplete"
+                (optionSelected)="selectState($event)"
+              >
+                <mat-option
+                  *ngFor="let state of filteredStates"
+                  [value]="state.state"
+                >
+                  {{ state.state }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="example-chip-list">
+              <mat-label>City</mat-label>
+              <mat-select multiple>
+                <mat-option>None</mat-option>
+                <mat-option
+                  *ngFor="let city of filteredCountries | async"
+                  [value]="city"
+                  >{{ city }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- <h6 class="card-title col-12 titleCardStyle">City</h6> -->
+          <!-- <div>
+              <mat-form-field class="example-chip-list">
+                <mat-chip-list
+                  #city
+                  aria-label="Fruit
+                  selection"
+                >
+                  <mat-chip
+                    *ngFor="let content of npiNumber"
+                    [selectable]="selectable"
+                    [removable]="removable"
+                    (removed)="removeNPI(content)"
+                    class="chip-list"
+                  >
+                    {{ content.name }}
+                    <mat-icon matChipRemove *ngIf="removable" class="chip-list"
+                      >close</mat-icon
+                    >
+                  </mat-chip>
+                  <input
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="addNPI($event)"
+                  />
+                </mat-chip-list>
+              </mat-form-field>
+            </div> -->
+          <!-- <input
+              placeholder="City"
+              *ngIf="locationSelection"
+              class="input-fieldSearch"
+              [(ngModel)]="egCityName"
+              (ngModelChange)="cityNameUpdate($event)"
+            /> -->
+          <!-- </div> -->
+        </div>
+        <i
+          (click)="selectLocation()"
+          class="plusIcon"
+          [ngClass]="locationSelection ? 'fa fa-minus' : 'fa fa-plus'"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>

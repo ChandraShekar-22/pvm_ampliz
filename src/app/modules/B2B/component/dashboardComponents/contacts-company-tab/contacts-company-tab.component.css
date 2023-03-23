@@ -1,0 +1,32 @@
+
+
+.mat-tab-link {
+    opacity: 1;
+    border-width: 10px !important;
+    font-weight: normal;
+    height: 35px;
+    font-size: 12px;
+    min-width: 63px !important;
+  }
+  :host {
+    width: 100%;
+  }
+  .mat-tab-label-active {
+    font-weight: normal;
+    color: #2d8cff !important;
+  }
+  
+  .activeNormal {
+    color: #2d8cff !important;
+  }
+  
+  .activePrimary {
+    color: #2d8cff !important;
+  }
+  .feather {
+    width: 20px;
+    margin: 0 10px 0 0;
+  }
+  .mat {
+    margin: 0 10px 0 0;
+  }

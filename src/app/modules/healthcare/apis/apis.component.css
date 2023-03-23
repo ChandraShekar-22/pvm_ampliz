@@ -1,0 +1,65 @@
+.wrapper-page {
+    margin: 5% auto;
+    max-width:600px;
+}
+.wrapper-page .api-card-box {
+    box-shadow: 0 0 3px 2px #ddd;
+    background: #fff;
+}
+
+.api-box-header {
+    font-size:18px;
+    color: #000;
+    border-bottom: 1px solid rgba(0,0,0,0.13)
+}
+
+.rounded-btn {
+    border-radius:20px;
+}
+
+.label-inputbox{
+    border: 2px solid #97A9BA;
+    padding:15px;
+    outline:none;
+}
+.btn-primary-generate {
+    background-color:  #2d8cff !important;
+    color :#fff !important;
+}
+
+/* .btn-primary-locked {
+    background-color:  #F9D537 !important;
+    color :#000 !important;
+} */
+.text-disabled {
+    color: #ddd !important;
+}
+
+.suggestion {
+    color :#b1aeae;
+    font-size:13px;
+    padding: 4px 0
+}
+.keyGenWrap{
+    position:relative;;
+}
+
+.keyGenWrap .showCopyMessage {
+    position: absolute;
+    left: 0;
+    top: -29px;
+    background: green;
+    color: #fff;
+    padding: 4px 6px;
+    font-weight: normal;
+}
+
+.keyGenWrap .createdOn{
+    position: absolute;
+    right: 0;
+    top: -40px;
+    
+    color: #999;
+    padding: 4px 6px;
+    font-weight: normal;
+}

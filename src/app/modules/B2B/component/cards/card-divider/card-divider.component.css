@@ -1,0 +1,16 @@
+.divider-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    margin: 15px 0;
+}
+.dash:after {
+    content: "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+}
+.divider-container span {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #A4A4A4;
+}

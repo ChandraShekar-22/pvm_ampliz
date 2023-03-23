@@ -1,0 +1,37 @@
+<div>
+  <h5 class="topTitle">Your Recent Searches</h5>
+  <div *ngIf="recentSearchList.length==0" class="noDataWrapper" >
+    <app-recent-no-data></app-recent-no-data>
+  </div>
+  <div *ngIf="recentSearchList.length>0" class="recent-content" style="position: relative">
+    <div class="recent-content-main">
+      <!-- <app-recent-search></app-recent-search> -->
+      <div>
+        <div class="recent_container" *ngFor="let item of recentSearchList">
+          <app-recent-search-card [searchData]="item"
+          (saveSearchPressed)="handleSaveSearchPress(item)"
+          ></app-recent-search-card>
+                
+              
+      </div>
+      <app-save-search-list
+        (searchSaved)="handleSearchSave()"
+        [searchCred]="searchCred"
+        [searchListDrawer]="saveSearchListDrawer"
+        (cancelBtnClick)="cancelSaveSearch()"
+        *ngIf="saveSearchListDrawer"
+        [type]="saveSearchType"
+      >
+      </app-save-search-list>      
+      </div>
+      <div *ngIf="isViewmoreButtonVisible">
+      <p class="viewMore" (click)="viewMoreClicked()">View more</p>
+      </div>
+    </div>
+  </div>
+  <app-recent-view-more
+  [recentViewMore]="recentViewMore"
+  *ngIf="recentViewMore"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  ></app-recent-view-more>
+</div>

@@ -1,0 +1,27 @@
+<div>
+    <div *ngIf="type=='outline'" mat-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" class="amplizRoundedButton greyText">
+        {{optionOnScreen[itemText]}}
+        <mat-icon style="height: 14px;width: 14px;font-size: 14px;">
+            keyboard_arrow_down
+        </mat-icon>
+    </div>
+    <div *ngIf="type=='icon'" mat-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" >
+        <mat-icon style="height: 24px;width: 24px;font-size: 24px;cursor: pointer;">
+            {{iconName}}
+        </mat-icon>
+    </div>
+    <mat-menu #menu="matMenu" xPosition="after" yPosition="above">
+        <div >
+            <div class="px-2 py-2 optionStyle flex-r align-center" *ngFor="let option of options"
+            [ngClass]="activeOption(option)?'activeOption':''"
+            (click)="handleOptionSelected(option)"
+            >
+            <div class="tickContainer mx-2">
+                <mat-icon *ngIf="activeOption(option)">
+                    check
+                </mat-icon>
+            </div>
+                {{itemText?option[itemText]:option}}
+            </div>
+        </div>
+    </mat-menu>

@@ -1,0 +1,738 @@
+<div id="wrapper">
+    <app-header [user]="user" style="width:100%"></app-header>{{user}}
+    <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header>
+
+    <app-sidemenu elementName="company_search"></app-sidemenu>
+<div class="body_wrapper">
+        <div class="spinner" *ngIf="spinner">
+            <mat-spinner [diameter]="60"></mat-spinner>
+        </div>
+
+        <!-- section first start -->
+        <section class="s_subscribe_area">
+            <div class="s_shap">
+                <svg class="right_shape" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs>
+                        <linearGradient id="PSgrad_5">
+                            <stop offset="0%" stop-color="rgb(103,84,226)" stop-opacity="0.95"></stop>
+                            <stop offset="100%" stop-color="rgb(25,204,230)" stop-opacity="0.95"></stop>
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#PSgrad_5)"
+                        d="M543.941,156.289 L227.889,41.364 C184.251,25.497 136.000,47.975 120.118,91.571 L5.084,407.325 C-10.799,450.921 11.701,499.127 55.339,514.995 L371.391,629.920 C415.029,645.788 463.280,623.309 479.162,579.713 L594.196,263.959 C610.079,220.362 587.579,172.157 543.941,156.289 Z">
+                    </path>
+                    <path fill="url(#PSgrad_5)"
+                        d="M625.661,120.004 L309.609,5.079 C265.971,-10.790 217.720,11.689 201.838,55.286 L86.804,371.039 C70.921,414.636 93.421,462.842 137.059,478.709 L453.111,593.634 C496.749,609.502 545.000,587.024 560.882,543.427 L675.916,227.673 C691.799,184.077 669.299,135.872 625.661,120.004 Z">
+                    </path>
+                </svg>
+            </div>
+            <div class="container">
+                <div class="sec_title text-center mb_30 wow fadeInUp" data-wow-delay="0.4s"
+                    style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                    <h2 class="f_p f_size_30 l_height50 f_600 t_color">Find right Company Information
+                    </h2>
+                    <!-- <input type="file" (change)="onFileChange($event)" /> -->
+
+
+                    <p class="f_400 f_size_18 l_height34">Enter a domain to get a taste of what Ampliz has to offer.
+                    </p>
+                </div>
+                <form [formGroup]="domainForm" class=" wow fadeInUp" data-wow-delay="0.6s" method="post"
+                    novalidate="true" (ngSubmit)="domainSearch(domainForm.value)"
+                    style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                    <div class="input-group s_subcribes">
+                        <input type="text" class="form-control " formControlName="url" (keyup)="keySearch($event)"
+                            placeholder="Enter a domain ....." [ngClass]="{ 'is-invalid': submitted && f.url.errors }">
+
+                        <button class="btn btn-submit" type="submit"><i class="ti-arrow-right"></i></button>
+                    </div>
+                    <div class="s_subcribes mt-2">
+                        <div *ngIf="submitted && f.url.errors" class="alert alert-danger ">
+                            <p *ngIf="f.url.errors.pattern">Please enter valid url</p>
+                        </div>
+                        <p *ngIf="!domainForm.value.url && showMsg" class="alert alert-danger">URL Required</p>
+                        <!-- <p *ngIf="invalidurl" class="alert alert-danger">Domain Inavalid</p> -->
+                    </div>
+                </form>
+                <div class="alter-login text-center mt_30 wow fadeInUp" data-wow-delay="0.8s">
+                    <span class="mr-3 f_600">Try an Example :</span>
+                    <span *ngFor="let urls of tryUrlBtn">
+                        <a class="login-link serach-btn btn-hover mr-2"
+                            (click)="showCompInfo(urls.name)">{{urls.name}}</a>
+                    </span>
+                </div>
+            </div>
+        </section>
+        <!-- section first end -->
+
+        <!-- Email & Domain Search Start Static -->
+        <div *ngIf="static">
+
+            <!-- <h4 class="text-center mt-3 email_text">Enter an email or domain to get a taste of what Ampliz has to offer.</h4> -->
+            <section class="blog_area sec_pad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 blog_sidebar_left wow fadeInLeft pb-5 " data-wow-delay="0.2s"
+                            style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                            <div class="blog_single mb_50">
+                                <div class="blog_content">
+                                    <div class="post_date">
+                                        <img class="img-fluid opct" style="height: 55px;padding:2px"
+                                            src="https://s3.amazonaws.com/media.mixrank.com/hero-img/18075efca71ad7521a66f5d8608cebc2"
+                                            alt="microsoft">
+                                    </div>
+
+                                    <div class="col-md-12 post_share opct">
+                                        <span>
+                                            <h5 class="f_p f_size_30 f_500 t_color"><b>Microsoft</b></h5>
+                                        </span>
+
+                                        <div class="flex">
+
+                                            <span><a><i class="ti-facebook"></i></a></span>
+                                            <span><a><i class="ti-twitter"></i></a></span>
+                                            <span><a><i class="ti-linkedin mr-2"></i></a></span>
+                                            <!-- <a class="btn view-default mr-2">View All Colleagues</a>
+                                            <a href="https://www.ampliz.com/talk-to-us?utm_source=ampliz&utm_medium=icp&utm_campaign=icp"
+                                                target="_blank" class="btn view-default1">Talk to us</a> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 media-body opct">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 mt-3">Description</h5>
+                                        <p id="desc">At Microsoft, our mission is to empower every person and every
+                                            organization on the planet to achieve more. Our mission is grounded in both
+                                            the world in which we live and the future we strive to create. Today, we
+                                            live in a mobile-first, cloud-first world, and the transformation we are
+                                            driving across our businesses is designed to enable Microsoft and our
+                                            customers to thrive in this world. We do business in 170 countries and are
+                                            made up of 114,000 passionate employees dedicated to fulfilling our mission
+                                            of helping you and your organization achieve more.</p>
+                                    </div>
+                                    <div class="media-left">
+                                        <div class="col-md-12 opct service_details pr_120 mt-4">
+                                            <ul class="list-unstyled  pl-0 pr_20">
+                                                <li><i class="ti-location-pin" aria-hidden="true"></i>
+                                                    <span class="blk">Location : </span>
+                                                    <span class="pl-1 f_300 ">
+                                                        1 Microsoft WayRedmond, WA,United States
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="media-left">
+                                        <div class="col-md-12 opct service_details pr_120 mt-4">
+                                            <ul class="list-unstyled mb-30 pl-0 pr_20">
+                                                <li><i class="fa fa-building-o" aria-hidden="true"></i>
+                                                    <span class="blk">Founded Year :</span>
+                                                    <span class="pl-1 f_300 ">
+                                                        <a>1975</a>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="media-left pb-5">
+                                        <div class="col-md-12 opct service_details pr_120 mt-4">
+                                            <ul class="list-unstyled mb-30 pl-0 pr_20">
+                                                <li><i class="ti-user" aria-hidden="true"></i>
+                                                    <span class="blk">Employees :</span>
+                                                    <span class="pl-1 f_300 ">
+                                                        10001+
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="responsive-map opct">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2822.7806761080233!2d-93.29138368446431!3d44.96844997909819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b32b6ee2c87c91%3A0xc20dff2748d2bd92!2sWalker+Art+Center!5e0!3m2!1sen!2sus!4v1514524647889"
+                                            width="100%" height="170" frameborder="0" style="border:0"
+                                            allowfullscreen></iframe>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="blog-sidebar blog_content">
+                                <div class="widget sidebar_widget widget_categorie mt-4 opct">
+                                    <div class="widget_title opct">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Industry</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>Computer Games | Computer Hardware | Computer
+                                            Software | Internet | Research |
+                                            Information Technology and Services |
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="widget sidebar_widget widget_tag_cloud mt-4 opct">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Tags</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="post_tag">
+                                        <a href="#">Internet</a>
+                                        <a href="#">Web Services & Apps</a>
+                                        <a href="#">Technology</a>
+                                        <a href="#">Marketplace</a>
+                                        <a href="#">B2C</a>
+                                        <a href="#">Mobile</a>
+                                    </div>
+                                </div> -->
+                                <div class="widget sidebar_widget widget_categorie mt-4 opct">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Region</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>Washington</span>
+                                    </div>
+                                </div>
+                                <div class="widget sidebar_widget widget_categorie mt-3 opct">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">SIC Code</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>2821, 3365, 3577, 3585
+
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="widget sidebar_widget widget_categorie mt-4 opct">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Phone</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>(425) 638-7777</span>
+                                    </div>
+                                </div>
+                                <div class="widget sidebar_widget widget_categorie mt-4 mb-3 opct">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Zip</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>98052 </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+        <!-- Email & Domain Search End Static -->
+
+        <!-- Email Search Start Dynamic  -->
+        <!-- <div *ngIf="!static && showcontact">
+
+        <section class="blog_area sec_pad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 blog_sidebar_left wow fadeInLeft" data-wow-delay="0.2s"
+                        style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                        <div class="blog_single mb_50">
+                            <div class="blog_content">
+                                <div class="post_date" *ngIf="response.Picture">
+                                    <img class="img-fluid opct" style="border-radius: 50px;height: 70px;"
+                                        src={{response.Picture}} alt="img">
+                                </div>
+                                <div class="col-md-12 post_share opct">
+                                    <span href="#">
+                                        <h5 class="f_p f_size_30 f_500 t_color"><b>{{response.FullName}}</b></h5>
+                                      
+                                    </span>
+                                    <div class="flex">
+                                        <a href="{{response.LinkedinURL}}"><i class="ti-linkedin"></i>Linkedin</a>
+                                    </div>
+                                </div>
+                                <div class="media-left">
+                                    <div class="col-md-12 opct service_details pr_120 mt-4">
+                                        <ul class="list-unstyled  pl-0 pr_20">
+                                            <li><i class="ti-pencil" aria-hidden="true"></i>
+                                                <span class="blk">Title : </span>
+                                                <span class="pl-1 f_300 ">
+                                                    {{response.Title}}
+
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="media-left">
+                                    <div class="col-md-12 opct service_details pr_120 mt-4">
+                                        <ul class="list-unstyled  pl-0 pr_20">
+                                            <li><i class="fa fa-building-o" aria-hidden="true"></i>
+                                                <span class="blk">Company Name : </span>
+                                                <span class="pl-1 f_300 ">
+                                                    {{response.CompanyName}}
+
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="media-left">
+                                    <div class="col-md-12 opct service_details pr_120 mt-4">
+                                        <ul class="list-unstyled  pl-0 pr_20">
+                                            <li><i class="ti-id-badge" aria-hidden="true"></i>
+                                                <span class="blk">CompanyID : </span>
+                                                <span class="pl-1 f_300 ">
+                                                    {{response.CompanyID}}
+
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                
+                                <div class="media-left">
+                                    <div class="col-md-12 opct service_details pr_120 mt-4">
+                                        <ul class="list-unstyled mb-30 pl-0 pr_20">
+                                            <li><i class="ti-email" aria-hidden="true"></i>
+                                                <span class="blk">Email :</span>
+                                                <span class="pl-1 f_300 ">
+                                                    <a href="#">{{response.EmailAddress}}</a>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="media-left">
+                                    <div class="col-md-12 opct service_details pr_120 mt-4">
+                                        <ul class="list-unstyled mb-30 pl-0 pr_20">
+                                            <li><i class="fa fa-phone" aria-hidden="true"></i>
+                                                <span class="blk">Phone Number :</span>
+                                                <span class="pl-1 f_300 ">
+                                                    <a href="#">{{response.DirectDial}}</a>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="media-left">
+                                    <div class="col-md-12 opct service_details pr_120 mt-4">
+                                        <ul class="list-unstyled mb-30 pl-0 pr_20">
+                                            <li><i class="ti-linkedin" aria-hidden="true"></i>
+                                                <span class="blk">Linkedin :</span>
+                                                <span class="pl-1 f_300 ">
+                                                    <a href="#">{{response.LinkedinURL}}</a>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="media-left" *ngIf="response.Location">
+                                    <div class="col-md-12 service_details pr_120 mt-4">
+                                        <ul class="list-unstyled  pl-0 pr_20">
+                                            <li><i class="ti-location-pin" aria-hidden="true"></i>
+                                                <span class="blk">Location: </span>
+                                                <span class="pl-1 f_300 ">
+                                                    {{response.Location}}
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 media-body" *ngIf="response.Descriptions">
+                                    <h5 class="f_p t_color3 f_size_18 f_700 mt-3">Description</h5>
+                                    <p>{{response.Descriptions}}
+                                    </p>
+                                </div>
+                               
+
+                                <div class="responsive-map">
+                                    <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2822.7806761080233!2d-93.29138368446431!3d44.96844997909819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b32b6ee2c87c91%3A0xc20dff2748d2bd92!2sWalker+Art+Center!5e0!3m2!1sen!2sus!4v1514524647889"
+                                    width="100%" height="170" frameborder="0" style="border:0"
+                                    allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 industry_sector" *ngIf="response.Industry || response.Department || response.Sic">
+                        <div class="blog-sidebar blog_content">
+                            <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.Industry">
+                                <div class="widget_title">
+                                    <h5 class="f_p t_color3 f_size_18 f_700 ">Industry</h5>
+                                    <div class="border_bottom"></div>
+                                </div>
+                                <div class="list-unstyled">
+                                    <span>{{response.Industry}}</span>
+                                </div>
+                            </div>
+                           
+                            <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.Department">
+                                <div class="widget_title">
+                                    <h5 class="f_p t_color3 f_size_18 f_700 ">Sector</h5>
+                                    <div class="border_bottom"></div>
+                                </div>
+                                <div class="list-unstyled">
+                                    <span>{{response.Department}}</span>
+                                </div>
+                            </div>
+                            <div class="widget sidebar_widget widget_categorie mt-4 mb-3" *ngIf="response.Sic">
+                                <div class="widget_title">
+                                    <h5 class="f_p t_color3 f_size_18 f_700 ">SIC Code</h5>
+                                    <div class="border_bottom"></div>
+                                </div>
+                                <div class="list-unstyled">
+                                    <span>{{response.Sic}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div> -->
+        <!-- Email Search End Dynamic  -->
+
+        <!-- Domain Search Start Dynamic -->
+        <div *ngIf="!static && !showcontact && showCompany">
+
+            <section class="blog_area sec_pad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 blog_sidebar_left mb-5">
+                            <div class="blog_single mb_50">
+                                <div class="blog_content">
+                                    <div class="post_date" *ngIf="response.Logo">
+                                        <img class="img-fluid" style="height: 55px;padding: 2px;" src={{response.Logo}}
+                                            alt="Logo">
+                                    </div>
+                                    <div class="col-md-12 post_share pst_prev">
+                                        <span>
+                                            <h5 class="f_p f_size_30 f_500 t_color companyname">
+                                                <b>{{response.CompanyName}}</b>
+                                            </h5>
+
+                                        </span>
+
+                                        <!-- <div class="flex" *ngIf="response.CompanyLinkedinURL">
+                                            <a href="{{response.CompanyLinkedinURL}}"><i
+                                                    class="ti-linkedin"></i>Linkedin</a>
+                                        </div> -->
+                                        <div class="flex" *ngIf="response.contact.length>0">
+
+                                            <a class="btn view-default mr-2" (click)="scroll(showContacts)">View All
+                                                Employees</a>
+                                            <a href="https://www.ampliz.com/talk-to-us?utm_source=ampliz&utm_medium=icp&utm_campaign=icp"
+                                                target="_blank" class="btn view-default1">Talk to us</a>
+                                        </div>
+                                        <div class="flex mt-2" *ngIf="response.contact.length == 0">
+                                            <a (click)="requestData()" style="cursor:pointer" class="button-over" *ngIf="!showSuccessMsg"> Request Contacts </a>
+                                        </div>
+                                        <div class="text-success f_700 mt-1" *ngIf="showSuccessMsg">Thanks for asking. We will get back in 24 hours</div>
+                                    </div>
+                                    <div class="col-md-12 post_share pst_next">
+                                        <div class="flex">
+                                            <span *ngIf="response.facebook_slug"><a
+                                                    href="https://www.facebook.com/{{response.facebook_slug}}"
+                                                    target="_blank"><i class="ti-facebook"></i></a></span>
+                                            <span *ngIf="response.twitter_handle"><a
+                                                    href="https://twitter.com/{{response.twitter_handle}}"
+                                                    target="_blank"><i class="ti-twitter"></i></a></span>
+                                            <span *ngIf="response.CompanyLinkedinURL"> <a
+                                                    href="{{response.CompanyLinkedinURL}}" target="_blank"><i
+                                                        class="ti-linkedin mr-2"></i></a></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 media-body" *ngIf="response.Description">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 mt-3">Description</h5>
+                                        <p id="desc">{{response.Description}}</p>
+                                    </div>
+                                    <div class="media-left"
+                                        *ngIf="response.Address || response.Address_1 || response.City || response.Country">
+                                        <div class="col-md-12 service_details pr_120 mt-4">
+                                            <ul class="list-unstyled  pl-0 pr_20">
+                                                <li><i class="ti-location-pin" aria-hidden="true"></i>
+                                                    <span class="blk">Location: </span>
+                                                    <span class="pl-1 f_300 ">
+                                                        {{response.Address}}<span
+                                                            *ngIf="response.Address_1 ">,</span>{{response.Address_1}}<span
+                                                            *ngIf="response.Address_1 && response.City || response.Address">,</span>{{response.City}}<span
+                                                            *ngIf="response.City && response.Country">,</span>{{response.Country}}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="media-left" *ngIf="response.Founded">
+                                        <div class="col-md-12 service_details pr_120 mt-4">
+                                            <ul class="list-unstyled mb-30 pl-0 pr_20">
+                                                <li><i class="fa fa-building-o" aria-hidden="true"></i>
+                                                    <span class="blk"> Founded Year :</span>
+                                                    <span class="pl-1 f_300 ">
+                                                        {{response.Founded}}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="media-left" *ngIf="response.EmployeeRange">
+                                        <div class="col-md-12 service_details pr_120 mt-4">
+                                            <ul class="list-unstyled  pl-0 pr_20">
+                                                <li><i class="ti-user" aria-hidden="true"></i>
+                                                    <span class="blk">Employees: </span>
+                                                    <span class="pl-1 f_300 ">
+                                                        {{response.EmployeeRange}}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="responsive-map">
+                                        <!-- <iframe width="100%" height="300" src="response.Country"></iframe> -->
+
+                                        <!-- <iframe [src]="response.Country" width="100%" height="170"></iframe> -->
+                                        <!-- <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2822.7806761080233!2d-93.29138368446431!3d44.96844997909819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b32b6ee2c87c91%3A0xc20dff2748d2bd92!2sWalker+Art+Center!5e0!3m2!1sen!2sus!4v1514524647889"
+                                            width="100%" height="170" frameborder="0" style="border:0"
+                                            allowfullscreen></iframe> -->
+
+                                        <!-- <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=API_KEY
+                                           &q=Space+Needle,Seattle+WA" allowfullscreen></iframe> -->
+                                    </div>
+        
+                                    <div class="widget widget-table-two mt-3" #showContacts>
+                                        <div class="widget-content">
+                                            <div class="table-responsive">
+                                                <div class="statbox widget box box-shadow">
+                                                    <h5 class="f_p t_color3 f_size_18 f_700 mb-4 mt-2"
+                                                        *ngIf="response.contact.length>0">Employees <span
+                                                            class="contacts-color">({{response.DMC | number}})</span>
+                                                    </h5>
+                                                    <div id="noIconsAccordion" class="no-icons"
+                                                        *ngFor="let contacts of response.contact">
+                                                        <div class="card">
+                                                            <div class="card-header" id="headingone">
+                                                                <section class="mb-0 mt-0">
+                                                                    <div role="menu" class="collapsed"
+                                                                        data-toggle="collapse"
+                                                                        data-target="#noIconAccordionone"
+                                                                        aria-expanded="false"
+                                                                        aria-controls="noIconAccordionone">
+                                                                        <table class="table">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td width="10%"
+                                                                                        *ngIf="contacts.Picture">
+                                                                                        <div class="td-content pt-1 ">
+                                                                                            <img class="img-cerculer"
+                                                                                                src="{{contacts.Picture}}"
+                                                                                                alt="avatar">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td width="10%"
+                                                                                        *ngIf="!contacts.Picture">
+                                                                                        <div class="td-content pt-1 ">
+                                                                                            <img class="img-cerculer"
+                                                                                                src="assets/img/Unknwn.png"
+                                                                                                alt="avatar">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td width="58%">
+                                                                                        <div
+                                                                                            class="td-content product-brand">
+                                                                                            <span
+                                                                                                class="blk">{{contacts.FullName}}
+                                                                                            </span>
+                                                                                            <p class="para_p">
+                                                                                                {{contacts.Title}}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td width="10%">
+                                                                                        <div class="td-content pt-3 ">
+                                                                                            <span><i class="fa fa-envelope-o"
+                                                                                                    aria-hidden="true"></i></span>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td width="10%">
+                                                                                        <div class="td-content pt-3">
+                                                                                            <span><i class="fa fa-phone"
+                                                                                                    aria-hidden="true"></i></span>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td width="8%">
+                                                                                        <div class="td-content pt-3">
+                                                                                            <span><i class="fa fa-linkedin"
+                                                                                                    aria-hidden="true"></i></span>
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </section>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 industry_sector">
+                            <div class="blog-sidebar blog_content" *ngIf="response.Industry.length>0 || response.Sector_Major || response.RevenueMax || response.RevenueMin || response.Region || response.Sic || response.Phone || response.Zip">
+                                <div class="widget sidebar_widget widget_categorie mt-3" *ngIf="response.Industry.length>0">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Industry</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Industry.join(' | ')}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="widget sidebar_widget widget_tag_cloud mt-4" *ngIf="response.Specialities">
+                                    <div *ngIf="response.Specialities.length>0">
+                                        <div class="widget_title">
+                                            <h5 class="f_p t_color3 f_size_18 f_700 ">Tags</h5>
+                                            <div class="border_bottom"></div>
+                                        </div>
+                                        <div class="post_tag" *ngFor="let spec of response.Specialities">
+                                            <a>{{spec}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.Sector_Major">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Sector </h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Sector_Major}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.RevenueMax">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 "> RevenueMax </h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.RevenueMax}}</span>
+                                    </div>
+                                </div>
+                                <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.RevenueMin">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">RevenueMin</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.RevenueMin}}</span>
+                                    </div>
+                                </div>
+                                <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.Region">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Region</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Region}}</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="widget sidebar_widget widget_categorie mt-4 mb-3" *ngIf="response.Sic">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">SIC Code</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Sic}} </span>
+                                    </div>
+                                </div> -->
+                                <div class="widget sidebar_widget widget_categorie mt-3" *ngIf="response.Sic">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">SIC Code</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Sic.join(', ')}} </span>
+                                    </div>
+                                </div>
+                                <div class="widget sidebar_widget widget_categorie mt-4 mb-3" *ngIf="response.Phone">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Phone</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Phone}} </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="widget sidebar_widget widget_categorie mt-4"
+                                    *ngIf="response.Stock_Exchange">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 ">Stock Exchange</h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Stock_Exchange}}</span>
+
+                                    </div>
+                                </div> -->
+                                <!-- <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.Ticker_Symbol">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 "> Ticker Symbol </h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Ticker_Symbol}}</span>
+                                    </div>
+                                </div> -->
+                                <div class="widget sidebar_widget widget_categorie mt-4" *ngIf="response.Zip">
+                                    <div class="widget_title">
+                                        <h5 class="f_p t_color3 f_size_18 f_700 "> Zip </h5>
+                                        <div class="border_bottom"></div>
+                                    </div>
+                                    <div class="list-unstyled">
+                                        <span>{{response.Zip}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-lg-8 blog_sidebar_left mt-3">
+                            
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+            <!-- Domain Search End Dynamic  -->
+        </div>
+        <div *ngIf="noData">
+            <h4 class="text-center mt-3"> Bummer! Not found. Try another search.</h4>
+            <div class=" text-center mt-5">
+                <p *ngIf="successMsg" class="requ-success">Thanks for asking. We will get back in 24 Hours</p>
+                <a (click)="requestCompany()" style="cursor:pointer" class="button-over" *ngIf="!successMsg"> Request Company Info </a>
+            </div>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+
+</div>

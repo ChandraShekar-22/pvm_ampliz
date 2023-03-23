@@ -1,0 +1,28 @@
+.btn-primary-locked {
+    background-color:  #EBAD10 !important;
+    color :#000 !important;
+    padding: 8px 24px !important
+}
+
+.rounded-btn {
+    border-radius:20px;
+}
+
+
+.head1 {
+    font-size: 18px;
+    color:#EBAD10;
+    display: block;
+    margin-bottom:8px;
+}
+.head2 {
+    margin-bottom:8px;
+}
+
+.head2, .head3 {
+    padding-left:35px
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ddd;
+}

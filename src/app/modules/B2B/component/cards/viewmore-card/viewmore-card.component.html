@@ -1,0 +1,209 @@
+<div class="recent-content">
+    <div class="recent_card">
+        <div class="form-check">
+            <mat-chip class="searchIcon"> <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+            </mat-chip>
+        </div>
+        <div class="flex-row flex1">
+
+            <div class="flex-col">
+                <div class="flex-row">
+                    <form [@inputAnimation] *ngIf="showInput" class="flex-row nameForm">
+                        <input name="searchName"  class="inputField" #name placeholder="Name"
+                            [(ngModel)]="searchName">
+                        <i (click)="handleChangeNameClicked($event)" class="fa fas fa-check"></i>
+                        <i (click)="handleInputCancel()" class="fa fas fa-close"></i>
+                    </form>
+                    <span *ngIf="!showInput" [@nameAnimation] class="comapany_name">{{searchName}} </span>
+                </div>
+                <span class="date_text">{{searchData.savedDateTime| minuteDay}} </span>
+            </div>
+        </div>
+        <div class="flex-row " style="margin:10px;cursor: pointer;">
+
+            <!-- <span (click)="searchContactPressed(searchData)" class="searchButton"> Search</span> -->
+            <div mat-button [matMenuTriggerFor]="menu1" class="optionIcon">
+                <i  class="fa fas fa-ellipsis-v" style="font-size: 20px; color: gray"></i>
+            </div>
+
+            <mat-menu #menu1="matMenu" position="before">
+                <div class="menuWrapper">
+                    <div mat-menu-item (click)="handleRenameClick()">
+                        <i class="fa fas fa-pencil"></i>
+                        Rename
+                    </div>
+                    <button mat-menu-item (click)="searchContactPressed(searchData)"><i
+                            class="fa fas fa-repeat"></i>Search again</button>
+                </div>
+            </mat-menu>
+        </div>
+
+    </div>
+
+    <div class="bottomLine"></div>
+    <div class="detailsCont">
+        <div *ngFor="let chip of searchData['includedSearchChips']| slice: 0:sliceLength">
+            <div class="companyData">
+                <p>{{chip.title}}</p>
+                <div class="chipStyle">
+                    <mat-chip-list *ngIf="chip.type=='array'">
+                        <mat-chip *ngFor="let val of searchData[chip.key]" selected class="bottomChip">
+                            {{chip.subkey ?val[chip.subkey]:val}}
+                        </mat-chip>
+                    </mat-chip-list>
+                    <mat-chip-list *ngIf="chip.type=='text'">
+                        <mat-chip selected class="bottomChip">
+                            {{chip.subkey?searchData[chip.key][chip.subkey]:searchData[chip.key]}}
+                        </mat-chip>
+                    </mat-chip-list>
+
+                </div>
+            </div>
+        </div>
+        <span class="moreButton" (click)="handleShowMore()"
+            *ngIf="searchData['includedSearchChips'].length>3">{{sliceLength<=3?'Show More':'Show Less'}}</span>
+                <!-- <div *ngIf="searchData['companyList'].length>0" class="companyData">
+            <p>Company Name</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let company of searchData['companyList']" selected class="bottomChip">
+                        {{company}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+        
+        <div *ngIf="searchData['fullName'] !== ''&&searchData['fullName'] !== null" class="companyData">
+            <p>Full name</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip selected class="bottomChip">
+                        {{searchData['fullName']}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div> -->
+
+                <!-- <div *ngIf="searchData['countryList'].length>0" class="companyData">
+            <p>Country</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let country of searchData['countryList']" selected class="bottomChip">
+                        {{country}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+        <div *ngIf="searchData['stateList'].length>0" class="companyData">
+            <p>State</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let state of searchData['stateList']" selected class="bottomChip">
+                        {{state}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        <div *ngIf="searchData['cityList'].length>0" class="companyData">
+            <p>City</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let city of searchData['cityList']" selected class="bottomChip">
+                        {{city}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        
+        <div *ngIf="searchData['titleInclude'].length>0" class="companyData">
+            <p>Included title</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let title of searchData['titleInclude']" selected class="bottomChip">
+                        {{title}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+
+        <div *ngIf="searchData['titleExclude'].length>0" class="companyData">
+            <p>Excluded title</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let title of searchData['titleExclude']" selected class="bottomChip">
+                        {{title}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        <div *ngIf="searchData['industryInclude'].length>0" class="companyData">
+            <p>Included Industry</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let industry of searchData['industryInclude']" selected class="bottomChip">
+                        {{industry}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        <div *ngIf="searchData['industryExclude'].length>0" class="companyData">
+            <p>Excluded Industry</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let industry of searchData['industryExclude']" selected class="bottomChip">
+                        {{industry}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        <div *ngIf="searchData['seniority'].length>0" class="companyData">
+            <p>Seniority</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let seniority of searchData['seniority']" selected class="bottomChip">
+                        {{seniority}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        <div *ngIf="searchData['skillInclude'].length>0" class="companyData">
+            <p>Skill Inculded</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let skill of searchData['skillInclude']" selected class="bottomChip">
+                        {{skill}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        <div *ngIf="searchData['skillExclude'].length>0" class="companyData">
+            <p>Skill Excluded</p>
+            <div class="chipStyle">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let skill of searchData['skillExclude']" selected class="bottomChip">
+                        {{skill}}
+
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div> -->
+    </div>
+</div>

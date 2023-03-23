@@ -1,0 +1,131 @@
+<div>
+  <div class="backdrop" *ngIf="saveListDiv"></div>
+  <div
+    class="createListWrapper"
+    [ngClass]="saveListDiv ===  true ? 'slide-in' : 'slide-out'"
+  >
+    <form
+      [formGroup]="selectListForm"
+      (ngSubmit)="saveList()"
+      novalidate
+      class="form-horizontal"
+    >
+      <div class="topHeader">
+        <div class="row">
+          <div class="col">
+            <div class="h5 text-grey mt-2 not-crct_header">Select List</div>
+          </div>
+          <div class="col">
+            <div class="float-end">
+              <button
+                type="submit"
+                class="btn btn-lg btn-not-correct_save float-right"
+                *ngIf="savedList?.length > 0"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="
+                  btn btn-lg btn-outline-light btn-not-correct
+                  pull-right
+                  mr-3
+                "
+                (click)="cancelSaveDiv()"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="credit-container">
+        <div>
+          <span class="icon-wrapper"
+            ><img src="assets/img/wallet-hc.png" /> </span
+          ><b>{{ updatedCredits }}</b> &nbsp; Available credits
+        </div>
+        <div class="flex-justify-end">
+          <span *ngIf="!isSpecialityUser" class="link column-wrapper" (click)="openItem('hcpayment')">
+            <span class="icon-wrapper"><img src="assets/img/Add-hc.png" /></span
+            >Add credits
+          </span>
+        </div>
+      </div>
+      <div class="body" style="height: 50vh" *ngIf="savedList?.length == 0">
+        <div class="layout h-100">
+          <div
+            class="
+              d-flex
+              justify-content-center
+              align-items-center align-self-center
+              h-100
+              flex-column
+            "
+          >
+          <div class="text-center mb-3">
+            <img src="assets/images/noList.png" width="60%" />
+          </div>
+            <h5 class="text-center pa-4">
+              <button
+                type="button"
+                class="btn btn-lg btn-new pull-right"
+                (click)="createDrawer = true"
+              >
+                <span class="iconfont-size">+</span> Create List
+              </button>
+            </h5>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bodyWrap input-group-sm" *ngIf="savedList?.length > 0">
+        <!-- <label class="h5 text-dark mb-3" style="font-weight:normal;margin-bottom: 0;">List Name</label> -->
+        <!-- <input type="text" formControlName="listName" class="form-control form-control-sm"   placeholder="Sample Name" name="listName"/> -->
+        <select
+          formControlName="saveListName"
+          class="form-control form-control-selectBox"
+          id="saveList"
+          name="saveList"
+        >
+          <option value="">Select an Option</option>
+          <option *ngFor="let item of savedList" [value]="item.listId">
+            {{ item.listName }}
+          </option>
+        </select>
+        <div class="text-danger">
+          <small
+            *ngIf="
+              selectListForm.get('saveListName').hasError('required') &&
+              formSubmitAttempt
+            "
+            >List Name is required</small
+          >
+          <!-- <small *ngIf="addUser.controls['listName'].errors.email">Please enter valid email</small> -->
+        </div>
+
+        <!-- <div *ngIf="submitted && f.code.errors" class="">
+                    <div *ngIf="f.code.errors.required" class="inv-code">List name is required</div>
+                     <div class="col-12  inv-code" *ngIf="f.code.errors.minlength">Atleast 6 characters are required</div>
+                </div>
+                <div *ngIf="successStatus || errorStatus" class=" inv-code" [ngStyle]="{'color':successStatus ? '#64d264' : 'red' }">{{responseStatus}}</div>
+
+                <div class="input-group-lg">
+
+
+                    <label class="h5 text-dark mb-3" style="font-weight:normal;margin-bottom: 0;">List Name</label>
+                    <input type="text" class="form-control" placeholder="Sample List" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                  </div>
+                   -->
+      </div>
+    </form>
+  </div>
+
+  <div style="clear: both"></div>
+  <app-createlist
+    [createListDiv]="createDrawer"
+    (cancelBtnClick)="cancelClick($event)"
+    (success)="success($event)"
+    *ngIf="createDrawer"
+  ></app-createlist>
+</div>

@@ -1,0 +1,29 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .flex1 {
+    flex:1;
+  }
+  .lowCredCont {
+      width:100%;
+      background-color: #f2f8ff;
+      padding: 17px 20px;
+      border: 1px solid #AEDCFF;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+  }
+
+  .freeCreditText {
+    color: #2d8cff;
+    font-size: 14px;
+    font-weight: normal;
+    cursor: pointer;
+  }
+  .runningLowText {
+      font-size: 14px;
+      color: #000;
+      font-weight: normal;
+      margin: 0;
+  }

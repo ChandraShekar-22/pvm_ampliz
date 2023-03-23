@@ -1,0 +1,18 @@
+.createListWrapper {
+    width: 35%;
+    background-color: #fff;
+    right: 0;
+    top: 0px;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 100001;
+    position: fixed;
+    transform: translateX(100%);
+}
+
+.crt_lst {
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 500;
+
+}

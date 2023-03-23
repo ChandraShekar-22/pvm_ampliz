@@ -1,0 +1,12 @@
+<button class="shareButton" (click)="showShareModal=true">Share this report</button>
+<div [@widthAnimation] class="shareModal" *ngIf="showShareModal">
+    <mat-icon class="closeIcon" (click)="showShareModal=false">close</mat-icon>
+
+    <div class="flex-row copyField">
+        <input
+        matTooltip="Copied !" matTooltipPosition="left" #tooltip="matTooltip"
+        id="myInput" class="flex1 textCont" [value]="sharableLink" disabled="true" />
+        <mat-icon 
+            (click)="copySharableLink();" style="color:#fff;font-size: 15px;" class="iconCont">content_copy</mat-icon>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="flex-row bulkSaveCardCont">
+    <p class="selectedText mr-3"><span class="count">
+      {{allImagingsSelected?totalItemCount:selectedImagings.length}}
+    </span> Contacts are selected</p>
+    <p class="mr-3 clearText" (click)="handleClearPress()" >Clear Selection</p>
+    <div class="flex-row flex1">
+        <app-save-imaging-modal (successfullyAdded)="handleContactAddList()"
+        title="Save"
+        [allContactsSelected]="allImagingsSelected"
+        [selectedItems]="selectedImagings"
+        [totalItemCount]="totalItemCount"
+        [selectedFilter]="selectedFilter"
+        
+        ></app-save-imaging-modal>
+      <!-- <div class="searchButton" (click)="handleExportClick()">
+        Export CSV <i-feather
+        name="Download"
+        class="exportIcon"
+      ></i-feather>
+      </div> -->
+    </div>
+    </div>
+    

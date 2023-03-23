@@ -1,0 +1,107 @@
+.placeholder-item {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    background: #fff;
+    z-index: 100;
+    
+}
+
+/* .placeholder-item::before {
+     content: '';
+    display: block;
+    position: absolute;
+    left: -150px;
+    top: 0;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(to right, transparent 0%, #E8E8E8 50%, transparent 100%);
+    animation: load 2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite; 
+} */
+
+
+@keyframes load {
+    from {
+        left: -150px;
+    }
+    to   {
+        left: 100%;
+    }
+}
+
+.loader_container{
+    padding: 25px 28px;
+    display: flex;
+    justify-content: space-around;
+    border-bottom:1px solid #eee;
+    position:relative;
+  
+ 
+  
+}
+.loader_container::before{
+    content: '';
+    display: block;
+    position: absolute;
+    left: -150px;
+    top: 0;
+    height: 100%;
+    width: 50px;
+    background: linear-gradient(to right, transparent 0%, #E8E8E8 50%, transparent 100%);
+    animation: load 2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.loader_container .image-box {
+    width:90px;
+    height:90px;
+    background-color: #eee;
+   
+    margin-right: 10px;
+}
+
+.loader_container .text-placeholder, .toggle .text-placeholder {
+    border-radius: 30px;
+    background-color: #eee;
+    width: 75%;
+    height: 10px;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.loader_container .buttonskelton {
+    width:60px;
+    height:40px;
+    border-radius:4px;
+    background-color: #eee;
+   
+}
+
+.tabBox{    border-bottom: 2px solid #e2e4e7;
+padding: 0px 25px 0 30px;
+height: 85px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
+.toggle-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.toggle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    max-width: 144px;
+    border-bottom: 2px solid transparent;
+    flex-direction: column;
+    margin: 0 20px -1px;
+    font-weight: 400;
+    width: 192px;
+   
+}

@@ -1,0 +1,48 @@
+<div>
+
+    <div class="backdrop" *ngIf="notCorrectDiv"></div>
+    <div class="createListWrapper" [ngClass]="notCorrectDiv ===  true ? 'slide-in' : sideNav === true ? 'slide-out':''">
+        <form [formGroup]="notCorrectListForm" (ngSubmit)="saveList()" novalidate class="form-horizontal" >
+        <div class="topHeader">
+            <div class="row ">
+                <div class="col-md">
+                    <div class="h5 text-grey mt-2 not-crct_header" style="font-weight:normal;margin-bottom: 0;" >Not Correct <span class="nameText">{{hospitalName}}</span>?</div>  
+                </div>
+                <div class="col-md">
+                    <div class="float-end">
+                        <button type="submit"  class="btn btn-lg btn-new float-right" >Send</button>
+                        <button type="button" class="btn btn-lg  btn-outline-light btn-cancel pull-right mr-3" (click)="cancelSaveDiv()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bodyWrap input-group-sm">
+                <div class="notCorrectWrap">
+                    <label class="custom_container blueInput" *ngFor="let ck of notCorrectList">
+                        <input type="checkbox" [value]="ck"  formControlName="inCorrectListName" id="inCorrectListName" name="inCorrectListName" (change)="addRemoveIncorrectData($event)">
+                        <span class="checkmark"></span>
+                        {{ck}}
+                    </label>
+                </div>
+
+
+            <div class="notCorrectWrap">
+                <div class="form-group" style="margin: 0px">
+                    <label class="checkmark text-black">More Information</label>
+                    <!-- <input type="text" class="form-control" formControlName="otherVal" [(ngModel)]="otherValInput" placeholder="Other value"> -->
+                    <textarea class="form-control"  formControlName="otherVal" style="resize: none;" rows="3" [(ngModel)]="otherValInput" placeholder="Add More Info"></textarea>
+                    <div class="text-danger">
+                        <small *ngIf="notcorrecrError && formSubmitAttempt">Please select atleast one value.</small>
+                        <!-- <small *ngIf="addUser.controls['listName'].errors.email">Please enter valid email</small> -->
+                    </div>  
+                </div>
+            </div>
+
+         
+        </div>
+    </form>
+    </div>
+
+
+
+</div>

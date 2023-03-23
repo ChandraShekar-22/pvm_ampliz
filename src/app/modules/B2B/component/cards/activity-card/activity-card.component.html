@@ -1,0 +1,51 @@
+<div class="row">
+    <mat-icon
+      (click)="mainBack()"
+      *ngIf="showBackButton&&activeComponentArray.length<=1" class="mainBackIcon"  aria-hidden="true">
+      arrow_back
+    </mat-icon>
+    <mat-icon
+    class="backIcon"
+    *ngIf="activeComponentArray.length>1" (click)="goBack()">
+        arrow_back
+    </mat-icon>
+<div [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='main'">
+<div *ngFor="let activity of activitylist; let i = index">
+    <div *ngIf="activity.isActive">
+<div class="activity-container" (click)="startActivity(activity.type)">
+    <div class="activity-content flex-row">
+        <i-feather name="{{activity.icon}}" class="feather"></i-feather>
+        <div>
+            <p class="activityHead">{{activity.heading}}</p>
+            <p >{{activity.subHeading}}</p>
+        </div>
+    </div>
+    <div>
+    <div class="activity-content flex-row">
+        <p class="h5 primary">+{{activity.creditCount}}</p>
+        <p><small class="smallSearch">{{activity.creditText}}</small></p>
+    </div>
+    <div class="solid"></div>
+
+    <div class="activity-content flex-row">
+        <p class="h5 primary">+{{activity.searchCount}}</p>
+        <p><small class="smallSearch">{{activity.searchText}}</small></p>
+    </div>
+    </div>
+</div>
+<app-card-divider *ngIf="activitylist.length - 1 > i"></app-card-divider>
+</div>
+</div>
+</div>
+<div [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='add_phone'">
+<app-add-phone
+(otpVerified)="goBack();getSearchQuota();"
+></app-add-phone>
+</div>
+<!-- <div class="col" [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='invite'">
+<app-invite-teammember  ></app-invite-teammember>
+</div>
+<div class="col" [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='install'">
+    <app-install-prospector></app-install-prospector>
+    </div> -->
+</div>

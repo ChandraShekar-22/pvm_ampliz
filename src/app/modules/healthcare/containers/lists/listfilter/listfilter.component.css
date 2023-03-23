@@ -1,0 +1,183 @@
+.left-wrapper-details,
+.right-wrapper-filter {
+    border-radius: 3px;
+    border: 1px solid #eff1ef;
+    overflow: hidden;
+    height: 100%;
+    background-color: #f4f7f6
+}
+
+.listFilterHeader {
+    background-color: #f4f7f6;
+}
+
+.headerText {
+    font-weight: 400;
+    color: #757575;
+    font-size: 15px;
+    padding-bottom: 11px;
+}
+
+.acc-wrapper {
+    padding: 15px 20px;
+    border-top: 1px solid #e5e6e5;
+    overflow: scroll;
+    height: calc(100vh - 300px);
+}
+
+.font-size-large {
+    font-size: 13px;
+    font-weight: 400;
+    color: #354053!important;
+    cursor: pointer;
+}
+
+.selectWrapper select {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #c2c2c2;
+    color: #666;
+    border-radius: 2px;
+}
+
+.formLabel {
+    font-size: 18px;
+    color: #999;
+    font-family: 'Roboto';
+    padding: 0 0 0px 10px;
+    font-weight: 400;
+}
+
+.iIcon {
+    color: #2d8cff;
+    font-size: 11px!important;
+    font-weight: 400;
+}
+
+.onoffswitch {
+    position: relative;
+    width: 78px;
+    margin-top: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 25px;
+    margin-bottom: 0;
+    height: 28px;
+    width: 65px;
+}
+
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 16px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+    content: "On";
+    padding-left: 12px;
+    background-color: #2D8CFF;
+    color: #FFFFFF;
+    font-size: 13px;
+}
+
+.onoffswitch-inner:after {
+    content: "Off";
+    padding-right: 12px;
+    background-color: #999999;
+    color: #EBEBEB;
+    text-align: right;
+    font-size: 13px;
+}
+
+.onoffswitch-switch {
+    display: block;
+    width: 20px;
+    margin: 4px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 50px;
+    border: 0px solid #FFFFFF;
+    border-radius: 41px;
+    transition: all 0.3s ease-in 0s;
+    box-sizing: content-box;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+    right: 14px;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-btn .selected-item {
+    min-width: auto;
+    display: inline-block;
+}
+
+.btn-cancel-filter {
+    background-color: #fff!important;
+    border: 1px solid #d2d2d2 !important;
+    color: #8a8a8a !important;
+    border-radius: 50px;
+    padding: 8px 23px 8px 23px !important;
+    box-shadow: 0px 5px 11px 0px rgb(120 120 121 / 17%);
+    font-size: 12px;
+}
+
+.btn-apply {
+    background-color: #2d8cff!important;
+    border: 1px solid #2d8cff !important;
+    color: #ffffff!important;
+    border-radius: 50px;
+    padding: 8px 23px 8px 23px !important;
+    box-shadow: 0px 5px 11px 0px rgb(92 162 255 / 17%);
+    font-size: 12px;
+}
+
+.form-control {
+    border: 1px solid gainsboro;
+    border-radius: 4px;
+    max-width: 100%;
+    height: 38px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-size: 12px;
+}
+
+.bx-fnt {
+    font-size: 13px;
+    background-color: #fff;
+}
+

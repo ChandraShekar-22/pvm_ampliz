@@ -1,0 +1,64 @@
+<div id="wrapper">
+    <app-header [user]="user" style="width:100%"></app-header>{{user}}
+    <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header>
+
+    <app-sidemenu elementName="idealprofile"></app-sidemenu>
+
+
+    <div class="content-page">
+
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="layout-px-spacing">
+                    <div class="row layout-top-spacing">
+                        <div class="statbox  box box-shadow text-center col-md-12 ">
+                            <div class="widget-content widget-content-area text-center">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="">
+                                            <img src="/assets/img/Hi.png" alt="">
+                                            <p class="lead mt-3  mb-4 text-center" *ngIf="showReqMsg">You did it , <strong style="font-weight:600;">{{name}}!</strong> We Received Your Sample Request</p>
+                                            <p class="lead mt-3  mb-4 text-center" *ngIf="showAccessData">You did it , <strong style="font-weight:600;">{{name}}!</strong> We Received Your Full Data access Request</p>
+                                            <div class="download-section offset-md-1 col-md-10">
+                                                <!-- <p class=" mb-4 mt-4 text-center">We're with you all year. Here's what
+                                                    you can do next:</p> -->
+                                                <div class="dt-buttons">
+
+                                                    <a href="https://chrome.google.com/webstore/detail/ampliz-sales-buddy/abgoaphadkcmbkapnamhkcgkaddlmfal"
+                                                        target="_blank" class="dt-button-gray  btn text-center">
+                                                        <p><img height="30px" src="/assets/img/chrome.png" alt=""></p>
+                                                        <span> Install Salesbuddy</span>
+                                                        <p class="fnt-gray">First-time sign-ups gain additional credits with Ampliz Sales Buddy!<br><b>Start for Free</b> </p>
+
+                                                    </a>
+                                                    <a href="https://www.ampliz.com/talk-to-us?utm_source=ampliz&utm_medium=icp&utm_campaign=icp" target="_blank"
+                                                        class="dt-button  btn" tabindex="0" aria-controls="">
+                                                        <p> <i class="fa fa-headphones white_fnt" aria-hidden="true"></i>
+                                                            </p>
+                                                        <span>Talk to Us</span>
+                                                        <p class="fnt-white">Gain access to rich leads in any sector or location. Wondering how can this work for your business targets and goals?<br> <b>Book a demo now!</b></p>
+                                                    </a>
+                                                    <a routerLink="/idealprofile" class="dt-button-gray   btn"
+                                                        tabindex="0" aria-controls="">
+                                                        <p><i class="fa fa-sliders blue_fnt" aria-hidden="true"></i></p>
+                                                        <span>Try again</span>
+                                                        <p class="fnt-gray">Create another ideal customer profile!</p>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <app-footer></app-footer>
+
+        </div>
+    </div>
+</div>

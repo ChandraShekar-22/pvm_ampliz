@@ -1,0 +1,163 @@
+<!-- Start Preloader -->
+<div id="preload-block">
+    <div class="square-block"></div>
+</div>
+<!--header section starts-->
+
+<!--Header section Ends-->
+<!-- Preloader End -->
+
+<div class="content">
+    <section class="design_tab_area sec_pad ">
+        <div class="container-fluid" style="height: 100vh">
+            <div class="row h-100">
+                <div class="col-lg-7">
+                    <img class="img-fluid mt-4 mb-4 img-logo" 
+                        src="assets/images/Ampliz-logo-black.png" />
+                    <div class="sec_title  mb_70 wow fadeInUp pb-5 pt-5" data-wow-delay="0.3s"
+                        style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                        <div class="row padleft-screen">
+                            <!-- <div class="col-md-2">
+                                <img src="assets/images/hey.png" style="height: 62px;" class=" img-thumbnail" alt="hey">
+                            </div> -->
+                            <div class="col-md-12">
+                                <h3 class="f_p f_size_30 l_height50 f_600 t_color3"><span class="">Hey <span
+                                            class="primary">{{username}}</span>, What would you like to do?</span> </h3>
+                                <p class="subTitle mb-0 prt-p">This is just to get you started.You can always do more
+                                    later.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center pt-4 ">
+
+                        <div class="cat-box" style="margin-right: 80px; ">
+                            <div class="text-center card-boxs"
+                                style="box-shadow: -6px 6px 0px 2px #000;cursor: pointer;" routerLink="/physician">
+                                <div class="member-card ">
+                                    <div class="thumb-xl member-thumb m-b-10 center-page">
+                                        <img src="assets/images/doctor1.png" class="img-thumbnail" alt="physician">
+                                    </div>
+                                    <div class="">
+                                        <span class="m-b-5 mt-2 cat-heading">Physician</span>
+                                        <p class="pt-2 font-weight-normal">{{'4629663' | numberWithCommas}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end col -->
+
+                        <div class="cat-box">
+                            <div class="text-center card-boxs"
+                                style="box-shadow: -6px 6px 0px 2px #000;cursor: pointer;" routerLink="/hospital">
+                                <div class="member-card ">
+                                    <div class="thumb-xl member-thumb m-b-10 center-page">
+                                        <img src="assets/images/hospital1.png" class=" img-thumbnail" alt="hosptial">
+
+                                    </div>
+                                    <div class="">
+                                        <span class="m-b-5 mt-2 cat-heading" >Hospital</span>
+                                        <p class="pt-2 font-weight-normal">{{9099 | numberWithCommas}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                       
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                     <div class="cat-box" style="margin-top: 50px;">
+                            <div class="text-center card-boxs"
+                                style="box-shadow: -6px 6px 0px 2px #000;cursor: pointer;" routerLink="/executive">
+
+                                <div class="member-card ">
+                                    <div class="thumb-xl member-thumb m-b-10 center-page">
+                                        <img src="assets/images/executive1.png" class=" img-thumbnail" alt="executive">
+
+                                    </div>
+                                    <div class="">
+                                        <span class="m-b-5 mt-2 cat-heading" >Executive</span>
+                                        <p class="pt-2 font-weight-normal">{{293033 | numberWithCommas }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        </div>
+                </div>
+                <!-- <div class="col-lg-6 right-side yellowbg">
+                    <div class="tab-content h-100">
+                       
+                        <div class="layout h-100" >
+                            <div class="d-flex justify-content-center align-items-center align-self-center h-100">
+                              <h5 class="text-center pa-4">
+                                <img class="img-fluid tab_img" style="height:auto;" src="assets/images/42032371.svg" alt="Health Care">
+                              </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="col-lg-5">
+                    <div class="dotsContainer">
+                        <img class="img-fluid tab_img" style="height:100%;" src="assets/images/onBoardingDots.png"
+                            alt="Health Care">
+                    </div>
+
+                    <div class="mainContainer flex-c">
+                        <div style="flex:1">
+                            <mat-tab-group [selectedIndex]="selectedTab">
+                                <mat-tab *ngFor="let newUpdate of newLaunchUpdates" label="">
+                                    <div class="flex-c mx-3" style="justify-content: space-around;">
+                                        <div class="mx-4 my-5 flex-r justify-center align-center tab-content-header">
+                                            <img class="img-fluid tab_img" style="width: 10%; height: 5%;"
+                                                src="assets/images/newUpdateIcon.png" alt="Health Care">
+                                            <h4 class="ml-2">
+                                                <span
+                                                    style="border-bottom: 3px solid #F7CE62;padding-bottom: 5px;">New</span>
+                                                launch update
+                                            </h4>
+
+                                        </div>
+
+
+                                        <div class="flex-r mx-3 my-3 tab-content-body" style="justify-content: start;">
+                                            <img class="img-fluid tab_img mr-2" style="width: 10%;height: 5%;"
+                                                [src]="newUpdate.icon" alt="Health Care">
+                                            <div class="flex-c mx-1">
+                                                <h5>{{newUpdate.title}}</h5>
+                                                <div class="flex-r optionContainer">
+                                                    <div *ngFor="let option of newUpdate.options" class="option">
+                                                        {{option}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mx-3 description my-3 tab-content-description">
+                                            {{newUpdate.description}}
+                                        </p>
+                                        <div class="flex-r justify-center my-3">
+                                            <button (click)="openPaymentPage(newUpdate.navigate)" class="unlockButton">
+                                                <!-- <i class="fa fas fa-lock mr-1" style="color: #fff;"></i> -->
+                                                Get Started
+                                            </button>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                        <div class="tabContainer flex-r align-center mx-3">
+                            <div (click)="selectedTab=i" *ngFor="let newUpdate of newLaunchUpdates;index as i"
+                                class="tab mx-2" [ngClass]="selectedTab==i?'activeTab':''">
+                            </div>
+                            <i class="fa fas fa-arrow-right mr-1" style="color: #fff;cursor: pointer;"
+                                (click)="changeTab()"></i>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

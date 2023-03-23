@@ -1,0 +1,251 @@
+<div id="wrapper">
+  <app-header style="width: 100%"></app-header>
+  <!-- <app-header *ngIf="!subscribed" ></app-header> -->
+  <app-sidemenu elementName="imaging"></app-sidemenu>
+  <div class="content-page">
+    <div class="row col imaging-wrapper">
+      <div class="content">
+        <div class="row">
+          <div class="col-sm-12">
+            <h5 class="text-body font-weight-normal">
+              Imaging Center Executive's Overview
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="onboarding__home__guide-assistant__speech-bubble__right">
+                <div class="physician_imgContainer shadow">
+                  <img src="assets/img/Physician-hc.png" class="p-2" />
+                </div>
+              </div>
+              <div class="topNameExecutive">
+                <div class="topNamePhysician">
+                  <h4 class="fnt-physician">
+                    {{ imagingOverviewResult?.fullName }}
+                  </h4>
+                  <span class="fnt-title">
+                    {{ imagingOverviewResult?.title }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="detailsCard">
+              <div class="physicianDetails">
+                <div class="row">
+                  <div class="col-md-3 custom-col">
+                    <div>
+                      <button class="btn-blue-bordered" (click)="handleSaveButtonPress()" *ngIf="showSaveButton">
+                        <span *ngIf="!showButtonLoader">
+                          {{ saveButtonText }}
+                        </span>
+                        <app-circle-loader [radius]="13" *ngIf="showButtonLoader">
+                        </app-circle-loader>
+                      </button>
+                      <span class="btn-grey-bordered" (click)="notCorrectDrawer = true">Not correct</span>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div style="
+                        display: flex;
+                        align-items: flex-start;
+                        align-content: flex-start;
+                        flex-wrap: wrap;
+                      ">
+                      <!-- <div class="col-md-4" *ngIf="imagingOverviewResult?.physicianInfoData.specialty !== undefined && imagingOverviewResult?.physicianInfoData.specialty.length > 0">
+                                    <div class="physician_hospital">
+                                        <span class="spanAlign">
+                      <i class="mdi mdi-seal icon"></i
+                      >{{
+                        imagingOverviewResult?.physicianInfoData.specialty
+                      }}</span
+                    >
+                  </div>
+                </div> -->
+                      <div class="col-md-8">
+                        <div class="physician_hospital" *ngIf="imagingOverviewResult?.hospitalName!==''" >
+                          <span class="spanAlign">
+                            <i class="fa fa-hospital-o icon"></i>{{ imagingOverviewResult?.hospitalName }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <!-- <div class="physician_hospital" *ngIf="showSaveButton">
+                                                    <span class="spanAlign">
+                                                        <i class="fa fa-envelope-o icon"></i>
+                                                        {{ imagingOverviewResult?.email[0] }}
+                                                    </span>
+                                                </div> -->
+                        <div class="physician_hospital" *ngIf="imagingOverviewResult?.webAddress!==''">
+                          <span class="spanAlign">
+                            <i class="mdi mdi-link-variant icon"></i><a href="{{
+                                imagingOverviewResult?.webAddress
+                              }}"
+                              target="_blank"
+                              >
+                              website
+                            </a></span>
+                        </div>
+                      </div>
+                      <div class="col-md-4" *ngIf="imagingOverviewResult?.phoneNumber[0]">
+                        <div class="physician_hospital" >
+                          <span class="spanAlign">
+                            <i class="mdi mdi-phone-in-talk icon"></i>
+                            {{ imagingOverviewResult?.phoneNumber[0] }}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4" *ngIf="imagingOverviewResult?.email[0]">
+                        <div class="physician_hospital">
+                          <span class="spanAlign">
+                            <i class="mdi mdi-email-outline icon"></i><a style="color: dodgerblue" href="mailto: {{
+                                imagingOverviewResult?.email[0]
+                              }}">
+                              {{ imagingOverviewResult?.email[0] }}
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-4" *ngIf="imagingOverviewResult?.fax_Number">
+                        <div class="physician_hospital">
+                          <span class="spanAlign">
+                               <i class="mdi mdi-fax icon"></i>
+                            {{ imagingOverviewResult?.fax_Number }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="physician_hospital">
+                          <span class="spanAlign">
+                            <i class="mdi mdi-map-marker-radius icon"></i>
+                            <span *ngIf="imagingOverviewResult?.city != ''">
+                              {{ imagingOverviewResult?.city }}
+                            </span>
+                            <span *ngIf="imagingOverviewResult?.state != ''">
+                              , {{ imagingOverviewResult?.state }}
+                            </span>
+                            <span *ngIf="imagingOverviewResult?.country != ''">
+                              , {{ imagingOverviewResult?.country }}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="physician_hospital">
+                          <span class="spanAlign">
+                              
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div style="padding-top: 10px">
+              <div class="physician-content">
+                <mat-tab-group (selectedTabChange)="tabClick($event)">
+                  <mat-tab label="OVERVIEW">
+                    <div class="p-5">
+                      <div class="row">
+                        <div class="col-sm-6 text-label" *ngFor="let overview of imagingOverviewData | keyvalue;index as i">
+                            <span class="text-bold text-capitalize">{{overview.key.replaceAll('_', ' ')}} : </span>
+                            <span>{{overview.value||'N/A'}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pb-5 d-flex justify-content-center align-items-center align-self-center align-center"
+                      *ngIf="!isOverviewAvailable">
+                      <button (click)="request('Request Imaging Overview')" class="btn btn-new">
+                        Request  Info
+                      </button>
+                    </div>
+                  </mat-tab>
+                  <!-- <mat-tab label="This Prescriber's Drugs" *ngIf="DataResult && DataResult.length > 0">
+                    <div class="p-3 w-100">
+                      <button (click)="request('Request Drug Info Access')" class="btn btn-new pull-right mb-1">
+                        Request Drug Info
+                      </button>
+                      <div class="" style="clear: both"></div>
+                      <div class="tabTableWrapper">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col" class="text-muted">Drug Name</th>
+                              <th scope="col" class="text-muted">
+                                Total Claim
+                              </th>
+                              <th scope="col" class="text-muted">
+                                Total Drug Cost
+                              </th>
+                              <th scope="col" class="text-muted">
+                                Total Drug Cost For 65+
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of DataResult">
+                              <td class="light-muted">
+                                {{ item.prescribingDrugName }}
+                              </td>
+                              <td class="light-muted">
+                                {{ item.totalClaims }}
+                              </td>
+                              <td class="light-muted">
+                                {{ item.totalDrugCost }}
+                              </td>
+                              <td class="light-muted">
+                                {{ item.totalDrugCostFor65 }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </mat-tab> -->
+                  <mat-tab label="MORE INFORMATION">
+                    <div class="p-5">
+                      <div class="row">
+                          <div class="col-sm-6 text-label" *ngFor="let moreInfo of imagingMoreInfoData | keyvalue;index as i">
+                            <span class="text-bold text-capitalize">{{moreInfo.key.replaceAll('_', ' ')}} : </span>
+                            <span>{{moreInfo.value}}</span>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="pb-5 d-flex justify-content-center align-items-center align-self-center align-center"
+                      *ngIf="!isMoreInfoAvailable">
+                      <button (click)="request('Request More Info')" class="btn btn-new">
+                        Request  Info
+                      </button>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-savelist
+    [saveListDiv]="saveDrawer"
+    [physicianId]="this.paramsData"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    (refreshedData)="refreshedData($event)"
+    [currentCredit]="currentCredit || 0"
+    *ngIf="saveDrawer"
+  ></app-savelist>
+
+  <app-notcorrect
+    [notCorrectList]="notCorrectReasons"
+    [notCorrectDiv]="notCorrectDrawer"
+    [imagingId]="imagingOverviewResult?.icExecutiveId"
+    [physicianName]="imagingOverviewResult?.fullName"
+    (cancelBtnClick)="cancelBtnClick($event)"
+    *ngIf="notCorrectDrawer"
+  ></app-notcorrect>
+</div>

@@ -1,0 +1,9 @@
+
+.dropdown-menu {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.dropdown-item {
+    color: #4a535f
+}

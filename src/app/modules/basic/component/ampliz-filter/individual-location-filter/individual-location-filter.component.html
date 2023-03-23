@@ -1,0 +1,99 @@
+ <!-- Location panel -->
+
+ <mat-expansion-panel [disabled]="disabled" #panelLoc hideToggle>
+    <mat-expansion-panel-header [ngClass]="panelLoc.expanded ? 'expanded' : ''" [collapsedHeight]="'70px'"
+      [expandedHeight]="'70px'">
+      <mat-panel-title>
+        <div class="mat-people-title">Location</div>
+        <div class="sub-header" *ngIf="selectedStates.length==0&&!panelLoc.expanded">
+          {{title}}
+        </div>
+        <div class="selected" *ngIf="selectedStates.length>0">
+        <mat-chip-list  cdkDropList cdkDropListOrientation="horizontal">
+          <mat-basic-chip [ngClass]="'selected'" [selectable]="selectable" [removable]="true">
+            {{ selectedStates[0].stateFullName }}
+          </mat-basic-chip>
+          <span *ngIf="selectedStates?.length > 1" class="additional-selection">
+            + {{ selectedStates.length - 1 }} more
+          </span>
+        </mat-chip-list>
+        </div>
+       
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="!disabled" class="matrl-plus">{{
+          panelLoc.expanded ? "remove" : "add"
+          }}</mat-icon>
+        <mat-icon class="filter-title matrl-plus" *ngIf="disabled">lock</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div>
+      <div>
+        <!-- <mat-form-field class="mt-3">
+          <mat-chip-list #countryChipList aria-label="Country input">
+            <mat-basic-chip *ngFor=" let country of selectedCountry" [selectable]="selectable"
+              [removable]="true" (removed)="removeCountry(country.countryId)">
+              {{ country.country }}
+              <mat-icon matChipRemove>close</mat-icon>
+            </mat-basic-chip>
+            <input placeholder="Country" #countryInput aria-label="stateList" matInput
+              [formControl]="countryControl" [matAutocomplete]="countryAuto" floatPlaceholder="never"
+              [matChipInputFor]="countryChipList" />
+          </mat-chip-list>
+          <mat-icon matSuffix class="closeIcon" *ngIf="selectedCountry.length>0" (click)="removeCountry('all')">
+            close</mat-icon>
+
+          <mat-autocomplete #countryAuto="matAutocomplete" (optionSelected)="countrySelected($event)"
+            panelClass="app-autocomplete" class="app-autocomplete">
+            <mat-option *ngFor="let country of countryList" [value]="country">
+              {{ country.country }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field> -->
+
+        <mat-form-field>
+          <mat-chip-list #statesChipList aria-label="State input">
+            <mat-basic-chip *ngFor="let state of selectedStates" [selectable]="selectable" [removable]="true"
+              (removed)="removeState(state)">
+              {{ state.stateFullName }}
+              <mat-icon matChipRemove>close</mat-icon>
+            </mat-basic-chip>
+            <input placeholder="State" #stateInput aria-label="stateList" matInput [formControl]="stateControl"
+              [matAutocomplete]="stateAuto" floatPlaceholder="never" [matChipInputFor]="statesChipList"
+              />
+          </mat-chip-list>
+          <mat-icon matSuffix class="closeIcon" *ngIf="selectedStates.length>0" (click)="clearState()">close
+          </mat-icon>
+
+          <mat-autocomplete #stateAuto="matAutocomplete" (optionSelected)="selectStates($event)"
+            panelClass="app-autocomplete" class="app-autocomplete">
+            <mat-option *ngFor="let state of stateList" [value]="state">
+              {{ state.stateFullName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-chip-list #cityListChip aria-label="city name input">
+            <mat-basic-chip *ngFor="let city of selectedCities" [selectable]="selectable" [removable]="true"
+              (removed)="removeCity(city)">
+              {{ city.city }}
+              <mat-icon matChipRemove>close</mat-icon>
+            </mat-basic-chip>
+            <input placeholder="City" #cityInput aria-label="Search city" matInput [formControl]="cityControl"
+              [matAutocomplete]="cityAutoComplete" floatPlaceholder="never" [matChipInputFor]="cityListChip"
+              />
+          </mat-chip-list>
+          <mat-icon matSuffix class="closeIcon" *ngIf="selectedCities.length>0"
+            (click)="clearCity()">close</mat-icon>
+
+          <mat-autocomplete #cityAutoComplete="matAutocomplete" class="app-autocomplete">
+            <mat-option *ngFor="let city of cityList" [value]="city" (click)="onCitySelect(city)">
+              {{ city.city }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-expansion-panel>

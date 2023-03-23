@@ -1,0 +1,20 @@
+<div class="flex-r addUserCard">
+    <div class="col-1">
+        <div class="avatarCont avatarContPending flex-r justify-center align-center">
+            {{email|firstletter}}
+        </div>
+    </div>
+    <div class="col-4">
+        {{email}}
+    </div>
+    <div class="col-2 greyText">
+        {{role}}
+    </div>
+    <div class="col-3 greyText">
+        {{invitedOn}}
+    </div>
+    <div class="col-2">
+        <button (click)="handleResendClick()" class="amplizRoundedButton">Resend</button>
+    </div>
+
+</div>

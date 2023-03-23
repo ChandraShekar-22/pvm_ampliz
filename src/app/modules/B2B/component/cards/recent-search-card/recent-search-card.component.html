@@ -1,0 +1,36 @@
+<div class="recent_card" style="width: 23rem">
+    <div class="form-check">
+        <mat-chip class="searchIcon">
+            <!-- <i class="fa fas fa-search"></i> -->
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </mat-chip>
+    </div>
+    <div class="recent_content">
+        <div class="flex-row">
+            
+            <span class="comapany_name">{{searchData.searchType}}</span>
+        </div>
+        <div class="active_ago">
+            <span style="color: #999; cursor: text">{{searchData.searchAt | minuteDay}}</span>
+        </div>
+    </div>
+    <div class="optionIcon">
+        <!-- <ng-container> -->
+        <!-- <i mat-button [matMenuTriggerFor]="menu2" class="fa fas fa-ellipsis-v mt-2 menu-icon"></i> -->
+        <div mat-button [matMenuTriggerFor]="menu2" class="menu-icon">
+        <svg  viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+        </div>
+        
+        <!-- </ng-container> -->
+        <mat-menu #menu2="matMenu" position="before">
+            <div class="menuWrapper">
+                <!-- <div mat-menu-item (click)="handleSave()">
+                    <i class="fa fas fa-pencil"></i>
+                    Save Search
+                </div> -->
+                <button mat-menu-item (click)="handleSave()"><i class="fa fas fa-pencil"></i>Save Search</button>
+                <button mat-menu-item (click)="makeSearch()"><i class="fa fas fa-repeat"></i>Search again</button>
+            </div>
+        </mat-menu>
+    </div>
+</div>

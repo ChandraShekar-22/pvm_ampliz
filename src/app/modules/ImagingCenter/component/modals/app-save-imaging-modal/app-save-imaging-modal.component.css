@@ -1,0 +1,137 @@
+.searchButton {
+    border: 1px solid #2d8cff;
+    color: #2d8cff;
+    background: transparent;
+    outline: none;
+    border-radius: 25px;
+    padding: 5px 15px;
+    margin-right: 10px !important;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .saveButton {
+    border: 1px solid #2d8cff;
+    background: transparent;
+    outline: none;
+    border-radius: 25px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+    color: #2d8cff;
+  }
+  .matForm {
+    font-size: 12px !important;
+  }
+  
+  .primaryBtn {
+    color: #2d8cff;
+    border: 1px solid #2d8cff;
+  }
+  .b2b-content-main .mat-tab-label-active {
+    color: #2d8cff !important;
+  }
+  
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .flex1 {
+    flex: 1;
+  }
+  
+  .primaryBtn {
+    color: #2d8cff !important;
+    border-color: #2d8cff !important;
+  }
+  
+  .primary {
+    color: #777 !important;
+    border: 1px solid #f2f2f2;
+    background: transparent;
+    outline: none;
+    border-radius: 25px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  
+  .menuWrapper {
+    padding: 10px 20px;
+  }
+  
+  .createBtn {
+    cursor: pointer;
+    font-weight: normal;
+  }
+  
+  .menuTitle {
+    font-weight: normal;
+    color: #000 !important;
+  }
+  .matrl-plus {
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  ::ng-deep
+    .mat-slide-toggle.mat-checked:not(.mat-disabled)
+    .mat-slide-toggle-bar {
+    background-color: #2d8cff;
+  }
+  
+  ::ng-deep
+    .mat-slide-toggle.mat-checked:not(.mat-disabled)
+    .mat-slide-toggle-thumb {
+    background-color: #2d8cff;
+  }
+  .contactInput {
+    width: 70px;
+    margin: 0px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .contactInput:focus {
+    border: 1px solid #2d8cff;
+    outline: none;
+  }
+  
+  @media screen and (max-width: 1300px) {
+    .searchButton {
+        margin-right: 10% !important;
+        padding:5px 10px;
+    }
+  }
+
+
+.bulksaveInput {
+  width: 70px;
+  margin: 0px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.bulksaveInput:focus {
+  border: 1px solid #2d8cff;
+  outline: none;
+}
+
+
+.error {
+  border: 1px solid red !important;
+}
+
+  
+  

@@ -1,0 +1,16 @@
+<div class="commonDashboardCard card">
+    <div class="commonCardContainer">
+        <div class="icon">
+            <i *ngIf="title == 'Email'" class="fa fa-envelope-o" aria-hidden="true"></i>
+            <i  *ngIf="title != 'Email'" class="fa fa-building"></i>
+        </div>
+        <div>
+            <p class="commonTitle">
+                {{count|number}}
+            </p>
+            <p class="commonCardNormal">
+                {{title}}
+            </p>
+        </div>
+    </div>
+</div>

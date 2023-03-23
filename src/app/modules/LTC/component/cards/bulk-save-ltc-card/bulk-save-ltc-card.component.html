@@ -1,0 +1,23 @@
+<div class="flex-row bulkSaveCardCont">
+    <p class="selectedText mr-3"><span class="count">
+      {{allLTCsSelected?totalItemCount:selectedLTCs.length}}
+    </span> Contacts are selected</p>
+    <p class="mr-3 clearText" (click)="handleClearPress()" >Clear Selection</p>
+    <div class="flex-row flex1">
+        <app-save-ltc-modal (successfullyAdded)="handleContactAddList()"
+        title="Save"
+        [allContactsSelected]="allLTCsSelected"
+        [selectedItems]="selectedLTCs"
+        [totalItemCount]="totalItemCount"
+        [selectedFilter]="selectedFilter"
+        
+        ></app-save-ltc-modal>
+      <!-- <div class="searchButton" (click)="handleExportClick()">
+        Export CSV <i-feather
+        name="Download"
+        class="exportIcon"
+      ></i-feather>
+      </div> -->
+    </div>
+    </div>
+    

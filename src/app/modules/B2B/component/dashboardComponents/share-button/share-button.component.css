@@ -1,0 +1,86 @@
+.shareButton {
+    position: fixed;
+    min-width: 100px;
+    height: 40px;
+    right: 20px;
+    top:240px;
+    border-radius: 8px;
+    border: none;
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    background-color: #55ACEE;
+    color: #fff;
+    z-index: 999;
+}
+
+.shareModal {
+    position: fixed;
+    right: 20px;
+    top:35%;
+    z-index: 9;
+    width: 350px;
+    height: 90px;
+    background-color: #fff;
+    box-shadow: 2px 1px 4px 6px rgba(12, 0, 46, 0.06)!important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeIcon {
+    font-size: 12px;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    cursor: pointer;
+    padding: 10px;
+    color: #000;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.copyField {
+    width: 80%;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.flex1 {
+    flex:1
+}
+
+.iconCont {
+    background-color: #2e8cff;
+    height: 100%;
+    width: 50px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.textCont {
+    background-color: #F1F9FF;
+    height: 100%;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: 1px solid #ccc;
+    align-items: center;
+    display: flex;
+    padding: 0px 10px;
+    font-weight: normal;
+    font-size: 12px;
+}

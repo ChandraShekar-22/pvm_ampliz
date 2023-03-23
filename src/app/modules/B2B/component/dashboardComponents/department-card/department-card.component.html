@@ -1,0 +1,14 @@
+<div class="landingDashboardCard card">
+    <div class="commonCardTitle">
+        DEPARTMENT
+    </div>
+    <div class="landingCardContainer">
+        <div (click)="makeSearch($event,item.value)" class="deptCardItems" *ngFor="let item of listItems">
+            <div class="row">
+            <div class="col-md-9"><span style="font-weight: normal;">{{item.name}}</span></div>
+            <div class="col-md-3" style="text-align: right;">{{item.count}}</div>
+        </div>
+        </div>
+        
+    </div>
+</div>

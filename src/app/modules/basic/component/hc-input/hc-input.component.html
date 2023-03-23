@@ -1,0 +1,12 @@
+<div class="form-group signUp_text_box">
+  <input class="form-control userInfo" [name]="placeholder" type="{{type}}" #input id="{{id}}"
+    placeholder="{{placeholder}}" (blur)="onChange($event, input.value)">
+  <div style="height:0px;" *ngIf="c.invalid&&isFormSubmitted" class="align-item  float-right error">
+    <p *ngIf="c.errors?.required">
+      Required
+    </p>
+    <p *ngIf="c.errors?.minlength||c.errors?.email||c.errors?.pattern">
+      Not a valid {{placeholder}}
+    </p>
+  </div>
+</div>

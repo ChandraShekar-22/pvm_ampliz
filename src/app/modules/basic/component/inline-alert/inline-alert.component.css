@@ -1,0 +1,29 @@
+.inline-alert{
+    padding: 10px;
+    border:none;
+    display: flex;
+}
+.inline-alert.column{
+    flex-direction: column;
+}
+.inline-alert.row{
+    flex-direction: row;
+}
+.inline-alert.border{
+    border-left: 5px solid #A4A4A4;
+}
+.inline-alert.border.success{
+    border-left: 5px solid #08AB5D !important;
+}
+.inline-alert.border.hasError{
+    border-left: 5px solid #FF3D00 !important;
+}
+
+.status.success{
+    color: #08AB5D;
+    font-size: 16px;
+}
+.status.hasError{
+    color: #FF3D00;
+    font-size: 16px;
+}

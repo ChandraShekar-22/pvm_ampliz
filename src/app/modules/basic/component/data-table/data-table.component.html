@@ -1,0 +1,32 @@
+<div >
+    <table mat-table [dataSource]="dataSource">
+        <ng-container *ngFor="let dispCol of headers; let colIndex = index" matColumnDef="{{dispCol.key}}">
+            
+            <th [ngClass]="dispCol.className" mat-header-cell *matHeaderCellDef >{{dispCol.name}}</th>
+            
+            <td [ngClass]="dispCol.className" mat-cell *matCellDef="let element" class="mat-column-vinCode">
+                <span *ngIf="dispCol.type=='text'" (click)="itemClicked(dispCol,element)"
+                [ngClass]="dispCol.isLink?'isLink':''"
+                >
+                    {{element[dispCol.key]}}
+                </span>
+
+                <span *ngIf="dispCol.type=='status'" class="status"
+                [ngStyle]="{backgroundColor: element.statusColor}">
+                    {{element[dispCol.key]}}
+                </span>
+                <div *ngIf="dispCol.type=='action'" class="flex-row">
+                    
+                        <mat-icon class="actionBtn" *ngIf="hasEditButton">edit</mat-icon>
+                        <mat-icon class="actionBtn" *ngIf="hasViewButton">remove_red_eye</mat-icon>
+                        <mat-icon class="actionBtn" *ngIf="hasDeleteButton">delete</mat-icon>
+                    
+                </div>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="headerKeys; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: headerKeys"></tr>
+    </table>
+
+    <mat-paginator [hidePageSize]="true" aria-label="Select page of users" [pageSize]="5"></mat-paginator>
+</div>
