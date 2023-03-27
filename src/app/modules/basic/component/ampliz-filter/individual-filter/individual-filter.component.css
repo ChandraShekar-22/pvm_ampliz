@@ -153,6 +153,7 @@ p.sub-header {
   color: #354054;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
  .mat-expansion-panel-header-description {

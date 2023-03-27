@@ -129,10 +129,6 @@ p.sub-header {
 .filter-component .mat-expansion-panel-header:first {
   border-top: none;
 }
-
-.filter-component {
-  /* padding: 10px; */
-}
 .m-10 {
   margin: 0px 10px;
 }
@@ -153,6 +149,7 @@ p.sub-header {
   color: #354054;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
  .mat-expansion-panel-header-description {
