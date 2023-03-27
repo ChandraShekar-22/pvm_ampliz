@@ -1,24 +1,23 @@
 <!-- Start Preloader -->
 <div id="">
-    <div class="square-block"></div>
+  <div class="square-block"></div>
 </div>
 <!-- Preloader End -->
 
-<div class="container-fluid loginscreen ">
-    <app-loader *ngIf="showLoader==true"></app-loader>
-    <app-success *ngIf="showMsg"></app-success>
-    <app-error *ngIf="showError"></app-error>
+<div class="container-fluid loginscreen">
+  <app-loader *ngIf="showLoader == true"></app-loader>
+  <app-success *ngIf="showMsg"></app-success>
+  <app-error *ngIf="showError"></app-error>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 authfy-panel-left">
-
-            <!-- brand-logo start -->
-            <div class="brand-logo text-center">
-                <img src="assets/images/brand-logo.png" width="150" alt="brand-logo">
-            </div>
-            <!-- ./brand-logo -->
-            <!-- authfy-login start -->
-            <!--<div class="wrapper">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 authfy-panel-left">
+      <!-- brand-logo start -->
+      <div class="brand-logo text-center">
+        <img src="assets/images/brand-logo.png" width="150" alt="brand-logo" />
+      </div>
+      <!-- ./brand-logo -->
+      <!-- authfy-login start -->
+      <!--<div class="wrapper">
                     <div class="arrow-steps clearfix">
                         <div class="step current"> <span> Installed</span> </div>
                         <div class="step"> <span>Register</span> </div>
@@ -31,23 +30,36 @@
                     </div>
                 </div>-->
 
-            <div class="authfy-login">
+      <div class="authfy-login">
+        <!-- panel-login start -->
+        <div
+          class="authfy-panel panel-login text-center"
+          [ngClass]="{ active: currentScene == 'login' }">
+          <div class="authfy-heading">
+            <h3 class="auth-title">Login to your account</h3>
+            <p>
+              Don’t have an account?
+              <a
+                class="lnk-toggler link"
+                data-panel=".panel-signup"
+                href="https://www.ampliz.com/signup"
+                >Sign Up Free!</a
+              >
+            </p>
 
-                <!-- panel-login start -->
-                <div class="authfy-panel panel-login text-center" [ngClass]="{'active': currentScene=='login'}">
-                    <div class="authfy-heading">
-                        <h3 class="auth-title ">Login to your account</h3>
-                        <p>Don’t have an account? <a class="lnk-toggler link" data-panel=".panel-signup" href="https://www.ampliz.com/signup">Sign Up Free!</a></p>
+            <!-- <p>Don’t have an account? <a class="lnk-toggler link" data-panel=".panel-signup" (click)="showScreen('signup')">Sign Up Free!</a></p> -->
+          </div>
+          <app-inline-alert
+            [content]="alertContent"
+            *ngIf="showInlineError"
+            (callbackFunction)="requestInvite()"></app-inline-alert>
+          <div *ngIf="errmsg" class="alert alert-danger" role="alert">
+            Email already registered,but email not yet verified, please verify
+            the email <a href="#"><b>here</b></a>
+          </div>
 
-                        <!-- <p>Don’t have an account? <a class="lnk-toggler link" data-panel=".panel-signup" (click)="showScreen('signup')">Sign Up Free!</a></p> -->
-                    </div>
-                    <app-inline-alert [content]="alertContent" *ngIf="showInlineError" (callbackFunction)="requestInvite()"></app-inline-alert>
-                    <div *ngIf="errmsg" class="alert alert-danger" role="alert">
-                        Email already registered,but email not yet verified, please verify the email <a href="#"><b>here</b></a>
-                    </div>
-
-                    <!-- social login buttons start -->
-                    <!-- <div class="row social-buttons">
+          <!-- social login buttons start -->
+          <!-- <div class="row social-buttons">
                         <div class="col-xs-6 col-sm-6">
                             <a href="#" class="btn btn-lg btn-block btn-twitter">
                                 <i class="fa fa-linkedin-square" aria-hidden="true"></i> &nbsp;Linkedin
@@ -61,61 +73,101 @@
                             </a>
                         </div>
                     </div> -->
-                    <!-- ./social-buttons -->
-                    <!-- <div class="row loginOr">
+          <!-- ./social-buttons -->
+          <!-- <div class="row loginOr">
                         <div class="col-xs-12 col-sm-12">
                             <span class="spanOr">or</span>
                         </div>
                     </div> -->
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-                            <form name="loginForm" class="loginForm">
-                                <div class="form-group wrap-input">
-                                    <input type="email" class="form-control email" [(ngModel)]="loginBody.email" name="username" placeholder="Email Address">
-                                    <span class="focus-input"></span>
-                                </div>
-                                <div class="form-group wrap-input">
-                                    <div class="pwdMask">
-                                        <input [type]="passwordShow==true?'text':'password'" class="form-control password" name="password" [(ngModel)]="loginBody.pwd" placeholder="Password">
-                                        <span class="focus-input"></span>
-                                        <span (mouseenter)="showPassword(true)" (mouseleave)="showPassword(false)" class="fa fa-eye-slash pwd-toggle"></span>
-                                    </div>
-                                </div>
-                                <div class="row remember-row">
-                                    <div class="col-xs-6 col-sm-6">
-                                        <!-- <label class="checkbox text-left">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <form name="loginForm" class="loginForm">
+                <div class="form-group wrap-input">
+                  <input
+                    type="email"
+                    class="form-control email"
+                    [(ngModel)]="loginBody.email"
+                    name="username"
+                    placeholder="Email Address" />
+                  <span class="focus-input"></span>
+                </div>
+                <p class="error-message" *ngIf="emailError">
+                  Please Enter a Valid Email Address
+                </p>
+                <div class="form-group wrap-input">
+                  <div class="pwdMask">
+                    <input
+                      [type]="passwordShow == true ? 'text' : 'password'"
+                      class="form-control password"
+                      name="password"
+                      [(ngModel)]="loginBody.pwd"
+                      placeholder="Password" />
+                    <span class="focus-input"></span>
+                    <span
+                      (mouseenter)="showPassword(true)"
+                      (mouseleave)="showPassword(false)"
+                      class="fa fa-eye-slash pwd-toggle"></span>
+                  </div>
+                </div>
+                <p class="error-message" *ngIf="passwordError">
+                  Please Enter a Valid Password
+                </p>
+                <div class="row remember-row">
+                  <div class="col-xs-6 col-sm-6">
+                    <!-- <label class="checkbox text-left">
                                             <input type="checkbox" value="remember-me"><span class="label-text">Remember me</span>
                                         </label> -->
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6">
-                                        <p class="forgotPwd">
-                                            <a class="lnk-toggler link" data-panel=".panel-forgot" (click)="showScreen('forgot')">Forgot password?</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- ./remember-row -->
-                                <div class="form-group">
-                                    <button (click)="login()" class="btn btn-lg btn-new btn-block" type="submit">Login with email</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6">
+                    <p class="forgotPwd">
+                      <a
+                        class="lnk-toggler link"
+                        data-panel=".panel-forgot"
+                        (click)="showScreen('forgot')"
+                        >Forgot password?</a
+                      >
+                    </p>
+                  </div>
                 </div>
-                <!-- ./panel-login -->
-                <!-- panel-signup start -->
-                <div class="authfy-panel panel-signup text-center" [ngClass]="{'active': currentScene=='signup'}">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-                            <div class="authfy-heading">
-                                <h3 class="auth-title">Sign up for free!</h3>
-                                <p class="term-policy text-muted small fnt_bld">Enter your email address, a password will be emailed to you! Check your Spam, Junk and Promotion folder if you don't find our email in your inbox!</p>
-                            </div>
-                            <form name="signupForm" class="signupForm">
-                                <div class="form-group wrap-input">
-                                    <input type="email" class="form-control" name="username" [(ngModel)]="signupBody.email" placeholder="Email Address">
-                                    <span class="focus-input"></span>
-                                </div>
-                                <!-- <div class="form-group wrap-input">
+                <!-- ./remember-row -->
+                <div class="form-group">
+                  <button
+                    (click)="login()"
+                    class="btn btn-lg btn-new btn-block"
+                    type="submit">
+                    Login with email
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- ./panel-login -->
+        <!-- panel-signup start -->
+        <div
+          class="authfy-panel panel-signup text-center"
+          [ngClass]="{ active: currentScene == 'signup' }">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <div class="authfy-heading">
+                <h3 class="auth-title">Sign up for free!</h3>
+                <p class="term-policy text-muted small fnt_bld">
+                  Enter your email address, a password will be emailed to you!
+                  Check your Spam, Junk and Promotion folder if you don't find
+                  our email in your inbox!
+                </p>
+              </div>
+              <form name="signupForm" class="signupForm">
+                <div class="form-group wrap-input">
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="username"
+                    [(ngModel)]="signupBody.email"
+                    placeholder="Email Address" />
+                  <span class="focus-input"></span>
+                </div>
+                <!-- <div class="form-group wrap-input">
                                     <input type="text" class="form-control" name="fullname" placeholder="Full name">
                                     <span class="focus-input"></span>
                                 </div>
@@ -126,89 +178,161 @@
                                         <span class="fa fa-eye-slash pwd-toggle"></span>
                                     </div>
                                 </div> -->
-                                <div class="form-group">
-                                    <p class="term-policy text-muted small">I agree to the <a (click)="openUrl('ampliz.com/privacy-policy ')" class="link">privacy policy</a> and <a (click)="openUrl('ampliz.com/terms-conditions ')" class="link">terms of service</a>.</p>
-                                </div>
-                                <div class="form-group">
-                                    <button (click)="signup()" class="btn btn-lg btn-new btn-block" type="submit">Sign up with email</button>
-                                </div>
-                            </form>
-                            <a class="lnk-toggler link" data-panel=".panel-login" (click)="showScreen('login')">Already have an account? Login</a>
-                        </div>
-                    </div>
+                <div class="form-group">
+                  <p class="term-policy text-muted small">
+                    I agree to the
+                    <a
+                      (click)="openUrl('ampliz.com/privacy-policy ')"
+                      class="link"
+                      >privacy policy</a
+                    >
+                    and
+                    <a
+                      (click)="openUrl('ampliz.com/terms-conditions ')"
+                      class="link"
+                      >terms of service</a
+                    >.
+                  </p>
                 </div>
-                <!-- ./panel-signup -->
-                <!-- panel-forget start -->
-                <div class="authfy-panel panel-forgot" [ngClass]="{'active': currentScene=='forgot'}">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-                            <div class="authfy-heading">
-                                <h3 class="auth-title">Recover your password</h3>
-                                <p>Fill in your e-mail address below and we will send you an email with further instructions.</p>
-                            </div>
-                            <form name="forgetForm" class="forgetForm">
-                                <div class="form-group wrap-input">
-                                    <input type="email" class="form-control" placeholder="Email Address" name="username" [(ngModel)]="forgotBody.email">
-                                    <span class="focus-input"></span>
-                                </div>
-                                <div class="form-group">
-                                    <button (click)="forgot()" class="btn btn-lg btn-new btn-block" data-panel=".panel-signup" type="submit">Recover your password</button>
-                                </div>
-                                <div class="form-group">
-                                    <a class="lnk-toggler link" data-panel=".panel-login" (click)="showScreen('login')">Already have an account? Login</a>
-                                </div>
-                                <div class="form-group">
-                                    <a class="lnk-toggler link" data-panel=".panel-signup" href="https://www.ampliz.com/signup">Don’t have an account? Sign up</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="form-group">
+                  <button
+                    (click)="signup()"
+                    class="btn btn-lg btn-new btn-block"
+                    type="submit">
+                    Sign up with email
+                  </button>
                 </div>
-                <!-- ./panel-forgot -->
-                <!-- panel-forget start -->
-                <div class="authfy-panel panel-forgot">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-                            <div class="authfy-heading">
-                                <h3 class="auth-title">Recover your password</h3>
-                                <p>Fill in your e-mail address below and we will send you an email with further instructions.</p>
-                            </div>
-                            <form name="forgetForm" class="forgetForm">
-                                <div class="form-group wrap-input">
-                                    <input type="email" class="form-control" placeholder="Email address" name="username" [(ngModel)]="forgotBody.email">
-                                    <span class="focus-input"></span>
-                                </div>
-                                <div class="form-group">
-                                    <button (click)="forgot()" class="btn btn-lg btn-new btn-block" type="submit">Recover your password</button>
-                                </div>
-                                <div class="form-group">
-                                    <a class="lnk-toggler link" data-panel=".panel-login" (click)="showScreen('login')">Already have an account? Login</a>
-                                </div>
-                                <div class="form-group">
-                                    <a class="lnk-toggler" data-panel=".panel-signup" href="https://www.ampliz.com/signup">Don’t have an account?Sign up</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./panel-forgot -->
+              </form>
+              <a
+                class="lnk-toggler link"
+                data-panel=".panel-login"
+                (click)="showScreen('login')"
+                >Already have an account? Login</a
+              >
             </div>
-            <!-- ./authfy-login -->
+          </div>
         </div>
-        <!-- ./authfy-panel-left -->
-        <div class="col-md-7 col-lg-8 authfy-panel-right hidden-xs hidden-sm">
-            <div class="hero-heading">
-                <div class="headline">
-                    <h3>
-                        Supercharge yourself with
-                        <br /> Ampliz sales buddy.
-                    </h3>
-                    <!--<p>Access to the most powerfull tool in the entire industry.</p>-->
+        <!-- ./panel-signup -->
+        <!-- panel-forget start -->
+        <div
+          class="authfy-panel panel-forgot"
+          [ngClass]="{ active: currentScene == 'forgot' }">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <div class="authfy-heading">
+                <h3 class="auth-title">Recover your password</h3>
+                <p>
+                  Fill in your e-mail address below and we will send you an
+                  email with further instructions.
+                </p>
+              </div>
+              <form name="forgetForm" class="forgetForm">
+                <div class="form-group wrap-input">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email Address"
+                    name="username"
+                    [(ngModel)]="forgotBody.email" />
+                  <span class="focus-input"></span>
                 </div>
+                <div class="form-group">
+                  <button
+                    (click)="forgot()"
+                    class="btn btn-lg btn-new btn-block"
+                    data-panel=".panel-signup"
+                    type="submit">
+                    Recover your password
+                  </button>
+                </div>
+                <div class="form-group">
+                  <a
+                    class="lnk-toggler link"
+                    data-panel=".panel-login"
+                    (click)="showScreen('login')"
+                    >Already have an account? Login</a
+                  >
+                </div>
+                <div class="form-group">
+                  <a
+                    class="lnk-toggler link"
+                    data-panel=".panel-signup"
+                    href="https://www.ampliz.com/signup"
+                    >Don’t have an account? Sign up</a
+                  >
+                </div>
+              </form>
             </div>
-
+          </div>
         </div>
+        <!-- ./panel-forgot -->
+        <!-- panel-forget start -->
+        <div class="authfy-panel panel-forgot">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <div class="authfy-heading">
+                <h3 class="auth-title">Recover your password</h3>
+                <p>
+                  Fill in your e-mail address below and we will send you an
+                  email with further instructions.
+                </p>
+              </div>
+              <form name="forgetForm" class="forgetForm">
+                <div class="form-group wrap-input">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email address"
+                    name="username"
+                    [(ngModel)]="forgotBody.email" />
+                  <span class="focus-input"></span>
+                </div>
+                <div class="form-group">
+                  <button
+                    (click)="forgot()"
+                    class="btn btn-lg btn-new btn-block"
+                    type="submit">
+                    Recover your password
+                  </button>
+                </div>
+                <div class="form-group">
+                  <a
+                    class="lnk-toggler link"
+                    data-panel=".panel-login"
+                    (click)="showScreen('login')"
+                    >Already have an account? Login</a
+                  >
+                </div>
+                <div class="form-group">
+                  <a
+                    class="lnk-toggler"
+                    data-panel=".panel-signup"
+                    href="https://www.ampliz.com/signup"
+                    >Don’t have an account?Sign up</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- ./panel-forgot -->
+      </div>
+      <!-- ./authfy-login -->
     </div>
-    <!-- ./row -->
+    <!-- ./authfy-panel-left -->
+    <div class="col-md-7 col-lg-8 authfy-panel-right hidden-xs hidden-sm">
+      <div class="hero-heading">
+        <div class="headline">
+          <h3>
+            Supercharge yourself with
+            <br />
+            Ampliz sales buddy.
+          </h3>
+          <!--<p>Access to the most powerfull tool in the entire industry.</p>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./row -->
 </div>
 <!-- ./container -->
