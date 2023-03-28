@@ -1,4 +1,3 @@
-
 <div class="left side-menu in">
   <!--- Sidemenu -->
   <div id="sidebar-menu">
@@ -10,8 +9,7 @@
           class="link tooltip-right"
           (click)="openItem('dashboard')"
           data-tooltip="Dashboard"
-          [ngClass]="{ activeElement: elementName == 'dashboard' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'dashboard' }">
           <i class="mdi mdi-airplay"></i>
         </a>
       </li>
@@ -31,8 +29,7 @@
           class="link tooltip-right"
           (click)="openItem('freecredits')"
           data-tooltip="Free Credits"
-          [ngClass]="{ activeElement: elementName == 'freecredits' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'freecredits' }">
           <i class="mdi mdi-gift"></i>
         </a>
       </li>
@@ -42,8 +39,7 @@
           class="link tooltip-right"
           (click)="openItem('pricing')"
           data-tooltip="Subscription"
-          [ngClass]="{ activeElement: elementName == 'pricing' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'pricing' }">
           <i class="mdi mdi-settings-outline"></i>
         </a>
       </li>
@@ -54,8 +50,7 @@
           (click)="openItem('company_search')"
           data-tooltip="Company
           Search"
-          [ngClass]="{ activeElement: elementName == 'company_search' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'company_search' }">
           <i class="ti-world"></i>
         </a>
       </li>
@@ -64,8 +59,7 @@
           class="link tooltip-right"
           (click)="openItem('idealprofile')"
           data-tooltip="Ideal Customer Profile"
-          [ngClass]="{ activeElement: elementName == 'idealprofile' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'idealprofile' }">
           <i class="ti-id-badge"></i>
         </a>
       </li>
@@ -175,8 +169,7 @@
           class="link tooltip-right"
           (click)="openItem('hcdashboard')"
           data-tooltip="Dashboard"
-          [ngClass]="{ activeElement: elementName == 'hcdashboard' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'hcdashboard' }">
           <i class="mdi mdi-airplay"></i>
         </a>
       </li>
@@ -196,8 +189,7 @@
           class="link tooltip-right"
           (click)="openItem('freecredits')"
           data-tooltip="Free Credits"
-          [ngClass]="{ activeElement: elementName == 'freecredits' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'freecredits' }">
           <i class="mdi mdi-gift"></i>
         </a>
       </li>
@@ -206,9 +198,8 @@
           class="link tooltip-right"
           (click)="openItem('mytab')"
           data-tooltip="My Data"
-          [ngClass]="{ activeElement: elementName == 'mytab' }"
-        >
-        <i class="fa fa-database"></i> <span>My Data</span>
+          [ngClass]="{ activeElement: elementName == 'mytab' }">
+          <i class="fa fa-database"></i> <span>My Data</span>
         </a>
       </li>
       <li class="d-none d-sm-block">
@@ -216,8 +207,7 @@
           class="link tooltip-right"
           (click)="openItem('pricing')"
           data-tooltip="Subscription"
-          [ngClass]="{ activeElement: elementName == 'pricing' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'pricing' }">
           <i class="mdi mdi-settings-outline"></i>
         </a>
       </li>
@@ -225,9 +215,8 @@
         <a
           class="link tooltip-right"
           (click)="openItem('physician')"
-          data-tooltip="Physician"
-          [ngClass]="{ activeElement: elementName == 'physician' }"
-        >
+          data-tooltip="HCps"
+          [ngClass]="{ activeElement: elementName == 'physician' }">
           <i class="fa fa-user-md"></i>
         </a>
       </li>
@@ -236,8 +225,7 @@
           class="link tooltip-right"
           (click)="openItem('hospital')"
           data-tooltip="Hospital"
-          [ngClass]="{ activeElement: elementName == 'hospital' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'hospital' }">
           <i class="fa fa-hospital-o"></i>
         </a>
       </li>
@@ -246,8 +234,7 @@
           class="link tooltip-right"
           (click)="openItem('executive')"
           data-tooltip="Executive"
-          [ngClass]="{ activeElement: elementName == 'executive' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'executive' }">
           <i class="fa fa-user-circle"></i><span></span>
         </a>
       </li>
@@ -257,12 +244,9 @@
           class="link tooltip-right"
           (click)="openItem('imaging')"
           data-tooltip="Imaging"
-          [ngClass]="{ activeElement: elementName == 'imaging' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'imaging' }">
           <!-- <i class="fa fa-bolt"></i> -->
-          <mat-icon>
-            filter_frames
-          </mat-icon>
+          <mat-icon> filter_frames </mat-icon>
         </a>
       </li>
 
@@ -271,11 +255,8 @@
           class="link tooltip-right"
           (click)="openItem('ltc')"
           data-tooltip="LTC"
-          [ngClass]="{ activeElement: elementName == 'ltc' }"
-        >
-        <mat-icon>
-          accessible
-        </mat-icon>
+          [ngClass]="{ activeElement: elementName == 'ltc' }">
+          <mat-icon> accessible </mat-icon>
         </a>
       </li>
       <li class="d-none d-sm-block">
@@ -283,8 +264,7 @@
           class="link tooltip-right"
           (click)="openItem('lists')"
           data-tooltip="Lists"
-          [ngClass]="{ activeElement: elementName == 'lists' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'lists' }">
           <i class="mdi mdi-format-list-bulleted"></i>
         </a>
       </li>
@@ -294,8 +274,7 @@
           class="link tooltip-right"
           (click)="openItem('geneateapi')"
           data-tooltip="Generate Api Key"
-          [ngClass]="{ activeElement: elementName == 'apis' }"
-        >
+          [ngClass]="{ activeElement: elementName == 'apis' }">
           <i class="fa fa-code"></i>
         </a>
       </li>

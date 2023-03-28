@@ -1,37 +1,39 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
-import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
-import { Router } from "@angular/router";
-import { LoaderService } from "src/app/modules/healthcare/services/loader.service";
-import { ErrorService } from "src/app/modules/healthcare/services/error.service";
-import { SuccessmessageService } from "src/app/modules/healthcare/services/successmessage.service";
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
+import { Router } from '@angular/router';
+import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
+import { ErrorService } from 'src/app/modules/healthcare/services/error.service';
+import { SuccessmessageService } from 'src/app/modules/healthcare/services/successmessage.service';
 import { ActivatedRoute } from '@angular/router';
-import { MessageService } from "src/app/modules/B2B/services/message.service";
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   passwordShow = false;
-  domainName = "";
+  domainName = '';
   loginBody = {
-    email: "",
-    pwd: "",
+    email: '',
+    pwd: '',
   };
   signupBody = {
-    email: "",
+    email: '',
   };
   forgotBody = {
-    email: "",
+    email: '',
   };
   showLoader: boolean;
   showError = false;
   showMsg: boolean = false;
-  currentScene = "login";
+  currentScene = 'login';
   errmsg = false;
-  invitationCode = "";
-  alertContent: any = {}; 
+  invitationCode = '';
+  alertContent: any = {};
   showInlineError: boolean = false;
+  emailError: boolean = false;
+  passwordError: boolean = false;
   // @Input() border: boolean = true;
   // @Input() success: boolean = false;
   // @Input() hasError: boolean = true;
@@ -41,14 +43,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
   // @Input() errorHeading: string = "Feedback failed";
   // @Input() errorSubHeading: string = "We got your feedback, will get back to you soon on this";
   // invite=LHK9AJRE
-  inviteMessage: any = { 
-        'success': { 
-          heading: "You have successfully logged in", 
-          subHeading: "You have some sub heading" }, 
-        'error': { 
-          heading: "Your invitaiton is expired", 
-          subHeading: "You can request for new invitation" } 
-        }
+  inviteMessage: any = {
+    success: {
+      heading: 'You have successfully logged in',
+      subHeading: 'You have some sub heading',
+    },
+    error: {
+      heading: 'Your invitaiton is expired',
+      subHeading: 'You can request for new invitation',
+    },
+  };
   constructor(
     private amplizService: AmplizService,
     private router: Router,
@@ -57,18 +61,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private successService: SuccessmessageService,
     private route: ActivatedRoute,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.route.queryParams
-      .subscribe(params => {
-        let code = params.invite;
-        if (code && code !== "") {
-          this.invitationCode = code;
-          this.isInvitationActive(code);
-        }
+    this.route.queryParams.subscribe((params) => {
+      let code = params.invite;
+      if (code && code !== '') {
+        this.invitationCode = code;
+        this.isInvitationActive(code);
       }
-      );
+    });
     this.loaderService.status.subscribe((res) => {
       this.showLoader = res;
     });
@@ -82,9 +84,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
     this.checkStorage();
   }
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
   // async login() {
   //   this.loaderService.display(true);
   //   this.amplizService.login(this.loginBody).subscribe(async res => {
@@ -102,41 +102,44 @@ export class LoginComponent implements OnInit, AfterViewInit {
   // }
   isInvitationActive(code) {
     this.amplizService.isInvitationActive(code).subscribe((res) => {
-      if (!res.active){
+      if (!res.active) {
         this.alertContent = this.inviteMessage.error;
         this.showInlineError = true;
-      }else{
-        this.alertContent = {}
+      } else {
+        this.alertContent = {};
         this.showInlineError = false;
       }
-    })
+    });
   }
-  requestInvite(){
-    this.amplizService.reInvite(this.invitationCode).subscribe((res)=>{
-    })
+  requestInvite() {
+    this.amplizService.reInvite(this.invitationCode).subscribe((res) => {});
   }
   async login() {
     // this.loaderService.display(true);
     const validation = { email: false, password: false };
     const msg = [
-      "Please Enter a Valid Email Address",
-      "Please Enter a Valid Password",
-      "Invalid Credentials",
+      'Please Enter a Valid Email Address',
+      'Please Enter a Valid Password',
+      'Invalid Credentials',
     ];
+    this.emailError = false;
+    this.passwordError = false;
     let msgToShow = -1;
     if (
-      this.loginBody.email !== "" &&
+      this.loginBody.email !== '' &&
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.loginBody.email)
     ) {
       validation.email = true;
-      if (this.loginBody.pwd !== "") {
+      if (this.loginBody.pwd !== '') {
         validation.password = true;
         // this.errorService.display(true, 'Please enter a password');
       } else {
+        this.passwordError = true;
         msgToShow = 1;
       }
       // this.errorService.display(true, 'Please enter an emailId');
     } else {
+      this.emailError = true;
       msgToShow = 0;
     }
 
@@ -152,14 +155,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
       const myDate = new Date();
       myDate.setMonth(myDate.getMonth() + 1);
       this.domainName = this.domainName.substring(
-        this.domainName.indexOf(".") + 1
+        this.domainName.indexOf('.') + 1
       );
       document.cookie =
-        "email_id=" +
+        'email_id=' +
         this.loginBody.email +
-        "; expires=" +
+        '; expires=' +
         myDate +
-        "; path=/; domain=." +
+        '; path=/; domain=.' +
         this.domainName;
 
       this.amplizService.login(this.loginBody).subscribe(
@@ -172,10 +175,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.loaderService.display(false);
           // console.log(res.Dataset);
           // console.log(res);
-          if (res.Dataset === "B2B") {
-            this.router.navigate(["onboard"]);
+          if (res.Dataset === 'B2B') {
+            this.router.navigate(['onboard']);
           } else {
-            this.router.navigate(["hconboard"]);
+            this.router.navigate(['hconboard']);
           }
         },
         (error) => {
@@ -195,7 +198,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           // else{
           this.messageService.displayError(
             true,
-            error.error.msg ? error.error.msg : "Error"
+            error.error.msg ? error.error.msg : 'Error'
           );
           // }
         }
@@ -205,18 +208,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   showScreen(screen) {
     this.currentScene = screen;
-    this.signupBody.email = "";
-    this.forgotBody.email = "";
+    this.signupBody.email = '';
+    this.forgotBody.email = '';
     this.loginBody = {
-      email: "",
-      pwd: "",
+      email: '',
+      pwd: '',
     };
   }
 
   signup() {
     this.loaderService.display(true);
     if (
-      this.signupBody.email !== "" &&
+      this.signupBody.email !== '' &&
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
         this.signupBody.email
       )
@@ -226,8 +229,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.loaderService.display(false);
           //
           this.messageService.display(true, res.msg);
-          this.showScreen("login");
-          this.signupBody.email = "";
+          this.showScreen('login');
+          this.signupBody.email = '';
         },
         (error: any) => {
           this.loaderService.display(false);
@@ -236,14 +239,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
       );
     } else {
       this.loaderService.display(false);
-      this.messageService.displayError(true, "Please Enter a Valid Email Address");
+      this.messageService.displayError(
+        true,
+        'Please Enter a Valid Email Address'
+      );
     }
   }
 
   forgot() {
     this.loaderService.display(true);
     if (
-      this.forgotBody.email !== "" &&
+      this.forgotBody.email !== '' &&
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
         this.forgotBody.email
       )
@@ -253,8 +259,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.loaderService.display(false);
           //
           this.messageService.display(true, res.msg);
-          this.showScreen("login");
-          this.forgotBody.email = "";
+          this.showScreen('login');
+          this.forgotBody.email = '';
         },
         (error: any) => {
           this.loaderService.display(false);
@@ -263,16 +269,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
       );
     } else {
       this.loaderService.display(false);
-      this.messageService.displayError(true, "Please Enter a Valid Email Address");
+      this.messageService.displayError(
+        true,
+        'Please Enter a Valid Email Address'
+      );
     }
   }
   async checkStorage() {
-    const authToken = await localStorage.getItem("auth_token");
-    const refreshToken = await localStorage.getItem("refresh_token");
-    const dataSet = await localStorage.getItem("Dataset");
+    const authToken = await localStorage.getItem('auth_token');
+    const refreshToken = await localStorage.getItem('refresh_token');
+    const dataSet = await localStorage.getItem('Dataset');
     if (authToken !== null && refreshToken !== null) {
-      if (dataSet === "B2B") {
-        this.router.navigate(["dashboard"]);
+      if (dataSet === 'B2B') {
+        this.router.navigate(['dashboard']);
       } else {
         // this.router.navigate(["hcdashboard"]);
       }
@@ -286,7 +295,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   openUrl(url) {
-    const siteUrl = "https://" + url;
+    const siteUrl = 'https://' + url;
     window.open(siteUrl);
   }
   setCookies(res) {
@@ -295,7 +304,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     const myDate = new Date();
     myDate.setMonth(myDate.getMonth() + 12);
     this.domainName = this.domainName.substring(
-      this.domainName.indexOf(".") + 1
+      this.domainName.indexOf('.') + 1
     );
     // document.cookie = 'auth_token = ' + res.access_token + '; expires=Thu, 18 Dec 2020 12:00:00 UTC; path=/; domain=.' + this.domainName;
     // document.cookie = 'refresh_token = ' + res.refresh_token + '; expires=Thu, 18 Dec 2020 12:00:00 UTC; path=/; domain=.' + this.domainName;
@@ -303,66 +312,65 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // document.cookie = 'credits = ' + res.CurrentCredits + '; expires=Thu, 18 Dec 2020 12:00:00 UTC; path=/';
     // document.cookie = 'isPersonaSet = ' + res.isPersonaSet + '; expires=Thu, 18 Dec 2020 12:00:00 UTC; path=/';
     document.cookie =
-      "auth_token = " +
+      'auth_token = ' +
       res.access_token +
-      "; expires=" +
+      '; expires=' +
       myDate +
-      "; path=/; domain=." +
+      '; path=/; domain=.' +
       this.domainName;
     document.cookie =
-      "refresh_token = " +
+      'refresh_token = ' +
       res.refresh_token +
-      "; expires=" +
+      '; expires=' +
       myDate +
-      "; path=/; domain=." +
+      '; path=/; domain=.' +
       this.domainName;
     document.cookie =
-      "username = " +
+      'username = ' +
       res.username +
-      "; expires=" +
+      '; expires=' +
       myDate +
-      "; path=/; domain=." +
+      '; path=/; domain=.' +
       this.domainName;
     document.cookie =
-      "credits = " +
+      'credits = ' +
       res.CurrentCredits +
-      "; expires=" +
+      '; expires=' +
       myDate +
-      "; path=/; domain=." +
+      '; path=/; domain=.' +
       this.domainName;
     document.cookie =
-      "isPersonaSet = " +
+      'isPersonaSet = ' +
       res.isPersonaSet +
-      "; expires=" +
+      '; expires=' +
       myDate +
-      "; path=/; domain=." +
+      '; path=/; domain=.' +
       this.domainName;
     document.cookie =
-      "Dataset = " +
+      'Dataset = ' +
       res.Dataset +
-      "; expires=" +
+      '; expires=' +
       myDate +
-      "; path=/; domain=." +
+      '; path=/; domain=.' +
       this.domainName;
     document.cookie =
-      "amp_u=1;expires=" + myDate + "; path=/; domain=." + this.domainName;
+      'amp_u=1;expires=' + myDate + '; path=/; domain=.' + this.domainName;
   }
   async setLocal(res) {
-    await localStorage.setItem("auth_token", res.access_token);
-    await localStorage.setItem("refresh_token", res.refresh_token);
-    await localStorage.setItem("username", res.username);
-    await localStorage.setItem("credits", res.CurrentCredits.toString());
-    await localStorage.setItem("isPersonaSet", res.isPersonaSet.toString());
-    await localStorage.setItem("Dataset", res.Dataset);
-    let is_SpecialityUser = res.isSpecialityUser || "false";
+    await localStorage.setItem('auth_token', res.access_token);
+    await localStorage.setItem('refresh_token', res.refresh_token);
+    await localStorage.setItem('username', res.username);
+    await localStorage.setItem('credits', res.CurrentCredits.toString());
+    await localStorage.setItem('isPersonaSet', res.isPersonaSet.toString());
+    await localStorage.setItem('Dataset', res.Dataset);
+    let is_SpecialityUser = res.isSpecialityUser || 'false';
     await localStorage.setItem(
-      "is_SpecialityUser",
+      'is_SpecialityUser',
       is_SpecialityUser.toString().toLowerCase()
     );
     // await localStorage.setItem("Dataset", 'healthcare');
 
-    await localStorage.setItem("email_id", this.loginBody.email);
+    await localStorage.setItem('email_id', this.loginBody.email);
     // localStorage.setItem('email_id',this.loginBody.email);
   }
 }
-

@@ -189,7 +189,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
     this.physicianSearchParameter.npiNumber = event.npiNumber;
     this.physicianSearchParameter.email_Score = event.email_Score;
 
-    this.leadWithEmail = event.leadWithEmail || false;
+    // this.leadWithEmail = event.leadWithEmail || false;
     this.leadWithProvider = event.provider_Type;
     this.saveDraftLeads();
     this.getPhysicianSearchData();
