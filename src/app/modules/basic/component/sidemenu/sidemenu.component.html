@@ -4,6 +4,7 @@
     <!-- Left Menu Start -->
     <ul class="metismenu" id="side-menu" *ngIf="dataSet === 'B2B'">
       <!--<li class="menu-title">Navigation</li>-->
+
       <li class="active d-none d-sm-block">
         <a
           class="link tooltip-right"
@@ -14,7 +15,7 @@
         </a>
       </li>
 
-      <!-- <li class="d-none d-sm-block">
+      <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('contacts')"
@@ -23,7 +24,7 @@
         >
           <i class="mdi mdi-heart-multiple-outline"></i>
         </a>
-      </li> -->
+      </li>
       <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
@@ -63,6 +64,92 @@
           <i class="ti-id-badge"></i>
         </a>
       </li>
+      <!-- uncomment on final build -->
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('b2b')"
+          data-tooltip="B2B"
+          [ngClass]="{ activeElement: elementName == 'b2b' }"
+        >
+          <i class="ti-search"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('b2b-list')"
+          data-tooltip="Lists"
+          [ngClass]="{ activeElement: elementName == 'b2b-list' }">
+          <i class="ti-list"></i>
+        </a>
+      </li>
+
+
+      <!-- <li class="active d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('dashboard')"
+          data-tooltip="Dashboard"
+          [ngClass]="{ activeElement: elementName == 'dashboard' }"
+        >
+          <i class="mdi mdi-airplay"></i>
+        </a>
+      </li> -->
+
+      <!-- <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('contacts')"
+          data-tooltip="Favourite Contacts"
+          [ngClass]="{ activeElement: elementName == 'contacts' }"
+        >
+          <i class="mdi mdi-heart-multiple-outline"></i>
+        </a>
+      </li> -->
+      <!-- <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('freecredits')"
+          data-tooltip="Free Credits"
+          [ngClass]="{ activeElement: elementName == 'freecredits' }"
+        >
+          <i class="mdi mdi-gift"></i>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('pricing')"
+          data-tooltip="Subscription"
+          [ngClass]="{ activeElement: elementName == 'pricing' }"
+        >
+          <i class="mdi mdi-settings-outline"></i>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('company_search')"
+          data-tooltip="Company
+          Search"
+          [ngClass]="{ activeElement: elementName == 'company_search' }"
+        >
+          <i class="ti-world"></i>
+        </a>
+      </li>
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
+          (click)="openItem('idealprofile')"
+          data-tooltip="Ideal Customer Profile"
+          [ngClass]="{ activeElement: elementName == 'idealprofile' }"
+        >
+          <i class="ti-id-badge"></i>
+        </a>
+      </li> -->
       <!-- uncomment on final build -->
       <!-- <li class="d-none d-sm-block">
         <a
