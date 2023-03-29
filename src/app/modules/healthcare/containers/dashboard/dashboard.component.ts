@@ -158,7 +158,7 @@ export class DashboardComponent implements OnInit {
       this.amplizService.logout();
     }
   }
-  setCookies(res) {
+  async setCookies(res) {
     this.domainName = window.location.hostname;
     const myDate = new Date();
     const subscriptionType = res.Subscriptions[0].SubscriptionType
@@ -166,10 +166,11 @@ export class DashboardComponent implements OnInit {
     this.domainName = this.domainName.substring(
       this.domainName.indexOf('.') + 1
     );
-    document.cookie =
+     document.cookie =
       'SubscriptionType = ' +
-        subscriptionType +
-      '; expires=' + myDate +
+      subscriptionType +
+      '; expires=' +
+      myDate +
       '; path=/; domain=.' +
       this.domainName;
   }

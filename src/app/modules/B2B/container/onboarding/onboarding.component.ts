@@ -35,6 +35,7 @@ export class OnboardingComponent implements OnInit {
   public headerData;
   hasExtension: boolean = true;
   subscribed: boolean;
+  domainName = '';
   ngOnInit() {
     this.access_token = this.cookieService.get("auth_token");
     this.refresh_token = this.cookieService.get("refresh_token");
@@ -77,6 +78,7 @@ export class OnboardingComponent implements OnInit {
       this.amplizService.getDashboardDetails().subscribe(
         (res) => {
           this.subscriptions = res.dashoboardInfo.subscriptions;
+          this.setCookies(res)
           //
           this.creditsremaining =
             res.dashoboardInfo.subscriptions[0].SubscriptionCredits;
@@ -132,6 +134,24 @@ export class OnboardingComponent implements OnInit {
   openDashboard() {
     this.router.navigate(["dashboard"]);
   }
+
+  setCookies(res) {
+    this.domainName = window.location.hostname;
+    const myDate = new Date();
+    const subscriptionType = res.Subscriptions[0].SubscriptionType
+    myDate.setMonth(myDate.getMonth() + 12);
+    this.domainName = this.domainName.substring(
+      this.domainName.indexOf('.') + 1
+    );
+     document.cookie =
+      'SubscriptionType = ' +
+      subscriptionType +
+      '; expires=' +
+      myDate +
+      '; path=/; domain=.' +
+      this.domainName;
+  }
+
 
   changeTabToCompany() {
     this.b2bService.changeSelectedTab(1);
