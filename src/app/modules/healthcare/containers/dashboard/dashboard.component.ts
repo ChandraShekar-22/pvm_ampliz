@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   hasExtension: boolean = true;
   subscribed: boolean;
   chrome_button = "";
+  domainName = '';
   ngOnInit() {
     let match = navigator.userAgent.search(/(?:Chrome|Trident\/.*;)/);
     let isChrome =
@@ -108,6 +109,7 @@ export class DashboardComponent implements OnInit {
     if (authToken !== null && refreshToken !== null) {
       this.amplizService.getDashboardDetails().subscribe(
         (res) => {
+          this.setCookies(res)
           this.subscriptions = res.Subscriptions;
           //
           this.creditsremaining = res.Subscriptions[0].SubscriptionCredits;
@@ -156,4 +158,21 @@ export class DashboardComponent implements OnInit {
       this.amplizService.logout();
     }
   }
+  setCookies(res) {
+    this.domainName = window.location.hostname;
+    const myDate = new Date();
+    const subscriptionType = res.Subscriptions[0].SubscriptionType
+    myDate.setMonth(myDate.getMonth() + 12);
+    this.domainName = this.domainName.substring(
+      this.domainName.indexOf('.') + 1
+    );
+    document.cookie =
+      'SubscriptionType = ' +
+        subscriptionType +
+      '; expires=' + myDate +
+      '; path=/; domain=.' +
+      this.domainName;
+  }
+
+
 }
