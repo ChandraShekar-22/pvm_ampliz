@@ -25,12 +25,15 @@ export const environment = {
 
   // prodHcApi: "https://stageapi.ampliz.com",
   // prodHcApi: "https://119.8.182.178:9000",
+  
   prodB2BApi: "http://159.138.102.73:9000",
+
   // prodGlobalB2BApi: "http://159.138.102.73:9000",
   // prodGlobalB2BApi: "http://103.170.162.252:9000",
   // prodGlobalB2BApi: "http://10.10.90.51:9000",b
   // prodGlobalB2BApi: "http://119.13.101.61:9001",
-  prodGlobalB2BApi: "https://stageapi.ampliz.com:9001",
+  // prodGlobalB2BApi: "https://stageapi.ampliz.com:9001",
+  prodGlobalB2BApi: "https://test.ampliz.com",
 };
 
 /*
