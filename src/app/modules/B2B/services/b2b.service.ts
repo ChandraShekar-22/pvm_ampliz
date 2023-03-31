@@ -224,7 +224,8 @@ export class B2bService {
   }
 
   createB2bList(body: any): Observable<any> {
-    const url = environment.prodAdbApi + "/ADB/api/create-list";
+    // const url = environment.prodAdbApi + "/ADB/api/create-list";
+    const url = environment.prodGlobalB2BApi + "/amplizglobalb2bwriteapi/savedlist/create-list";
     const response = this.http.post(url, body);
     return response;
   }
@@ -241,8 +242,8 @@ export class B2bService {
     autoCreated: any = false,
     filter?: any
   ): Observable<any> {
-    const url = environment.prodAdbApi + "/ADB/api/get-all-list";
-    // const url = "http://119.13.101.61:9000" + "/ADB/api/get-all-list";
+    // const url = environment.prodAdbApi + "/ADB/api/get-all-list";
+    const url = environment.prodGlobalB2BApi + "/amplizglobalb2breadapi/savedlist/get-all-list";
     let body;
     if (filter) {
       body = {
