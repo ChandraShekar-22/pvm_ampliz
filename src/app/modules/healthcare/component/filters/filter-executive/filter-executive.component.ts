@@ -14,7 +14,7 @@ import {
 import { MatChipInputEvent } from "@angular/material/chips";
 import { IDropdownSettings } from "ng-multiselect-dropdown";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { UntypedFormControl } from "@angular/forms";
+import { FormControl } from "@angular/forms";
 import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
 
 import {
@@ -44,23 +44,23 @@ export class FilterExecutiveComponent
   @Input() leadWithEmail: boolean = false;
   selectable = true;
   removable = true;
-  @ViewChild("hospitalNameInput")
+  @ViewChild("hospitalNameInput", { static: false })
   hospitalNameInput: ElementRef<HTMLInputElement>;
-  @ViewChild("stateInput")
+  @ViewChild("stateInput", { static: false })
   stateInput: ElementRef<HTMLInputElement>;
-  @ViewChild("cityInput")
+  @ViewChild("cityInput", { static: false })
   cityInput: ElementRef<HTMLInputElement>;
-  @ViewChild("includeTitleInput")
+  @ViewChild("includeTitleInput", { static: false })
   includeTitleInput: ElementRef<HTMLInputElement>;
-  @ViewChild("excludeTitleInput")
+  @ViewChild("excludeTitleInput", { static: false })
   excludeTitleInput: ElementRef<HTMLInputElement>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  hospitalControl = new UntypedFormControl();
-  stateControl = new UntypedFormControl();
-  cityControl = new UntypedFormControl();
-  levelFormControl = new UntypedFormControl();
-  titleControl = new UntypedFormControl();
-  exTitleControl = new UntypedFormControl();
+  hospitalControl = new FormControl();
+  stateControl = new FormControl();
+  cityControl = new FormControl();
+  levelFormControl = new FormControl();
+  titleControl = new FormControl();
+  exTitleControl = new FormControl();
   hideHospitalNamePlaceholder: boolean = false;
   // Data for filter component
   levelListData: any = [
@@ -105,7 +105,7 @@ export class FilterExecutiveComponent
     this.isPaid = !this.isSubscribed;
     this.changeSearchData();
   }
-  omitChange() {
+  omitChange(isCleared: boolean = false) {
     const filterData = {
       hospitalNameList: this.hospitalNames,
       titleInclude: this.includedTitles,
@@ -115,6 +115,7 @@ export class FilterExecutiveComponent
       city: this.selectedCities,
       stateList: this.selectedStates,
       fullName: this.personName,
+      cleared: isCleared,
     };
     this.onFilterChange.emit(filterData);
     this.changeSearchData();
@@ -399,7 +400,7 @@ export class FilterExecutiveComponent
     // this.departmentListData = [];
     this.searchCity = [];
     this.stateControl.setValue(null);
-    this.omitChange();
+    this.omitChange(true);
     this.storeFilterData();
   }
   storeFilterData() {

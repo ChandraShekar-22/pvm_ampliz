@@ -8,6 +8,7 @@
     <div class="content row">
       <app-filter-physician
         (onFilterChange)="filterChanged($event)"
+        [leadWithEmail]="leadWithEmail"
         [isSubscribed]="subscribed"></app-filter-physician>
       <div class="physician-content" style="position: relative">
         <app-skeleton-loader
