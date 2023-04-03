@@ -8,11 +8,12 @@ import {
   Input,
   OnChanges,
   NgZone,
+  Renderer2,
 } from "@angular/core";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { IDropdownSettings } from "ng-multiselect-dropdown";
 import { COMMA, E, ENTER } from "@angular/cdk/keycodes";
-import { UntypedFormControl } from "@angular/forms";
+import { FormControl } from "@angular/forms";
 import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
 import {
   MatAutocompleteSelectedEvent,
@@ -27,7 +28,6 @@ import { Router } from "@angular/router";
 import { DataService } from "../../../services/data.service";
 import { LoaderService } from "src/app/modules/healthcare/services/loader.service";
 import { MessageService } from "src/app/modules/B2B/services/message.service";
-import { Renderer2 } from "@angular/core";
 @Component({
   selector: "app-filter-physician",
   templateUrl: "./filter-physician.component.html",
@@ -38,30 +38,31 @@ export class FilterPhysicianComponent
 {
   @Output() onFilterChange = new EventEmitter<any>();
   @Input() isSubscribed: boolean;
+  @Input() leadWithEmail: boolean = false;
   selectable = true;
   removable = true;
-  @ViewChild("hospitalNameInput")
+  @ViewChild("hospitalNameInput", { static: false })
   hospitalNameInput: ElementRef<HTMLInputElement>;
-  @ViewChild("npiNumberInput")
+  @ViewChild("npiNumberInput", { static: false })
   npiNumberInput: ElementRef<HTMLInputElement>;
-  @ViewChild("stateInput")
+  @ViewChild("stateInput", { static: false })
   stateInput: ElementRef<HTMLInputElement>;
-  @ViewChild("cityInput")
+  @ViewChild("cityInput", { static: false })
   cityInput: ElementRef<HTMLInputElement>;
-  @ViewChild("includeSpecialityInput")
+  @ViewChild("includeSpecialityInput", { static: false })
   includeSpecialityInput: ElementRef<HTMLInputElement>;
-  @ViewChild("excludeSpecialityInput")
+  @ViewChild("excludeSpecialityInput", { static: false })
   excludeSpecialityInput: ElementRef<HTMLInputElement>;
-  @ViewChild("emailStatusInput")
+  @ViewChild("emailStatusInput", { static: false })
   emailStatusInput: ElementRef<HTMLInputElement>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  hospitalControl = new UntypedFormControl();
-  stateControl = new UntypedFormControl();
-  cityControl = new UntypedFormControl();
-  npiNumberControl = new UntypedFormControl();
-  includeSpecialityControl = new UntypedFormControl();
-  excludeSpecialityControl = new UntypedFormControl();
-  emailStatusControl = new UntypedFormControl();
+  hospitalControl = new FormControl();
+  stateControl = new FormControl();
+  cityControl = new FormControl();
+  npiNumberControl = new FormControl();
+  includeSpecialityControl = new FormControl();
+  excludeSpecialityControl = new FormControl();
+  emailStatusControl = new FormControl();
   hideHospitalNamePlaceholder: boolean = false;
   // Data for filter component
   filteredHospitals: Observable<string[]>;
@@ -84,7 +85,6 @@ export class FilterPhysicianComponent
   suggestionTerms: any = [];
   suggestionTermsEx: any = [];
   isPaid: boolean = false;
-  leadWithEmail: boolean = false;
   provider_Type: any;
   leadWithProvider: boolean = false;
   constructor(
@@ -548,6 +548,20 @@ export class FilterPhysicianComponent
   //   );
   // }
   clearAll() {
+    this.includeSpecialityControl.setValue(null);
+    this.includeSpecialityInput.nativeElement.value = "";
+    this.excludeSpecialityControl.setValue(null);
+    this.excludeSpecialityInput.nativeElement.value = "";
+    this.emailStatusControl.setValue(null);
+    this.emailStatusInput.nativeElement.value = "";
+    this.emailStatusControl.setValue(null);
+    this.npiNumberInput.nativeElement.value = "";
+    this.stateControl.setValue(null);
+    this.stateInput.nativeElement.value = "";
+    this.stateControl.setValue(null);
+    this.stateInput.nativeElement.value = "";
+    this.cityControl.setValue(null);
+    this.cityInput.nativeElement.value = "";
     this.hospitalNames = [];
     this.includedSpecialities = [];
     this.excludedSpecialities = [];

@@ -183,24 +183,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
         },
         (error) => {
           this.loaderService.display(false);
-
-          const err_msg = error.error.msg;
-          // if(err_msg === "Email not yet verified, please verify the email"){
-          //
-          //   this.errmsg = true;
-          //   this.domainName = window.location.hostname;
-          //
-          //   const myDate = new Date();
-          //   myDate.setMonth(myDate.getMonth() + 1);
-          //   this.domainName = this.domainName.substring(this.domainName.indexOf('.')+1);
-          //   document.cookie = 'uid='+ error.error.user_id +'; expires='+ myDate +'; path=/; domain=.' + this.domainName;
-          // }
-          // else{
-          this.messageService.displayError(
-            true,
-            error.error.msg ? error.error.msg : 'Error'
-          );
-          // }
+          this.messageService.displayError(true, "Invalid Credentials");
+          // const err_msg = error.error.msg;
+          // // if(err_msg === "Email not yet verified, please verify the email"){
+          // //
+          // //   this.errmsg = true;
+          // //   this.domainName = window.location.hostname;
+          // //
+          // //   const myDate = new Date();
+          // //   myDate.setMonth(myDate.getMonth() + 1);
+          // //   this.domainName = this.domainName.substring(this.domainName.indexOf('.')+1);
+          // //   document.cookie = 'uid='+ error.error.user_id +'; expires='+ myDate +'; path=/; domain=.' + this.domainName;
+          // // }
+          // // else{
+          // this.messageService.displayError(
+          //   true,
+          //   error.msg ? error.msg : 'Error'
+          // );
+          // // }
         }
       );
     }

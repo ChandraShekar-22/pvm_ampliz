@@ -166,7 +166,6 @@
               >
                 + {{ includedTitles.length - 1 }} more
               </span>
-             
             </mat-chip-list>
           </div>
         </mat-panel-title>
@@ -275,7 +274,6 @@
               >
                 + {{ selectedLevels.length - 1 }} more
               </span>
-              
             </mat-chip-list>
           </div>
         </mat-panel-title>
@@ -313,22 +311,16 @@
             [value]="level"
             (click)="onLevelSelect(level)"
           >
-            <!-- <mat-checkbox
-              [checked]="selectedLevels.find((ele) => ( return ele.level == level.level))"
-            ></mat-checkbox
-            >{{ level.level }}</mat-option> -->
-            <app-checkbox [checked]="isInList(selectedLevels,'level',level.level) !== undefined"></app-checkbox>
-            <!-- <mat-checkbox
-              [checked]="isInList(selectedLevels,'level',level.level) !== undefined"
-              (change)="false"
-            ></mat-checkbox> -->
-            {{ level.level }}</mat-option>
-            
+            <app-checkbox
+              [checked]="
+                isInList(selectedLevels, 'level', level.level) !== undefined
+              "
+            ></app-checkbox>
+            {{ level.level }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </mat-expansion-panel>
-    <!-- Level component end-->
-    <!-- Department component -->
     <mat-expansion-panel #panelDepartment hideToggle="true" [disabled]="isPaid">
       <mat-expansion-panel-header
         [ngClass]="panelDepartment.expanded ? 'expanded' : ''"
@@ -377,6 +369,7 @@
         <mat-select
           panelClass="mat-custom-select"
           style="width: 100% !important"
+          multiple
         >
           <mat-select-trigger>
             <mat-basic-chip
@@ -395,17 +388,14 @@
               (+{{ selectedDepartment.length - 1 }}
               {{ selectedDepartment?.length === 2 ? "other" : "others" }})
             </span>
+            
           </mat-select-trigger>
           <mat-option
             *ngFor="let department of departmentListData"
             [value]="department"
             (click)="onDepartmentSelect(department)"
+            color="#2d8cff"
           >
-          <app-checkbox [checked]="selectedDepartment.includes(department)"></app-checkbox>
-            <!-- <mat-checkbox
-              [checked]="selectedDepartment.includes(department)"
-            ></mat-checkbox
-            > -->
             {{ department }}</mat-option
           >
         </mat-select>
