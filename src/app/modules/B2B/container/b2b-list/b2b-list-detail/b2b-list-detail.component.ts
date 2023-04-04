@@ -68,6 +68,7 @@ export class B2bListDetailComponent implements OnInit {
   isLoading: boolean = false;
   context: any;
 
+
   public user = null;
   public overlayLoadingTemplate =
     '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
@@ -80,7 +81,9 @@ export class B2bListDetailComponent implements OnInit {
     private b2bService: B2bService,
     private messageService: MessageService
   ) {
-    
+      this.frameworkComponents = {
+        contactTooltip: ContactInfoTooltipComponent,
+    };
     this.columnDefs = [
       {
         headerName: "",
@@ -124,7 +127,7 @@ export class B2bListDetailComponent implements OnInit {
         cellClass: "cellClass",
         lockPosition: true,
         suppressSizeToFit: true,
-        cellRenderer: ContactInfoTooltipComponent,
+        cellRendererFramework: ContactInfoTooltipComponent,
       },
       {
         headerName: "Title",

@@ -365,7 +365,7 @@ export class B2bService {
 
   getSearchQuota(): Observable<any> {
     // console.log(searchString);
-    const url = environment.prodAdbApi + "/ADB/api/get-search-quota";
+    const url = environment.prodGlobalB2BApi + "/amplizglobalb2breadapi/user/get-search-quota";
     const response = this.http.get(url);
     return response;
   }
@@ -553,7 +553,7 @@ export class B2bService {
       count: body.count,
     };
     const response = this.http.get(url, {
-      // params: { offset: body.offset, count: body.count },
+      params: { offset: body.offset, count: body.count },
     });
     return response;
   }
