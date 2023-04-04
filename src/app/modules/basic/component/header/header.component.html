@@ -85,6 +85,9 @@
           >
         </span> -->
       </li>
+      <li class="daily-search-quota-container" *ngIf="dataSet === 'B2B'">
+        <app-daily-search-quota [dailyCredit]="dailyCurrentCredits" [usedCredit]="dailyUsedCredits"></app-daily-search-quota>
+      </li>
       <li class="dropdown notification-list">
         <a
           class="nav-link dropdown-toggle waves-effect waves-light nav-user"
