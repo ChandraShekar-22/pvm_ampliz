@@ -10,30 +10,31 @@ import {
   Input,
   OnChanges,
   NgZone,
-} from "@angular/core";
-import { MatChipInputEvent } from "@angular/material/chips";
-import { IDropdownSettings } from "ng-multiselect-dropdown";
-import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { FormControl } from "@angular/forms";
-import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
+  Renderer2,
+} from '@angular/core';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { FormControl } from '@angular/forms';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 
 import {
   MatAutocompleteSelectedEvent,
   MatAutocompleteTrigger,
-} from "@angular/material/autocomplete";
-import { MatSelectChange } from "@angular/material/select";
-import { Observable, of } from "rxjs";
-import { map, startWith } from "rxjs/operators";
-import { FilterStorageService } from "../../../services/filter-storage.service";
-import { Router } from "@angular/router";
-import { debounceTime } from "rxjs/operators";
-import { DataService } from "../../../services/data.service";
-import { LoaderService } from "src/app/modules/healthcare/services/loader.service";
-import { MessageService } from "src/app/modules/B2B/services/message.service";
+} from '@angular/material/autocomplete';
+import { MatSelectChange } from '@angular/material/select';
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { FilterStorageService } from '../../../services/filter-storage.service';
+import { Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
+import { DataService } from '../../../services/data.service';
+import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
 @Component({
-  selector: "app-filter-executive",
-  templateUrl: "./filter-executive.component.html",
-  styleUrls: ["./filter-executive.component.css"],
+  selector: 'app-filter-executive',
+  templateUrl: './filter-executive.component.html',
+  styleUrls: ['./filter-executive.component.css'],
 })
 export class FilterExecutiveComponent
   implements OnInit, AfterViewInit, OnChanges
@@ -44,15 +45,15 @@ export class FilterExecutiveComponent
   @Input() leadWithEmail: boolean = false;
   selectable = true;
   removable = true;
-  @ViewChild("hospitalNameInput", { static: false })
+  @ViewChild('hospitalNameInput', { static: false })
   hospitalNameInput: ElementRef<HTMLInputElement>;
-  @ViewChild("stateInput", { static: false })
+  @ViewChild('stateInput', { static: false })
   stateInput: ElementRef<HTMLInputElement>;
-  @ViewChild("cityInput", { static: false })
+  @ViewChild('cityInput', { static: false })
   cityInput: ElementRef<HTMLInputElement>;
-  @ViewChild("includeTitleInput", { static: false })
+  @ViewChild('includeTitleInput', { static: false })
   includeTitleInput: ElementRef<HTMLInputElement>;
-  @ViewChild("excludeTitleInput", { static: false })
+  @ViewChild('excludeTitleInput', { static: false })
   excludeTitleInput: ElementRef<HTMLInputElement>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   hospitalControl = new FormControl();
@@ -64,12 +65,12 @@ export class FilterExecutiveComponent
   hideHospitalNamePlaceholder: boolean = false;
   // Data for filter component
   levelListData: any = [
-    { id: 1, level: "C Level" },
-    { id: 2, level: "VP Level" },
-    { id: 3, level: "Director" },
-    { id: 4, level: "Manager" },
-    { id: 5, level: "Staff" },
-    { id: 6, level: "Others" },
+    { id: 1, level: 'C Level' },
+    { id: 2, level: 'VP Level' },
+    { id: 3, level: 'Director' },
+    { id: 4, level: 'Manager' },
+    { id: 5, level: 'Staff' },
+    { id: 6, level: 'Others' },
   ];
   filteredStates: Observable<string[]>;
   filteredCities: any = [];
@@ -80,7 +81,7 @@ export class FilterExecutiveComponent
   // Variable to be used for filter API call
   includedTitles: any = [];
   excludedTitles: any = [];
-  personName: string = "";
+  personName: string = '';
   selectedLevels: any = [];
   selectedStates: any = [];
   selectedCities: any = [];
@@ -97,7 +98,8 @@ export class FilterExecutiveComponent
     private ngZone: NgZone,
     private healthCareDataService: DataService,
     private loaderService: LoaderService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private renderer: Renderer2
   ) {}
 
   ngOnChanges() {
@@ -134,7 +136,7 @@ export class FilterExecutiveComponent
       ) === -1
     ) {
       this.hospitalNames.push(event.option.viewValue);
-      this.hospitalNameInput.nativeElement.value = "";
+      this.hospitalNameInput.nativeElement.value = '';
       this.hospitalControl.setValue(null);
       const temp: any = [];
       this.filteredHospitals = temp;
@@ -159,13 +161,13 @@ export class FilterExecutiveComponent
   }
 
   addIncludeTitle(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
+    const value = (event.value || '').trim();
     const found = this.includedTitles.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.includedTitles.push(value);
       // Clear the input value
-      event.input.value = "";
+      event.input.value = '';
     }
     this.omitChange();
     this.storeFilterData();
@@ -234,7 +236,7 @@ export class FilterExecutiveComponent
       // );
     } else {
       this.selectedCities.push(city);
-      this.cityInput.nativeElement.value = "";
+      this.cityInput.nativeElement.value = '';
       this.cityControl.setValue(null);
     }
     this.omitChange();
@@ -248,13 +250,13 @@ export class FilterExecutiveComponent
     this.storeFilterData();
   }
   addExcludeTitle(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
+    const value = (event.value || '').trim();
     //
     const found = this.excludedTitles.indexOf(value);
     if (value && found === -1) {
       this.excludedTitles.push(value);
       // Clear the input value
-      event.input.value = "";
+      event.input.value = '';
     }
     this.omitChange();
     this.storeFilterData();
@@ -308,7 +310,7 @@ export class FilterExecutiveComponent
     );
     if (found === -1) {
       this.selectedStates.push(receivedState);
-      this.stateInput.nativeElement.value = "";
+      this.stateInput.nativeElement.value = '';
       this.stateControl.setValue(null);
       //
       // this.addCitiesInList(receivedState);
@@ -318,7 +320,7 @@ export class FilterExecutiveComponent
   }
   selectCity(event: MatAutocompleteSelectedEvent): void {
     this.selectedCities.push(event.option.value);
-    this.cityInput.nativeElement.value = "";
+    this.cityInput.nativeElement.value = '';
     this.cityControl.setValue(null);
     this.omitChange();
     //
@@ -367,21 +369,21 @@ export class FilterExecutiveComponent
   }
   getPersistData() {
     this.hospitalNames =
-      this.filterStorageService.get("executive_hospital") || [];
+      this.filterStorageService.get('executive_hospital') || [];
     this.includedTitles =
-      this.filterStorageService.get("executive_includedTitle") || [];
+      this.filterStorageService.get('executive_includedTitle') || [];
     this.excludedTitles =
-      this.filterStorageService.get("executive_excludedTitle") || [];
+      this.filterStorageService.get('executive_excludedTitle') || [];
     this.selectedLevels =
-      this.filterStorageService.get("executive_selectedLevels") || [];
+      this.filterStorageService.get('executive_selectedLevels') || [];
     this.personName =
-      this.filterStorageService.get("executive_personName") || "";
+      this.filterStorageService.get('executive_personName') || '';
     this.selectedDepartment =
-      this.filterStorageService.get("executive_department") || [];
+      this.filterStorageService.get('executive_department') || [];
     this.selectedCities =
-      this.filterStorageService.get("executive_cityList") || [];
+      this.filterStorageService.get('executive_cityList') || [];
     this.selectedStates =
-      this.filterStorageService.get("executive_stateList") || [];
+      this.filterStorageService.get('executive_stateList') || [];
     // setTimeout(() => {
     this.omitChange();
     // }, 50);
@@ -391,7 +393,7 @@ export class FilterExecutiveComponent
     this.includedTitles = [];
     this.excludedTitles = [];
     this.selectedLevels = [];
-    this.personName = "";
+    this.personName = '';
     this.selectedDepartment = [];
     this.selectedCities = [];
     this.selectedStates = [];
@@ -404,36 +406,36 @@ export class FilterExecutiveComponent
     this.storeFilterData();
   }
   storeFilterData() {
-    this.filterStorageService.set("executive_hospital", this.hospitalNames);
+    this.filterStorageService.set('executive_hospital', this.hospitalNames);
     this.filterStorageService.set(
-      "executive_includedTitle",
+      'executive_includedTitle',
       this.includedTitles
     );
     this.filterStorageService.set(
-      "executive_excludedTitle",
+      'executive_excludedTitle',
       this.excludedTitles
     );
     this.filterStorageService.set(
-      "executive_selectedLevels",
+      'executive_selectedLevels',
       this.selectedLevels
     );
-    this.filterStorageService.set("executive_personName", this.personName);
+    this.filterStorageService.set('executive_personName', this.personName);
     this.filterStorageService.set(
-      "executive_department",
+      'executive_department',
       this.selectedDepartment
     );
-    this.filterStorageService.set("executive_cityList", this.selectedCities);
-    this.filterStorageService.set("executive_stateList", this.selectedStates);
+    this.filterStorageService.set('executive_cityList', this.selectedCities);
+    this.filterStorageService.set('executive_stateList', this.selectedStates);
   }
   addHospitalName(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
+    const value = (event.value || '').trim();
     const found = this.hospitalNames.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.hospitalNames.push(value);
     }
     // Clear the input value
-    event.input.value = "";
+    event.input.value = '';
     // event.input.value = "";
     // event.chipInput!.clear();
 
@@ -446,14 +448,14 @@ export class FilterExecutiveComponent
   }
   selectedIncludeTitle(event: MatAutocompleteSelectedEvent): void {
     this.includedTitles.push(event.option.viewValue);
-    this.includeTitleInput.nativeElement.value = "";
+    this.includeTitleInput.nativeElement.value = '';
     this.titleControl.setValue(null);
     this.omitChange();
     this.storeFilterData();
   }
   selectedExIncludeTitle(event: MatAutocompleteSelectedEvent): void {
     this.excludedTitles.push(event.option.viewValue);
-    this.excludeTitleInput.nativeElement.value = "";
+    this.excludeTitleInput.nativeElement.value = '';
     this.exTitleControl.setValue(null);
     this.omitChange();
     this.storeFilterData();
@@ -464,7 +466,7 @@ export class FilterExecutiveComponent
     });
     // change control for hospital name
     this.hospitalControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 3) {
         this.amplizService
           .getHospitalList({ searchPhase: value })
@@ -479,7 +481,7 @@ export class FilterExecutiveComponent
     });
     // change control for states
     this.stateControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 2) {
         this.amplizService
           .getStateList({ searchPhase: value })
@@ -493,7 +495,7 @@ export class FilterExecutiveComponent
     });
     // city input change
     this.cityControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 3) {
         // event.cityList.map((city) => city.city);
         var tStates = this.selectedStates.map((state) => state.stateId);
@@ -514,7 +516,7 @@ export class FilterExecutiveComponent
     // change control for title
     // change control of Include Speciality
     this.titleControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 3) {
         this.amplizService
           .getTitleList({
@@ -535,7 +537,7 @@ export class FilterExecutiveComponent
     });
     // change control of Include Speciality
     this.exTitleControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 3) {
         this.amplizService
           .getTitleList({
@@ -562,25 +564,30 @@ export class FilterExecutiveComponent
     return searchElement.find((ele) => ele[searchFor] === searchValue);
   }
   async requestPricing() {
-    const emailId = await localStorage.getItem("email_id");
+    const emailId = await localStorage.getItem('email_id');
     this.loaderService.display(true);
-    const body = { package: "Enterprise", email: emailId };
+    const body = { package: 'Enterprise', email: emailId };
     this.amplizService.getPrice(body).subscribe(
       (res) => {
         this.loaderService.display(false);
 
         this.messageService.display(
           true,
-          "Thanks for asking, will get back to you in 24 hrs"
+          'Thanks for asking, will get back to you in 24 hrs'
         );
       },
       (error) => {
         this.loaderService.display(false);
         this.messageService.displayError(
           true,
-          error.error.msg ? error.error.msg : "Server Error !!!"
+          error.error.msg ? error.error.msg : 'Server Error !!!'
         );
       }
     );
+  }
+  triggerAutoFocus(eleId: string) {
+    console.log(eleId);
+    const element = this.renderer.selectRootElement(eleId);
+    setTimeout(() => element.focus(), 100);
   }
 }

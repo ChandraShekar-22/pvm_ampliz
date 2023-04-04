@@ -9,12 +9,14 @@
   </div>
   <mat-accordion>
     <!-- Hospital Name component -->
-    <mat-expansion-panel #panelHospitalName hideToggle="true">
+    <mat-expansion-panel
+      #panelHospitalName
+      hideToggle="true"
+      (opened)="triggerAutoFocus('#hospitalNameInput')">
       <mat-expansion-panel-header
         [ngClass]="panelHospitalName.expanded ? 'expanded' : ''"
         [collapsedHeight]="'70px'"
-        [expandedHeight]="'70px'"
-      >
+        [expandedHeight]="'70px'">
         <mat-panel-title>
           <div>Hospital</div>
           <div class="header-info" *ngIf="hospitalNames.length == 0">
@@ -24,14 +26,12 @@
             <mat-chip-list #addedHospitals aria-label="Hospital name">
               <mat-basic-chip
                 *ngIf="hospitalNames?.length > 0"
-                [ngClass]="'selected'"
-              >
+                [ngClass]="'selected'">
                 {{ hospitalNames[0] }}
               </mat-basic-chip>
               <span
                 *ngIf="hospitalNames?.length > 1"
-                class="additional-selection"
-              >
+                class="additional-selection">
                 + {{ hospitalNames.length - 1 }} more
               </span>
               <!-- <mat-basic-chip
@@ -46,7 +46,7 @@
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon class="matrl-plus">{{
-            panelHospitalName.expanded ? "remove" : "add"
+            panelHospitalName.expanded ? 'remove' : 'add'
           }}</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -56,12 +56,12 @@
             *ngFor="let name of hospitalNames"
             [selectable]="selectable"
             [removable]="removable"
-            (removed)="removeHospital(name)"
-          >
+            (removed)="removeHospital(name)">
             {{ name }}
             <mat-icon matChipRemove>close</mat-icon>
           </mat-basic-chip>
           <input
+            id="hospitalNameInput"
             #hospitalNameInput
             placeholder=""
             aria-label="Number"
@@ -71,19 +71,16 @@
             floatPlaceholder="never"
             [matChipInputFor]="hospitalNameList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addHospitalName($event)"
-          />
+            (matChipInputTokenEnd)="addHospitalName($event)" />
         </mat-chip-list>
 
         <mat-autocomplete
           #hospitalNameAuto="matAutocomplete"
           (optionSelected)="selectedHospitalName($event)"
-          class="app-autocomplete"
-        >
+          class="app-autocomplete">
           <mat-option
             *ngFor="let hospital of filteredHospitals"
-            [value]="hospital.hospitalName"
-          >
+            [value]="hospital.hospitalName">
             {{ hospital.hospitalName }}
           </mat-option>
         </mat-autocomplete>
@@ -98,15 +95,14 @@
     <!-- Hospital Name component end-->
     <!-- Hospital Type component -->
     <mat-expansion-panel
+      (opened)="triggerAutoFocus('#hospitalNameInput')"
       #hospitalTypePanel
       hideToggle="true"
-      [disabled]="isPaid"
-    >
+      [disabled]="isPaid">
       <mat-expansion-panel-header
         [ngClass]="hospitalTypePanel.expanded ? 'expanded' : ''"
         [collapsedHeight]="'70px'"
-        [expandedHeight]="'70px'"
-      >
+        [expandedHeight]="'70px'">
         <mat-panel-title>
           <div>
             <mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon
@@ -118,18 +114,15 @@
           <div class="selected" *ngIf="selectedHospitalTypes.length > 0">
             <mat-chip-list
               #selectedHospitalTypesList
-              aria-label="Included speciality"
-            >
+              aria-label="Included speciality">
               <mat-basic-chip
                 *ngIf="selectedHospitalTypes?.length > 0"
-                [ngClass]="'selected'"
-              >
+                [ngClass]="'selected'">
                 {{ selectedHospitalTypes[0] }}
               </mat-basic-chip>
               <span
                 *ngIf="selectedHospitalTypes?.length > 1"
-                class="additional-selection"
-              >
+                class="additional-selection">
                 + {{ selectedHospitalTypes.length - 1 }} more
               </span>
               <!-- <mat-basic-chip
@@ -143,7 +136,7 @@
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon class="matrl-plus">{{
-            hospitalTypePanel.expanded ? "remove" : "add"
+            hospitalTypePanel.expanded ? 'remove' : 'add'
           }}</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -151,22 +144,19 @@
       <mat-form-field>
         <mat-select
           panelClass="mat-custom-select"
-          style="width: 100% !important"
-        >
+          style="width: 100% !important">
           <mat-select-trigger>
             <mat-basic-chip
               *ngIf="selectedHospitalTypes?.length > 0"
               [selectable]="selectable"
               [removable]="removable"
-              (removed)="onHospitalTypeDeselect(selectedHospitalTypes[0])"
-            >
+              (removed)="onHospitalTypeDeselect(selectedHospitalTypes[0])">
               {{ selectedHospitalTypes[0] }}
               <mat-icon matChipRemove>close</mat-icon>
             </mat-basic-chip>
             <span
               *ngIf="selectedHospitalTypes?.length > 1"
-              class="additional-selection"
-            >
+              class="additional-selection">
               + {{ selectedHospitalTypes.length - 1 }} more
             </span>
           </mat-select-trigger>
@@ -174,11 +164,11 @@
           <mat-option
             *ngFor="let hospitalType of hospitalTypeList"
             [value]="hospitalType"
-            (click)="onHTOptionClick(hospitalType)"
-          >
+            (click)="onHTOptionClick(hospitalType)">
             <mat-checkbox
-              [checked]="selectedHospitalTypes.includes(hospitalType)"
-            ></mat-checkbox>
+              [checked]="
+                selectedHospitalTypes.includes(hospitalType)
+              "></mat-checkbox>
             {{ hospitalType }}</mat-option
           >
         </mat-select>
@@ -206,13 +196,11 @@
     <mat-expansion-panel
       #numberOfBedsPanel
       hideToggle="true"
-      [disabled]="isPaid"
-    >
+      [disabled]="isPaid">
       <mat-expansion-panel-header
         [ngClass]="numberOfBedsPanel.expanded ? 'expanded' : ''"
         [collapsedHeight]="'70px'"
-        [expandedHeight]="'70px'"
-      >
+        [expandedHeight]="'70px'">
         <mat-panel-title>
           <div>
             <mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Number
@@ -225,8 +213,7 @@
             <mat-chip-list #noOfBedsList aria-label="Included number of beds">
               <mat-basic-chip
                 *ngIf="noOfBeds?.length > 0"
-                [ngClass]="'selected'"
-              >
+                [ngClass]="'selected'">
                 {{ noOfBeds[0] }}
               </mat-basic-chip>
               <span *ngIf="noOfBeds?.length > 1" class="additional-selection">
@@ -243,22 +230,20 @@
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon class="matrl-plus"
-            >{{ numberOfBedsPanel.expanded ? "remove" : "add" }}
+            >{{ numberOfBedsPanel.expanded ? 'remove' : 'add' }}
           </mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-form-field>
         <mat-select
           panelClass="mat-custom-select"
-          style="width: 100% !important"
-        >
+          style="width: 100% !important">
           <mat-select-trigger>
             <mat-basic-chip
               *ngIf="noOfBeds?.length > 0"
               [selectable]="selectable"
               [removable]="removable"
-              (removed)="onNoOfBedsDeselect(noOfBeds[0])"
-            >
+              (removed)="onNoOfBedsDeselect(noOfBeds[0])">
               {{ noOfBeds[0] }}
               <mat-icon matChipRemove>close</mat-icon>
             </mat-basic-chip>
@@ -285,8 +270,7 @@
           <mat-option
             *ngFor="let bed of noOfBedList"
             [value]="bed"
-            (click)="onNoOfBedsSelect(bed)"
-          >
+            (click)="onNoOfBedsSelect(bed)">
             <mat-checkbox [checked]="noOfBeds.includes(bed)"></mat-checkbox
             >{{ bed }}</mat-option
           >
@@ -318,8 +302,7 @@
       <mat-expansion-panel-header
         [ngClass]="panelLocation.expanded ? 'expanded' : ''"
         [collapsedHeight]="'70px'"
-        [expandedHeight]="'70px'"
-      >
+        [expandedHeight]="'70px'">
         <mat-panel-title>
           <div>
             <mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon
@@ -333,14 +316,12 @@
               <mat-basic-chip
                 #selectedHospitalNameList
                 *ngIf="selectedStates?.length > 0"
-                [ngClass]="'selected'"
-              >
+                [ngClass]="'selected'">
                 {{ selectedStates[0].stateFullName }}
               </mat-basic-chip>
               <span
                 *ngIf="selectedStates?.length > 1"
-                class="additional-selection"
-              >
+                class="additional-selection">
                 + {{ selectedStates.length - 1 }} more
               </span>
               <!-- <mat-basic-chip
@@ -354,7 +335,7 @@
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon class="matrl-plus">{{
-            panelLocation.expanded ? "remove" : "add"
+            panelLocation.expanded ? 'remove' : 'add'
           }}</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -365,8 +346,7 @@
             *ngFor="let state of selectedStates"
             [selectable]="selectable"
             [removable]="removable"
-            (removed)="removeState(state)"
-          >
+            (removed)="removeState(state)">
             {{ state.stateFullName }}
             <mat-icon matChipRemove>close</mat-icon>
           </mat-basic-chip>
@@ -378,15 +358,13 @@
             [matAutocomplete]="stateAuto"
             floatPlaceholder="never"
             [matChipInputFor]="statesChipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          />
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
         </mat-chip-list>
 
         <mat-autocomplete
           #stateAuto="matAutocomplete"
           (optionSelected)="selectStates($event)"
-          class="app-autocomplete"
-        >
+          class="app-autocomplete">
           <mat-option *ngFor="let state of filteredStates" [value]="state">
             {{ state.stateFullName }}
           </mat-option>
@@ -399,8 +377,7 @@
             *ngFor="let city of selectedCities"
             [selectable]="selectable"
             [removable]="removable"
-            (removed)="onCityDeselect(city)"
-          >
+            (removed)="onCityDeselect(city)">
             {{ city.city }}
             <mat-icon matChipRemove>close</mat-icon>
           </mat-basic-chip>
@@ -412,16 +389,14 @@
             [matAutocomplete]="cityAuto"
             floatPlaceholder="never"
             [matChipInputFor]="cityList"
-            [matChipInputSeparatorKeyCodes]="[]"
-          />
+            [matChipInputSeparatorKeyCodes]="[]" />
         </mat-chip-list>
 
         <mat-autocomplete #cityAuto="matAutocomplete" class="app-autocomplete">
           <mat-option
             *ngFor="let city of searchCity"
             [value]="city"
-            (click)="onCitySelect(city)"
-          >
+            (click)="onCitySelect(city)">
             {{ city.city }}
           </mat-option>
         </mat-autocomplete>

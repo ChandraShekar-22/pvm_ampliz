@@ -9,28 +9,29 @@ import {
   OnChanges,
   AfterViewInit,
   NgZone,
-} from "@angular/core";
-import { MatChipInputEvent } from "@angular/material/chips";
-import { IDropdownSettings } from "ng-multiselect-dropdown";
-import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { UntypedFormControl } from "@angular/forms";
-import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
+  Renderer2,
+} from '@angular/core';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { FormControl } from '@angular/forms';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 import {
   MatAutocompleteSelectedEvent,
   MatAutocompleteTrigger,
-} from "@angular/material/autocomplete";
-import { MatSelectChange } from "@angular/material/select";
-import { Observable, of } from "rxjs";
-import { map, startWith } from "rxjs/operators";
-import { FilterStorageService } from "../../../services/filter-storage.service";
-import { Router } from "@angular/router";
-import { DataService } from "../../../services/data.service";
-import { LoaderService } from "src/app/modules/healthcare/services/loader.service";
-import { MessageService } from "src/app/modules/B2B/services/message.service";
+} from '@angular/material/autocomplete';
+import { MatSelectChange } from '@angular/material/select';
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { FilterStorageService } from '../../../services/filter-storage.service';
+import { Router } from '@angular/router';
+import { DataService } from '../../../services/data.service';
+import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
 @Component({
-  selector: "app-filter-hospital",
-  templateUrl: "./filter-hospital.component.html",
-  styleUrls: ["./filter-hospital.component.css"],
+  selector: 'app-filter-hospital',
+  templateUrl: './filter-hospital.component.html',
+  styleUrls: ['./filter-hospital.component.css'],
 })
 export class FilterHospitalComponent
   implements OnInit, OnChanges, AfterViewInit
@@ -40,19 +41,19 @@ export class FilterHospitalComponent
   @Input() isSubscribed: boolean;
   selectable = true;
   removable = true;
-  @ViewChild("hospitalNameInput")
+  @ViewChild('hospitalNameInput', { static: false })
   hospitalNameInput: ElementRef<HTMLInputElement>;
-  @ViewChild("stateInput")
+  @ViewChild('stateInput', { static: false })
   stateInput: ElementRef<HTMLInputElement>;
-  @ViewChild("cityInput")
+  @ViewChild('cityInput', { static: false })
   cityInput: ElementRef<HTMLInputElement>;
-  @ViewChild("input", { static: true }) triggerHospital: MatAutocompleteTrigger;
+  @ViewChild('input', { static: true }) triggerHospital: MatAutocompleteTrigger;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  hospitalControl = new UntypedFormControl();
-  stateControl = new UntypedFormControl();
-  cityControl = new UntypedFormControl();
+  hospitalControl = new FormControl();
+  stateControl = new FormControl();
+  cityControl = new FormControl();
   hideHospitalNamePlaceholder: boolean = false;
-  toppingsControl = new UntypedFormControl([]);
+  toppingsControl = new FormControl([]);
   isPaid: boolean = false;
 
   // toppingList: number[] = [
@@ -75,8 +76,8 @@ export class FilterHospitalComponent
   dropdownSettings = {
     enableCheckAll: false,
     singleSelection: false,
-    idField: "id",
-    textField: "itemName",
+    idField: 'id',
+    textField: 'itemName',
     itemsShowLimit: 3,
     allowSearchFilter: true,
   };
@@ -87,7 +88,8 @@ export class FilterHospitalComponent
     private ngZone: NgZone,
     private healthCareDataService: DataService,
     private loaderService: LoaderService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private renderer: Renderer2
   ) {}
   ngOnInit() {}
   ngAfterViewInit() {
@@ -100,14 +102,14 @@ export class FilterHospitalComponent
   }
   getPersistData() {
     this.hospitalNames =
-      this.filterStorageService.get("hospital_hospital") || [];
+      this.filterStorageService.get('hospital_hospital') || [];
     this.selectedHospitalTypes =
-      this.filterStorageService.get("hospital_selectedTypes") || [];
-    this.noOfBeds = this.filterStorageService.get("hospital_noOfBeds") || [];
+      this.filterStorageService.get('hospital_selectedTypes') || [];
+    this.noOfBeds = this.filterStorageService.get('hospital_noOfBeds') || [];
     this.selectedCities =
-      this.filterStorageService.get("hospital_cityList") || [];
+      this.filterStorageService.get('hospital_cityList') || [];
     this.selectedStates =
-      this.filterStorageService.get("hospital_stateList") || [];
+      this.filterStorageService.get('hospital_stateList') || [];
     this.omitChange();
   }
   clearAll() {
@@ -127,14 +129,14 @@ export class FilterHospitalComponent
     this.storeFilterData();
   }
   storeFilterData() {
-    this.filterStorageService.set("hospital_hospital", this.hospitalNames);
+    this.filterStorageService.set('hospital_hospital', this.hospitalNames);
     this.filterStorageService.set(
-      "hospital_selectedTypes",
+      'hospital_selectedTypes',
       this.selectedHospitalTypes
     );
-    this.filterStorageService.set("hospital_noOfBeds", this.noOfBeds);
-    this.filterStorageService.set("physician_cityList", this.selectedCities);
-    this.filterStorageService.set("physician_stateList", this.selectedStates);
+    this.filterStorageService.set('hospital_noOfBeds', this.noOfBeds);
+    this.filterStorageService.set('physician_cityList', this.selectedCities);
+    this.filterStorageService.set('physician_stateList', this.selectedStates);
   }
   // addNPI(event: MatChipInputEvent): void {
   //   const value = (event.value || "").trim();
@@ -154,14 +156,14 @@ export class FilterHospitalComponent
   //   }
   // }
   addHospitalName(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
+    const value = (event.value || '').trim();
     const found = this.hospitalNames.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.hospitalNames.push(value);
     }
     // Clear the input value
-    event.input.value = "";
+    event.input.value = '';
     // event.input.value = "";
     // event.chipInput!.clear();
 
@@ -179,7 +181,7 @@ export class FilterHospitalComponent
       city: this.selectedCities,
     };
     this.healthCareDataService.changePhysicainSearchData({
-      requestType: "Hospital",
+      requestType: 'Hospital',
       hospitalName: this.hospitalNames,
       hospitalType: this.selectedHospitalTypes,
       numberOFBeds: this.noOfBeds,
@@ -251,7 +253,7 @@ export class FilterHospitalComponent
       // );
     } else {
       this.selectedCities.push(city);
-      this.cityInput.nativeElement.value = "";
+      this.cityInput.nativeElement.value = '';
       this.cityControl.setValue(null);
     }
     this.omitChange();
@@ -283,7 +285,7 @@ export class FilterHospitalComponent
       ) === -1
     ) {
       this.hospitalNames.push(event.option.viewValue);
-      this.hospitalNameInput.nativeElement.value = "";
+      this.hospitalNameInput.nativeElement.value = '';
       this.hospitalControl.setValue(null);
       this.omitChange();
       this.storeFilterData();
@@ -338,7 +340,7 @@ export class FilterHospitalComponent
     );
     if (found === -1) {
       this.selectedStates.push(receivedState);
-      this.stateInput.nativeElement.value = "";
+      this.stateInput.nativeElement.value = '';
       this.stateControl.setValue(null);
       //
       // this.addCitiesInList(receivedState);
@@ -348,7 +350,7 @@ export class FilterHospitalComponent
   }
   selectCity(event: MatAutocompleteSelectedEvent): void {
     this.selectedCities.push(event.option.value);
-    this.cityInput.nativeElement.value = "";
+    this.cityInput.nativeElement.value = '';
     this.cityControl.setValue(null);
     this.omitChange();
     this.storeFilterData();
@@ -412,7 +414,7 @@ export class FilterHospitalComponent
   getAllListData() {
     // change control for hospital name
     this.hospitalControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 3) {
         this.amplizService
           .getHospitalList({ searchPhase: value })
@@ -426,7 +428,7 @@ export class FilterHospitalComponent
     });
     // change control for states
     this.stateControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 2) {
         this.amplizService
           .getStateList({ searchPhase: value })
@@ -439,16 +441,16 @@ export class FilterHospitalComponent
       }
     });
     // get hospital type list
-    this.amplizService.getHospitalTypeList("").subscribe((res) => {
+    this.amplizService.getHospitalTypeList('').subscribe((res) => {
       this.hospitalTypeList = res.hospitalTypeList;
     });
     // get number of bed  list
-    this.amplizService.getNumberOfBedList("").subscribe((res) => {
+    this.amplizService.getNumberOfBedList('').subscribe((res) => {
       this.noOfBedList = res.bedRangeList;
     });
     // city input change
     this.cityControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length >= 3) {
         // event.cityList.map((city) => city.city);
         var tStates = this.selectedStates.map((state) => state.stateId);
@@ -482,25 +484,30 @@ export class FilterHospitalComponent
     this.ngZone.run(() => this.router.navigateByUrl(path)).then();
   }
   async requestPricing() {
-    const emailId = await localStorage.getItem("email_id");
+    const emailId = await localStorage.getItem('email_id');
     this.loaderService.display(true);
-    const body = { package: "Enterprise", email: emailId };
+    const body = { package: 'Enterprise', email: emailId };
     this.amplizService.getPrice(body).subscribe(
       (res) => {
         this.loaderService.display(false);
 
         this.messageService.display(
           true,
-          "Thanks for asking, will get back to you in 24 hrs"
+          'Thanks for asking, will get back to you in 24 hrs'
         );
       },
       (error) => {
         this.loaderService.display(false);
         this.messageService.displayError(
           true,
-          error.error.msg ? error.error.msg : "Server Error !!!"
+          error.error.msg ? error.error.msg : 'Server Error !!!'
         );
       }
     );
+  }
+  triggerAutoFocus(eleId: string) {
+    
+    const element = this.renderer.selectRootElement(eleId);
+    setTimeout(() => element.focus(), 100);
   }
 }

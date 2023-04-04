@@ -4,21 +4,21 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-} from "@angular/core";
-import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
-import { SkeletonloaderService } from "src/app/modules/healthcare/services/skeletonloader.service";
-import { ErrorService } from "src/app/modules/healthcare/services/error.service";
+} from '@angular/core';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
+import { SkeletonloaderService } from 'src/app/modules/healthcare/services/skeletonloader.service';
+import { ErrorService } from 'src/app/modules/healthcare/services/error.service';
 
-import { PaginationService } from "../../services/pagination.service";
-import "rxjs/Rx";
-import { MessageService } from "../../../B2B/services/message.service";
-import { FilterStorageService } from "../../services/filter-storage.service";
-import { DataService } from "../../services/data.service";
+import { PaginationService } from '../../services/pagination.service';
+import 'rxjs/Rx';
+import { MessageService } from '../../../B2B/services/message.service';
+import { FilterStorageService } from '../../services/filter-storage.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
-  selector: "app-executive-page",
-  templateUrl: "./executive-page.component.html",
-  styleUrls: ["./executive-page.component.css"],
+  selector: 'app-executive-page',
+  templateUrl: './executive-page.component.html',
+  styleUrls: ['./executive-page.component.css'],
 })
 export class ExecutivePageComponent implements OnInit, AfterViewInit {
   subscribed: boolean;
@@ -41,12 +41,12 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
   page: any;
   subscriptions = [];
   filterChangeOmitted: boolean = false;
-  headerData: any = "";
+  headerData: any = '';
   noResult: boolean = false;
   unLockDiv: boolean = false;
   showLoader: boolean = true;
   extotalCount: any;
-  clientIp: any = "";
+  clientIp: any = '';
   selectedExecutive: Array<string> = [];
   selectedExecutiveInCurrentPage: Array<any> = [];
   pageNumberOptions: Array<any> = [5, 10, 20, 50];
@@ -63,12 +63,11 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     private pagerservice: PaginationService,
     private filterStorageService: FilterStorageService,
     private dataService: DataService
-  ) { }
+  ) {}
 
   get subscriptionType() {
-    return localStorage.getItem("SubscriptionisActive");
+    return localStorage.getItem('SubscriptionisActive');
   }
-
 
   get isPaid() {
     return this.subscribed;
@@ -81,30 +80,35 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     this.getPersistData();
     this.saveDraftLeads();
     setTimeout(() => {
-      this.isSpecialityUser = localStorage.getItem("is_SpecialityUser") == "true" ? true : false;
+      this.isSpecialityUser =
+        localStorage.getItem('is_SpecialityUser') == 'true' ? true : false;
     }, 10);
     this.unmaskSavedExecutive();
   }
 
-
   saveDraftLeads() {
-    this.amplizService.saveDraftLeads().subscribe(res => {
-    },
-      err => {
-      });
+    this.amplizService.saveDraftLeads().subscribe(
+      (res) => {},
+      (err) => {}
+    );
   }
 
   unmaskSavedExecutive() {
     this.dataService.savedExecutives.subscribe((res: Array<any>) => {
       res.map((savedExecutive: any) => {
-        if(res.length>0) {
+        if (res.length > 0) {
           this.getNetNewCount();
         }
-        const index = this.totalSearchResult.findIndex(executiveItem => savedExecutive.executiveId == executiveItem.executiveId);
+        const index = this.totalSearchResult.findIndex(
+          (executiveItem) =>
+            savedExecutive.executiveId == executiveItem.executiveId
+        );
         if (index !== -1) {
-          this.totalSearchResult[index].phoneNumber = savedExecutive.phoneNumber;
+          this.totalSearchResult[index].phoneNumber =
+            savedExecutive.phoneNumber;
           this.totalSearchResult[index].email = savedExecutive.emailAddress;
-          this.totalSearchResult[index].leadSaveStatus = savedExecutive.leadSaveStatus;
+          this.totalSearchResult[index].leadSaveStatus =
+            savedExecutive.leadSaveStatus;
         }
       });
       // this.contactsList.updateContactsListFromSavedList(res);
@@ -120,7 +124,7 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
   //     console.log(res);
   //     this.clientIp = res.ip||'';
   //   },(err: any) => {
-      
+
   //   });
   // }
   filterChanged(event: any) {
@@ -138,10 +142,17 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
       this.filterParams.stateList = event.stateList.map((state) => state.state);
     }
     // this.setPage(1);
+    if (event.cleared) {
+      this.setPage(1);
+      this.leadWithEmail = false;
+      this.leadWithPhone = false;
+    } else {
+      // this.setPage(1);
 
-    this.getExecutiveSearchData();
-    // this.getNetNewCount();
-    this.resetSelectedExecutive();
+      this.getExecutiveSearchData();
+      // this.getNetNewCount();
+      this.resetSelectedExecutive();
+    }
   }
   async getDashboardDetails() {
     setTimeout(() => {
@@ -151,9 +162,9 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
       });
     });
 
-    const authToken = await localStorage.getItem("auth_token");
+    const authToken = await localStorage.getItem('auth_token');
     // const userId = await localStorage.getItem('user_id');
-    const refreshToken = await localStorage.getItem("refresh_token");
+    const refreshToken = await localStorage.getItem('refresh_token');
     //
     if (authToken !== null && refreshToken !== null) {
       this.amplizService.getDashboardDetails().subscribe(
@@ -161,14 +172,14 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
           this.currentCredit = res.CurrentCredits;
           //
           this.subscriptions = res.Subscriptions;
-          if (this.subscriptions[0].SubscriptionType == "Free") {
-            localStorage.setItem("SubscriptionisActive", "false");
+          if (this.subscriptions[0].SubscriptionType == 'Free') {
+            localStorage.setItem('SubscriptionisActive', 'false');
             this.subscribed = false;
 
-            this.headerData = "Request Pricing";
+            this.headerData = 'Request Pricing';
           }
-          if (this.subscriptions[0].SubscriptionType == "Paid") {
-            localStorage.setItem("SubscriptionisActive", "true");
+          if (this.subscriptions[0].SubscriptionType == 'Paid') {
+            localStorage.setItem('SubscriptionisActive', 'true');
             this.subscribed = true;
           }
         },
@@ -185,12 +196,14 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
   }
 
   getNetNewCount() {
-    this.executiveSearchParameter.offset = this.previousOffsets[this.previousOffsets.length - 1];;
-    this.executiveSearchParameter.savedListOffset = this.previousSavedOffsets[this.previousSavedOffsets.length - 1];;
+    this.executiveSearchParameter.offset =
+      this.previousOffsets[this.previousOffsets.length - 1];
+    this.executiveSearchParameter.savedListOffset =
+      this.previousSavedOffsets[this.previousSavedOffsets.length - 1];
     this.executiveSearchParameter.limit = this.limit;
     this.executiveSearchParameter.leadWithEmail = this.leadWithEmail;
     this.executiveSearchParameter.leadWithPhone = this.leadWithPhone;
-    this.executiveSearchParameter.searchType = "NETNEW";
+    this.executiveSearchParameter.searchType = 'NETNEW';
 
     this.amplizService
       .getExecutiveNetNewCount(this.executiveSearchParameter, this.filterParams)
@@ -209,16 +222,21 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     this.previousOffsets = [0];
     this.offset = 0;
     this.loaderService.display(true);
-    this.executiveSearchParameter.offset = this.previousOffsets[this.previousOffsets.length - 1];
-    this.executiveSearchParameter.savedListOffset = this.previousSavedOffsets[this.previousSavedOffsets.length - 1];
+    this.executiveSearchParameter.offset =
+      this.previousOffsets[this.previousOffsets.length - 1];
+    this.executiveSearchParameter.savedListOffset =
+      this.previousSavedOffsets[this.previousSavedOffsets.length - 1];
 
     this.executiveSearchParameter.limit = this.limit;
     this.executiveSearchParameter.leadWithEmail = this.leadWithEmail;
     this.executiveSearchParameter.leadWithPhone = this.leadWithPhone;
     // this.executiveSearchParameter.clientIp = this.clientIp;
     this.executiveSearchParameter.searchType =
-      this.tab === 1 ? "TOTAL" : "NETNEW";
-    this.bulkSaveParams = { ...this.executiveSearchParameter, ...this.filterParams };
+      this.tab === 1 ? 'TOTAL' : 'NETNEW';
+    this.bulkSaveParams = {
+      ...this.executiveSearchParameter,
+      ...this.filterParams,
+    };
     this.amplizService
       .searchExecutive(this.executiveSearchParameter, this.filterParams)
       .subscribe((res) => {
@@ -266,51 +284,61 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
   handleChange(value, model) {
     //
     this.storeFilterData();
-    if (model === "leadWithEmail") {
+    if (model === 'leadWithEmail') {
       this.executiveSearchParameter.leadWithEmail = value;
-      this.bulkSaveParams = { ...this.executiveSearchParameter, ...this.filterParams };
+      this.bulkSaveParams = {
+        ...this.executiveSearchParameter,
+        ...this.filterParams,
+      };
       this.amplizService
         .searchExecutive(this.executiveSearchParameter, this.filterParams)
-        .subscribe((res) => {
-          this.searchResult = res;
-          this.totalSearchResult = res.healthExecutiveInfoList;
-          this.totalCount = res.totalResult;
-          if (this.totalSearchResult.length > 0) {
-            this.noResult = false;
-            // this.netNewCount = res.netNew;
-          } else {
-            this.noResult = true;
-          }
-          this.resetSelectedExecutive();
-          this.getNetNewCount();
-          //
-        },
-          err => {
-            this.noResult = true;
-          });
-      this.setPage(1);
-    } else if (model === "leadWithPhone") {
-      this.executiveSearchParameter.leadWithPhone = value;
-      this.bulkSaveParams = { ...this.executiveSearchParameter, ...this.filterParams };
-      this.amplizService
-        .searchExecutive(this.executiveSearchParameter, this.filterParams)
-        .subscribe((res) => {
-          this.searchResult = res;
-          this.totalSearchResult = res.healthExecutiveInfoList;
-          this.totalCount = res.totalResult;
-          if (this.totalSearchResult.length > 0) {
-            this.noResult = false;
-            // this.netNewCount = res.netNew;
+        .subscribe(
+          (res) => {
+            this.searchResult = res;
+            this.totalSearchResult = res.healthExecutiveInfoList;
+            this.totalCount = res.totalResult;
+            if (this.totalSearchResult.length > 0) {
+              this.noResult = false;
+              // this.netNewCount = res.netNew;
+            } else {
+              this.noResult = true;
+            }
+            this.resetSelectedExecutive();
+            this.getNetNewCount();
             //
-          } else {
+          },
+          (err) => {
             this.noResult = true;
           }
-          this.resetSelectedExecutive();
-          this.getNetNewCount();
-        },
-          err => {
+        );
+      this.setPage(1);
+    } else if (model === 'leadWithPhone') {
+      this.executiveSearchParameter.leadWithPhone = value;
+      this.bulkSaveParams = {
+        ...this.executiveSearchParameter,
+        ...this.filterParams,
+      };
+      this.amplizService
+        .searchExecutive(this.executiveSearchParameter, this.filterParams)
+        .subscribe(
+          (res) => {
+            this.searchResult = res;
+            this.totalSearchResult = res.healthExecutiveInfoList;
+            this.totalCount = res.totalResult;
+            if (this.totalSearchResult.length > 0) {
+              this.noResult = false;
+              // this.netNewCount = res.netNew;
+              //
+            } else {
+              this.noResult = true;
+            }
+            this.resetSelectedExecutive();
+            this.getNetNewCount();
+          },
+          (err) => {
             this.noResult = true;
-          });
+          }
+        );
       this.setPage(1);
     }
   }
@@ -320,24 +348,28 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     // this.subscribed = true;
     if (this.subscribed === true || page === 1) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
       this.page = page;
       this.offset = this.limit * (page - 1);
       this.loaderService.display(true);
-      this.executiveSearchParameter.offset = this.previousOffsets[page - 1];;
-      this.executiveSearchParameter.savedListOffset = this.previousSavedOffsets[page - 1];;
+      this.executiveSearchParameter.offset = this.previousOffsets[page - 1];
+      this.executiveSearchParameter.savedListOffset =
+        this.previousSavedOffsets[page - 1];
       this.executiveSearchParameter.limit = this.limit;
       this.executiveSearchParameter.leadWithEmail = this.leadWithEmail;
       this.executiveSearchParameter.leadWithPhone = this.leadWithPhone;
       // this.executiveSearchParameter.clientIp = this.clientIp;
       this.executiveSearchParameter.searchType =
-        this.tab === 1 ? "TOTAL" : "NETNEW";
-      this.bulkSaveParams = { ...this.executiveSearchParameter, ...this.filterParams };
+        this.tab === 1 ? 'TOTAL' : 'NETNEW';
+      this.bulkSaveParams = {
+        ...this.executiveSearchParameter,
+        ...this.filterParams,
+      };
       this.amplizService
         .searchExecutive(this.executiveSearchParameter, this.filterParams)
         .subscribe(
@@ -384,7 +416,7 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
               this.loaderService.display(false);
             }
           },
-          (error) => { }
+          (error) => {}
         );
     } else {
       this.loaderService.display(false);
@@ -395,20 +427,31 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
   }
 
   get showSaveAllCheckbox() {
-    return ((this.selectedExecutiveInCurrentPage.length == 0
-      || this.selectedExecutiveInCurrentPage.length == this.totalSearchResult.length)
-      && this.savedExecutives.length < this.limit
-    )
+    return (
+      (this.selectedExecutiveInCurrentPage.length == 0 ||
+        this.selectedExecutiveInCurrentPage.length ==
+          this.totalSearchResult.length) &&
+      this.savedExecutives.length < this.limit
+    );
   }
   get showSaveAllPArtial() {
-    return (this.selectedExecutiveInCurrentPage.length > 0 && this.selectedExecutiveInCurrentPage.length < this.totalSearchResult.length)
+    return (
+      this.selectedExecutiveInCurrentPage.length > 0 &&
+      this.selectedExecutiveInCurrentPage.length < this.totalSearchResult.length
+    );
   }
 
   getSelectedExecutivesInCurrentPage() {
-    this.selectedExecutiveInCurrentPage = this.totalSearchResult.filter((contactItem: any) => {
-      return this.selectedExecutive.includes(contactItem.executiveId)
-    }).map((item: any) => item.executiveId);
-    this.savedExecutives = this.totalSearchResult.filter((executiveItem: any) => { return executiveItem.leadSaveStatus == 'Saved' });
+    this.selectedExecutiveInCurrentPage = this.totalSearchResult
+      .filter((contactItem: any) => {
+        return this.selectedExecutive.includes(contactItem.executiveId);
+      })
+      .map((item: any) => item.executiveId);
+    this.savedExecutives = this.totalSearchResult.filter(
+      (executiveItem: any) => {
+        return executiveItem.leadSaveStatus == 'Saved';
+      }
+    );
   }
 
   resetSelectedExecutive() {
@@ -425,10 +468,9 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   handleIndividualCheckboxChange(value, item) {
     this.handleCheckboxChangeForAll(item);
-    this.handleCurrentCheckboxChange(item)
+    this.handleCurrentCheckboxChange(item);
     // const index = this.selectedExecutive.indexOf(item.executiveId);
     // if(index==-1) {
     // this.selectedExecutive.push(item.executiveId);
@@ -437,14 +479,17 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     // }
   }
   checkSelectAll(val) {
-
-    this.selectedExecutive = this.selectedExecutive.filter(item => !this.selectedExecutiveInCurrentPage.includes(item));
+    this.selectedExecutive = this.selectedExecutive.filter(
+      (item) => !this.selectedExecutiveInCurrentPage.includes(item)
+    );
     this.selectedExecutiveInCurrentPage = [];
     if (val == true) {
-      this.totalSearchResult.filter((item: any) => item.leadSaveStatus != 'Saved').map((contact: any) => {
-        this.handleCheckboxChangeForAll(contact);
-        this.handleCurrentCheckboxChange(contact);
-      });
+      this.totalSearchResult
+        .filter((item: any) => item.leadSaveStatus != 'Saved')
+        .map((contact: any) => {
+          this.handleCheckboxChangeForAll(contact);
+          this.handleCurrentCheckboxChange(contact);
+        });
     }
     //   this.selectedExecutive = [];
     //   if(val == true) {
@@ -456,12 +501,13 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     // }
   }
 
-
   handleCurrentCheckboxChange(contact) {
-    const currentContactsIndex = this.selectedExecutiveInCurrentPage.indexOf(contact.executiveId);
+    const currentContactsIndex = this.selectedExecutiveInCurrentPage.indexOf(
+      contact.executiveId
+    );
     if (currentContactsIndex == -1) {
       if (contact.leadSaveStatus !== 'Saved') {
-      this.selectedExecutiveInCurrentPage.push(contact.executiveId);
+        this.selectedExecutiveInCurrentPage.push(contact.executiveId);
       }
     } else {
       this.selectedExecutiveInCurrentPage.splice(currentContactsIndex, 1);
@@ -475,7 +521,7 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
     );
     if (contactsIndex == -1) {
       if (contact.leadSaveStatus !== 'Saved') {
-      this.selectedExecutive.push(contact.executiveId);
+        this.selectedExecutive.push(contact.executiveId);
       }
     } else {
       this.selectedExecutive.splice(contactsIndex, 1);
@@ -491,18 +537,19 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
 
   storeFilterData() {
     this.filterStorageService.set(
-      "executive_leadWithEmail",
+      'executive_leadWithEmail',
       this.leadWithEmail
     );
     this.filterStorageService.set(
-      "executive_leadWithPhone",
+      'executive_leadWithPhone',
       this.leadWithPhone
     );
   }
 
   getPersistData() {
-    this.leadWithPhone = this.filterStorageService.get("executive_leadWithPhone") || false;
-    this.leadWithEmail = this.filterStorageService.get("executive_leadWithEmail") || false;
+    this.leadWithPhone =
+      this.filterStorageService.get('executive_leadWithPhone') || false;
+    this.leadWithEmail =
+      this.filterStorageService.get('executive_leadWithEmail') || false;
   }
-
 }
