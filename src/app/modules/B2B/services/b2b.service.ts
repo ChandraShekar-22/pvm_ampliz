@@ -218,14 +218,15 @@ export class B2bService {
   createB2bApacList(body: any): Observable<any> {
     const url =
       environment.prodGlobalB2BApi +
-      "/amplizglobalb2bwriteapi/savedlist/create-b2b-global-list";
+      "/amplizglobalb2bwriteapi/savedlist/create-b-2b-global-list";
     const response = this.http.post(url, body);
     return response;
   }
 
   createB2bList(body: any): Observable<any> {
     // const url = environment.prodAdbApi + "/ADB/api/create-list";
-    const url = environment.prodGlobalB2BApi + "/amplizglobalb2bwriteapi/savedlist/create-list";
+    // const url = environment.prodGlobalB2BApi + "/amplizglobalb2bwriteapi/savedlist/create-list";
+    const url = environment.prodGlobalB2BApi + "/amplizglobalb2bwriteapi/savedlist/create-b-2b-global-list";
     const response = this.http.post(url, body);
     return response;
   }
@@ -276,7 +277,8 @@ export class B2bService {
   }
 
   deleteList(listId: any): Observable<any> {
-    const url = environment.prodAdbApi + "/ADB/api/delete-list";
+    // const url = environment.prodAdbApi + "/ADB/api/delete-list";
+    const url = environment.prodGlobalB2BApi + "/amplizglobalb2bwriteapi/savedlist/delete-b-2b-global-list";
     const body = { listId: listId, listType: "B2B" };
     const headers = {
       headers: new HttpHeaders({

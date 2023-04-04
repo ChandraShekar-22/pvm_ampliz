@@ -65,6 +65,7 @@ export class ListActionButtonComponent implements OnInit {
   deleteLead() {
     this.componentParent.deleteLeadSingle(this.params.data.id);
   }
+  
   removeList() {
     this.deleteList.emit();
     this.dialogRef.close(true);

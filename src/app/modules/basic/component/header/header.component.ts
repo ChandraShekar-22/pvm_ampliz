@@ -122,11 +122,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           this.b2bDataService.passSubscriptionStatus(res);
           this.dailyCurrentCredits = res.dailyCredit;
           this.dailyUsedCredits = res.usedCredit;
-          if (res[0].Subscriptions[0].SubscriptionType == "Free") {
+          if (res.subscriptionStatusList[0].SubscriptionType == "Free") {
             localStorage.setItem("SubscriptionisActive", "false");
             this.subscribed = false;
           }
-          if (res[0].Subscriptions[0].SubscriptionType == "Paid") {
+          if (res.subscriptionStatusList[0].SubscriptionType == "Paid") {
             localStorage.setItem("SubscriptionisActive", "true");
             this.button = "button";
             this.subscribed = false;

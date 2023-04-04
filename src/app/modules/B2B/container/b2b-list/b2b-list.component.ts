@@ -218,17 +218,18 @@ export class B2bListComponent implements OnInit {
         //     return '<a href="javascript:void(0)" class="deleteIcon" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
         //   }
         // },
-        cellRendererSelector: (params) => {
-          if (
-            params.data.noOfLeads <= 0 ||
-            params.data.status === "Completed"
-          ) {
-            return ExportCsvBtnComponent;
-          }
-          if (params.data.status === "inProgress") {
-            return ExportButtonLoaderComponent;
-          }
-        },
+        cellRendererFramework: ExportCsvBtnComponent ,
+        // cellRendererSelector: (params) => {
+        //   if (
+        //     params.data.noOfLeads <= 0 ||
+        //     params.data.status === "Completed"
+        //   ) {
+        //     return ExportCsvBtnComponent;
+        //   }
+        //   if (params.data.status === "inProgress") {
+        //     return ExportButtonLoaderComponent;
+        //   }
+        // },
       },
     ];
     this.sortingOrders = ["desc", "asc", null];
