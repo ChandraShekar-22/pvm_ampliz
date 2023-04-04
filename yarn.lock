@@ -2357,15 +2357,17 @@ adm-zip@^0.5.2:
   resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.5.10.tgz#4a51d5ab544b1f5ce51e1b9043139b639afff45b"
   integrity sha512-x0HvcHqVJNTPk/Bw8JbLWlWoo6Wwnsug0fnYYro1HBrjxZ3G7/AZk7Ahv8JwDe1uIcz8eBqvu86FuF1POiG7vQ==
 
-ag-grid-angular@^20.0.0:
-  version "20.2.0"
-  resolved "https://registry.yarnpkg.com/ag-grid-angular/-/ag-grid-angular-20.2.0.tgz#7ac37ccbe170420c264d3500c0ee5b3a440f7480"
-  integrity sha512-Rh7CKTXz7PvAddbwCP92oRx0Ng60eU6ybDa+qnPijC/MPv0VvNW89JjgxVQp0EVBn6GRnezrHGIVOi6uzyiSqQ==
+ag-grid-angular@^28.0.0:
+  version "28.2.1"
+  resolved "https://registry.yarnpkg.com/ag-grid-angular/-/ag-grid-angular-28.2.1.tgz#43e278e485ff248e44b3cdb06067665ecb1c6e89"
+  integrity sha512-aYJvmrjwDFm2qy6viM9E8WQ0rCLn3nzuTH5gGIDFjqjFExan8csoNmVKGGbuf9jx8VQm4XQHKWbIzd2eT94kvw==
+  dependencies:
+    tslib "^2.3.0"
 
-ag-grid-community@^20.0.0:
-  version "20.2.0"
-  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-20.2.0.tgz#22f26d53e309b51a156878d180c9ec6f16bc6403"
-  integrity sha512-3oAzg58lenhpyIfZ6dBp6cCE+PEoh0N+OSci2+k5fHROn8PMrginAkygONDd068E2NC+qfmDNRkU2WjPgiH/BA==
+ag-grid-community@^28.0.2:
+  version "28.2.1"
+  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-28.2.1.tgz#50778cb2254ee79497222781909d8364007dd91e"
+  integrity sha512-DMZh/xD/FqYP17qJ1M92PolTYe+hrKuEaf+A4h13O6qn2x/xZQrTRGW5DgnQLR/uLMe1XXZQPKR3UKgAlKo69A==
 
 agent-base@4, agent-base@^4.3.0:
   version "4.3.0"

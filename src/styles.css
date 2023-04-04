@@ -1022,12 +1022,15 @@ input[type="checkbox"]:after,
   display: table;
   width: 7px;
   height: 12px;
-  border: 3px solid #2d8cff;
+  border: 3px solid #2d8cff !important;
   border-top-width: 0;
   border-left-width: 0;
   transform: rotate(45deg);
 }
 
+.ag-theme-material .ag-checkbox-input-wrapper.ag-checked::after {
+  color: #2d8cff !important;
+}
 .btn-blue-bordered {
   border: 1px solid #2d8cff;
   background: transparent;

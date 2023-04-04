@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 import { AgGridModule } from 'ag-grid-angular';
 import { BasicModule } from '../basic/basic.module';
 import { ButtoncellrendererComponent } from '../basic/component/ag-grid/buttoncellrenderer/buttoncellrenderer.component';
-import { HealthcareModule } from '../healthcare/healthcare.module';
+import { HealthcareModule } from 'src/app/modules/healthcare/healthcare.module';
 import { ImagingDataService } from './services/imaging-data.service';
 import { CommonComponentsModule } from '../common-components/common-components.module';
 import { ImagingCenterCardComponent } from './component/cards/imaging-center-card/imaging-center-card.component';
@@ -55,9 +55,10 @@ const appRoutes = [
     CommonComponentsModule,
     BasicModule,
     NgMultiSelectDropDownModule.forRoot(),
-    AgGridModule.withComponents([ButtoncellrendererComponent]),
     RouterModule.forChild(appRoutes),
-    HealthcareModule
+    HealthcareModule,
+    AgGridModule,
+    // AgGridModule.withComponents([ButtoncellrendererComponent]),
   ],
   exports: [
     ImagingCenterComponent,

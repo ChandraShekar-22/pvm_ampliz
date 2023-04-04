@@ -4,6 +4,10 @@
     align-items: flex-start;
     /* margin-top: 15px; */
 }
+.processing-text {
+  font-weight: 400;
+  color: black;
+}
 .btn-wrapper {
    display: flex;
    align-items: center;

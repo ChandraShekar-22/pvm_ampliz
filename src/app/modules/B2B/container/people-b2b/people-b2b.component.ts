@@ -93,13 +93,13 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    let url = window.location.href;
-    console.log("URL", url);
-    if (url.includes("?")) {
-      console.log("Parameterised URL");
-    } else {
-      console.log("No Parameters in URL");
-    }
+    // let url = window.location.href;
+    // console.log("URL", url);
+    // if (url.includes("?")) {
+    //   console.log("Parameterised URL");
+    // } else {
+    //   console.log("No Parameters in URL");
+    // }
     // this.getContactsList();
     this.getApacList();
     this.getViewedListCount();

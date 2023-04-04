@@ -73,6 +73,7 @@ export class B2bListComponent implements OnInit {
       buttonRenderer: ButtoncellrendererComponent,
     };
     this.columnDefs = [
+      { tooltipField: 'col1', },
       {
         headerName: "List name",
         field: "listName",
@@ -218,18 +219,24 @@ export class B2bListComponent implements OnInit {
         //     return '<a href="javascript:void(0)" class="deleteIcon" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
         //   }
         // },
-        cellRendererFramework: ExportCsvBtnComponent ,
-        // cellRendererSelector: (params) => {
-        //   if (
-        //     params.data.noOfLeads <= 0 ||
-        //     params.data.status === "Completed"
-        //   ) {
-        //     return ExportCsvBtnComponent;
-        //   }
-        //   if (params.data.status === "inProgress") {
-        //     return ExportButtonLoaderComponent;
-        //   }
-        // },
+        // cellRendererFramework: ExportCsvBtnComponent ,
+        cellRendererSelector: (params) => {
+          const loader = {
+            component: ExportButtonLoaderComponent,
+          };
+          const exportCsv = {
+            component: ExportCsvBtnComponent,
+          };
+          if (
+            params.data.noOfLeads <= 0 ||
+            params.data.status === "Completed"
+          ) {
+            return exportCsv;
+          }
+          if (params.data.status === "inProgress") {
+            return loader;
+          }
+        },
       },
     ];
     this.sortingOrders = ["desc", "asc", null];
