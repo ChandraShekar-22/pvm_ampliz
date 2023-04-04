@@ -14,9 +14,10 @@ import { ButtoncellrendererComponent } from "src/app/modules/basic/component/ag-
 import { B2bService } from "../../services/b2b.service";
 import { MessageService } from "../../services/message.service";
 import { ExportButtonLoaderComponent } from "../../../basic/component/export-button-loader/export-button-loader.component";
-import { DeleteIconAgGridComponent } from "../../../basic/component/delete-icon-ag-grid/delete-icon-ag-grid.component";
-import { ExportCsvBtnComponent } from "../../../basic/component/export-csv-btn/export-csv-btn.component";
-import { CustomTooltipComponent } from "../../../basic/component/custom-tooltip/custom-tooltip.component";
+import { DeleteIconAgGridComponent } from "src/app/modules/basic/component/delete-icon-ag-grid/delete-icon-ag-grid.component";
+import { ExportCsvBtnComponent } from "src/app/modules/basic/component/export-csv-btn/export-csv-btn.component";
+
+import { CustomTooltipComponent } from "src/app/modules/basic/component/custom-tooltip/custom-tooltip.component";
 import { HttpParams } from "@angular/common/http";
 @Component({
   selector: "app-b2b-list",
@@ -71,12 +72,6 @@ export class B2bListComponent implements OnInit {
     this.frameworkComponents = {
       buttonRenderer: ButtoncellrendererComponent,
     };
-    // this.gridOptions = <GridOptions>{
-    //   context: {
-    //     componentParent: this,
-    //   },
-    // };
-
     this.columnDefs = [
       {
         headerName: "List name",
@@ -224,20 +219,14 @@ export class B2bListComponent implements OnInit {
         //   }
         // },
         cellRendererSelector: (params) => {
-          const loader = {
-            component: ExportButtonLoaderComponent,
-          };
-          const exportCsv = {
-            component: ExportCsvBtnComponent,
-          };
           if (
             params.data.noOfLeads <= 0 ||
             params.data.status === "Completed"
           ) {
-            return exportCsv;
+            return ExportCsvBtnComponent;
           }
           if (params.data.status === "inProgress") {
-            return loader;
+            return ExportButtonLoaderComponent;
           }
         },
       },
@@ -260,8 +249,13 @@ export class B2bListComponent implements OnInit {
     this.gridApi.setRowData(10);
     this.gridColumnApi = params.columnApi;
     this.paramsData.api.setRowData(dataSource);
-    this.b2bService.getB2bApacList(this.offset, this.count, true).subscribe(
-      (res) => {
+    this.setRowData();
+  }
+
+  async setRowData() {
+    await this.b2bService.getB2bApacList(this.offset, this.count, true).subscribe(
+       (res) => {
+         console.log("DATA SOURCE", this.datasource);
         this.datasource = res.savedlistInfoList;
         this.paramsData.api.setRowData(this.datasource);
         // this.gridApi.sizeColumnsToFit();
