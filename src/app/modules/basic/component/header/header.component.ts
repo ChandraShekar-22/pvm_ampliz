@@ -8,6 +8,8 @@ import { CookieService } from "ngx-cookie-service";
 import { DataService } from "../../../healthcare/services/data.service";
 import { Subscription } from "rxjs-compat";
 import { MessageService } from "../../../B2B/services/message.service";
+import { DataService as B2BService } from "../../../B2B/services/data.service";
+import { B2bService } from "../../../B2B/services/b2b.service"
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -38,6 +40,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isPersonaSet = "";
   showError = false;
   @Input() elementName = "dashboard";
+  dailyCurrentCredits: any;
+  dailyUsedCredits: any;
   constructor(
     public router: Router,
     private amplizService: AmplizService,
@@ -47,15 +51,19 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone,
     private cookieService: CookieService,
     private healthCareDataService: DataService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private b2bDataService: B2BService,
+    private b2bService: B2bService
   ) {
     // this.router = router;
+     this.b2bDataService.refreshHeaderTrigger.subscribe((res) => {
+      this.getDashboardDetails(); // To get the latest credit value after view-contact
+    });
   }
   get dataSet() {
     return window.localStorage.getItem("Dataset");
   }
   ngOnInit() {
-    // console.log(this.router,"Router is .......");
   }
 
   ngAfterViewInit() {
@@ -107,14 +115,53 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     //this.username = localStorage.getItem('username');
   }
-  async getDashboardDetails() {
-    const authToken = await localStorage.getItem("auth_token");
-    // const userId = await localStorage.getItem('user_id');
-    const refreshToken = await localStorage.getItem("refresh_token");
 
-    //
-    if (authToken !== null && refreshToken !== null) {
-      this.amplizService.checkSubscriptionStatus().subscribe(
+  async getB2bCredits() {
+    this.b2bService.b2bCheckSubscriptionStatus().subscribe(
+        (res) => {
+          this.b2bDataService.passSubscriptionStatus(res);
+          this.dailyCurrentCredits = res.dailyCredit;
+          this.dailyUsedCredits = res.usedCredit;
+          if (res[0].Subscriptions[0].SubscriptionType == "Free") {
+            localStorage.setItem("SubscriptionisActive", "false");
+            this.subscribed = false;
+          }
+          if (res[0].Subscriptions[0].SubscriptionType == "Paid") {
+            localStorage.setItem("SubscriptionisActive", "true");
+            this.button = "button";
+            this.subscribed = false;
+          }
+          this.subscriptionStatus = localStorage.getItem(
+            "SubscriptionisActive"
+          );
+
+          if (this.subscriptionStatus == "false") {
+            if (this.dataSet != "B2B") {
+              this.button = "Request Pricing";
+              this.data = "Request Pricing";
+              this.showBtn = true;
+            } else {
+              this.button = "Upgrade";
+              this.data = "Upgrade";
+              this.showBtn = true;
+            }
+          }
+          if (this.subscriptionStatus == "true") {
+            this.button = "";
+            this.data = "";
+            this.showBtn = false;
+          }
+        },
+        (error) => {
+          if (error.status === 401) {
+            this.amplizService.logout();
+          }
+        }
+      );
+  }
+
+  async getHcCredits() {
+    this.amplizService.checkSubscriptionStatus().subscribe(
         (res) => {
           //
           if (res[0].Subscriptions[0].SubscriptionType == "Free") {
@@ -148,11 +195,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
             this.data = "";
             this.showBtn = false;
           }
-          // if (this.isSpecialityUser == true) {
-          //   this.button = "Request";
-          //   this.data = "Request";
-          //   this.showBtn = true;
-          // }
         },
         (error) => {
           if (error.status === 401) {
@@ -161,30 +203,24 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           //
         }
       );
+  }
+
+  async getDashboardDetails() {
+    const authToken = await localStorage.getItem("auth_token");
+    // const userId = await localStorage.getItem('user_id');
+    const refreshToken = await localStorage.getItem("refresh_token");
+
+    //
+    if (authToken !== null && refreshToken !== null) {
+      if (this.dataSet === "B2B") {
+        this.getB2bCredits();
+      } else {
+        this.getHcCredits();
+      }
     } else {
       this.amplizService.logout();
     }
-    // console.log(this.isSpecialityUser, "speciality user");
-
-    // if (this.isSpecialityUser == true) {
-    //   this.button = "Request";
-    //   this.data = "Request";
-    //   this.showBtn = true;
-    // }
   }
-  // getUserName(){
-  //  // this.username = localStorage.getItem('username');
-  // this.user = localStorage.getItem('username');
-  // this.subscriptionStatus = localStorage.getItem('SubscriptionisActive')
-
-  // }
-  // openItem() {
-  //   if (this.dashboard) {
-  //     this.router.navigate(['favourite']);
-  //   } else {
-  //     this.router.navigate(['dashboard']);
-  //   }
-  // }
 
   logout() {
     this.amplizService.logout();
@@ -211,35 +247,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     } else if (path == "healthcare") {
       urlPath = "hcpayment";
     }
-    // else if (this.isSpecialityUser == true) {
-    //   urlPath = "hcupgrade";
-    // }
     this.ngZone.run(() => this.router.navigateByUrl(urlPath)).then();
   }
-  // public requestSearch() {
-  //   const subscriber: Subscription =  this.healthCareDataService.physicianSearch.subscribe((data: any) => {
-  //     console.log(data, "data request");
-  //     // if (
-  //     //   data.physicianSearchParams.specialityIncluded &&
-  //     //   data.physicianSearchParams.specialityIncluded.length > 0
-  //     // ) {
-
-  //       if(this.router.url=='/executive') {
-  //         this.amplizService.requestSpecialitySearchEx({executiveSearchParams:data}).subscribe((res: any) => {
-  //           this.successMessage.display(true, res.msgInfo.msg);
-  //           console.log(res);
-  //         });
-  //       } else {
-  //         this.amplizService.requestSpecialitySearch({physicianSearchParams:data}).subscribe((res: any) => {
-  //           this.successMessage.display(true, res.msgInfo.msg);
-  //           console.log(res);
-  //         });
-  //       }
-
-  //     // }
-  //   });
-  //   subscriber.unsubscribe();
-  // }
+  
   async requestPricing() {
     console.log("EMAIL ID", localStorage.getItem("email_id"))
     const emailId = await localStorage.getItem("email_id");

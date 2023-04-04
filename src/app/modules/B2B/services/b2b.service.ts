@@ -475,12 +475,11 @@ export class B2bService {
     const url =
       environment.prodGlobalB2BApi +
       "/amplizglobalb2breadapi/savedlist/export-bulk-contacts-to-csv";
-    const response = this.http.post(url, body, {
+    return this.http.post(url, body, {
       headers: headers,
       observe: "response",
       responseType: "blob",
     });
-    return response;
   }
 
   requestData(body) {
@@ -561,6 +560,16 @@ export class B2bService {
     const url =
       environment.prodAdbApi + "/ADB/api/decrement-search-quota-by-one";
     const response = this.http.post(url, {});
+    return response;
+  }
+  b2bCheckSubscriptionStatus(): Observable<any> {
+      const headers = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + localStorage.getItem("auth_token"),
+      }),
+    };
+    const url = environment.prodGlobalB2BApi + "/amplizglobalb2breadapi/user/check-subscription-status";
+    const response = this.http.get(url, headers) as Observable<any>;
     return response;
   }
 }
