@@ -31,6 +31,13 @@ export class PeopleCardComponent implements OnInit {
   @Output() contactViewed = new EventEmitter();
   @Input() checkboxDisabled: boolean = false;
 
+  emailToShow: any = [];
+
+  personalEmails = ["leonardoboston@hotmail.com"];
+  workEmails = ["mcaicedo@tuftsmedicalcenter.org"];
+
+  emailList = [];
+
   constructor(
     private dataService: DataService,
     private amplizService: AmplizService,
@@ -40,6 +47,42 @@ export class PeopleCardComponent implements OnInit {
   ngOnInit() {
     this.getIndustryAndSkillset();
     this.resetSliceLength();
+    this.sortEmails();
+  }
+
+  async sortEmails() {
+    if (this.isEmailAvailable) {
+      if (this.personalEmails.length > 0) {
+        const obj: any = {};
+        obj.email = this.personalEmails[0];
+        obj.type = 'Personal'
+        this.emailToShow.push(obj);
+
+        this.personalEmails.map((x) => {
+          const obj1:any = {}
+          obj1.email = x;
+          obj1.type = 'Personal'
+          this.emailList.push(obj1);
+        })
+      } 
+      if (this.workEmails.length > 0) {
+        const obj: any = {};
+        obj.email = this.workEmails[0];
+        obj.type = 'Work'
+        this.emailToShow.push(obj);
+
+        this.workEmails.map((x) => {
+          const obj1: any = {};
+          obj1.email = x;
+          obj1.type = 'Work'
+          this.emailList.push(obj);
+        })
+      }
+    }
+  }
+
+  get isEmailAvailable() {
+    return this.contactInfo.personalEmails.length > 0 || this.contactInfo.workEmails.length > 0
   }
 
   get isSaved() {

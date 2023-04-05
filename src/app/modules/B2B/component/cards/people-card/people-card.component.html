@@ -1,7 +1,7 @@
 <div class="physican_container card-animate">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-8">
+      <div class="col-sm-12 col-md-7">
         <div class="physician_card">
           <div class="form-check">
             <input
@@ -97,9 +97,9 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-4">
-        <div class="physican_additionInfo">
-          <ng-container
+      <div class="col-sm-12 col-md-5">
+        <div class="physican_additionInfo" style="margin-left: 30px;">
+          <!-- <ng-container
             *ngIf="contactInfo.email != null && contactInfo.email != ''"
           >
             <span>
@@ -112,7 +112,59 @@
                 >{{ contactInfo.email }}</a
               >
             </span>
+          </ng-container> -->
+
+
+          <ng-container
+            *ngFor="let item of emailToShow"
+          >
+            <span class="row mb-1">
+              <div class="row col-4 align-items-center">
+                <i class="fa fa-envelope-o col-3" aria-hidden="true"></i>
+                <div class="email-type-container col-8">
+                  <span class="email-type-text">{{item.type}}</span>
+                </div>
+              </div>
+                <a
+                [href]="'mailto:' + contactInfo.email"
+                class="physican_email col-8"
+                style="font-size: 12px !important;"
+                [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
+                [ngStyle]="isEmailMasked?{'cursor': 'default'} : {'cursor': 'pointer'}"
+                >{{ item.email }}</a>
+            </span>
           </ng-container>
+
+
+          <ng-container>
+            <button mat-button [matMenuTriggerFor]="aboveMenu">Show all </button>
+                <mat-menu #aboveMenu="matMenu" yPosition="above">
+                  <mat-icon >chevron_right</mat-icon> 
+                  <!-- [style.transform]="condition ? '':'rotate(180deg)'" -->
+                  <div class="email-list-container"  *ngFor="let item of emailList">
+                    <span class="row mb-1">
+                      <div class="row col-4 align-items-center">
+                        <i class="fa fa-envelope-o col-3" aria-hidden="true"></i>
+                        <div class="email-type-container col-8">
+                          <span class="email-type-text">{{item.type}}</span>
+                        </div>
+                      </div>
+                        <a
+                        [href]="'mailto:' + contactInfo.email"
+                        class="physican_email col-8"
+                        style="font-size: 12px !important;"
+                        [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
+                        [ngStyle]="isEmailMasked?{'cursor': 'default'} : {'cursor': 'pointer'}"
+                        >{{ item.email }}</a>
+                    </span>
+                  </div>
+                </mat-menu>
+          </ng-container>
+          
+          
+
+
+
           <!-- If Email is not present -->
           <ng-container
             *ngIf="
