@@ -190,8 +190,8 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     this.b2bService.getSearchQuota().subscribe(
       (res) => {
         // this.dataService.passSearchQuota(res.percentageUsed);
-        // this.dataService.passSearchQuota(res.dailySearchQuota);
-        this.dataService.passSearchQuota(1); //TEMPRORAY fix for search quota // Need to uncomment line 144 when data is fixed
+        this.dataService.passSearchQuota(res.dailySearchQuota);
+        // this.dataService.passSearchQuota(1); //TEMPRORAY fix for search quota // Need to uncomment line 144 when data is fixed
         // this.searchQuota = 10;
         // this.dataService.passSearchQuota(100);
       },
