@@ -152,7 +152,8 @@ const appRoutes = [
     CommonComponentsModule,
     BasicModule,
     NgMultiSelectDropDownModule.forRoot(),
-    AgGridModule.withComponents([ButtoncellrendererComponent]),
+    AgGridModule,
+    // AgGridModule.withComponents([ButtoncellrendererComponent]),
     RouterModule.forChild(appRoutes),
   ],
   exports: [
