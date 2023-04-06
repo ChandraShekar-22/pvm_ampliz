@@ -1,20 +1,15 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ElementRef,
-} from "@angular/core";
-import { Router } from "@angular/router";
-import { SearchContactInput } from "src/app/modules/B2B/models/SearchContactModel";
-import { DataService } from "src/app/modules/B2B/services/data.service";
-import { AmplizService } from "../../../../healthcare/services/ampliz.service";
-import { MessageService } from "../../../services/message.service";
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { SearchContactInput } from 'src/app/modules/B2B/models/SearchContactModel';
+import { DataService } from 'src/app/modules/B2B/services/data.service';
+import { AmplizService } from '../../../../healthcare/services/ampliz.service';
+import { MessageService } from '../../../services/message.service';
+import { Clipboard } from '@angular/cdk/clipboard';
+
 @Component({
-  selector: "app-people-card",
-  templateUrl: "./people-card.component.html",
-  styleUrls: ["./people-card.component.css"],
+  selector: 'app-people-card',
+  templateUrl: './people-card.component.html',
+  styleUrls: ['./people-card.component.css'],
 })
 export class PeopleCardComponent implements OnInit {
   @Input() contactInfo: any;
@@ -33,15 +28,16 @@ export class PeopleCardComponent implements OnInit {
 
   emailToShow: any = [];
 
-  personalEmails = ["leonardoboston@hotmail.com"];
-  workEmails = ["mcaicedo@tuftsmedicalcenter.org"];
+  personalEmails = ['******@hotmail.com', '******@yahoo.com'];
+  workEmails = ['******@tuftsmedicalcenter.org', '******@hotmail.com'];
 
   emailList = [];
 
   constructor(
     private dataService: DataService,
     private amplizService: AmplizService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit() {
@@ -50,68 +46,98 @@ export class PeopleCardComponent implements OnInit {
     this.sortEmails();
   }
 
-  async sortEmails() {
+  sortEmails() {
     if (this.isEmailAvailable) {
+      this.emailToShow = [];
+      this.emailList = [];
       if (this.personalEmails.length > 0) {
         const obj: any = {};
         obj.email = this.personalEmails[0];
-        obj.type = 'Personal'
+        obj.type = 'Personal';
         this.emailToShow.push(obj);
+        if (this.personalEmails.length > 1 && this.workEmails.length < 0) {
+          const obj: any = {};
+          obj.email = this.personalEmails[1];
+          obj.type = 'Personal';
+          this.emailToShow.push(obj);
+        }
 
         this.personalEmails.map((x) => {
-          const obj1:any = {}
+          const obj1: any = {};
           obj1.email = x;
-          obj1.type = 'Personal'
+          obj1.type = 'Personal';
           this.emailList.push(obj1);
-        })
-      } 
+        });
+      }
       if (this.workEmails.length > 0) {
         const obj: any = {};
         obj.email = this.workEmails[0];
-        obj.type = 'Work'
+        obj.type = 'Work';
         this.emailToShow.push(obj);
+        if (this.workEmails.length > 1 && this.personalEmails.length < 0) {
+          const obj: any = {};
+          obj.email = this.workEmails[1];
+          obj.type = 'Work';
+          this.emailToShow.push(obj);
+        }
 
         this.workEmails.map((x) => {
           const obj1: any = {};
           obj1.email = x;
-          obj1.type = 'Work'
+          obj1.type = 'Work';
           this.emailList.push(obj);
-        })
+        });
       }
     }
   }
 
   get isEmailAvailable() {
-    return this.contactInfo.personalEmails.length > 0 || this.contactInfo.workEmails.length > 0
+    return this.personalEmails.length > 0 || this.workEmails.length > 0;
+  }
+
+  get isBothEmailAvaialble() {
+    return this.personalEmails.length > 0 && this.workEmails.length > 0;
   }
 
   get isSaved() {
-    return this.contactInfo.leadSaveStatus === "Saved";
+    return this.contactInfo.leadSaveStatus === 'Saved';
   }
 
   get showSaveButton() {
-    return this.contactInfo.leadSaveStatus !== "Saved";
+    return this.contactInfo.leadSaveStatus !== 'Saved';
   }
   get isSaveButton() {
-    return this.contactInfo.leadSaveStatus == "Viewed";
+    return this.contactInfo.leadSaveStatus == 'Viewed';
   }
 
   get showRequestContactBtn() {
     return (
-      (this.contactInfo.directDialPhone.length <= 0 &&
-        this.contactInfo.email.length <= 0) ||
-      this.contactInfo.email.length <= 0 ||
+      (this.contactInfo.directDialPhone.length <= 0 && !this.isBothEmailAvaialble) ||
+      // this.contactInfo.personalEmails.length <= 0 ||
       (this.contactInfo.directDialPhone[0] === null &&
-        this.contactInfo.email[0] === null) ||
-      this.contactInfo.email[0] === null
+        this.contactInfo.personalEmails[0] === null &&
+        this.contactInfo.workEmails[0] === null)
+      // || this.contactInfo.personalEmails[0] === null
     );
   }
 
   get isEmailMasked() {
-    if (this.contactInfo.email[0].indexOf("*") > -1) {
+    // if (this.isBothEmailAvaialble) {
+    //   if (this.contactInfo.personalEmails[0].indexOf('*') > -1) {
+    //     return true;
+    //   }
+    //   if (this.contactInfo.workEmails[0].indexOf('*') > -1) {
+    //     return true;
+    //   } else {
+    //     this.saveBtnTrigger = true;
+    //     return false;
+    //   }
+    // } else {
+    //   return true;
+    // }
+    if (this.personalEmails[0].indexOf('*') > -1 && this.workEmails[0].indexOf('*') > -1) {
       return true;
     } else {
-      this.saveBtnTrigger = true;
       return false;
     }
   }
@@ -143,8 +169,8 @@ export class PeopleCardComponent implements OnInit {
 
   openUrl(type) {
     const url = this.contactInfo[type];
-    if (url !== "") {
-      window.open(url, "popUpWindow");
+    if (url !== '') {
+      window.open(url, 'popUpWindow');
     }
   }
 
@@ -164,7 +190,7 @@ export class PeopleCardComponent implements OnInit {
 
   request(request: any, id: any) {
     const body = {
-      comid: "0",
+      comid: '0',
       url: window.location.href + `/${id}`,
       intentrequest: request,
     };
@@ -173,10 +199,20 @@ export class PeopleCardComponent implements OnInit {
     });
   }
 
+  copyToClipboard(textToCopy: string) {
+    this.clipboard.copy(textToCopy);
+    this.messageService.display(true, 'Email copied to clipboard');
+  }
+
   refreshValues(res) {
     // console.log("res", res);
     this.contactViewed.emit();
-    this.contactInfo.email = res.email;
+    this.personalEmails = ['leonardoboston@hotmail.com', 'leonardoboston@hotmail.com'];
+    this.workEmails = ['mcaicedo@tuftsmedicalcenter.org', 'leonardoboston@hotmail.com'];
+    this.sortEmails();
+    this.contactInfo.personalEmails = res.personalEmails;
+    this.contactInfo.workEmails = res.workEmails;
+    // this.contactInfo.email = res.email;
     this.contactInfo.phone = res.phone;
     this.contactInfo.linkedinURL = res.linkedinUrl;
     this.saveBtnTrigger = true;
