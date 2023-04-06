@@ -1,38 +1,32 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  TemplateRef,
-} from "@angular/core";
-import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
-import { LoaderService } from "src/app/modules/healthcare/services/loader.service";
-import moment from "moment";
-import { Router } from "@angular/router";
-import { PaginationService } from "src/app/modules/healthcare/services/pagination.service";
-import { ButtoncellrendererComponent } from "src/app/modules/basic/component/ag-grid/buttoncellrenderer/buttoncellrenderer.component";
-import { B2bService } from "../../services/b2b.service";
-import { MessageService } from "../../services/message.service";
-import { ExportButtonLoaderComponent } from "../../../basic/component/export-button-loader/export-button-loader.component";
-import { DeleteIconAgGridComponent } from "src/app/modules/basic/component/delete-icon-ag-grid/delete-icon-ag-grid.component";
-import { ExportCsvBtnComponent } from "src/app/modules/basic/component/export-csv-btn/export-csv-btn.component";
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
+import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
+import moment from 'moment';
+import { Router } from '@angular/router';
+import { PaginationService } from 'src/app/modules/healthcare/services/pagination.service';
+import { ButtoncellrendererComponent } from 'src/app/modules/basic/component/ag-grid/buttoncellrenderer/buttoncellrenderer.component';
+import { B2bService } from '../../services/b2b.service';
+import { MessageService } from '../../services/message.service';
+import { ExportButtonLoaderComponent } from '../../../basic/component/export-button-loader/export-button-loader.component';
+import { DeleteIconAgGridComponent } from 'src/app/modules/basic/component/delete-icon-ag-grid/delete-icon-ag-grid.component';
+import { ExportCsvBtnComponent } from 'src/app/modules/basic/component/export-csv-btn/export-csv-btn.component';
 
-import { CustomTooltipComponent } from "src/app/modules/basic/component/custom-tooltip/custom-tooltip.component";
-import { HttpParams } from "@angular/common/http";
+import { CustomTooltipComponent } from 'src/app/modules/basic/component/custom-tooltip/custom-tooltip.component';
+import { HttpParams } from '@angular/common/http';
 @Component({
-  selector: "app-b2b-list",
-  templateUrl: "./b2b-list.component.html",
-  styleUrls: ["./b2b-list.component.css"],
+  selector: 'app-b2b-list',
+  templateUrl: './b2b-list.component.html',
+  styleUrls: ['./b2b-list.component.css'],
 })
 export class B2bListComponent implements OnInit {
-  @ViewChild("closeBtn") closeBtn: ElementRef;
-  @ViewChild("hideCancelOption")
+  @ViewChild('closeBtn') closeBtn: ElementRef;
+  @ViewChild('hideCancelOption')
   hideCancelOption: ElementRef;
-  @ViewChild("listNameToolTip", { static: true })
+  @ViewChild('listNameToolTip', { static: true })
   listNameToolTip: TemplateRef<any>;
   alert: boolean = false;
   columnDefs: any;
-  searchString: string = "";
+  searchString: string = '';
   createDrawer: boolean = false;
   paginationPageSize: number;
   sortingOrders: any;
@@ -50,13 +44,15 @@ export class B2bListComponent implements OnInit {
   clickedListId: any;
   apiUrl: any;
   leadName: string;
-  headerData = "";
+  headerData = '';
   public user = null;
   subscriptions = [];
   frameworkComponents: any;
   subscribed: boolean;
   public overlayLoadingTemplate =
     '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
+  public noRowsTemplate = `"<span">no rows to show</span>"`;
+
   context: any;
   // gridOptions: any;
   constructor(
@@ -73,18 +69,18 @@ export class B2bListComponent implements OnInit {
       buttonRenderer: ButtoncellrendererComponent,
     };
     this.columnDefs = [
-      { tooltipField: 'col1', },
+      { tooltipField: 'col1' },
       {
-        headerName: "List name",
-        field: "listName",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'List name',
+        field: 'listName',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         lockPosition: true,
         width: 300,
         suppressSizeToFit: true,
-        cellStyle: { fontWeight: "500" },
+        cellStyle: { fontWeight: '500' },
         tooltipComponent: CustomTooltipComponent,
         tooltipValueGetter: function (params) {
           if (params.value.length > 20) {
@@ -98,22 +94,15 @@ export class B2bListComponent implements OnInit {
           if (params.value.length > 20) {
             let trimmedStr = listName;
             trimmedStr = params.value.substring(0, 20);
-            const shortStr = trimmedStr + "...";
+            const shortStr = trimmedStr + '...';
             listName = shortStr;
             // return "<span>" + shortStr + "</span>";
           }
 
-          if (
-            params.data.status === "inProgress" ||
-            params.data.noOfLeads <= 0
-          ) {
-            return "<span>" + listName + "<br/></span>";
+          if (params.data.status === 'inProgress' || params.data.noOfLeads <= 0) {
+            return '<span>' + listName + '<br/></span>';
           } else {
-            return (
-              '<div class="listLink"><a href="javascript:void(0)">' +
-              listName +
-              "</a><br/><div>"
-            );
+            return '<div class="listLink"><a href="javascript:void(0)">' + listName + '</a><br/><div>';
           }
 
           // else if (
@@ -139,40 +128,40 @@ export class B2bListComponent implements OnInit {
         // }
       },
       {
-        headerName: "Contacts",
-        field: "noOfLeads",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Contacts',
+        field: 'noOfLeads',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         width: 120,
         lockPosition: true,
         sortable: true,
         suppressSizeToFit: true,
-        cellStyle: { color: "#515050", fontWeight: "400" },
+        cellStyle: { color: '#515050', fontWeight: '400' },
       },
       {
-        headerName: "Owner",
-        field: "createdBy",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Owner',
+        field: 'createdBy',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         lockPosition: true,
         sortable: true,
         width: 240,
         suppressSizeToFit: true,
-        cellStyle: { color: "#515050", fontWeight: "400" },
+        cellStyle: { color: '#515050', fontWeight: '400' },
       },
       {
-        headerName: "Created On",
-        field: "createdOn",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Created On',
+        field: 'createdOn',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         lockPosition: true,
         autoHeight: true,
         sortable: true,
         width: 180,
         suppressSizeToFit: true,
-        cellStyle: { color: "#515050", fontWeight: "400" },
+        cellStyle: { color: '#515050', fontWeight: '400' },
         // cellRenderer: function (params) {
         //   if (params.data.noOfLeads > 0) {
         //     return (
@@ -188,16 +177,16 @@ export class B2bListComponent implements OnInit {
         // },
       },
       {
-        headerName: "Last modified",
-        field: "updatedOn",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Last modified',
+        field: 'updatedOn',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         sortable: true,
         autoHeight: true,
         lockPosition: true,
         width: 220,
         suppressSizeToFit: true,
-        cellStyle: { color: "#515050", fontWeight: "400" },
+        cellStyle: { color: '#515050', fontWeight: '400' },
         // cellRenderer: function (params) {
         //   return params.value
         //     ? moment(params.value).format('DD MMM YYYY')
@@ -206,9 +195,9 @@ export class B2bListComponent implements OnInit {
       },
 
       {
-        headerName: "Action",
-        field: "delete",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Action',
+        field: 'delete',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         sortable: false,
         autoHeight: true,
@@ -227,26 +216,23 @@ export class B2bListComponent implements OnInit {
           const exportCsv = {
             component: ExportCsvBtnComponent,
           };
-          if (
-            params.data.noOfLeads <= 0 ||
-            params.data.status === "Completed"
-          ) {
+          if (params.data.noOfLeads <= 0 || params.data.status === 'Completed') {
             return exportCsv;
           }
-          if (params.data.status === "inProgress") {
+          if (params.data.status === 'inProgress') {
             return loader;
           }
         },
       },
     ];
-    this.sortingOrders = ["desc", "asc", null];
+    this.sortingOrders = ['desc', 'asc', null];
     this.paginationPageSize = 10;
     this.defaultColDef = {
       resizable: true,
       tooltipComponent: CustomTooltipComponent,
     };
   }
-  public domLayout = "autoHeight";
+  public domLayout = 'autoHeight';
 
   onFirstDataRendered(params) {
     params.api.sizeColumnsToFit();
@@ -262,8 +248,8 @@ export class B2bListComponent implements OnInit {
 
   async setRowData() {
     await this.b2bService.getB2bApacList(this.offset, this.count, true).subscribe(
-       (res) => {
-         console.log("DATA SOURCE", this.datasource);
+      (res) => {
+        console.log('DATA SOURCE', this.datasource);
         this.datasource = res.savedlistInfoList;
         this.paramsData.api.setRowData(this.datasource);
         // this.gridApi.sizeColumnsToFit();
@@ -273,7 +259,7 @@ export class B2bListComponent implements OnInit {
   }
 
   // variables List Tabs
-  tabItems = ["All", "Processing", "Completed"];
+  tabItems = ['All', 'Processing', 'Completed'];
   activeLink = this.tabItems[0];
   currentTab: number = 0;
 
@@ -346,16 +332,14 @@ export class B2bListComponent implements OnInit {
 
   renderDataTable() {
     if (this.searchString) {
-      this.b2bService
-        .searchB2bApacList(this.searchString, this.offset, this.count)
-        .subscribe(
-          (res) => {
-            this.datasource = res.savedlistInfoList;
-            this.paramsData.api.setRowData(this.datasource);
-            // this.gridApi.sizeColumnsToFit();
-          },
-          (error) => {}
-        );
+      this.b2bService.searchB2bApacList(this.searchString, this.offset, this.count).subscribe(
+        (res) => {
+          this.datasource = res.savedlistInfoList;
+          this.paramsData.api.setRowData(this.datasource);
+          // this.gridApi.sizeColumnsToFit();
+        },
+        (error) => {}
+      );
     } else {
       this.b2bService.getB2bApacList(this.offset, this.count, true).subscribe(
         (res) => {
@@ -369,13 +353,13 @@ export class B2bListComponent implements OnInit {
     }
   }
   onCellClicked(ev) {
-    if (ev.column.colId == "listName") {
-      if (ev.data.noOfLeads > 0 && ev.data.status !== "inProgress") {
-        this.router.navigate(["/b2b-list", ev.data.listId, ev.data.listName]);
+    if (ev.column.colId == 'listName') {
+      if (ev.data.noOfLeads > 0 && ev.data.status !== 'inProgress') {
+        this.router.navigate(['/b2b-list', ev.data.listId, ev.data.listName]);
       }
     }
 
-    if (ev.column.colId == "delete") {
+    if (ev.column.colId == 'delete') {
       this.clickedListId = ev.data.listId;
     }
   }
@@ -385,7 +369,7 @@ export class B2bListComponent implements OnInit {
     this.b2bService.exportAllCsv(body).subscribe(
       (res) => {
         this.loaderService.display(false);
-        const name = "contacts" + new Date().toISOString() + ".csv";
+        const name = 'contacts' + new Date().toISOString() + '.csv';
         this.b2bService.saveFile(res.body, name);
       },
       (err) => {
@@ -398,7 +382,7 @@ export class B2bListComponent implements OnInit {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     // this.loaderService.display(true);
     // this.displayDataInTable()
@@ -407,73 +391,56 @@ export class B2bListComponent implements OnInit {
     this.showLoading(true);
     if (this.searchString) {
       this.activeLink = this.tabItems[0];
-      this.b2bService
-        .searchB2bApacList(this.searchString, this.offset, this.count)
-        .subscribe(
-          (res) => {
-            this.showLoading(false);
+      this.b2bService.searchB2bApacList(this.searchString, this.offset, this.count).subscribe(
+        (res) => {
+          this.showLoading(false);
+          //
+          this.datasource = res.savedlistInfoList;
+          //
+          if (this.datasource.length != 0) {
+            this.totalSize = res.totalCount;
             //
-            this.datasource = res.savedlistInfoList;
+            this.pager = this.pagerservice.getPager(this.totalSize, page, this.count);
+            this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1);
             //
-            if (this.datasource.length != 0) {
-              this.totalSize = res.totalCount;
-              //
-              this.pager = this.pagerservice.getPager(
-                this.totalSize,
-                page,
-                this.count
-              );
-              this.pagedItems = this.datasource.slice(
-                this.pager.startIndex,
-                this.pager.endIndex + 1
-              );
-              //
-              this.paramsData.api.setRowData(this.datasource);
-              // this.loaderService.display(false);
-            } else {
-              this.loaderService.display(false);
-            }
-          },
-          (error) => {}
-        );
+            this.paramsData.api.setRowData(this.datasource);
+            // this.loaderService.display(false);
+          } else {
+            this.loaderService.display(false);
+          }
+        },
+        (error) => {}
+      );
     } else {
-      let status = "";
+      let status = '';
       if (this.activeLink === this.tabItems[1]) {
-        status = "inProgress";
+        status = 'inProgress';
       } else if (this.activeLink === this.tabItems[2]) {
-        status = "completed";
+        status = 'completed';
       }
 
-      this.b2bService
-        .getB2bApacList(this.offset, this.count, true, status)
-        .subscribe(
-          (res) => {
+      this.b2bService.getB2bApacList(this.offset, this.count, true, status).subscribe(
+        (res) => {
+          this.showLoading(false);
+          //
+          this.datasource = res.savedlistInfoList;
+          //
+          if (this.datasource.length != 0) {
+            this.totalSize = res.totalCount;
+            //
+            this.pager = this.pagerservice.getPager(this.totalSize, page, this.count);
+            this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1);
+            //
+            this.paramsData.api.setRowData(this.datasource);
+            // this.loaderService.display(false);
+          } else {
+            this.paramsData.api.setRowData(this.datasource);
             this.showLoading(false);
-            //
-            this.datasource = res.savedlistInfoList;
-            //
-            if (this.datasource.length != 0) {
-              this.totalSize = res.totalCount;
-              //
-              this.pager = this.pagerservice.getPager(
-                this.totalSize,
-                page,
-                this.count
-              );
-              this.pagedItems = this.datasource.slice(
-                this.pager.startIndex,
-                this.pager.endIndex + 1
-              );
-              //
-              this.paramsData.api.setRowData(this.datasource);
-              // this.loaderService.display(false);
-            } else {
-              this.showLoading(false);
-              this.loaderService.display(false);
-            }
-          },
-          (error) => {}
-        );
+            this.loaderService.display(false);
+          }
+        },
+        (error) => {}
+      );
     }
   }
 
@@ -491,7 +458,7 @@ export class B2bListComponent implements OnInit {
     this.loaderService.display(true);
     this.b2bService.deleteList(listId).subscribe(
       (res) => {
-        this.messageService.display(true, "Selected list successfully deleted");
+        this.messageService.display(true, 'Selected list successfully deleted');
         this.loaderService.display(false);
         // this.hideCancelOption.nativeElement.click();
         this.renderDataTable();
