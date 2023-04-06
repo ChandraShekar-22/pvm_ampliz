@@ -1105,7 +1105,7 @@
                     *ngIf="includedSeniorityList?.length > 0"
                     [ngClass]="'selected'"
                   >
-                    {{ includedSeniorityList[0].Name }}
+                    {{ includedSeniorityList[0]}}
                   </mat-basic-chip>
                   <span
                     *ngIf="includedSeniorityList?.length > 1"
@@ -1144,7 +1144,7 @@
                           *ngFor="let item of includedSeniorityList; index as i"
                           class="chip-list"
                         >
-                          {{ item.Name }}
+                          {{ item }}
                           <mat-icon matChipRemove class="chip-list"
                             >close</mat-icon
                           >
@@ -1153,7 +1153,7 @@
                     <mat-option
                       [value]="seniority"
                       *ngFor="let seniority of seniorityList"
-                      >{{ seniority.Name }}</mat-option
+                      >{{ seniority }}</mat-option
                     >
                   </mat-select>
                   <mat-icon

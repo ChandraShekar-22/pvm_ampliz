@@ -21,9 +21,9 @@ import { DataService } from "../../services/data.service";
 import { Subscription } from "rxjs";
 
 @Component({
-  selector: "app-filter-people",
-  templateUrl: "./filter-people.component.html",
-  styleUrls: ["./filter-people.component.css"],
+  selector: 'app-filter-people',
+  templateUrl: './filter-people.component.html',
+  styleUrls: ['./filter-people.component.css'],
   // animations: [
   //   trigger("enterAnimation", [
   //     transition(":enter", [
@@ -37,9 +37,7 @@ import { Subscription } from "rxjs";
   //   ]),
   // ],
 })
-export class FilterPeopleComponent
-  implements OnInit, AfterViewInit, OnChanges, OnDestroy
-{
+export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   constructor(
     private b2bService: B2bService,
     private filterStorageService: FilterStorageService,
@@ -51,7 +49,7 @@ export class FilterPeopleComponent
   searchContactInput: SearchContactInput = new SearchContactInput();
   selectable = true;
   removable = true;
-  selectedPanel = "";
+  selectedPanel = '';
   separatorKeysCodes: number[] = [ENTER, COMMA];
   activeFilterCount: number = 0;
 
@@ -60,14 +58,14 @@ export class FilterPeopleComponent
   companyList: Array<any> = [];
   includedCompanyList: Array<any> = [];
   recentCompany: Array<any> = [];
-  @ViewChild("includeCompanyInput")
+  @ViewChild('includeCompanyInput')
   includeCompanyInput: ElementRef<HTMLInputElement>;
 
   // Company Keywords Variables
   companyKeywordsList: Array<any> = [];
   selectedCompanyKeywords: Array<any> = [];
   companyKeywordControl: UntypedFormControl = new UntypedFormControl();
-  @ViewChild("comapanyKeywordInput")
+  @ViewChild('comapanyKeywordInput')
   comapanyKeywordInput: ElementRef<HTMLInputElement>;
   recentCompanyKeyword: Array<any> = [];
 
@@ -75,7 +73,7 @@ export class FilterPeopleComponent
   contactListControl = new UntypedFormControl();
   recentContactsList: Array<any> = [];
   includedContactsList: Array<any> = [];
-  @ViewChild("includeContactInput")
+  @ViewChild('includeContactInput')
   includeContactInput: ElementRef<HTMLInputElement>;
 
   // Title  Variables
@@ -88,9 +86,9 @@ export class FilterPeopleComponent
   recentIncludeTitle: Array<any> = [];
   recentExcludeTitle: Array<any> = [];
 
-  @ViewChild("includeTitleInput")
+  @ViewChild('includeTitleInput')
   includeTitleInput: ElementRef<HTMLInputElement>;
-  @ViewChild("excludeTitleInput")
+  @ViewChild('excludeTitleInput')
   excludeTitleInput: ElementRef<HTMLInputElement>;
 
   // Industry  Variables
@@ -102,9 +100,9 @@ export class FilterPeopleComponent
   excludedIndustryList: Array<any> = [];
   recentIncludeIndustry: Array<any> = [];
   recentExcludeIndustry: Array<any> = [];
-  @ViewChild("includeIndustryInput")
+  @ViewChild('includeIndustryInput')
   includeIndustryInput: ElementRef<HTMLInputElement>;
-  @ViewChild("excludeIndustryInput")
+  @ViewChild('excludeIndustryInput')
   excludeIndustryInput: ElementRef<HTMLInputElement>;
 
   // Seniority Variables
@@ -112,7 +110,7 @@ export class FilterPeopleComponent
   seniorityList = this.dataService.seniorityList;
   includedSeniorityList: Array<any> = [];
   recentSeniority: Array<any> = [];
-  @ViewChild("includeSeniorityInput")
+  @ViewChild('includeSeniorityInput')
   includeSeniorityInput: ElementRef<HTMLInputElement>;
 
   // Department Variables
@@ -120,7 +118,7 @@ export class FilterPeopleComponent
   departmentList: Array<any> = [];
   includedDepartmentList: Array<any> = [];
   recentDepartment: Array<any> = [];
-  @ViewChild("includeDepartmentInput")
+  @ViewChild('includeDepartmentInput')
   includeDepartmentInput: ElementRef<HTMLInputElement>;
 
   // Skill Variables
@@ -131,9 +129,9 @@ export class FilterPeopleComponent
   excludedSkillList: Array<any> = [];
   recentIncludeSkill: Array<any> = [];
   recentExcludeSkill: Array<any> = [];
-  @ViewChild("includeSkillInput")
+  @ViewChild('includeSkillInput')
   includeSkillInput: ElementRef<HTMLInputElement>;
-  @ViewChild("excludeSkillInput")
+  @ViewChild('excludeSkillInput')
   excludeSkillInput: ElementRef<HTMLInputElement>;
 
   // Employee Variables
@@ -148,14 +146,14 @@ export class FilterPeopleComponent
   countryList: Array<any> = [];
   countryControl: UntypedFormControl = new UntypedFormControl();
   selectedCountry: Array<any> = [];
-  @ViewChild("countryInput")
+  @ViewChild('countryInput')
   countryInput: ElementRef<HTMLInputElement>;
 
   //State Variables
   stateList: Array<any> = [];
   stateControl: UntypedFormControl = new UntypedFormControl();
   selectedStates: Array<any> = [];
-  @ViewChild("stateInput")
+  @ViewChild('stateInput')
   stateInput: ElementRef<HTMLInputElement>;
 
   //City Variables
@@ -165,7 +163,7 @@ export class FilterPeopleComponent
   cityControl: UntypedFormControl = new UntypedFormControl();
   selectedCities: Array<any> = [];
 
-  @ViewChild("cityInput")
+  @ViewChild('cityInput')
   cityInput: ElementRef<HTMLInputElement>;
   cityList: any = [];
 
@@ -198,7 +196,7 @@ export class FilterPeopleComponent
 
   getDepartmentList() {
     const body = {
-      searchPhrase: this.departmentListControl.value || "",
+      searchPhrase: this.departmentListControl.value || '',
       previouslySearchedTerm: [...this.includedDepartmentList],
     };
     this.b2bService.getDepartmentList(body).subscribe((res) => {
@@ -207,11 +205,8 @@ export class FilterPeopleComponent
   }
   getIndustryList() {
     const body = {
-      searchPhrase: this.includeIndustryControl.value || "",
-      previouslySearchedTerm: [
-        ...this.includedIndustryList,
-        ...this.excludedIndustryList,
-      ],
+      searchPhrase: this.includeIndustryControl.value || '',
+      previouslySearchedTerm: [...this.includedIndustryList, ...this.excludedIndustryList],
     };
     this.b2bService.getIndustryList(body).subscribe((res) => {
       this.industryList = res.industryList;
@@ -240,11 +235,12 @@ export class FilterPeopleComponent
     this.searchContactInput.titleExclude = this.excludedTitleList;
     this.searchContactInput.industryInclude = this.includedIndustryList;
     this.searchContactInput.industryExclude = this.excludedIndustryList;
-    this.searchContactInput.seniority = this.includedSeniorityList.map(
-      (seniority) => {
-        return seniority.Value;
-      }
-    );
+    this.searchContactInput.seniority = this.includedSeniorityList;
+    // this.searchContactInput.seniority = this.includedSeniorityList.map(
+    //   (seniority) => {
+    //     return seniority.Value;
+    //   }
+    // );
 
     this.searchContactInput.deptInclude = this.includedDepartmentList;
     this.searchContactInput.skillInclude = this.includedSkillList;
@@ -262,15 +258,9 @@ export class FilterPeopleComponent
     //   this.searchContactInput.revenue,
     //   "this.searchContactInput.revenue"
     // );
-    this.searchContactInput.stateList = this.selectedStates.map(
-      (state) => state.stateFullName
-    );
-    this.searchContactInput.cityList = this.selectedCities.map(
-      (state) => state.city
-    );
-    this.searchContactInput.countryList = this.selectedCountry.map(
-      (itm) => itm.country
-    );
+    this.searchContactInput.stateList = this.selectedStates.map((state) => state.stateFullName);
+    this.searchContactInput.cityList = this.selectedCities.map((state) => state.city);
+    this.searchContactInput.countryList = this.selectedCountry.map((itm) => itm.country);
     // ? [this.selectedCountry.countryId]
     // : [];
     this.getActiveFilterCount(this.searchContactInput);
@@ -283,41 +273,23 @@ export class FilterPeopleComponent
   getPersistData() {
     // let that = this;
     setTimeout(() => {
-      this.includedCompanyList =
-        this.filterStorageService.get("b2b_people_includedCompanyList") || [];
-      this.includedContactsList =
-        this.filterStorageService.get("b2b_people_includedContactsList") || [];
-      this.includedTitleList =
-        this.filterStorageService.get("b2b_people_includedTitleList") || [];
-      this.excludedTitleList =
-        this.filterStorageService.get("b2b_people_excludedTitleList") || [];
-      this.includedIndustryList =
-        this.filterStorageService.get("b2b_people_includedIndustryList") || [];
-      this.excludedIndustryList =
-        this.filterStorageService.get("b2b_people_excludedIndustryList") || [];
-      this.includedSeniorityList =
-        this.filterStorageService.get("b2b_people_includedSeniorityList") || [];
-      this.includedDepartmentList =
-        this.filterStorageService.get("b2b_people_includedDepartmentList") ||
-        [];
-      this.includedSkillList =
-        this.filterStorageService.get("b2b_people_includedSkillList") || [];
-      this.excludedSkillList =
-        this.filterStorageService.get("b2b_people_excludedSkillList") || [];
-      this.includedEmployeeRange =
-        this.filterStorageService.get("b2b_people_includedEmployeeRange") || [];
-      this.includedRevenueRange =
-        this.filterStorageService.get("b2b_people_includedRevenueRange") || [];
+      this.includedCompanyList = this.filterStorageService.get('b2b_people_includedCompanyList') || [];
+      this.includedContactsList = this.filterStorageService.get('b2b_people_includedContactsList') || [];
+      this.includedTitleList = this.filterStorageService.get('b2b_people_includedTitleList') || [];
+      this.excludedTitleList = this.filterStorageService.get('b2b_people_excludedTitleList') || [];
+      this.includedIndustryList = this.filterStorageService.get('b2b_people_includedIndustryList') || [];
+      this.excludedIndustryList = this.filterStorageService.get('b2b_people_excludedIndustryList') || [];
+      this.includedSeniorityList = this.filterStorageService.get('b2b_people_includedSeniorityList') || [];
+      this.includedDepartmentList = this.filterStorageService.get('b2b_people_includedDepartmentList') || [];
+      this.includedSkillList = this.filterStorageService.get('b2b_people_includedSkillList') || [];
+      this.excludedSkillList = this.filterStorageService.get('b2b_people_excludedSkillList') || [];
+      this.includedEmployeeRange = this.filterStorageService.get('b2b_people_includedEmployeeRange') || [];
+      this.includedRevenueRange = this.filterStorageService.get('b2b_people_includedRevenueRange') || [];
       // console.log(this.includedRevenueRange, "this.includedRevenueRange");
-      this.selectedStates =
-        this.filterStorageService.get("b2b_people_selectedStates") || [];
-      this.selectedCities =
-        this.filterStorageService.get("b2b_people_selectedCities") || [];
-      this.selectedCountry =
-        this.filterStorageService.get("b2b_people_selectedCountry") || [];
-      this.selectedCompanyKeywords =
-        this.filterStorageService.get("b2b_people_selectedCompanyKeywords") ||
-        [];
+      this.selectedStates = this.filterStorageService.get('b2b_people_selectedStates') || [];
+      this.selectedCities = this.filterStorageService.get('b2b_people_selectedCities') || [];
+      this.selectedCountry = this.filterStorageService.get('b2b_people_selectedCountry') || [];
+      this.selectedCompanyKeywords = this.filterStorageService.get('b2b_people_selectedCompanyKeywords') || [];
       // setTimeout(() => {
       this.omitChanges();
     });
@@ -327,7 +299,7 @@ export class FilterPeopleComponent
   makeSearchDatas(searchData: SearchContactInput) {
     if (searchData.companyList.length > 0) {
       this.includedCompanyList = searchData.companyList;
-      this.setLocalStorageValues("recentCompany", searchData.companyList[0]); // For showing result in rcent used company option
+      this.setLocalStorageValues('recentCompany', searchData.companyList[0]); // For showing result in rcent used company option
     }
 
     this.includedContactsList = searchData.fullNameList;
@@ -346,10 +318,12 @@ export class FilterPeopleComponent
     // console.log(this.includedRevenueRange, "inside make search");
     this.selectedStates = searchData.stateList;
     this.selectedCities = searchData.cityList;
-    this.selectedCountry =
-      searchData.countryList.length > 0 ? searchData.countryList : [];
-    const seniorityObj = this.getSeniorityObject(searchData.seniority);
-    this.includedSeniorityList = seniorityObj;
+    this.selectedCountry = searchData.countryList.length > 0 ? searchData.countryList : [];
+    this.includedSeniorityList = searchData.seniority;
+
+    // const seniorityObj = this.getSeniorityObject(searchData.seniority);
+    // this.includedSeniorityList = seniorityObj;
+
     this.omitChanges();
   }
 
@@ -366,15 +340,15 @@ export class FilterPeopleComponent
 
   getRevenueList() {
     this.revenueList = [
-      "$1M - $10M",
-      "$10M - $50M",
-      "$50M - $100M",
-      "$100M - $250M",
-      "$250M - $500M",
-      "$500M - $1B",
-      "$1B - $5B",
-      "$5B - $10B",
-      "$10B + $1B - $5B < $1M",
+      '$1M - $10M',
+      '$10M - $50M',
+      '$50M - $100M',
+      '$100M - $250M',
+      '$250M - $500M',
+      '$500M - $1B',
+      '$1B - $5B',
+      '$5B - $10B',
+      '$10B + $1B - $5B < $1M',
     ];
     // this.b2bService.getRevenueList().subscribe((res) => {
     //   this.revenueList = res.revenueList;
@@ -382,25 +356,23 @@ export class FilterPeopleComponent
     // });
   }
 
-  getCompanyKeywordsList(value = "") {
+  getCompanyKeywordsList(value = '') {
     this.b2bService.getCompanyKeywordList(value).subscribe((res) => {
       this.companyKeywordsList = res.companyKeywordsList;
     });
   }
 
   removeCompanyKeyword(keyword: any) {
-    if (keyword == "all") {
+    if (keyword == 'all') {
       this.selectedCompanyKeywords = [];
     }
-    const index = this.selectedCompanyKeywords.findIndex(
-      (item) => item.keywords == keyword
-    );
+    const index = this.selectedCompanyKeywords.findIndex((item) => item.keywords == keyword);
     this.selectedCompanyKeywords.splice(index, 1);
     this.companyKeywordsList = [];
     this.omitChanges();
   }
 
-  getCountryList(value = "") {
+  getCountryList(value = '') {
     this.b2bService.getCountryList(value).subscribe((res) => {
       this.countryList = res.countryList;
       this.getStateList();
@@ -408,25 +380,21 @@ export class FilterPeopleComponent
   }
 
   countrySelected(event) {
-    const index = this.selectedCountry.findIndex(
-      (item) => item.country == event.option.value.country
-    );
+    const index = this.selectedCountry.findIndex((item) => item.country == event.option.value.country);
     if (index == -1) {
       this.selectedCountry.push(event.option.value);
     }
-    this.countryControl.setValue("");
-    this.countryInput.nativeElement.value = "";
+    this.countryControl.setValue('');
+    this.countryInput.nativeElement.value = '';
     this.getStateList();
     this.omitChanges();
     // this
   }
   removeCountry(country: any) {
-    if (country == "all") {
+    if (country == 'all') {
       this.selectedCountry = [];
     } else {
-      const index = this.selectedCountry.findIndex(
-        (item) => item.country == country
-      );
+      const index = this.selectedCountry.findIndex((item) => item.country == country);
       this.selectedCountry.splice(index, 1);
     }
     // this.selectedCities = [];
@@ -439,7 +407,7 @@ export class FilterPeopleComponent
     this.omitChanges();
   }
 
-  getStateList(value = "") {
+  getStateList(value = '') {
     // console.log(this.selectedCountry)
     if (this.selectedCountry.length > 0) {
       this.b2bService
@@ -459,14 +427,12 @@ export class FilterPeopleComponent
 
   selectStates(event) {
     const receivedState = event.option.value;
-    const found = this.selectedStates.findIndex(
-      (ele) => ele.stateFullName === receivedState.stateFullName
-    );
+    const found = this.selectedStates.findIndex((ele) => ele.stateFullName === receivedState.stateFullName);
     if (found === -1) {
       this.selectedStates.push(receivedState);
-      this.stateInput.nativeElement.value = "";
+      this.stateInput.nativeElement.value = '';
       this.stateControl.setValue(null);
-      this.getCityList("");
+      this.getCityList('');
       this.omitChanges();
       // this.storeFilterData();
       // setTimeout(() => {
@@ -477,18 +443,14 @@ export class FilterPeopleComponent
 
   removeEmployeeRange(index: number) {
     // console.log(index);
-    this.includedEmployeeRange = this.includedEmployeeRange.filter(
-      (item, i) => {
-        return i != index;
-      }
-    );
+    this.includedEmployeeRange = this.includedEmployeeRange.filter((item, i) => {
+      return i != index;
+    });
     this.omitChanges();
   }
 
   removeState(inState: any) {
-    this.selectedStates = this.selectedStates.filter(
-      (state) => inState.stateFullName !== state.stateFullName
-    );
+    this.selectedStates = this.selectedStates.filter((state) => inState.stateFullName !== state.stateFullName);
     this.selectedCities = [];
     this.getCityList();
     // this.filteredCities = this.filteredCities.filter(
@@ -505,7 +467,7 @@ export class FilterPeopleComponent
     this.omitChanges();
   }
 
-  getCityList(value = "") {
+  getCityList(value = '') {
     if (this.selectedStates.length > 0) {
       var tStates = this.selectedStates.map((state) => state.stateId);
       var params = { stateId: tStates, searchPhrase: value };
@@ -518,51 +480,37 @@ export class FilterPeopleComponent
   }
 
   onCitySelect(city: any) {
-    const found = this.selectedCities.findIndex(
-      (ele) => ele.city === city.city
-    );
+    const found = this.selectedCities.findIndex((ele) => ele.city === city.city);
 
     if (found !== -1) {
     } else {
       this.selectedCities.push(city);
-      this.cityInput.nativeElement.value = "";
+      this.cityInput.nativeElement.value = '';
     }
     this.omitChanges();
   }
 
   onCityDeselect(city: any) {
-    this.selectedCities = this.selectedCities.filter(
-      (ele) => ele.city !== city.city
-    );
+    this.selectedCities = this.selectedCities.filter((ele) => ele.city !== city.city);
     this.omitChanges();
   }
 
   getRecentValues() {
-    this.recentCompany = this.filterStorageService.get("recentCompany") || [];
-    this.recentIncludeTitle =
-      this.filterStorageService.get("recentIncludeTitleList") || [];
-    this.recentExcludeTitle =
-      this.filterStorageService.get("recentExcludeTitleList") || [];
-    this.recentIncludeIndustry =
-      this.filterStorageService.get("recentIncludeIndustry") || [];
-    this.recentExcludeIndustry =
-      this.filterStorageService.get("recentExcludeIndustry") || [];
-    this.recentSeniority =
-      this.filterStorageService.get("recentSeniority") || [];
-    this.recentDepartment =
-      this.filterStorageService.get("recentDepartment") || [];
-    this.recentIncludeSkill =
-      this.filterStorageService.get("recentIncludeSkill") || [];
-    this.recentExcludeSkill =
-      this.filterStorageService.get("recentExcludeSkill") || [];
-    this.recentCompanyKeyword =
-      this.filterStorageService.get("recentCompanyKeyword") || [];
-    this.recentCompanyKeyword =
-      this.filterStorageService.get("recentCompanyKeyword") || [];
+    this.recentCompany = this.filterStorageService.get('recentCompany') || [];
+    this.recentIncludeTitle = this.filterStorageService.get('recentIncludeTitleList') || [];
+    this.recentExcludeTitle = this.filterStorageService.get('recentExcludeTitleList') || [];
+    this.recentIncludeIndustry = this.filterStorageService.get('recentIncludeIndustry') || [];
+    this.recentExcludeIndustry = this.filterStorageService.get('recentExcludeIndustry') || [];
+    this.recentSeniority = this.filterStorageService.get('recentSeniority') || [];
+    this.recentDepartment = this.filterStorageService.get('recentDepartment') || [];
+    this.recentIncludeSkill = this.filterStorageService.get('recentIncludeSkill') || [];
+    this.recentExcludeSkill = this.filterStorageService.get('recentExcludeSkill') || [];
+    this.recentCompanyKeyword = this.filterStorageService.get('recentCompanyKeyword') || [];
+    this.recentCompanyKeyword = this.filterStorageService.get('recentCompanyKeyword') || [];
   }
   // ? (event.value || "").trim()
   // Company Functions.......
-  selectedCompany(event: any, type = "chip"): void {
+  selectedCompany(event: any, type = 'chip'): void {
     // console.log("IN SELEC COMPANY");
     // console.log("VALUE", event);
     // const val =
@@ -577,8 +525,8 @@ export class FilterPeopleComponent
     // if (typeof event.option.value == "string") {
     //   return
     // }
-    let value = "";
-    if (typeof event.option.value == "object") {
+    let value = '';
+    if (typeof event.option.value == 'object') {
       value = event.option.value.companyName.trim();
     } else {
       value = event.option.value.trim();
@@ -587,24 +535,22 @@ export class FilterPeopleComponent
     // Add our fruit
     if (value && found === -1) {
       this.includedCompanyList.push(value);
-      this.setLocalStorageValues("recentCompany", { companyName: value });
+      this.setLocalStorageValues('recentCompany', { companyName: value });
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
     this.companyList = [];
     this.omitChanges();
-    this.includeCompanyInput.nativeElement.value = "";
+    this.includeCompanyInput.nativeElement.value = '';
   }
 
   removeCompany(content: any) {
-    if (content == "clear") {
+    if (content == 'clear') {
       this.includedCompanyList = [];
     } else {
-      const index = this.includedCompanyList.findIndex(
-        (itm) => itm.name === content.name
-      );
+      const index = this.includedCompanyList.findIndex((itm) => itm.name === content.name);
       this.includedCompanyList.splice(index, 1);
     }
     this.omitChanges();
@@ -613,81 +559,78 @@ export class FilterPeopleComponent
 
   // Contact Functions...........
 
-  selectedContact(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+  selectedContact(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.includedContactsList.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       // remove the below one line for multiple name
       // this.includedContactsList = [];
       this.includedContactsList.push(value);
-      this.setLocalStorageValues("recentContactsList", value);
+      this.setLocalStorageValues('recentContactsList', value);
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
     this.omitChanges();
-    this.includeContactInput.nativeElement.value = "";
+    this.includeContactInput.nativeElement.value = '';
     this.recentContactsList = [];
   }
 
   removeContact(value: any) {
     const index = this.includedContactsList.indexOf(value);
     this.includedContactsList.splice(index, 1);
-    this.includeContactInput.nativeElement.value = "";
+    this.includeContactInput.nativeElement.value = '';
     this.omitChanges();
     this.recentContactsList = [];
   }
 
-  clearItems(event, key, type: any = "array") {
+  clearItems(event, key, type: any = 'array') {
     event.stopPropagation();
-    if (type == "array") {
+    if (type == 'array') {
       this[key] = [];
     } else {
-      this[key] = "";
+      this[key] = '';
     }
     this.omitChanges();
   }
 
   // Title Functions...........
 
-  includeTitle(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+  includeTitle(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.includedTitleList.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.includedTitleList.push(value);
-      this.setLocalStorageValues("recentIncludeTitleList", value);
+      this.setLocalStorageValues('recentIncludeTitleList', value);
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
     this.includeTitleControl.setValue(null);
-    this.includeTitleInput.nativeElement.value = "";
+    this.includeTitleInput.nativeElement.value = '';
     this.omitChanges();
     this.titleList = [];
   }
 
-  excludeTitle(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+  excludeTitle(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.excludedTitleList.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.excludedTitleList.push(value);
       this.omitChanges();
-      this.setLocalStorageValues("recentExcludeTitleList", value);
+      this.setLocalStorageValues('recentExcludeTitleList', value);
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
     this.excludeTitleControl.setValue(null);
-    this.excludeTitleInput.nativeElement.value = "";
+    this.excludeTitleInput.nativeElement.value = '';
     this.titleList = [];
   }
 
@@ -730,7 +673,7 @@ export class FilterPeopleComponent
     const found = this.includedIndustryList.indexOf(value);
     if (value && found === -1) {
       this.includedIndustryList.push(value);
-      this.setLocalStorageValues("recentIncludeIndustry", value);
+      this.setLocalStorageValues('recentIncludeIndustry', value);
     }
     this.industryList = this.industryList.filter((item) => item !== value);
     this.omitChanges();
@@ -742,7 +685,7 @@ export class FilterPeopleComponent
     if (value && found === -1) {
       this.excludedIndustryList.push(value);
       this.omitChanges();
-      this.setLocalStorageValues("recentExcludeIndustry", value);
+      this.setLocalStorageValues('recentExcludeIndustry', value);
     }
     this.industryList = this.industryList.filter((item) => item !== value);
     this.omitChanges();
@@ -770,7 +713,7 @@ export class FilterPeopleComponent
   removeIndustry(value) {
     const index = this.includedIndustryList.indexOf(value);
     this.includedIndustryList.splice(index, 1);
-    this.includeIndustryInput.nativeElement.value = "";
+    this.includeIndustryInput.nativeElement.value = '';
     this.omitChanges();
     this.getIndustryList();
   }
@@ -778,28 +721,27 @@ export class FilterPeopleComponent
   removeExcludeIndustry(value) {
     const index = this.excludedIndustryList.indexOf(value);
     this.excludedIndustryList.splice(index, 1);
-    this.excludeIndustryInput.nativeElement.value = "";
+    this.excludeIndustryInput.nativeElement.value = '';
     this.omitChanges();
     this.getIndustryList();
   }
 
   // Seniority Functions.......
-  selectedSeniority(event: any, type = "chip"): void {
+  selectedSeniority(event: any, type = 'chip'): void {
     // console.log("EVENT", event);
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.includedSeniorityList.indexOf(value);
     if (value && found === -1) {
       // console.log("VALUE", value);
       this.includedSeniorityList.push(event);
-      this.setLocalStorageValues("recentSeniority", value);
+      this.setLocalStorageValues('recentSeniority', value);
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
     this.seniorityList = [];
     this.omitChanges();
-    this.includeSeniorityInput.nativeElement.value = "";
+    this.includeSeniorityInput.nativeElement.value = '';
     this.seniorityList = [];
   }
 
@@ -833,7 +775,7 @@ export class FilterPeopleComponent
     const found = this.includedDepartmentList.indexOf(value);
     if (value && found === -1) {
       this.includedDepartmentList.push(value);
-      this.setLocalStorageValues("recentDepartment", value);
+      this.setLocalStorageValues('recentDepartment', value);
     }
     this.departmentList = this.departmentList.filter((item) => item !== value);
     this.omitChanges();
@@ -848,7 +790,7 @@ export class FilterPeopleComponent
   }
 
   // Company Keyword Functions.......
-  companyKeywordSelected(event: any, type = "chip"): void {
+  companyKeywordSelected(event: any, type = 'chip'): void {
     // console.log("Value", event.option.value);
     const value = event.value;
     // const value = event.option.value;
@@ -856,54 +798,52 @@ export class FilterPeopleComponent
     if (value && found === -1) {
       this.selectedCompanyKeywords.push(value);
       // console.log("SELECTED LIST", this.selectedCompanyKeywords);
-      this.setLocalStorageValues("recentCompanyKeyword", value);
+      this.setLocalStorageValues('recentCompanyKeyword', value);
       this.companyKeywordsList = [];
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
-    this.comapanyKeywordInput.nativeElement.value = "";
+    this.comapanyKeywordInput.nativeElement.value = '';
     this.omitChanges();
     this.companyKeywordsList = [];
   }
 
   // Skill Functions.......
-  includeSkill(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+  includeSkill(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.includedSkillList.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.includedSkillList.push(value);
-      this.setLocalStorageValues("recentIncludeSkill", value);
+      this.setLocalStorageValues('recentIncludeSkill', value);
       this.skillList = [];
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
-    this.includeSkillInput.nativeElement.value = "";
+    this.includeSkillInput.nativeElement.value = '';
     this.omitChanges();
     this.skillList = [];
   }
 
-  excludeSkill(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+  excludeSkill(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.excludedSkillList.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.excludedSkillList.push(value);
-      this.setLocalStorageValues("recentExcludeSkill", value);
+      this.setLocalStorageValues('recentExcludeSkill', value);
       this.omitChanges();
       this.skillList = [];
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
-    this.excludeSkillInput.nativeElement.value = "";
+    this.excludeSkillInput.nativeElement.value = '';
     this.omitChanges();
     this.skillList = [];
   }
@@ -911,7 +851,7 @@ export class FilterPeopleComponent
   async setLocalStorageValues(type, value) {
     const data: Array<any> = (await this.filterStorageService.get(type)) || [];
     let valueIndex = 0;
-    if (typeof value == "object") {
+    if (typeof value == 'object') {
       //At some cases we are adding the values as object.So we are taking the first key of the object
       const firstKey = Object.keys(value)[0];
       valueIndex = data.findIndex((itm) => itm[firstKey] == value[firstKey]);
@@ -925,18 +865,14 @@ export class FilterPeopleComponent
   }
 
   removeSkill(content) {
-    const index = this.includedSkillList.findIndex(
-      (itm) => itm.name === content.name
-    );
+    const index = this.includedSkillList.findIndex((itm) => itm.name === content.name);
     this.includedSkillList.splice(index, 1);
     this.skillList = [];
     this.omitChanges();
   }
 
   removeExcludeSkill(content) {
-    const index = this.excludedSkillList.findIndex(
-      (itm) => itm.name === content.name
-    );
+    const index = this.excludedSkillList.findIndex((itm) => itm.name === content.name);
     this.excludedSkillList.splice(index, 1);
     this.skillList = [];
     this.omitChanges();
@@ -966,21 +902,17 @@ export class FilterPeopleComponent
 
     this.contactListControl.valueChanges.subscribe((value: string) => {
       if (value.length == 1) {
-        this.recentContactsList =
-          this.filterStorageService.get("recentContactsList") || [];
+        this.recentContactsList = this.filterStorageService.get('recentContactsList') || [];
       } else if (value.length == 0) {
         this.recentContactsList = [];
       }
     });
-    this.includeTitleControl.valueChanges.subscribe((value: string = "") => {
-      let hv = value !== null ? value : "";
+    this.includeTitleControl.valueChanges.subscribe((value: string = '') => {
+      let hv = value !== null ? value : '';
       if (hv.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedTitleList,
-            ...this.excludedTitleList,
-          ],
+          previouslySearchedTerm: [...this.includedTitleList, ...this.excludedTitleList],
         };
         this.b2bService.getTitlesList(body).subscribe((res) => {
           this.titleList = res.titleList;
@@ -990,14 +922,11 @@ export class FilterPeopleComponent
       }
     });
     this.excludeTitleControl.valueChanges.subscribe((value: string) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       if (hv.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedTitleList,
-            ...this.excludedTitleList,
-          ],
+          previouslySearchedTerm: [...this.includedTitleList, ...this.excludedTitleList],
         };
         this.b2bService.getTitlesList(body).subscribe((res) => {
           this.titleList = res.titleList;
@@ -1011,10 +940,7 @@ export class FilterPeopleComponent
       if (value.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedIndustryList,
-            ...this.excludedIndustryList,
-          ],
+          previouslySearchedTerm: [...this.includedIndustryList, ...this.excludedIndustryList],
         };
         this.b2bService.getIndustryList(body).subscribe((res) => {
           this.industryList = res.industryList;
@@ -1028,10 +954,7 @@ export class FilterPeopleComponent
       if (value.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedIndustryList,
-            ...this.excludedIndustryList,
-          ],
+          previouslySearchedTerm: [...this.includedIndustryList, ...this.excludedIndustryList],
         };
         this.b2bService.getIndustryList(body).subscribe((res) => {
           this.industryList = res.industryList;
@@ -1052,7 +975,7 @@ export class FilterPeopleComponent
     //   }
     // });
     this.departmentListControl.valueChanges.subscribe((value: string) => {
-      let hv = value !== null ? value : "";
+      let hv = value !== null ? value : '';
       const body = {
         searchPhrase: hv,
         previouslySearchedTerm: [...this.includedDepartmentList],
@@ -1070,10 +993,7 @@ export class FilterPeopleComponent
       if (value.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedSkillList,
-            ...this.excludedSkillList,
-          ],
+          previouslySearchedTerm: [...this.includedSkillList, ...this.excludedSkillList],
         };
         this.b2bService.getSkillList(body).subscribe((res) => {
           this.skillList = res.skillList;
@@ -1106,10 +1026,7 @@ export class FilterPeopleComponent
       if (value.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedSkillList,
-            ...this.excludedSkillList,
-          ],
+          previouslySearchedTerm: [...this.includedSkillList, ...this.excludedSkillList],
         };
         this.b2bService.getSkillList(body).subscribe((res) => {
           this.skillList = res.skillList;
@@ -1120,18 +1037,18 @@ export class FilterPeopleComponent
     });
 
     this.cityControl.valueChanges.subscribe((value: string) => {
-      if (typeof value != "object") {
+      if (typeof value != 'object') {
         this.getCityList(value);
       }
     });
 
     this.stateControl.valueChanges.subscribe((value: string) => {
-      if (typeof value != "object") {
+      if (typeof value != 'object') {
         this.getStateList(value);
       }
     });
     this.countryControl.valueChanges.subscribe((value: string) => {
-      if (typeof value != "object") {
+      if (typeof value != 'object') {
         this.getCountryList(value);
       }
     });
@@ -1172,85 +1089,37 @@ export class FilterPeopleComponent
   }
 
   storeFilterData() {
-    this.filterStorageService.set(
-      "b2b_people_includedCompanyList",
-      this.includedCompanyList
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedContactsList",
-      this.includedContactsList
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedTitleList",
-      this.includedTitleList
-    );
-    this.filterStorageService.set(
-      "b2b_people_excludedTitleList",
-      this.excludedTitleList
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedIndustryList",
-      this.includedIndustryList
-    );
-    this.filterStorageService.set(
-      "b2b_people_excludedIndustryList",
-      this.excludedIndustryList
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedSeniorityList",
-      this.includedSeniorityList
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedDepartmentList",
-      this.includedDepartmentList
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedSkillList",
-      this.includedSkillList
-    );
-    this.filterStorageService.set(
-      "b2b_people_excludedSkillList",
-      this.excludedSkillList
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedEmployeeRange",
-      this.includedEmployeeRange
-    );
-    this.filterStorageService.set(
-      "b2b_people_includedRevenueRange",
-      this.includedRevenueRange
-    );
-    this.filterStorageService.set(
-      "b2b_people_selectedStates",
-      this.selectedStates
-    );
-    this.filterStorageService.set(
-      "b2b_people_selectedCities",
-      this.selectedCities
-    );
-    this.filterStorageService.set(
-      "b2b_people_selectedCountry",
-      this.selectedCountry
-    );
-    this.filterStorageService.set(
-      "b2b_people_selectedCompanyKeywords",
-      this.selectedCompanyKeywords
-    );
+    this.filterStorageService.set('b2b_people_includedCompanyList', this.includedCompanyList);
+    this.filterStorageService.set('b2b_people_includedContactsList', this.includedContactsList);
+    this.filterStorageService.set('b2b_people_includedTitleList', this.includedTitleList);
+    this.filterStorageService.set('b2b_people_excludedTitleList', this.excludedTitleList);
+    this.filterStorageService.set('b2b_people_includedIndustryList', this.includedIndustryList);
+    this.filterStorageService.set('b2b_people_excludedIndustryList', this.excludedIndustryList);
+    this.filterStorageService.set('b2b_people_includedSeniorityList', this.includedSeniorityList);
+    this.filterStorageService.set('b2b_people_includedDepartmentList', this.includedDepartmentList);
+    this.filterStorageService.set('b2b_people_includedSkillList', this.includedSkillList);
+    this.filterStorageService.set('b2b_people_excludedSkillList', this.excludedSkillList);
+    this.filterStorageService.set('b2b_people_includedEmployeeRange', this.includedEmployeeRange);
+    this.filterStorageService.set('b2b_people_includedRevenueRange', this.includedRevenueRange);
+    this.filterStorageService.set('b2b_people_selectedStates', this.selectedStates);
+    this.filterStorageService.set('b2b_people_selectedCities', this.selectedCities);
+    this.filterStorageService.set('b2b_people_selectedCountry', this.selectedCountry);
+    this.filterStorageService.set('b2b_people_selectedCompanyKeywords', this.selectedCompanyKeywords);
   }
   compareObjects(o1: any, o2: any) {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
   }
   // returning senioirty object when ID is recived from save-search component
-  getSeniorityObject(id: any) {
-    var result = [];
-    id.map((x) => {
-      var filter = this.seniorityList.filter((obj) => {
-        return obj.Value === x;
-      });
-      result.push(filter[0]);
-    });
-    return result;
-  }
+  // getSeniorityObject(id: any) {
+  //   var result = [];
+  //   id.map((x) => {
+  //     var filter = this.seniorityList.filter((obj) => {
+  //       return obj.Value === x;
+  //     });
+  //     result.push(filter[0]);
+  //   });
+  //   return result;
+  // }
 
   getActiveFilterCount(obj: any) {
     const tempActiveFilters = [];

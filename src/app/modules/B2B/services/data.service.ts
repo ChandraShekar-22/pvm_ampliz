@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
-import { Contact } from "../models/ContactsModel";
-import { SearchCompanyInput } from "../models/SearchCompany";
-import { SearchContactInput } from "../models/SearchContactModel";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Contact } from '../models/ContactsModel';
+import { SearchCompanyInput } from '../models/SearchCompany';
+import { SearchContactInput } from '../models/SearchContactModel';
 
 @Injectable()
 export class DataService {
@@ -32,9 +32,7 @@ export class DataService {
   private subscriptionStatusData = new BehaviorSubject(0);
 
   //saved contacts
-  public savedContacts: BehaviorSubject<Array<Contact>> = new BehaviorSubject(
-    []
-  );
+  public savedContacts: BehaviorSubject<Array<Contact>> = new BehaviorSubject([]);
 
   // observable for visibility datas for search
   searchVisibility = this.isSearchVisible.asObservable();
@@ -80,16 +78,10 @@ export class DataService {
     this.landingPageVisible.next(visibility);
   }
 
-  passSearchContactInput(
-    contact: SearchContactInput,
-    fromSearch: boolean = true
-  ) {
+  passSearchContactInput(contact: SearchContactInput, fromSearch: boolean = true) {
     this.contactSearchData.next({ data: contact, fromSearch: fromSearch });
   }
-  passSearchCompanyInput(
-    company: SearchCompanyInput,
-    fromSearch: boolean = true
-  ) {
+  passSearchCompanyInput(company: SearchCompanyInput, fromSearch: boolean = true) {
     this.companySearchData.next({ data: company, fromSearch: fromSearch });
   }
 
@@ -120,36 +112,40 @@ export class DataService {
     this.subscriptionStatusData.next(status);
   }
 
-  // Seniority functions
   get seniorityList() {
-    return [
-      { Name: "C-Level", Value: 1 },
-      { Name: "VP-Level", Value: 2 },
-      { Name: "Director", Value: 3 },
-      { Name: "Manager", Value: 4 },
-      { Name: "Entry", Value: 7 },
-      { Name: "Non-Manager", Value: 5 },
-      { Name: "Others", Value: 6 },
-    ];
+    return ['Owner', 'Founder', 'suite', 'Partner', 'Vp', 'Head', 'Director', 'Manager', 'Senior', 'Entry', 'Intern'];
   }
-  handleSeniorityByName(id: any) {
-    var result = [];
-    id.map((x) => {
-      var filter = this.seniorityList.filter((obj) => {
-        return obj.Value === x;
-      });
-      result.push(filter[0].Name);
-    });
-    return result;
-  }
-  handleSeniorityById(name: any) {
-    var result = [];
-    name.map((x) => {
-      var filter = this.seniorityList.filter((obj) => {
-        return obj.Name === x;
-      });
-      result.push(filter[0].Value);
-    });
-    return result;
-  }
+
+  // Seniority functions for senioirty with IDs
+  // get seniorityList() {
+  //   return [
+  //     { Name: "C-Level", Value: 1 },
+  //     { Name: "VP-Level", Value: 2 },
+  //     { Name: "Director", Value: 3 },
+  //     { Name: "Manager", Value: 4 },
+  //     { Name: "Entry", Value: 7 },
+  //     { Name: "Non-Manager", Value: 5 },
+  //     { Name: "Others", Value: 6 },
+  //   ];
+  // }
+  // handleSeniorityByName(id: any) {
+  //   var result = [];
+  //   id.map((x) => {
+  //     var filter = this.seniorityList.filter((obj) => {
+  //       return obj.Value === x;
+  //     });
+  //     result.push(filter[0].Name);
+  //   });
+  //   return result;
+  // }
+  // handleSeniorityById(name: any) {
+  //   var result = [];
+  //   name.map((x) => {
+  //     var filter = this.seniorityList.filter((obj) => {
+  //       return obj.Name === x;
+  //     });
+  //     result.push(filter[0].Value);
+  //   });
+  //   return result;
+  // }
 }

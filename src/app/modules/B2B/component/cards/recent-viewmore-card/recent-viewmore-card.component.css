@@ -84,6 +84,7 @@
     justify-content: space-between;
     width: 100%;
     display: flex;
+    align-items: baseline;
   }
   .bottomChip {
     background-color: #dcedf9 !important;

@@ -1,7 +1,7 @@
 <div class="physican_container card-animate">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-8">
+      <div class="col-sm-12 col-md-7">
         <div class="physician_card">
           <div class="form-check">
             <input
@@ -25,30 +25,21 @@
           <div
             class="physician_imgContainer"
             [ngClass]="{
-              'with-border':
-                contactInfo?.imageUrl === '' || contactInfo?.imageUrl == null
+              'with-border': contactInfo?.imageUrl === '' || contactInfo?.imageUrl == null
             }"
           >
             <img
               [src]="contactInfo.imageUrl"
               class="physician_img"
               [ngClass]="{
-                'img-default-avatar':
-                  contactInfo?.imageUrl ==
-                  'https://www.ampliz.com/assets/img/user.png'
+                'img-default-avatar': contactInfo?.imageUrl == 'https://www.ampliz.com/assets/img/user.png'
               }"
-              *ngIf="
-                contactInfo.imageUrl &&
-                contactInfo.imageUrl !== '' &&
-                contactInfo.imageUrl !== null
-              "
+              *ngIf="contactInfo.imageUrl && contactInfo.imageUrl !== '' && contactInfo.imageUrl !== null"
             />
             <i-feather
               name="User"
               class="feather"
-              *ngIf="
-                contactInfo.imageUrl === '' || contactInfo.imageUrl == null
-              "
+              *ngIf="contactInfo.imageUrl === '' || contactInfo.imageUrl == null"
             ></i-feather>
           </div>
           <div class="physician_content">
@@ -56,12 +47,9 @@
               {{ contactInfo?.fullName }}
             </h5>
             <div class="physician_info">
-              <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{
-                contactInfo?.title.toString()
-              }}</span>
+              <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{ contactInfo?.title.toString() }}</span>
               <span class="physican_location"
-                ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i
-                >{{ contactInfo?.location }}</span
+                ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ contactInfo?.location }}</span
               >
             </div>
             <div
@@ -85,21 +73,17 @@
               >
                 {{ skill }}
               </mat-chip>
-              <span
-                *ngIf="skillSet.length > sliceLength"
-                class="moreButton"
-                (click)="handleShowMore()"
-              >
-                {{ showMore ? "More +" : "Less -" }}
+              <span *ngIf="skillSet.length > sliceLength" class="moreButton" (click)="handleShowMore()">
+                {{ showMore ? 'More +' : 'Less -' }}
               </span>
             </mat-chip-list>
             <!------------>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-4">
-        <div class="physican_additionInfo">
-          <ng-container
+      <div class="col-sm-12 col-md-5">
+        <div class="physican_additionInfo" style="margin-left: 30px">
+          <!-- <ng-container
             *ngIf="contactInfo.email != null && contactInfo.email != ''"
           >
             <span>
@@ -112,30 +96,102 @@
                 >{{ contactInfo.email }}</a
               >
             </span>
+          </ng-container> -->
+
+          <ng-container *ngFor="let item of emailToShow">
+            <span class="row mb-1">
+              <div class="row col-4 align-items-center">
+                <i class="fa fa-envelope-o col-3" aria-hidden="true"></i>
+                <div class="email-type-container col-8">
+                  <span class="email-type-text">{{ item.type }}</span>
+                </div>
+              </div>
+              <a
+                [href]="'mailto:' + contactInfo.email"
+                class="physican_email col-8"
+                style="font-size: 12px !important"
+                [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
+                [ngStyle]="isEmailMasked ? { cursor: 'default' } : { cursor: 'pointer' }"
+                >{{ item.email }}</a
+              >
+            </span>
           </ng-container>
+          <ng-container *ngIf="emailList.length > 2 && !isEmailMasked">
+            <span class="show-more-button" [matMenuTriggerFor]="aboveMenu" #t="matMenuTrigger">
+              Show all
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="11"
+                height="11"
+                fill="currentColor"
+                class="bi bi-chevron-down"
+                viewBox="0 0 16 16"
+                class="show-more-icon"
+                [class.rotateIcon]="t.menuOpen"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+            </span>
+
+            <mat-menu class="show-more-menu" #aboveMenu="matMenu" xPosition="before" menuOpen="menuOpen">
+              <div class="email-list-container">
+                <div class="email-list row" *ngFor="let item of emailList" (click)="$event.stopPropagation()">
+                  <div class="email-list-left row col-4">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    <div class="email-type-container col-8">
+                      <span class="email-type-text">{{ item.type }}</span>
+                    </div>
+                  </div>
+
+                  <div class="email-list-right row col-8">
+                    <div class="email-text-container">
+                      <a
+                        [href]="'mailto:' + contactInfo.email"
+                        id="email-hover"
+                        class="physican_email email-text"
+                        [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
+                        >{{ item.email }}</a
+                      >
+                    </div>
+                    <div class="copy-clipboard-container">
+                      <button class="copy-clipboard-icon-button" (click)="copyToClipboard(item.email)">
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="css-i6dzq copy-clipboard-icon"
+                        >
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-menu>
+          </ng-container>
+
           <!-- If Email is not present -->
           <ng-container
-            *ngIf="
-              contactInfo.email.length <= 0 &&
-              contactInfo.directDialPhone != '' &&
-              contactInfo.directDialPhone != null
-            "
+            *ngIf="!isBothEmailAvaialble && contactInfo.directDialPhone != '' && contactInfo.directDialPhone != null"
           >
             <span>
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
-              <span
-                class="physican_email"
-                (click)="request('Request Email Access', contactInfo.contactId)"
+              <span class="physican_email" (click)="request('Request Email Access', contactInfo.contactId)"
                 >Request Email</span
               >
             </span>
           </ng-container>
-          <ng-container
-            *ngIf="
-              contactInfo.directDialPhone != '' &&
-              contactInfo.directDialPhone != null
-            "
-          >
+          <ng-container *ngIf="contactInfo.directDialPhone != '' && contactInfo.directDialPhone != null">
             <span class="physican_phone">
               <i class="fa fa-phone" aria-hidden="true"></i>
               {{ contactInfo.directDialPhone }}</span
@@ -158,21 +214,9 @@
             >
           </ng-container> -->
           <div class="saveBtn_wrp">
-            <i
-              *ngIf="contactInfo['linkedinURL']"
-              class="fa fa-brands fa-linkedin"
-              (click)="openUrl('linkedinURL')"
-            ></i>
-            <i
-              *ngIf="contactInfo['facebook']"
-              class="fa fa-brands fa-facebook"
-              (click)="openUrl('facebook')"
-            ></i>
-            <i
-              *ngIf="contactInfo['twitterURL']"
-              class="fa fa-brands fa-twitter"
-              (click)="openUrl('twitterURL')"
-            ></i>
+            <i *ngIf="contactInfo['linkedinURL']" class="fa fa-brands fa-linkedin" (click)="openUrl('linkedinURL')"></i>
+            <i *ngIf="contactInfo['facebook']" class="fa fa-brands fa-facebook" (click)="openUrl('facebook')"></i>
+            <i *ngIf="contactInfo['twitterURL']" class="fa fa-brands fa-twitter" (click)="openUrl('twitterURL')"></i>
           </div>
           <div class="saveBtn_wrp row">
             <!-- <button class="physician_save" (click)="invokeSaveList()">
@@ -194,10 +238,7 @@
               [platform]="'b2b'"
               [id]="contactInfo.contactId"
             ></app-request-contact>
-            <app-not-correct
-              class="col-6 not-correct-wrap"
-              [contactId]="contactInfo.contactId"
-            ></app-not-correct>
+            <app-not-correct class="col-6 not-correct-wrap" [contactId]="contactInfo.contactId"></app-not-correct>
           </div>
         </div>
       </div>
