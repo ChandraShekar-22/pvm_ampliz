@@ -168,65 +168,37 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
         // console.log(res);
         if (res.searchReportList.length > 0) {
           this.recentSearchList = res.searchReportList;
-          const tempContactSearchParams = this.recentSearchList.map(
-            (recentItems) => {
-              if (recentItems.contactSearchParams !== null) {
-                return recentItems.contactSearchParams;
-              }
-            }
-          );
-          if (tempContactSearchParams.length > 0) {
-            tempContactSearchParams.map((item) => {
-              if (typeof item !== "undefined") {
-                if (item.seniority.length > 0) {
-                  const seniority = item.seniority.map((el) => {
-                    return el;
-                  });
-                  const filteredSeniority =
-                    this.dataService.handleSeniorityByName(seniority);
-                  item.seniority = filteredSeniority;
-                }
-              }
-            });
-          }
-
           res.searchReportList.map((item) => {
             // console.log(new Date(item.searchAt).toISOString().split("T")[0]);
-            const savedTime = new Date(item.searchAt)
-              .toISOString()
-              .split("T")[0];
+            const savedTime = new Date(item.searchAt).toISOString().split('T')[0];
             const arr = this.dateWiseSearchList[savedTime] || [];
             // console.log(arr, item, "Arr and item");
-            if (
-              arr.findIndex(
-                (arrItem) => arrItem.searchReportId == item.searchReportId
-              ) == -1
-            ) {
+            if (arr.findIndex((arrItem) => arrItem.searchReportId == item.searchReportId) == -1) {
               let obj = {};
               let addedSearchKeys = [];
-              if (item.searchType === "Contact") {
+              if (item.searchType === 'Contact') {
                 // console.log(item.contactSearchParams);
-                const searchObj = item["contactSearchParams"];
+                const searchObj = item['contactSearchParams'];
                 addedSearchKeys = Object.keys(item.contactSearchParams).filter(
                   (searchItems) =>
                     searchObj[searchItems] &&
                     searchObj[searchItems] !== null &&
-                    searchObj[searchItems] !== "" &&
+                    searchObj[searchItems] !== '' &&
                     searchObj[searchItems].length > 0
                 );
               } else {
                 // console.log(item.companySearchParams);
-                const searchObj = item["companySearchParams"];
+                const searchObj = item['companySearchParams'];
                 addedSearchKeys = Object.keys(item.companySearchParams).filter(
                   (searchItems) =>
                     searchObj[searchItems] &&
                     searchObj[searchItems] !== null &&
-                    searchObj[searchItems] !== "" &&
+                    searchObj[searchItems] !== '' &&
                     searchObj[searchItems].length > 0
                 );
               }
-              const includedSearchChips = this.filterDatas.filter(
-                (filterItem) => addedSearchKeys.includes(filterItem.key)
+              const includedSearchChips = this.filterDatas.filter((filterItem) =>
+                addedSearchKeys.includes(filterItem.key)
               );
               obj = {
                 ...item,
@@ -268,18 +240,20 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
     // console.log(searchBody);
     // this.dataService.searchOrRecentTapped(true);
     if (searchBody.searchType == "Contact") {
-      const contactObj = this.searchContactInput.fromJson(
-        searchBody.contactSearchParams
-      );
-      if (contactObj.seniority.length > 0) {
-        const senioirty = contactObj.seniority.map((el) => {
-          return el;
-        });
-        const filteredSeniority =
-          this.dataService.handleSeniorityById(senioirty);
+      const contactObj = this.searchContactInput.fromJson(searchBody.contactSearchParams);
 
-        contactObj.seniority = filteredSeniority;
-      }
+      // If seniority is with IDs
+
+      // if (contactObj.seniority.length > 0) {
+      //   const senioirty = contactObj.seniority.map((el) => {
+      //     return el;
+      //   });
+      //   const filteredSeniority =
+      //     this.dataService.handleSeniorityById(senioirty);
+
+      //   contactObj.seniority = filteredSeniority;
+      // }
+
       this.dataService.passSearchContactInput(contactObj);
       this.dataService.changeSelectedTab(0);
     } else {
