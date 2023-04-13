@@ -20,7 +20,7 @@
     <div class="b2b-content" style="position: relative" *ngIf="showResult">
       <div class="b2b-content-main">
         <app-low-credit-card
-          *ngIf="lowCreditAlert"
+          *ngIf="!lowCreditAlert"
           (closeClicked)="lowCreditAlert = true"
           (getFreeClicked)="openActivityComponents()"
         ></app-low-credit-card>
