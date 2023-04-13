@@ -6,9 +6,9 @@ import { LoaderService } from 'src/app/modules/healthcare/services/loader.servic
 import { ActiveUser, SeatsCreditsStatus } from '../../models/invite-teammember-models';
 
 @Component({
-  selector: "app-invite-teammember",
-  templateUrl: "./invite-teammember.component.html",
-  styleUrls: ["./invite-teammember.component.css"],
+  selector: 'app-invite-teammember1',
+  templateUrl: './invite-teammember.component.html',
+  styleUrls: ['./invite-teammember.component.css'],
 })
 export class InviteTeammemberComponent implements OnInit {
   public activeUserList: ActiveUser[] = [];
@@ -29,10 +29,10 @@ export class InviteTeammemberComponent implements OnInit {
 
   ngOnInit() {
     this.callUserList();
-    this.yourEmailId = localStorage.getItem("email_id");
+    this.yourEmailId = localStorage.getItem('email_id');
   }
   handleChangePasswordClick() {
-    this.router.navigate(["editprofile"]);
+    this.router.navigate(['editprofile']);
   }
 
   callUserList() {
@@ -83,7 +83,7 @@ export class InviteTeammemberComponent implements OnInit {
     this.amplizService.reSendInviteToTeamMember(body).subscribe(
       (res) => {
         this.loaderService.display(false);
-        this.messageService.display(true, "Resend invitation succesfull");
+        this.messageService.display(true, 'Resend invitation succesfull');
       },
       (err) => {
         this.loaderService.display(false);

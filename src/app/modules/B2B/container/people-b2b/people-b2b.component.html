@@ -124,7 +124,7 @@
             (clearPress)="clearSave(); topTab.clearAll()"
             [selectedFilter]="selectedFilter"
           ></app-bulk-save-card>
-          <div *ngIf="!showLoader && showUpgradeCard">
+          <div *ngIf="!showLoader && !showUpgradeCard">
             <app-people-card
               *ngFor="let contact of contactsList.contacts; index as i"
               [contactInfo]="contact"

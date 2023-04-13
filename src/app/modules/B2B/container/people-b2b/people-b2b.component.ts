@@ -526,9 +526,6 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     this.showActivityBack = true;
   }
   peopleCheckboxDisabled(item) {
-    return item.leadSaveStatus == "Saved";
-  }
-  test() {
-    this.getContactsList();
+    return item.leadSaveStatus == 'Saved';
   }
 }
