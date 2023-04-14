@@ -1,15 +1,15 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
-import { SkeletonloaderService } from "src/app/modules/healthcare/services/skeletonloader.service";
-import { Contact, ContactsList } from "../../models/ContactsModel";
-import { SearchContactInput } from "../../models/SearchContactModel";
-import { B2bService } from "../../services/b2b.service";
-import { DataService } from "../../services/data.service";
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SkeletonloaderService } from 'src/app/modules/healthcare/services/skeletonloader.service';
+import { Contact, ContactsList } from '../../models/ContactsModel';
+import { SearchContactInput } from '../../models/SearchContactModel';
+import { B2bService } from '../../services/b2b.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
-  selector: "app-people-b2b",
-  templateUrl: "./people-b2b.component.html",
-  styleUrls: ["./people-b2b.component.css"],
+  selector: 'app-people-b2b',
+  templateUrl: './people-b2b.component.html',
+  styleUrls: ['./people-b2b.component.css'],
 })
 export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   @Input() isRecentVisible: boolean;
@@ -34,8 +34,8 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   offset: number = 0;
   currentTab: number = 0;
   tabItems = [
-    { name: `Profile Found`, icon: { name: "" } },
-    { name: `Net New (0)`, icon: { name: "" } },
+    { name: `Profile Found`, icon: { name: '' } },
+    { name: `Net New (0)`, icon: { name: '' } },
   ];
   viewedCount: number = 0;
   totalCount: number = 0;
@@ -81,9 +81,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   get allVisibleSelected() {
-    return (
-      this.selectedContactsInCurrentPage.length >= this.selectedFilter.count
-    );
+    return this.selectedContactsInCurrentPage.length >= this.selectedFilter.count;
   }
   get partiallySelected() {
     return (
@@ -117,16 +115,16 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   collectCreditAndQuotaStatus() {
     this.dataService.subscriptionStatus.subscribe((status: any) => {
       const remainingCredits = status.dailyCredit - status.usedCredit;
-      // this.manageActivityView(remainingCredits);
       this.manageLowCreditView(remainingCredits);
     });
 
     this.dataService.searchQuota.subscribe((quota) => {
-      this.searchQuotaUsed = quota;
-      // this.manageActivityView(quota);
+      let val: any = quota;
+      this.searchQuotaUsed = val.percentageRemaining;
+      this.manageActivityView(val.percentageUsed);
       // this.manageLowCreditView(quota);
     });
-    this.isSubscribed = localStorage.getItem("SubscriptionisActive") == "true";
+    this.isSubscribed = localStorage.getItem('SubscriptionisActive') == 'true';
   }
 
   manageLowCreditView(credit) {
@@ -143,7 +141,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   manageActivityView(quota) {
-    if (quota < 10) {
+    if (quota === 100) {
       this.showLandingDashboard = false;
       this.showActivityCards = true;
     } else {
@@ -177,48 +175,35 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getLandingPageVisibility() {
-    this.landingPageSubscription =
-      this.dataService.landingPageVisibility.subscribe((res) => {
-        this.showLandingDashboard = res;
-        if (this.showLandingDashboard == true) {
-          this.dataService.makeRecentsearchVisible(false);
-        }
-      });
+    this.landingPageSubscription = this.dataService.landingPageVisibility.subscribe((res) => {
+      this.showLandingDashboard = res;
+      if (this.showLandingDashboard == true) {
+        this.dataService.makeRecentsearchVisible(false);
+      }
+    });
   }
 
   getSearchQuota() {
-    this.b2bService.getSearchQuota().subscribe(
-      (res) => {
-        // this.dataService.passSearchQuota(res.percentageUsed);
-        // this.dataService.passSearchQuota(res.dailySearchQuota);
-        this.dataService.passSearchQuota(1); //TEMPRORAY fix for search quota // Need to uncomment line 144 when data is fixed
-        // this.searchQuota = 10;
-        // this.dataService.passSearchQuota(100);
-      },
-      (err) => {
-        this.dataService.passSearchQuota(100);
-      }
-    );
+    this.b2bService.getSearchQuota().subscribe((res) => {
+      this.dataService.passSearchQuota(res);
+      // this.dataService.passSearchQuota(1); //TEMPRORAY fix for search quota
+    });
   }
 
   ngOnChanges() {
-    if (
-      this.isRecentVisible == false &&
-      this.isSaveVisible == false &&
-      !this.noResult
-    ) {
+    if (this.isRecentVisible == false && this.isSaveVisible == false && !this.noResult) {
       this.dataService.changeLoadStatus(false);
     }
   }
   handleTabChange(event) {
     // console.log(event);
-    console.log("event", event);
+    console.log('event', event);
 
     this.currentTab = event;
     if (event == 0) {
-      this.selectedFilter.searchType = "TOTAL";
+      this.selectedFilter.searchType = 'TOTAL';
     } else {
-      this.selectedFilter.searchType = "NETNEW";
+      this.selectedFilter.searchType = 'NETNEW';
     }
     this.selectedFilter.offset = 0;
     this.selectedFilter.savedListOffset = 0;
@@ -260,10 +245,8 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
   getContactsList(isPrevious: boolean = false) {
     const contactsBody: SearchContactInput = this.selectedFilter;
     // console.log(this.previousOffsets,"this.previousOffsets");
-    contactsBody.offset =
-      this.previousOffsets[this.previousOffsets.length - 1] || 0;
-    contactsBody.savedListOffset =
-      this.previousSavedOffsets[this.previousSavedOffsets.length - 1] || 0;
+    contactsBody.offset = this.previousOffsets[this.previousOffsets.length - 1] || 0;
+    contactsBody.savedListOffset = this.previousSavedOffsets[this.previousSavedOffsets.length - 1] || 0;
 
     this.loaderService.display(true);
     this.noResult = false;
@@ -302,24 +285,22 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
           }
         );
       },
-        (err) => {
-          this.getSearchQuota();
-          this.noResult = true;
-          this.collectCreditAndQuotaStatus();
-          this.loaderService.display(false);
-        }
+      (err) => {
+        this.getSearchQuota();
+        this.noResult = true;
+        this.collectCreditAndQuotaStatus();
+        this.loaderService.display(false);
+      }
     );
   }
 
   changeTabItems() {
     this.tabItems[0].name = `Total (${this.numberWithCommas(this.totalCount)})`;
-    this.tabItems[1].name = `Viewed (${this.numberWithCommas(
-      this.viewedCount
-    )})`;
+    this.tabItems[1].name = `Viewed (${this.numberWithCommas(this.viewedCount)})`;
   }
 
   numberWithCommas(x: number) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   get decrementEnabled() {
@@ -333,8 +314,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
       this.previousSavedOffsets.splice(this.previousOffsets.length - 2, 2);
       // console.log(this.previousOffsets);
       this.selectedContactsInCurrentPage = [];
-      this.selectedFilter.offset =
-        this.selectedFilter.offset - this.selectedFilter.count;
+      this.selectedFilter.offset = this.selectedFilter.offset - this.selectedFilter.count;
       this.offset = this.offset - this.selectedFilter.count;
       this.currentItemNumber = this.selectedFilter.offset;
       this.clearSave();
@@ -355,8 +335,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
       if (this.isSubscribed) {
         this.showUpgradeCard = false;
         this.selectedContactsInCurrentPage = [];
-        this.selectedFilter.offset =
-          this.selectedFilter.offset + this.selectedFilter.count;
+        this.selectedFilter.offset = this.selectedFilter.offset + this.selectedFilter.count;
         this.offset = this.offset + this.selectedFilter.count;
         this.currentItemNumber = this.selectedFilter.offset;
         this.clearSave();
@@ -393,15 +372,12 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
 
   handleSelectVisible(event) {
     this.allContactsSelected = false;
-    this.selectedContacts = this.selectedContacts.filter(
-      (item) => !this.selectedContactsInCurrentPage.includes(item)
-    );
+    this.selectedContacts = this.selectedContacts.filter((item) => !this.selectedContactsInCurrentPage.includes(item));
     this.selectedContactsInCurrentPage = [];
     if (event == true) {
       this.contactsList.contacts.map((contact: any) => {
         if (
-          ((contact.directDialPhone.length > 0 && contact.email.length > 0) ||
-            contact.email.length > 0) &&
+          ((contact.directDialPhone.length > 0 && contact.email.length > 0) || contact.email.length > 0) &&
           contact.inSavedList === false
         ) {
           this.handleCheckboxChangeForAll(contact);
@@ -421,9 +397,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
 
   //Handling checkbox change for all selection
   handleCurrentCheckboxChange(contact) {
-    const currentContactsIndex = this.selectedContactsInCurrentPage.indexOf(
-      contact.contactId
-    );
+    const currentContactsIndex = this.selectedContactsInCurrentPage.indexOf(contact.contactId);
     if (currentContactsIndex == -1) {
       this.selectedContactsInCurrentPage.push(contact.contactId);
     } else {
@@ -434,9 +408,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
 
   //Handling checkbox change for selection in current page
   handleCheckboxChangeForAll(contact) {
-    const contactsIndex = this.selectedContacts.findIndex(
-      (item) => item == contact.contactId
-    );
+    const contactsIndex = this.selectedContacts.findIndex((item) => item == contact.contactId);
     if (contactsIndex == -1) {
       this.selectedContacts.push(contact.contactId);
     } else {
@@ -459,18 +431,14 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     // });
     this.b2bService.searchContactViewedNetNew().subscribe((res) => {
       this.viewedCount = res.totalCount;
-      this.tabItems[1].name = `Viewed (${this.numberWithCommas(
-        this.viewedCount
-      )})`;
+      this.tabItems[1].name = `Viewed (${this.numberWithCommas(this.viewedCount)})`;
     });
   }
   getViewedData() {
     const contactsBody: SearchContactInput = this.selectedFilter;
     // console.log(this.previousOffsets,"this.previousOffsets");
-    contactsBody.offset =
-      this.previousOffsets[this.previousOffsets.length - 1] || 0;
-    contactsBody.savedListOffset =
-      this.previousSavedOffsets[this.previousSavedOffsets.length - 1] || 0;
+    contactsBody.offset = this.previousOffsets[this.previousOffsets.length - 1] || 0;
+    contactsBody.savedListOffset = this.previousSavedOffsets[this.previousSavedOffsets.length - 1] || 0;
 
     this.loaderService.display(true);
     this.noResult = false;
@@ -515,7 +483,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
   handleContactAddList() {
-    console.log("IN FUNC");
+    console.log('IN FUNC');
     this.selectedContacts = [];
     this.selectedContactsInCurrentPage = [];
     this.allContactsSelected = false;

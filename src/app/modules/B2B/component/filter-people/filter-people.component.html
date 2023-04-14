@@ -19,7 +19,7 @@
     </div>
     <div class="solid"></div>
     <app-search-quota
-      *ngIf="searchQuota > 10 && !isSubscribed"
+      *ngIf="searchQuota < 10 && !isSubscribed"
       [progress]="searchQuota"
     ></app-search-quota>
     <div>

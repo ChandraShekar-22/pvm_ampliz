@@ -126,16 +126,11 @@ export class CompanyB2bComponent implements OnInit, OnChanges {
   }
 
   getSearchQuota() {
-    this.b2bService.getSearchQuota().subscribe(
-      (res) => {
-        this.dataService.passSearchQuota(res.percentageUsed);
-        // this.searchQuota = 10;
-        // this.dataService.passSearchQuota(100);
-      },
-      (err) => {
-        this.dataService.passSearchQuota(100);
-      }
-    );
+    this.b2bService.getSearchQuota().subscribe((res) => {
+      this.dataService.passSearchQuota(res);
+      // this.searchQuota = 10;
+      // this.dataService.passSearchQuota(100);
+    });
   }
 
   getCompanyList() {

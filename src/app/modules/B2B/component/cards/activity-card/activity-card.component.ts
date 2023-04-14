@@ -125,16 +125,11 @@ export class ActivityCardComponent implements OnInit {
     }
   }
   getSearchQuota() {
-    this.b2bService.getSearchQuota().subscribe(
-      (res) => {
-        this.dataService.passSearchQuota(res.percentageUsed);
-        // this.searchQuota = 10;
-        // this.dataService.passSearchQuota(100);
-      },
-      (err) => {
-        this.dataService.passSearchQuota(100);
-      }
-    );
+    this.b2bService.getSearchQuota().subscribe((res) => {
+      this.dataService.passSearchQuota(res);
+      // this.searchQuota = 10;
+      // this.dataService.passSearchQuota(100);
+    });
   }
   mainBack() {
     this.closeClick.emit();

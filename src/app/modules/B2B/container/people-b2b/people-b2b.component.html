@@ -139,7 +139,7 @@
             ></app-people-card>
           </div>
           <div class="h-100" *ngIf="showUpgradeCard">
-            <!-- <app-upgrade *ngIf="!showLoader" type="b2b"></app-upgrade> -->
+            <app-upgrade *ngIf="!showLoader" type="b2b"></app-upgrade>
           </div>
           <app-b2b-loader *ngIf="showLoader" [loopCount]="10"></app-b2b-loader>
         </div>
@@ -161,7 +161,7 @@
       *ngIf="
         showLandingDashboard == false &&
         isRecentVisible == true &&
-        searchQuotaUsed < 100 &&
+        searchQuotaUsed > 0 &&
         !showActivityCards
       "
     >
@@ -172,7 +172,7 @@
       *ngIf="
         showLandingDashboard == false &&
         isSaveVisible == true &&
-        searchQuotaUsed < 100
+        searchQuotaUsed > 0
         !showActivityCards
       "
     >
