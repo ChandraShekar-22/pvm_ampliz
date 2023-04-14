@@ -1,12 +1,12 @@
 <div class="row">
     <mat-icon
       (click)="mainBack()"
-      *ngIf="showBackButton&&activeComponentArray.length<=1" class="mainBackIcon"  aria-hidden="true">
+     *ngIf="activeComponentArray[activeComponentArray.length-1]=='main'" class="mainBackIcon"  aria-hidden="true">
       arrow_back
     </mat-icon>
     <mat-icon
     class="backIcon"
-    *ngIf="activeComponentArray.length>1" (click)="goBack()">
+    *ngIf="activeComponentArray.length>=1 && activeComponentArray[activeComponentArray.length-1]!='main'" (click)="goBack()">
         arrow_back
     </mat-icon>
 <div [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='main'">
@@ -22,13 +22,13 @@
     </div>
     <div>
     <div class="activity-content flex-row">
-        <p class="h5 primary">+{{activity.creditCount}}</p>
+        <p class="primary credit-text">+{{activity.creditCount}}</p>
         <p><small class="smallSearch">{{activity.creditText}}</small></p>
     </div>
     <div class="solid"></div>
 
-    <div class="activity-content flex-row">
-        <p class="h5 primary">+{{activity.searchCount}}</p>
+    <div class="activity-content flex-row mt-1">
+        <p class="primary credit-text">+{{activity.searchCount}}</p>
         <p><small class="smallSearch">{{activity.searchText}}</small></p>
     </div>
     </div>
@@ -42,10 +42,10 @@
 (otpVerified)="goBack();getSearchQuota();"
 ></app-add-phone>
 </div>
-<!-- <div class="col" [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='invite'">
-<app-invite-teammember  ></app-invite-teammember>
+<div class="col" [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='invite'">
+<app-invite-teammember></app-invite-teammember>
 </div>
 <div class="col" [@enterAnimation] *ngIf="activeComponentArray[activeComponentArray.length-1]=='install'">
     <app-install-prospector></app-install-prospector>
-    </div> -->
+    </div>
 </div>

@@ -77,9 +77,9 @@
       <div
         class="py-3 px-3 selectText flex-row selectBulkOpt"
         [ngClass]="{
-          activeOption: allContactsSelected,
-          optionDisabled: !isSubscribed
+          activeOption: allContactsSelected
         }"
+        [class.optionDisabled]="!isSubscribed"
         (click)="handleSelectAll()"
         *ngIf="!triggerSelectMax"
       >

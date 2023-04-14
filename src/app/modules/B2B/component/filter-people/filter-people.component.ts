@@ -189,7 +189,8 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
       }
     });
     this.dataService.searchQuota.subscribe((quota) => {
-      this.searchQuota = quota;
+      let val: any = quota;
+      this.searchQuota = val.dailyRemainingQuota;
       // console.log("QUOTUA", this.searchQuota);
     });
   }

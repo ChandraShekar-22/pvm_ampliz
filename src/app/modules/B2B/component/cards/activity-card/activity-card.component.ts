@@ -6,14 +6,14 @@ import { AmplizService } from '../../../../healthcare/services/ampliz.service';
 declare var chrome;
 
 @Component({
-  selector: "app-activity-card",
-  templateUrl: "./activity-card.component.html",
-  styleUrls: ["./activity-card.component.css"],
+  selector: 'app-activity-card',
+  templateUrl: './activity-card.component.html',
+  styleUrls: ['./activity-card.component.css'],
   animations: [
-    trigger("enterAnimation", [
-      transition(":enter", [
-        style({ transform: "translateX(100%)", opacity: 0 }),
-        animate("300ms", style({ transform: "translateX(0)", opacity: 1 })),
+    trigger('enterAnimation', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)', opacity: 0 }),
+        animate('300ms', style({ transform: 'translateX(0)', opacity: 1 })),
       ]),
     ]),
   ],
@@ -21,59 +21,53 @@ declare var chrome;
 export class ActivityCardComponent implements OnInit {
   activitylist: Array<any> = [
     {
-      icon: "users",
-      type: "invite",
-      heading: "Invite your team member to Ampliz",
-      subHeading: "your friends to ampliz, and get 15% bonus search limit",
+      icon: 'users',
+      type: 'invite',
+      heading: 'Invite your team member to Ampliz',
+      subHeading: 'your friends to ampliz, and get 15% bonus search limit',
       searchCount: 15,
       creditCount: 5,
-      searchText: "searches",
-      creditText: "credits",
-      action: "startActivity",
+      searchText: 'searches',
+      creditText: 'credits',
+      action: 'startActivity',
       isActive: true,
     },
     {
-      icon: "phone-call",
-      type: "add_phone",
-      heading: "Add your phone number",
-      subHeading: "Add your phone number, and get 20% bonus search limit",
+      icon: 'phone-call',
+      type: 'add_phone',
+      heading: 'Add your phone number',
+      subHeading: 'Add your phone number, and get 20% bonus search limit',
       searchCount: 20,
       creditCount: 5,
-      searchText: "searches",
-      creditText: "credits",
-      action: "startActivity",
-      isActive: false,
+      searchText: 'searches',
+      creditText: 'credits',
+      action: 'startActivity',
+      isActive: true,
     },
     {
-      icon: "Chrome",
-      type: "install",
-      heading: "Install LinkedIn prospector",
-      subHeading:
-        "Download  salesbuddy extension, and get 15% bonus search limit",
+      icon: 'Chrome',
+      type: 'install',
+      heading: 'Install LinkedIn prospector',
+      subHeading: 'Download  salesbuddy extension, and get 15% bonus search limit',
       searchCount: 15,
       creditCount: 5,
-      searchText: "searches",
-      creditText: "credits",
-      action: "startActivity",
+      searchText: 'searches',
+      creditText: 'credits',
+      action: 'startActivity',
       isActive: true,
     },
   ];
-  currentActiveComponent: string = "add_phone";
-  activeComponentArray: Array<any> = ["main"];
+  currentActiveComponent: string = 'add_phone';
+  activeComponentArray: Array<any> = ['main'];
   showChrmBtn: boolean;
   chromeData = {};
   @Input() showBackButton = false;
   @Output() closeClick: EventEmitter<any> = new EventEmitter();
-  constructor(
-    private amplizService: AmplizService,
-    private b2bService: B2bService,
-    private dataService: DataService
-  ) {}
+  constructor(private amplizService: AmplizService, private b2bService: B2bService, private dataService: DataService) {}
 
   ngOnInit() {
     this.getActivityStatus();
-    let isChrome =
-      /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
     let isIE = false;
     if (isChrome) {
@@ -94,56 +88,48 @@ export class ActivityCardComponent implements OnInit {
     );
   }
   startActivity(type) {
-    this.activeComponentArray.push(type);
+    this.activeComponentArray = [type];
   }
   goBack() {
-    this.activeComponentArray.pop();
+    this.activeComponentArray = ['main'];
+    // this.activeComponentArray.pop();
   }
   checkChromeExtenstion() {
     // alert('reaching here')
     if (chrome.runtime) {
-      chrome.runtime.sendMessage(
-        "abgoaphadkcmbkapnamhkcgkaddlmfal",
-        { message: "isinstalled" },
-        (response) => {
+      chrome.runtime.sendMessage('abgoaphadkcmbkapnamhkcgkaddlmfal', { message: 'isinstalled' }, (response) => {
+        //
+        if (chrome.runtime.lastError) {
           //
-          if (chrome.runtime.lastError) {
-            //
-            this.showChrmBtn = true;
-            //
-            this.chromeData = {
-              chrome_status: "Not Installed",
-            };
-          } else {
-            this.showChrmBtn = false;
-            this.chromeData = {
-              chrome_status: "Installed",
-            };
-          }
-          // console.log("chrome data", this.chromeData);
-          this.amplizService.chromeStatus(this.chromeData).subscribe(
-            (res) => {
-              //
-            },
-            (error) => {
-              //
-            }
-          );
+          this.showChrmBtn = true;
+          //
+          this.chromeData = {
+            chrome_status: 'Not Installed',
+          };
+        } else {
+          this.showChrmBtn = false;
+          this.chromeData = {
+            chrome_status: 'Installed',
+          };
         }
-      );
+        // console.log("chrome data", this.chromeData);
+        this.amplizService.chromeStatus(this.chromeData).subscribe(
+          (res) => {
+            //
+          },
+          (error) => {
+            //
+          }
+        );
+      });
     }
   }
   getSearchQuota() {
-    this.b2bService.getSearchQuota().subscribe(
-      (res) => {
-        this.dataService.passSearchQuota(res.percentageUsed);
-        // this.searchQuota = 10;
-        // this.dataService.passSearchQuota(100);
-      },
-      (err) => {
-        this.dataService.passSearchQuota(100);
-      }
-    );
+    this.b2bService.getSearchQuota().subscribe((res) => {
+      this.dataService.passSearchQuota(res);
+      // this.searchQuota = 10;
+      // this.dataService.passSearchQuota(100);
+    });
   }
   mainBack() {
     this.closeClick.emit();

@@ -27,11 +27,10 @@ export class PeopleCardComponent implements OnInit {
   @Input() checkboxDisabled: boolean = false;
 
   emailToShow: any = [];
-
-  personalEmails = ['******@hotmail.com', '******@yahoo.com'];
-  workEmails = ['******@tuftsmedicalcenter.org', '******@hotmail.com'];
-
   emailList = [];
+
+  // personalEmails = ['******@hotmail.com', '******@yahoo.com'];
+  // workEmails = ['******@tuftsmedicalcenter.org', '******@hotmail.com'];
 
   constructor(
     private dataService: DataService,
@@ -50,38 +49,38 @@ export class PeopleCardComponent implements OnInit {
     if (this.isEmailAvailable) {
       this.emailToShow = [];
       this.emailList = [];
-      if (this.personalEmails.length > 0) {
+      if (this.contactInfo.personalEmails.length > 0) {
         const obj: any = {};
-        obj.email = this.personalEmails[0];
+        obj.email = this.contactInfo.personalEmails[0];
         obj.type = 'Personal';
         this.emailToShow.push(obj);
-        if (this.personalEmails.length > 1 && this.workEmails.length < 0) {
+        if (this.contactInfo.personalEmails.length > 1 && this.contactInfo.workEmails.length < 0) {
           const obj: any = {};
-          obj.email = this.personalEmails[1];
+          obj.email = this.contactInfo.personalEmails[1];
           obj.type = 'Personal';
           this.emailToShow.push(obj);
         }
 
-        this.personalEmails.map((x) => {
+        this.contactInfo.personalEmails.map((x) => {
           const obj1: any = {};
           obj1.email = x;
           obj1.type = 'Personal';
           this.emailList.push(obj1);
         });
       }
-      if (this.workEmails.length > 0) {
+      if (this.contactInfo.workEmails.length > 0) {
         const obj: any = {};
-        obj.email = this.workEmails[0];
+        obj.email = this.contactInfo.workEmails[0];
         obj.type = 'Work';
         this.emailToShow.push(obj);
-        if (this.workEmails.length > 1 && this.personalEmails.length < 0) {
+        if (this.contactInfo.workEmails.length > 1 && this.contactInfo.personalEmails.length < 0) {
           const obj: any = {};
-          obj.email = this.workEmails[1];
+          obj.email = this.contactInfo.workEmails[1];
           obj.type = 'Work';
           this.emailToShow.push(obj);
         }
 
-        this.workEmails.map((x) => {
+        this.contactInfo.workEmails.map((x) => {
           const obj1: any = {};
           obj1.email = x;
           obj1.type = 'Work';
@@ -92,11 +91,11 @@ export class PeopleCardComponent implements OnInit {
   }
 
   get isEmailAvailable() {
-    return this.personalEmails.length > 0 || this.workEmails.length > 0;
+    return this.contactInfo.personalEmails.length > 0 || this.contactInfo.workEmails.length > 0;
   }
 
   get isBothEmailAvaialble() {
-    return this.personalEmails.length > 0 && this.workEmails.length > 0;
+    return this.contactInfo.personalEmails.length > 0 && this.contactInfo.workEmails.length > 0;
   }
 
   get isSaved() {
@@ -135,7 +134,7 @@ export class PeopleCardComponent implements OnInit {
     // } else {
     //   return true;
     // }
-    if (this.personalEmails[0].indexOf('*') > -1 && this.workEmails[0].indexOf('*') > -1) {
+    if (this.contactInfo.personalEmails[0].indexOf('*') > -1 && this.contactInfo.workEmails[0].indexOf('*') > -1) {
       return true;
     } else {
       return false;
@@ -207,8 +206,8 @@ export class PeopleCardComponent implements OnInit {
   refreshValues(res) {
     // console.log("res", res);
     this.contactViewed.emit();
-    this.personalEmails = ['leonardoboston@hotmail.com', 'leonardoboston@hotmail.com'];
-    this.workEmails = ['mcaicedo@tuftsmedicalcenter.org', 'leonardoboston@hotmail.com'];
+    // this.personalEmails = ['leonardoboston@hotmail.com', 'leonardoboston@hotmail.com'];
+    // this.workEmails = ['mcaicedo@tuftsmedicalcenter.org', 'leonardoboston@hotmail.com'];
     this.sortEmails();
     this.contactInfo.personalEmails = res.personalEmails;
     this.contactInfo.workEmails = res.workEmails;

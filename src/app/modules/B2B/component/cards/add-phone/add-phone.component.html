@@ -35,7 +35,7 @@
     <div *ngIf="showContent == 'verify'">
         <p class="addPhoneTitle">Verify your phone number and get 20% search limit</p>
         <p class="sub-content"><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam ipsum porttitor diam at massa. Enim pharetra nulla velit nunc, orci laoreet. </small></p>
-        <p>Enter 6 dight code we sent to <span class="mobileText"> +{{selectedCountry.number}}  {{phoneNumber}}</span></p>
+        <p>Enter 6 digit code, that we sent to <span class="mobileText"> +{{selectedCountry.number}}  {{phoneNumber}}</span></p>
         <div class="verifyphone-form">
             <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6}"></ng-otp-input>
             <div

@@ -1,63 +1,64 @@
 <div class="invite-container">
-    <p class="inviteTitle mb-4">Get 5% search limit for each team member you invite to ampliz</p>
-    <div class="mb-4">
-        <div class="row progressHead">
-            <div class="col-sm-10">
-                You have {{totalCount - invitedCount}} more invites
-            </div>
-            <div class="col-sm-2" style="text-align: end;">
-                {{invitedCount}}/{{totalCount}}
-            </div>
-        </div>
-        <div class="progressbar">
-            <div class="progressLine" [style.width]="(invitedCount/totalCount)*100+'%'"></div>
-        </div>
+  <p class="inviteTitle mb-4">Get 5% search limit for each team member you invite to ampliz</p>
+  <div class="mb-4">
+    <div class="row progressHead">
+      <div class="col-sm-10">You have {{ totalCount - invitedCount }} more invites</div>
+      <div class="col-sm-2" style="text-align: end">{{ invitedCount }}/{{ totalCount }}</div>
     </div>
-    <div >
-        <form class="row mb-4" [formGroup]="emailForm">
-        <div class="col-sm-8">
-            <div class="flex-row">
-            <input
+    <div class="progressbar">
+      <div class="progressLine" [style.width]="(invitedCount / totalCount) * 100 + '%'"></div>
+    </div>
+  </div>
+  <div>
+    <form class="row mb-4" [formGroup]="emailForm">
+      <div class="col-sm-8">
+        <div class="flex-row">
+          <input
             class="form-control col-sm-7"
             placeholder="Enter your business email"
             formControlName="emailId"
             [(ngModel)]="emailId"
-            >
-            <div class="col-sm-5">
-                {{'@'+emailDomain}}
-            </div>
+          />
+          <div class="col-sm-3">
+            {{ '@' + emailDomain }}
+          </div>
         </div>
-            
-        </div>
-        <div class="col-sm-2">
-            <button (click)="inviteTeamMember()" [disabled]="emailForm.get('emailId').invalid" class="inviteButton">Invite</button>
-        </div>
-        </form>
+      </div>
+      <div class="col-sm-2">
+        <button (click)="inviteTeamMember()" [disabled]="emailForm.get('emailId').invalid" class="inviteButton">
+          Invite
+        </button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <p class="inviteTitle mb-4" *ngIf="invitedCount > 0">Invite member</p>
+    <div class="flex-row my-2 emailIdCont" *ngFor="let emailIdData of invitedEmailIds">
+      <div class="col-sm-1">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <div class="col-sm-4">
+        {{ emailIdData.email }}
+      </div>
+      <div *ngIf="emailIdData.joined == true" class="statusCont invitedStatus flex-row">
+        <mat-icon size="12">check</mat-icon>
+        Invited
+      </div>
+      <div
+        *ngIf="emailIdData.joined == false"
+        [ngClass]="isInvitationValid(emailIdData.invitationTime) ? 'pendingStatus' : 'expiredStatus'"
+        class="statusCont flex-row"
+      >
+        <mat-icon size="12">refresh</mat-icon>
+        {{ isInvitationValid(emailIdData.invitationTime) ? 'Pending' : 'Expired' }}
+      </div>
+      <button
+        (click)="resendInvitation(emailIdData)"
+        *ngIf="!isInvitationValid(emailIdData.invitationTime)"
+        class="inviteButton"
+      >
+        Re-send
+      </button>
     </div>
-    <div>
-        <p class="inviteTitle mb-4">Invite member</p>
-        <div class="flex-row my-2 emailIdCont" *ngFor="let emailIdData of invitedEmailIds">
-            <div class="col-sm-1">
-                <mat-icon>account_circle</mat-icon>
-            </div>
-            <div class="col-sm-4">
-                {{emailIdData.email}}
-            </div>
-            <div *ngIf="emailIdData.joined==true" class="statusCont invitedStatus flex-row">
-                <mat-icon size="12">check</mat-icon>
-                Invited
-            </div>
-            <div *ngIf="emailIdData.joined==false"
-            [ngClass]="isInvitationValid(emailIdData.invitationTime)?'pendingStatus':'expiredStatus'"
-            class="statusCont  flex-row">
-                <mat-icon size="12">refresh</mat-icon>
-                {{isInvitationValid(emailIdData.invitationTime)?'Pending':'Expired'}}
-            </div>
-            <button
-            (click)="resendInvitation(emailIdData)"
-            *ngIf="!isInvitationValid(emailIdData.invitationTime)" class="inviteButton">
-                Re-send
-            </button>
-        </div>
-    </div>
+  </div>
 </div>

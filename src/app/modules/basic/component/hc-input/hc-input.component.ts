@@ -45,7 +45,7 @@ export class HcInputComponent implements ControlValueAccessor, AfterViewInit, On
 
     //Lifecycle hook. angular.io for more info
     ngAfterViewInit(){ 
-      console.log(this.c)
+    //   console.log(this.c)
         // set placeholder default value when no input given to placeholder property      
         if(this.placeholder === undefined){
             this.placeholder = "Enter "+this.text; 
@@ -54,7 +54,7 @@ export class HcInputComponent implements ControlValueAccessor, AfterViewInit, On
         // RESET the custom input form control UI when the form control is RESET
         this.c.valueChanges.subscribe(
             () => {
-              console.log(this.c.errors)
+            //   console.log(this.c.errors)
                 // check condition if the form control is RESET
                 if (this.c.value == "" || this.c.value == null || this.c.value == undefined) {
                     this.innerValue = "";      
@@ -69,8 +69,8 @@ export class HcInputComponent implements ControlValueAccessor, AfterViewInit, On
 
     // event fired when input value is changed . later propagated up to the form control using the custom value accessor interface
     onChange(e:Event, value:any){
-        console.log(this.c)
-      console.log(this.c.errors)
+    //     console.log(this.c)
+    //   console.log(this.c.errors)
         this.innerValue = value;
         this.propagateChange(this.innerValue);
 

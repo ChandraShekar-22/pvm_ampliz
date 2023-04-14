@@ -460,8 +460,7 @@ img.img-default-avatar {
 ::ng-deep .mat-menu-panel.show-more-menu {
   min-width: 450px !important;
 }
-::ng-deep {
-  .mat-menu-panel.show-more-menu {
+/* ::ng-deep .mat-menu-panel.show-more-menu {
     width: 500px !important;
   }
-}
+} */
