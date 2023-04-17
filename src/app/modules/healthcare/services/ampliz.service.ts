@@ -1065,17 +1065,17 @@ export class AmplizService {
   }
   isInvitationActive(code: any): Observable<any> {
     let params = { invitationCode: code };
-    const url =
-      environment.prodHcApi + "/amplizb2bapacreadapi/user/is-invitation-active";
+    // const url = environment.prodHcApi + '/amplizb2bapacreadapi/user/is-invitation-active';
+    const url = environment.prodGlobalB2BApi + '/amplizglobalb2breadapi/user/is-invitation-active';
     // const body = { searchPhase: searchPhase };
     const response = this.http.get(url, { params: params });
     return response;
   }
   reInvite(code: any): Observable<any> {
     let params = { invitationCode: code };
-    const url =
-      environment.prodHcApi +
-      "/amplizb2bapacwriteapi/user/re-invite-team-member";
+    const url = environment.prodGlobalB2BApi + '/amplizglobalb2bwriteapi/user/request-invitation';
+      // environment.prodHcApi +
+      // "/amplizb2bapacwriteapi/user/re-invite-team-member";
     const response = this.http.post(url, { params: params });
     return response;
   }

@@ -51,22 +51,22 @@ h3,
 h4,
 h5,
 h6 {
-  color: #2d385e;
+  color: #040404;
 }
 
 a,
 a:focus,
 a:hover {
-  color: #0005b94f;
+  color: #0071eb;
 }
 
 p {
-  color: #8c8a8a;
+  color: #616161;
 }
 
 .btn-primary {
-  background-color: #4383ac;
-  border-color: #4383ac;
+  background-color: #0071eb;
+  border-color: #0071eb;
 }
 
 .btn-primary.active,
@@ -124,7 +124,7 @@ p {
 }
 .error-message {
   text-align: left;
-  color: red;
+  color: #ec7966;
   margin: 0;
   padding: 0;
 }
@@ -237,11 +237,13 @@ authfy-login .social-buttons .btn-linkedin {
 .authfy-login .forgotPwd {
   text-align: right;
   margin-top: 10px;
+  font-weight: 400;
 }
 
 .panel-forgot .form-control,
 .panel-login .form-control,
-.panel-signup .form-control {
+.panel-signup .form-control,
+.panel-invited .form-control {
   color: #333;
   font-size: 16px;
   height: 50px;
@@ -254,14 +256,15 @@ authfy-login .social-buttons .btn-linkedin {
 
 .panel-forgot .form-control:focus + .focus-input:before,
 .panel-login .form-control:focus + .focus-input:before,
-.panel-signup .form-control:focus + .focus-input:before {
+.panel-signup .form-control:focus + .focus-input:before,
+.panel-invited .form-control:focus + .focus-input:before {
   width: 100%;
 }
 
 .wrap-input {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
   margin-bottom: 8px;
 }
 
@@ -280,11 +283,11 @@ authfy-login .social-buttons .btn-linkedin {
 }
 
 .focus-input:before {
-  background-color: #005b94;
+  background-color: #0071eb;
   content: '';
   width: 0;
-  height: 2px;
-  bottom: -2px;
+  height: 1px;
+  bottom: -1px;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -319,7 +322,7 @@ authfy-login .social-buttons .btn-linkedin {
 .pwdMask .pwd-toggle.fa-eye,
 .pwdMask .pwd-toggle:focus,
 .pwdMask .pwd-toggle:hover {
-  color: #4f77ff;
+  color: #0071eb;
 }
 
 .panel-signup .term-policy a {
@@ -357,10 +360,10 @@ authfy-login .social-buttons .btn-linkedin {
 }
 
 .checkbox input[type='checkbox'] + .label-text:after {
-  background-color: #005b94;
+  background-color: #0071eb;
   color: #fff;
   border-radius: 2px;
-  border-color: #4f77ff;
+  border-color: #0071eb;
   line-height: 1.4;
 }
 
@@ -373,6 +376,19 @@ authfy-login .social-buttons .btn-linkedin {
 .checkbox input[type='checkbox']:checked + .label-text:after {
   font-family: FontAwesome;
   content: '\f00c';
+}
+
+.form-group .confirm-policy {
+  font-size: 12px;
+  font-weight: 200;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.form-group .confirm-policy a {
+  color: #0071eb;
+}
+.form-group .btn-new {
+  background: #0071eb !important;
 }
 
 @media (min-width: 812px) {
@@ -550,20 +566,31 @@ a:hover {
 
 .arrow-steps .step.current {
   color: #fff;
-  background-color: #4383ac;
+  background-color: #0071eb;
 }
 
 .arrow-steps .step.current:after {
-  border-left: 17px solid #4383ac;
+  border-left: 17px solid #0071eb;
 }
 
 .link {
   cursor: pointer !important;
-  color: #337ab7 !important;
+  color: #0071eb !important;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .fnt_bld {
   font-size: 13px;
   font-weight: 600;
   color: #a29e9e !important;
+}
+.form-control:disabled {
+  background-color: transparent;
+}
+.invitedForm .wrap-input .pwdMask {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
