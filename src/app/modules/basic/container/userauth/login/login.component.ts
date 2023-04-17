@@ -122,6 +122,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
   requestInvite() {
     this.amplizService.reInvite(this.invitedBody.code).subscribe((res) => {
+      this.messageService.display(true, 'Invite sent successfully');
       this.dialog.closeAll();
     });
   }
