@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 import { Router } from '@angular/router';
 import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
@@ -6,12 +6,14 @@ import { ErrorService } from 'src/app/modules/healthcare/services/error.service'
 import { SuccessmessageService } from 'src/app/modules/healthcare/services/successmessage.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
+  @ViewChild('expiredInvitation') expiredInvitation = {} as TemplateRef<any>;
   passwordShow = false;
   domainName = '';
   loginBody = {
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   showInlineError: boolean = false;
   emailError: boolean = false;
   passwordError: boolean = false;
+  dialogRef: any;
   // @Input() border: boolean = true;
   // @Input() success: boolean = false;
   // @Input() hasError: boolean = true;
@@ -69,8 +72,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private errorService: ErrorService,
     private successService: SuccessmessageService,
     private route: ActivatedRoute,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public dialog: MatDialog
   ) {}
+  ngAfterViewInit(): void {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -78,11 +83,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (params.invite && params.invite.length > 0 && params.email && params.email.length > 0) {
           let info = params;
           this.invitedBody.code = info.invite;
-          this.isInvitationActive(info.invite);
           const isActive = this.isInvitationActive(info.invite);
           if (isActive) {
             this.invitedBody.email = info.email;
-            this.currentScene = 'invited';
           }
         }
       }
@@ -100,27 +103,41 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
     this.checkStorage();
   }
-  ngAfterViewInit(): void {}
   isInvitationActive(code) {
     let isActive = false;
     this.amplizService.isInvitationActive(code).subscribe((res) => {
       if (!res.isActive) {
         this.alertContent = this.inviteMessage.error;
         this.showInlineError = true;
+        this.openExpiredDialog();
       } else {
         this.alertContent = {};
         this.showInlineError = false;
         isActive = true;
+        this.currentScene = 'invited';
       }
     });
     // return true;
     return isActive;
   }
   requestInvite() {
-    this.amplizService.reInvite(this.invitedBody.code).subscribe((res) => {});
+    this.amplizService.reInvite(this.invitedBody.code).subscribe((res) => {
+      this.dialog.closeAll();
+    });
   }
   get showCreateAccountBtn() {
     return this.invitedBody.policy && this.invitedBody.pwd !== '' && this.invitedBody.confirm_pwd !== '';
+  }
+  openExpiredDialog() {
+    this.dialogRef = this.dialog.open(this.expiredInvitation, {
+      width: '500px',
+      height: '405px',
+      data: {
+        heading: 'Your invitation is expired!',
+        message: 'You can request for new invitation',
+        buttonText: 'Request Invitation',
+      },
+    });
   }
   async login() {
     // this.loaderService.display(true);

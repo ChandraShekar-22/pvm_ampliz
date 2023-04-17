@@ -594,3 +594,26 @@ a:hover {
   justify-content: flex-end;
   align-items: center;
 }
+.input .policy-checkbox {
+  width: 10px !important;
+  height: 10px !important;
+}
+.dialog-image {
+  margin: 40px 0px;
+}
+.dialog-heading {
+  color: #f94242;
+}
+.dialog-message {
+  font-size: 13px;
+  font-weight: 400;
+}
+.dialog-btn {
+  margin: 40px 65px;
+}
+.close-button {
+  background: none;
+  border: none;
+  float: right;
+  cursor: pointer;
+}

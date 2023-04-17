@@ -44,11 +44,6 @@
 
             <!-- <p>Don’t have an account? <a class="lnk-toggler link" data-panel=".panel-signup" (click)="showScreen('signup')">Sign Up Free!</a></p> -->
           </div>
-          <app-inline-alert
-            [content]="alertContent"
-            *ngIf="showInlineError"
-            (callbackFunction)="requestInvite()"
-          ></app-inline-alert>
           <div *ngIf="errmsg" class="alert alert-danger" role="alert">
             Email already registered,but email not yet verified, please verify the email <a href="#"><b>here</b></a>
           </div>
@@ -84,7 +79,7 @@
                     [(ngModel)]="loginBody.email"
                     name="username"
                     placeholder="Email Address"
-                    [ngModelOptions]="{standalone: true}"
+                    [ngModelOptions]="{ standalone: true }"
                   />
                   <span class="focus-input"></span>
                 </div>
@@ -97,15 +92,15 @@
                       name="password"
                       [(ngModel)]="loginBody.pwd"
                       placeholder="Password"
-                      [ngModelOptions]="{standalone: true}"
+                      [ngModelOptions]="{ standalone: true }"
                     />
                     <span class="focus-input"></span>
                     <span
                       (mouseenter)="showPassword(true)"
                       (mouseleave)="showPassword(false)"
                       class="fa fa-eye-slash pwd-toggle"
-                      [class.fa-eye] = passwordShow
-                      [class.fa-eye-slash] = !passwordShow
+                      [class.fa-eye]="passwordShow"
+                      [class.fa-eye-slash]="!passwordShow"
                     ></span>
                   </div>
                 </div>
@@ -221,7 +216,7 @@
                     placeholder="Email Address"
                     name="forgot-username"
                     [(ngModel)]="forgotBody.email"
-                    [ngModelOptions]="{standalone: true}"
+                    [ngModelOptions]="{ standalone: true }"
                   />
                   <span class="focus-input"></span>
                 </div>
@@ -271,7 +266,7 @@
                     placeholder="Email Address"
                     name="invited-username"
                     [(ngModel)]="invitedBody.email"
-                    [ngModelOptions]="{standalone: true}"
+                    [ngModelOptions]="{ standalone: true }"
                   />
                   <span class="focus-input"></span>
                 </div>
@@ -283,15 +278,15 @@
                       placeholder="Set password"
                       name="invited-set-password"
                       [(ngModel)]="invitedBody.pwd"
-                      [ngModelOptions]="{standalone: true}"
+                      [ngModelOptions]="{ standalone: true }"
                     />
                     <span class="focus-input"></span>
                     <span
                       (mouseenter)="invitedBody.show_pwd = true"
                       (mouseleave)="invitedBody.show_pwd = false"
                       class="fa pwd-toggle"
-                      [class.fa-eye] = invitedBody.show_pwd
-                      [class.fa-eye-slash] = !invitedBody.show_pwd
+                      [class.fa-eye]="invitedBody.show_pwd"
+                      [class.fa-eye-slash]="!invitedBody.show_pwd"
                     ></span>
                   </div>
                 </div>
@@ -303,15 +298,15 @@
                       placeholder="Confirm password"
                       name="invited-confirm-password"
                       [(ngModel)]="invitedBody.confirm_pwd"
-                      [ngModelOptions]="{standalone: true}"
+                      [ngModelOptions]="{ standalone: true }"
                     />
                     <span class="focus-input"></span>
                     <span
                       (mouseenter)="invitedBody.show_confirm_pwd = true"
                       (mouseleave)="invitedBody.show_confirm_pwd = false"
                       class="fa pwd-toggle"
-                      [class.fa-eye] = invitedBody.show_confirm_pwd
-                      [class.fa-eye-slash] = !invitedBody.show_confirm_pwd
+                      [class.fa-eye]="invitedBody.show_confirm_pwd"
+                      [class.fa-eye-slash]="!invitedBody.show_confirm_pwd"
                     ></span>
                   </div>
                 </div>
@@ -319,7 +314,12 @@
                 <div class="form-group">
                   <div class="confirm-policy">
                     <span>
-                      <input type="checkbox" [(ngModel)]="invitedBody.policy" [ngModelOptions]="{standalone: true}"/>
+                      <input
+                        type="checkbox"
+                        class="policy-checkbox"
+                        [(ngModel)]="invitedBody.policy"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
                       I have read and agree with the
                       <a href="https://www.ampliz.com/terms-conditions"> Terms and Conditions </a> and our
                       <a href="https://www.ampliz.com/privacy-policy">Privacy Policy</a>
@@ -360,3 +360,20 @@
   <!-- ./row -->
 </div>
 <!-- ./container -->
+<ng-template let-data #expiredInvitation>
+  <button  class="close-button" mat-dialog-close>
+  <mat-icon class="close-icon">close</mat-icon>
+</button>
+  <mat-dialog-content class="dialog-image" align="center">
+    <img src="assets/images/expired-invitation-icon.png" width="50px"/>
+  </mat-dialog-content>
+  <mat-dialog-content align="center">
+    <h2 mat-dialog-title class="dialog-heading">{{ data.heading }}</h2>
+    <p class="dialog-message">{{ data.message }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center" class="dialog-btn">
+    <button (click)="requestInvite()" class="btn btn-lg btn-new btn-block" type="submit" style="background: #0071eb !important">
+      {{ data.buttonText }}
+    </button>
+  </mat-dialog-actions>
+</ng-template>
