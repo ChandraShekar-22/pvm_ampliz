@@ -184,6 +184,7 @@
                       [domLayout]="domLayout"
                       [headerHeight]="45"
                       [overlayNoRowsTemplate]="noRowsTemplate"
+                      (cellValueChanged)="onCellValueChanged($event)"
                       >
                       <!-- [tooltipShowDelay]="0" -->
                     </ag-grid-angular>
