@@ -1,7 +1,7 @@
 <div class="physican_container card-animate">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-7">
+      <div class="col-sm-12 col-md-8">
         <div class="physician_card">
           <div class="form-check">
             <input
@@ -44,12 +44,12 @@
           </div> -->
           <div class="physician_content">
             <h5 class="physician_name">
-              {{ contactInfo?.fullName }}
+              {{ contactInfo?.fullName | titlecase }}
             </h5>
             <div class="physician_info">
               <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{ contactInfo?.title.toString() }}</span>
               <span class="physican_location"
-                ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ contactInfo?.location }}</span
+                ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ contactInfo?.location | titlecase }}</span
               >
             </div>
             <div
@@ -81,8 +81,8 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-5">
-        <div class="physican_additionInfo" style="margin-left: 30px">
+      <div class="col-sm-12 col-md-4">
+        <div class="physican_additionInfo">
           <!-- <ng-container
             *ngIf="contactInfo.email != null && contactInfo.email != ''"
           >
@@ -98,25 +98,50 @@
             </span>
           </ng-container> -->
 
-          <ng-container *ngFor="let item of emailToShow">
-            <span class="row mb-1">
-              <div class="row col-4 align-items-center">
-                <i class="fa fa-envelope-o col-3" aria-hidden="true"></i>
-                <div class="email-type-container col-8">
-                  <span class="email-type-text">{{ item.type }}</span>
-                </div>
-              </div>
+          <!-- Email -->
+          <ng-container *ngIf="emailToShow[0] !== ''">
+            <span class="email-container" *ngFor="let item of emailToShow">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <a
                 [href]="'mailto:' + contactInfo.email"
-                class="physican_email col-8"
-                style="font-size: 12px !important"
+                class="physican_email"
                 [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
                 [ngStyle]="isEmailMasked ? { cursor: 'default' } : { cursor: 'pointer' }"
-                >{{ item.email }}</a
+                >{{ item }}</a
               >
             </span>
           </ng-container>
-          <ng-container *ngIf="emailList.length > 2 && !isEmailMasked">
+          <!-- If Email is not present -->
+          <ng-container *ngIf="emailToShow.length <= 0 && phoneToShow.length > 0 ">
+            <span class="email-container">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              <span class="physican_email" (click)="request('Request Email Access', contactInfo.contactId)"
+                >Request Email</span
+              >
+            </span>
+          </ng-container>
+          <!-- ./Email -->
+
+          <!-- Phone -->
+          <ng-container *ngIf="phoneToShow.length > 0">
+            <div *ngFor="let item of phoneToShow">
+              <span class="physican_phone" [class.email-text]="!isPhoneMasked">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                {{ item }}</span
+              >
+            </div>
+          </ng-container>
+          <!-- If Phone does't exist -->
+          <!-- && showRequestPhone -->
+          <ng-container *ngIf="phoneToShow.length <= 0 && emailToShow.length > 0 ">
+            <span class="physican_email" (click)="request('Request Phone Access', contactInfo.contactId)">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              Request Phone</span
+            >
+          </ng-container>
+          <!-- ./Phone -->
+
+          <ng-container *ngIf="(allEmail.length > 0 || allPhone.length > 0) && !isEmailMasked">
             <span class="show-more-button" [matMenuTriggerFor]="aboveMenu" #t="matMenuTrigger">
               Show all
               <svg
@@ -137,82 +162,93 @@
             </span>
 
             <mat-menu class="show-more-menu" #aboveMenu="matMenu" xPosition="before" menuOpen="menuOpen">
-              <div class="email-list-container">
-                <div class="email-list row" *ngFor="let item of emailList" (click)="$event.stopPropagation()">
-                  <div class="email-list-left row col-4">
-                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                    <div class="email-type-container col-8">
-                      <span class="email-type-text">{{ item.type }}</span>
+              <div class="contact-container">
+                <!-- email container starts -->
+                <div class="email-wrapper" *ngIf="allEmail.length > 0">
+                  <span class="email-container-heading">Email</span>
+                  <div class="email-list-container">
+                    <div class="email-list row" *ngFor="let contact of allEmail" (click)="$event.stopPropagation()">
+                      <div class="email-list-left row col-4">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        <div class="email-type-container">
+                          <span class="email-type-text">{{ contact.type }}</span>
+                        </div>
+                      </div>
+                      <div class="email-list-right row col-8">
+                        <div class="email-text-container">
+                          <a
+                            [href]="'mailto:' + contactInfo.email"
+                            id="email-hover"
+                            class="physican_email email-text"
+                            [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
+                            >{{ contact.email }}</a
+                          >
+                        </div>
+                        <div class="copy-clipboard-container">
+                          <button class="copy-clipboard-icon-button" (click)="copyToClipboard(contact.email)">
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="16"
+                              height="16"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="css-i6dzq copy-clipboard-icon"
+                            >
+                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </div>
+                <!-- email container ends -->
 
-                  <div class="email-list-right row col-8">
-                    <div class="email-text-container">
-                      <a
-                        [href]="'mailto:' + contactInfo.email"
-                        id="email-hover"
-                        class="physican_email email-text"
-                        [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
-                        >{{ item.email }}</a
-                      >
+                <!-- <div class="phone-list" *ngFor="let phone of allPhone">
+                    <span>
+                      <i class="fa fa-phone phone-list-icon" aria-hidden="true"></i>
+                      {{ phone }}</span
+                    >
+                  </div> -->
+
+                <div class="phone-wrapper" *ngIf="allPhone.length > 0">
+                  <span class="phone-container-heading">Phone</span>
+                  <div class="phone-list-container row" *ngFor="let phone of allPhone">
+                    <div class="col-1">
+                      <i class="fa fa-phone phone-list-icon" aria-hidden="true"></i>
                     </div>
-                    <div class="copy-clipboard-container">
-                      <button class="copy-clipboard-icon-button" (click)="copyToClipboard(item.email)">
-                        <svg
-                          viewBox="0 0 24 24"
-                          width="16"
-                          height="16"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="css-i6dzq copy-clipboard-icon"
-                        >
-                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                      </button>
+                    <div class="phone-list-right col-7 row">
+                      <div>
+                        <span class="phone-list-text">{{ phone }}</span>
+                      </div>
+                      <div class="copy-clipboard-container">
+                        <button class="copy-clipboard-icon-button" (click)="copyToClipboard(phone)">
+                          <svg
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="css-i6dzq copy-clipboard-icon"
+                          >
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </mat-menu>
           </ng-container>
-
-          <!-- If Email is not present -->
-          <ng-container
-            *ngIf="!isBothEmailAvaialble && contactInfo.directDialPhone != '' && contactInfo.directDialPhone != null"
-          >
-            <span>
-              <i class="fa fa-envelope-o" aria-hidden="true"></i>
-              <span class="physican_email" (click)="request('Request Email Access', contactInfo.contactId)"
-                >Request Email</span
-              >
-            </span>
-          </ng-container>
-          <ng-container *ngIf="contactInfo.directDialPhone != '' && contactInfo.directDialPhone != null">
-            <span class="physican_phone">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              {{ contactInfo.directDialPhone }}</span
-            >
-          </ng-container>
-          <!-- If Phone does't exist -->
-          <!-- <ng-container
-            *ngIf="
-              contactInfo.directDialPhone.length <= 0 &&
-              contactInfo.email != null &&
-              contactInfo.email != ''
-            "
-          >
-            <span
-              class="physican_email"
-              (click)="request('Request Phone Access', contactInfo.contactId)"
-            >
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              Request Phone</span
-            >
-          </ng-container> -->
           <div class="saveBtn_wrp">
             <i *ngIf="contactInfo['linkedinURL']" class="fa fa-brands fa-linkedin" (click)="openUrl('linkedinURL')"></i>
             <i *ngIf="contactInfo['facebook']" class="fa fa-brands fa-facebook" (click)="openUrl('facebook')"></i>

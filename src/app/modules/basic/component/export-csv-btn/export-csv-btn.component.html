@@ -2,7 +2,7 @@
   <a href="javascript:void(0)" (click)="downloadCSV()" class="csv-btn" [class.disable]="params.data.noOfLeads === 0">
     CSV
   </a>
-  <app-list-action-button [params]="params.data" (deleteList)="deleteList()"></app-list-action-button>
+  <app-list-action-button [params]="params.data" (deleteList)="deleteList()" (editListName)="editListName()"></app-list-action-button>
 </div>
 
 

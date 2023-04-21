@@ -5,6 +5,7 @@ import { DataService } from 'src/app/modules/B2B/services/data.service';
 import { AmplizService } from '../../../../healthcare/services/ampliz.service';
 import { MessageService } from '../../../services/message.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { E } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-people-card',
@@ -27,7 +28,12 @@ export class PeopleCardComponent implements OnInit {
   @Input() checkboxDisabled: boolean = false;
 
   emailToShow: any = [];
-  emailList = [];
+  phoneToShow: any = [];
+  allEmail: any = [];
+  allPhone: any = [];
+  showMoreList = [];
+
+  showRequestPhone: boolean = true;
 
   // personalEmails = ['******@hotmail.com', '******@yahoo.com'];
   // workEmails = ['******@tuftsmedicalcenter.org', '******@hotmail.com'];
@@ -43,48 +49,51 @@ export class PeopleCardComponent implements OnInit {
     this.getIndustryAndSkillset();
     this.resetSliceLength();
     this.sortEmails();
+    this.sortPhones();
   }
 
   sortEmails() {
     if (this.isEmailAvailable) {
+      let emailList = [];
       this.emailToShow = [];
-      this.emailList = [];
-      if (this.contactInfo.personalEmails.length > 0) {
-        const obj: any = {};
-        obj.email = this.contactInfo.personalEmails[0];
-        obj.type = 'Personal';
-        this.emailToShow.push(obj);
-        if (this.contactInfo.personalEmails.length > 1 && this.contactInfo.workEmails.length < 0) {
-          const obj: any = {};
-          obj.email = this.contactInfo.personalEmails[1];
-          obj.type = 'Personal';
-          this.emailToShow.push(obj);
-        }
-
-        this.contactInfo.personalEmails.map((x) => {
+      this.allEmail = [];
+      if (this.contactInfo.workEmails.length > 0) {
+        this.contactInfo.workEmails.map((work) => {
           const obj1: any = {};
-          obj1.email = x;
-          obj1.type = 'Personal';
-          this.emailList.push(obj1);
+          obj1.email = work;
+          obj1.type = 'Work';
+          emailList.push(obj1);
         });
       }
-      if (this.contactInfo.workEmails.length > 0) {
-        const obj: any = {};
-        obj.email = this.contactInfo.workEmails[0];
-        obj.type = 'Work';
-        this.emailToShow.push(obj);
-        if (this.contactInfo.workEmails.length > 1 && this.contactInfo.personalEmails.length < 0) {
-          const obj: any = {};
-          obj.email = this.contactInfo.workEmails[1];
-          obj.type = 'Work';
-          this.emailToShow.push(obj);
-        }
-
-        this.contactInfo.workEmails.map((x) => {
+      if (this.contactInfo.personalEmails.length > 0) {
+        this.contactInfo.personalEmails.map((personal) => {
           const obj1: any = {};
-          obj1.email = x;
-          obj1.type = 'Work';
-          this.emailList.push(obj);
+          obj1.email = personal;
+          obj1.type = 'Personal';
+          emailList.push(obj1);
+        });
+      }
+      if (emailList.length > 0) {
+        const obj: any = emailList[0];
+        this.emailToShow.push(obj.email);
+      }
+      if (emailList.length > 1) {
+        emailList.map((email) => {
+          this.allEmail.push(email);
+        });
+      }
+    }
+  }
+
+  sortPhones() {
+    if (this.contactInfo.directDialPhone.length > 0) {
+      console.log('PHONES', this.contactInfo.directDialPhone);
+      this.allPhone = [];
+      this.phoneToShow = [];
+      this.phoneToShow.push(this.contactInfo.directDialPhone[0]);
+      if (this.contactInfo.directDialPhone.length > 1) {
+        this.contactInfo.directDialPhone.map((phone) => {
+          this.allPhone.push(phone);
         });
       }
     }
@@ -108,10 +117,13 @@ export class PeopleCardComponent implements OnInit {
   get isSaveButton() {
     return this.contactInfo.leadSaveStatus == 'Viewed';
   }
+  get requestPhone() {
+    return this.phoneToShow.length <= 0 && this.emailToShow.length > 0;
+  }
 
   get showRequestContactBtn() {
     return (
-      (this.contactInfo.directDialPhone.length <= 0 && !this.isBothEmailAvaialble) ||
+      (this.contactInfo.directDialPhone.length <= 0 && !this.isEmailAvailable) ||
       // this.contactInfo.personalEmails.length <= 0 ||
       (this.contactInfo.directDialPhone[0] === null &&
         this.contactInfo.personalEmails[0] === null &&
@@ -121,23 +133,33 @@ export class PeopleCardComponent implements OnInit {
   }
 
   get isEmailMasked() {
-    // if (this.isBothEmailAvaialble) {
-    //   if (this.contactInfo.personalEmails[0].indexOf('*') > -1) {
-    //     return true;
-    //   }
-    //   if (this.contactInfo.workEmails[0].indexOf('*') > -1) {
-    //     return true;
-    //   } else {
-    //     this.saveBtnTrigger = true;
-    //     return false;
-    //   }
-    // } else {
-    //   return true;
-    // }
-    if (this.contactInfo.personalEmails[0].indexOf('*') > -1 && this.contactInfo.workEmails[0].indexOf('*') > -1) {
-      return true;
-    } else {
-      return false;
+    if (this.contactInfo.personalEmails.length > 0 && this.contactInfo.workEmails.length > 0) {
+      if (this.contactInfo.personalEmails[0].indexOf('*') > -1 && this.contactInfo.workEmails[0].indexOf('*') > -1) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (this.contactInfo.personalEmails.length > 0) {
+      if (this.contactInfo.personalEmails[0].indexOf('*') > -1) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (this.contactInfo.workEmails.length > 0) {
+      if (this.contactInfo.workEmails[0].indexOf('*') > -1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  get isPhoneMasked() {
+    if (this.contactInfo.directDialPhone.length > 0) {
+      if (this.contactInfo.directDialPhone[0].indexOf('*') > -1) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -194,7 +216,7 @@ export class PeopleCardComponent implements OnInit {
       intentrequest: request,
     };
     this.amplizService.request_access(body).subscribe((res) => {
-      this.messageService.display(true, res.msgInfo.msg);
+      this.messageService.display(true, res.msg);
     });
   }
 
@@ -204,16 +226,20 @@ export class PeopleCardComponent implements OnInit {
   }
 
   refreshValues(res) {
-    // console.log("res", res);
-    this.contactViewed.emit();
-    // this.personalEmails = ['leonardoboston@hotmail.com', 'leonardoboston@hotmail.com'];
-    // this.workEmails = ['mcaicedo@tuftsmedicalcenter.org', 'leonardoboston@hotmail.com'];
-    this.sortEmails();
-    this.contactInfo.personalEmails = res.personalEmails;
-    this.contactInfo.workEmails = res.workEmails;
-    // this.contactInfo.email = res.email;
-    this.contactInfo.phone = res.phone;
+    // this.showMoreList = [];
+    // this.allEmail = [];
+    // this.allEmail = [];
+
+    this.contactInfo.personalEmails = res.personalEmails.length > 0 ? res.personalEmails : [];
+    this.contactInfo.workEmails = res.workEmails.length > 0 ? res.workEmails : [];
+    this.contactInfo.directDialPhone = res.phone.length > 0 ? res.phone : [];
     this.contactInfo.linkedinURL = res.linkedinUrl;
+
+    // console.log('CONTACT INFOR', this.contactInfo);
+
+    this.sortEmails();
+    this.sortPhones();
+    this.contactViewed.emit();
     this.saveBtnTrigger = true;
   }
   contactReceived(res) {

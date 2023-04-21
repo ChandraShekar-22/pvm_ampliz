@@ -33,8 +33,9 @@ export class RecentSearchPageComponent implements OnInit {
       (res) => {
         this.loaderService.display(false);
         this.recentSearchList = res.searchReportList;
-        this.isViewmoreButtonVisible =  this.recentSearchList.length >5;
-        this.recentSearchList = this.recentSearchList.slice(0,5);
+        this.dataService.passRecentSearch(this.recentSearchList);
+        this.isViewmoreButtonVisible = this.recentSearchList.length > 5;
+        this.recentSearchList = this.recentSearchList.slice(0, 5);
       },
       (error) => {
         this.loaderService.display(false);

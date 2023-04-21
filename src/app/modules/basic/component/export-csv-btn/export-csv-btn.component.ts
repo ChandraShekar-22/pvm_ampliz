@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
 import { ICellRendererParams } from "ag-grid-community";
 @Component({
-  selector: "app-export-csv-btn",
-  templateUrl: "./export-csv-btn.component.html",
-  styleUrls: ["./export-csv-btn.component.css"],
+  selector: 'app-export-csv-btn',
+  templateUrl: './export-csv-btn.component.html',
+  styleUrls: ['./export-csv-btn.component.css'],
 })
 export class ExportCsvBtnComponent implements OnInit {
   componentParent: any;
@@ -25,5 +25,9 @@ export class ExportCsvBtnComponent implements OnInit {
 
   deleteList() {
     this.componentParent.deleteList(this.params.data.listId);
+  }
+
+  editListName() {
+    this.componentParent.catchEditValue(this.params.data);
   }
 }

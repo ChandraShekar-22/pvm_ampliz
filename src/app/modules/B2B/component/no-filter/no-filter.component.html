@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row no-filter-wrapper">
+    <div class="col-4">
+      <img src="../../../../../assets/images/no-filter.svg" />
+    </div>
+    <div class="col-7">
+      <h4>Set filters to see the prospects</h4>
+      <p>Use the filters to get meaningful results, then reveal contact details.</p>
+
+      <div class="recent-filters-wrapper">
+        <h6>Jump back in</h6>
+        <p>Your latest prospecting activity</p>
+
+        <div class="chip-wrapper">
+          <ng-container *ngFor="let chip of recentData; let indexOfelement = index">
+            <ng-container class="chip-wrapper" *ngFor="let key of Object.keys(chip)">
+                <!-- (click)="searchRecent(indexOfelement)" -->
+              <span class="row chip-container" >
+                <span>{{ key }}: &nbsp; </span> {{ chip[key] }}
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

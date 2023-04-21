@@ -2,7 +2,7 @@
   <!--- Sidemenu -->
   <div id="sidebar-menu">
     <!-- Left Menu Start -->
-    <ul class="metismenu" id="side-menu" *ngIf="dataSet === 'B2B'">
+    <ul class="metismenu b2b" id="side-menu" *ngIf="dataSet === 'B2B'">
       <!--<li class="menu-title">Navigation</li>-->
 
       <li class="active d-none d-sm-block">
@@ -15,7 +15,7 @@
         </a>
       </li>
 
-      <li class="d-none d-sm-block">
+      <!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('contacts')"
@@ -24,8 +24,9 @@
         >
           <i class="mdi mdi-heart-multiple-outline"></i>
         </a>
-      </li>
-      <li class="d-none d-sm-block">
+      </li> -->
+
+      <!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('freecredits')"
@@ -33,7 +34,7 @@
           [ngClass]="{ activeElement: elementName == 'freecredits' }">
           <i class="mdi mdi-gift"></i>
         </a>
-      </li>
+      </li> -->
 
       <li class="d-none d-sm-block">
         <a

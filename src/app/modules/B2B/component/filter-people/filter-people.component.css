@@ -874,3 +874,8 @@ mat-expansion-panel mat-select {
   color: #67696b;
   cursor: pointer !important;
 }
+
+.country-logo {
+  max-width: 40px;
+  height: 20px
+}

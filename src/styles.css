@@ -1202,3 +1202,8 @@ align-items: center;
 .justify-center {
   justify-content: center;
 }
+.ag-theme-material {
+    --ag-primary-color: #0071eb;
+    --ag-background-color: #fff;
+    --ag-font-family: Roboto;
+}

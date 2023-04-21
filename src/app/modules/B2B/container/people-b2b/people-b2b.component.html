@@ -3,15 +3,13 @@
     <app-filter-people
       (onFilterChange)="filterChanged($event)"
       [isSubscribed]="subscribed"
+      (filterApplied)="isFilterApplied($event)"
     ></app-filter-people>
     <!--  && searchQuotaUsed < 100 -->
     <div class="col" *ngIf="showLandingDashboard">
       <app-landing-dashboard></app-landing-dashboard>
     </div>
-    <div
-      class="col-sm-7 activity-wrapper"
-      *ngIf="!showLandingDashboard && showActivityCards"
-    >
+    <div class="col-sm-7 activity-wrapper" *ngIf="!showLandingDashboard && showActivityCards">
       <app-activity-card
         [showBackButton]="showActivityBack"
         (closeClick)="showActivityCards = false; showActivityBack = false"
@@ -20,23 +18,21 @@
     <div class="b2b-content" style="position: relative" *ngIf="showResult">
       <div class="b2b-content-main">
         <app-low-credit-card
-          *ngIf="!lowCreditAlert"
+          *ngIf="lowCreditAlert"
           (closeClicked)="lowCreditAlert = true"
           (getFreeClicked)="openActivityComponents()"
         ></app-low-credit-card>
         <div [class.topBorder]="!lowCreditAlert" class="other-border">
           <app-top-tab
             #topTab
-            [allSelected]="
-              selectedContactsInCurrentPage.length >= selectedFilter.count
-            "
+            [allSelected]="selectedContactsInCurrentPage.length >= selectedFilter.count"
             [partiallySelected]="partiallySelected"
             [haveCheckbox]="false"
             [tabItems]="tabItems"
             [isPrimary]="true"
             (tabChanged)="handleTabChange($event)"
             [activeLink]="currentTab"
-            [showLoader]="showLoader"
+            [showLoader]="topTabLoader"
             [isBorder]="!lowCreditAlert"
             [haveSelectBox]="true"
             [allVisibleSelected]="allVisibleSelected"
@@ -48,6 +44,7 @@
             (successfullySaved)="handleContactAddList()"
             [selectedFilter]="selectedFilter"
             [showHeader]="false"
+            [isFilter]="isFilter"
           >
             <!-- save and export part start -->
             <div class="flex1 flex-row">
@@ -59,20 +56,14 @@
               <div style="flex: 1"></div>
 
               <div class="opt mx-3">
-                <mat-form-field
-                  style="max-width: 50px; border: none; padding-top: 10px"
-                >
+                <mat-form-field style="max-width: 50px; border: none; padding-top: 10px">
                   <!-- <mat-label>Records</mat-label> -->
                   <mat-select
                     [disabled]="!isSubscribed"
                     [(ngModel)]="selectedFilter.count"
                     (selectionChange)="handleRecordsChange()"
                   >
-                    <mat-option
-                      [value]="opt"
-                      *ngFor="let opt of pageNumberOptions"
-                      >{{ opt }}</mat-option
-                    >
+                    <mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{ opt }}</mat-option>
                   </mat-select>
                   <div *ngIf="!isSubscribed" class="my-1 selectDisabled">
                     <!-- <div class="selectDisabledOverlay"></div> -->
@@ -87,11 +78,7 @@
             <div class="paginationText">
               {{ offset + 1 }}
               -
-              {{
-                offset + selectedFilter.count < totalItemCount
-                  ? offset + selectedFilter.count
-                  : totalItemCount
-              }}
+              {{ offset + selectedFilter.count < totalItemCount ? offset + selectedFilter.count : totalItemCount }}
               of {{ totalItemCount | numberWithCommas }} people
             </div>
             <mat-icon
@@ -100,7 +87,9 @@
               aria-hidden="false"
               aria-label="Example home icon"
               [ngClass]="decrementEnabled ? '' : 'disabled'"
+              [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }"
             >
+              <!-- [class.disabled]="!isFilter" -->
               keyboard_arrow_left</mat-icon
             >
             <mat-icon
@@ -109,7 +98,9 @@
               aria-hidden="false"
               aria-label="Example home icon"
               [ngClass]="incrementEnabled ? '' : 'disabled'"
+              [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }"
             >
+              <!-- [class.disabled]="!isFilter" -->
               keyboard_arrow_right</mat-icon
             >
             <!-- pagination part end -->
@@ -124,7 +115,8 @@
             (clearPress)="clearSave(); topTab.clearAll()"
             [selectedFilter]="selectedFilter"
           ></app-bulk-save-card>
-          <div *ngIf="!showLoader && !showUpgradeCard">
+          <!-- && isFilter -->
+          <div *ngIf="!showLoader && !showUpgradeCard && isFilter">
             <app-people-card
               *ngFor="let contact of contactsList.contacts; index as i"
               [contactInfo]="contact"
@@ -141,13 +133,32 @@
           <div class="h-100" *ngIf="showUpgradeCard">
             <app-upgrade *ngIf="!showLoader" type="b2b"></app-upgrade>
           </div>
+          <div class="h-100" *ngIf="!isFilter">
+            <app-no-filter></app-no-filter>
+          </div>
+          <!-- && isFilter -->
           <app-b2b-loader *ngIf="showLoader" [loopCount]="10"></app-b2b-loader>
         </div>
       </div>
     </div>
     <div class="col h-100" *ngIf="showNoResult">
-      <app-no-result [searchParams]="selectedFilter"></app-no-result>
-      <!-- <div class="main">
+      <app-no-result (onFilterChange)="filterChanged($event)" (filterApplied)="isFilterApplied($event)" [searchParams]="selectedFilter"></app-no-result>
+    </div>
+    <div
+      class="col h-100"
+      *ngIf="showLandingDashboard == false && isRecentVisible == true && searchQuotaUsed > 0 && !showActivityCards"
+    >
+      <app-recent-search-page> </app-recent-search-page>
+    </div>
+    <div
+      class="col h-100"
+      *ngIf="showLandingDashboard == false && isSaveVisible == true && searchQuotaUsed > 0!; showActivityCards"
+    >
+      <app-saved-search-page> </app-saved-search-page>
+    </div>
+  </div>
+</div>
+<!-- <div class="main">
   <div>
     <img src="assets/images/no-result.png" alt="no-result" class="image">
   </div>
@@ -155,28 +166,3 @@
   <h5 class="text-center pa-4">
    It seems you haven't saved any searches yet
   </h5> -->
-    </div>
-    <div
-      class="col h-100"
-      *ngIf="
-        showLandingDashboard == false &&
-        isRecentVisible == true &&
-        searchQuotaUsed > 0 &&
-        !showActivityCards
-      "
-    >
-      <app-recent-search-page> </app-recent-search-page>
-    </div>
-    <div
-      class="col h-100"
-      *ngIf="
-        showLandingDashboard == false &&
-        isSaveVisible == true &&
-        searchQuotaUsed > 0
-        !showActivityCards
-      "
-    >
-      <app-saved-search-page> </app-saved-search-page>
-    </div>
-  </div>
-</div>

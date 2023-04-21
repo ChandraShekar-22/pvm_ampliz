@@ -389,8 +389,8 @@ img.img-default-avatar {
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-top: 5px;
   transition: all 0.3ms ease;
+  margin: 12px 0px;
 }
 .show-more-icon {
   margin-left: 5px;
@@ -401,12 +401,18 @@ img.img-default-avatar {
   transform: rotate(-180deg);
   transition: 0.2s ease-in-out;
 }
-
+.email-wrapper {
+  padding: 20px;
+}
+.email-container-heading {
+  font-size: 16px;
+  color: #040404;
+  font-weight: 400;
+}
 .email-list-container {
   display: flex;
   flex-direction: column;
-  width: 450px;
-  padding: 20px 30px;
+  /* padding: 20px 30px; */
 }
 .email-list {
   /* display: flex;
@@ -424,8 +430,9 @@ img.img-default-avatar {
 
 .email-list-right {
   align-items: center;
-  margin-left: 5px;
+  margin-left: -5px;
   cursor: pointer;
+  font-size: 13px !important;
 }
 .email-list-right a {
   font-size: 12px !important;
@@ -455,6 +462,45 @@ img.img-default-avatar {
 
 .copy-clipboard-icon {
   color: #0071eb;
+}
+
+.email-container {
+  margin-bottom: 10px;
+}
+
+.phone-wrapper {
+  padding: 20px;
+}
+.phone-container-heading {
+  font-size: 16px;
+  color: #040404;
+  font-weight: 400;
+}
+.phone-list {
+  padding: 10px 0px;
+}
+.phone-list-container {
+  margin-top: 10px;
+  align-items: center;
+}
+.phone-list-icon {
+  font-size: 15px;
+  margin-right: 15px;
+}
+.phone-list-text {
+  font-weight: 400;
+  cursor: pointer;
+  color: #696969;
+}
+.phone-list-right {
+  align-items: center;
+}
+.phone-list-right:hover button {
+  visibility: visible;
+  margin-left: 5px;
+}
+.email-container a span{
+  color: #0071eb !important;
 }
 
 ::ng-deep .mat-menu-panel.show-more-menu {

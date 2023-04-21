@@ -13,6 +13,8 @@ import { ExportCsvBtnComponent } from 'src/app/modules/basic/component/export-cs
 
 import { CustomTooltipComponent } from 'src/app/modules/basic/component/custom-tooltip/custom-tooltip.component';
 import { HttpParams } from '@angular/common/http';
+import { CellValueChangedEvent } from 'ag-grid-community';
+
 @Component({
   selector: 'app-b2b-list',
   templateUrl: './b2b-list.component.html',
@@ -47,6 +49,7 @@ export class B2bListComponent implements OnInit {
   headerData = '';
   public user = null;
   subscriptions = [];
+  editListId: number = null;
   frameworkComponents: any;
   subscribed: boolean;
   public overlayLoadingTemplate =
@@ -81,6 +84,7 @@ export class B2bListComponent implements OnInit {
         width: 300,
         suppressSizeToFit: true,
         cellStyle: { fontWeight: '500' },
+        editable: (params) => params.data.listId == this.editListId,
         tooltipComponent: CustomTooltipComponent,
         tooltipValueGetter: function (params) {
           if (params.value.length > 20) {
@@ -468,6 +472,51 @@ export class B2bListComponent implements OnInit {
         this.loaderService.display(false);
         this.messageService.displayError(true, error.error[0].message);
         // this.hideCancelOption.nativeElement.click();
+      }
+    );
+  }
+
+  catchEditValue(list?: any) {
+    this.editListId = list.listId;
+    this.onBtStartEditing();
+  }
+
+  onBtStartEditing(key?: string, char?: string) {
+    const mapId = this.datasource.map((val, index) => {
+      if (val.listId === this.editListId) {
+        return index;
+      }
+    });
+    const index = mapId.filter((x) => {
+      return typeof x !== 'undefined';
+    });
+    this.gridApi.startEditingCell({
+      rowIndex: index,
+      colKey: 'listName',
+      key: key,
+      charPress: char,
+    });
+  }
+
+  onCellValueChanged(event: CellValueChangedEvent) {
+    if (event.newValue !== '') {
+      let oldValue = event.oldValue;
+      const obj = {
+        listId: this.editListId,
+        listName: event.newValue,
+      };
+      this.editListName(obj);
+    }
+  }
+
+  editListName(updatedList: any) {
+    this.b2bService.editB2bListName(updatedList).subscribe(
+      (res) => {
+        this.editListId = null;
+      },
+      (error) => {
+        this.gridApi.undoCellEditing();
+        this.messageService.displayError(true, error.error[0].message);
       }
     );
   }

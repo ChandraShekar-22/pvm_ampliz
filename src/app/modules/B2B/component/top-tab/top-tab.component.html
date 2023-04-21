@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div *ngIf="haveSelectBox == true" class="form-check">
+      <div *ngIf="haveSelectBox == true" class="form-check" [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }">
         <app-select-bulk-modal
           (selectVisibleClicked)="handleSelectVisibleChange()"
           [allContactsSelected]="allContactsSelected"
@@ -48,7 +48,7 @@
           >{{ tabItems[0].name }}</span
         >
       </div>
-      <div style="flex: 1 !important" *ngIf="!showHeader">
+      <div style="flex: 1 !important" *ngIf="!showHeader" [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }">
         <!-- <span *ngIf="!showLoader" class="icon-content">{{ tabItems[0].name }}</span> -->
         <a
           mat-tab-link

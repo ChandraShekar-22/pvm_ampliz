@@ -18,7 +18,7 @@
 <mat-menu class="dropdown" #menu="matMenu" xPosition="after">
   <!-- For List Details Page -->
   <button mat-menu-item (click)="openDialog()">Delete</button>
-  <button mat-menu-item *ngIf="!fromListDetail">Edit</button>
+  <button mat-menu-item (click)="editList()" *ngIf="!fromListDetail">Edit</button>
 
 
 </mat-menu>

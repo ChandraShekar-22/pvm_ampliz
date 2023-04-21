@@ -10,15 +10,17 @@ import {
 import { MatDialog } from "@angular/material/dialog";
 import { ICellRendererParams } from "ag-grid-community";
 @Component({
-  selector: "app-list-action-button",
-  templateUrl: "./list-action-button.component.html",
-  styleUrls: ["./list-action-button.component.css"],
+  selector: 'app-list-action-button',
+  templateUrl: './list-action-button.component.html',
+  styleUrls: ['./list-action-button.component.css'],
 })
 export class ListActionButtonComponent implements OnInit {
-  @ViewChild("confirmDialog") confirmDialog =
-    {} as TemplateRef<any>;
+  @ViewChild('confirmDialog') confirmDialog = {} as TemplateRef<any>;
   @Output()
   deleteList: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  editListName: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Input()
   params?: any;
 
@@ -32,7 +34,7 @@ export class ListActionButtonComponent implements OnInit {
   agInit(params: ICellRendererParams) {
     this.params = params;
     this.componentParent = this.params.context.componentParent;
-    if (this.params.from === "list-detail") {
+    if (this.params.from === 'list-detail') {
       this.fromListDetail = true;
     }
   }
@@ -47,8 +49,8 @@ export class ListActionButtonComponent implements OnInit {
       data: {
         message: message,
         buttonText: {
-          delete: "Delete",
-          cancel: "Cancel",
+          delete: 'Delete',
+          cancel: 'Cancel',
         },
       },
     });
@@ -65,9 +67,12 @@ export class ListActionButtonComponent implements OnInit {
   deleteLead() {
     this.componentParent.deleteLeadSingle(this.params.data.id);
   }
-  
+
   removeList() {
     this.deleteList.emit();
     this.dialogRef.close(true);
+  }
+  editList() {
+    this.editListName.emit();
   }
 }
