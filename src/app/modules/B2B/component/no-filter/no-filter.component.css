@@ -1,0 +1,38 @@
+h4 {
+  font-weight: 400;
+  color: #040404;
+}
+p {
+  color: #615f5f;
+  font-weight: 300;
+}
+h6 {
+  color: #040404;
+  font-weight: 400;
+}
+.recent-filters-wrapper {
+  margin-top: 20px;
+}
+.no-filter-wrapper {
+  justify-content: space-between;
+  padding: 70px 10px;
+}
+.chip-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.chip-container {
+  padding: 10px;
+  border: 0.5px solid #0071EB;
+  border-radius: 25px;
+  font-size: 11px;
+  margin: 13px 10px 0px 0px;
+  font-weight: 300;
+  color: #060606;
+  background-color: #F2F9FF;
+  cursor: pointer;
+}
+.chip-container span {
+    font-weight: 500;
+}

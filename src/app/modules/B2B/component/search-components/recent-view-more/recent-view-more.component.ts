@@ -209,7 +209,6 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
             }
             this.dateWiseSearchList[savedTime] = arr;
           });
-          // console.log(this.dateWiseSearchList);
           this.datesList = Object.keys(this.dateWiseSearchList);
         }
         this.loading = false;

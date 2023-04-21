@@ -260,8 +260,12 @@ export class SaveContactModalComponent implements OnInit, OnDestroy {
         this.contactViewed.emit(res);
       },
       (err) => {
-        // this.loaderService.display(false);
         this.loading = false;
+        console.log('ERR', err);
+        if ((err.status = 412)) {
+          this.messageService.displayError(true, err.message);
+        }
+        // this.loaderService.display(false);
       }
     );
   }

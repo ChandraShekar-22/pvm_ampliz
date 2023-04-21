@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 @Component({
-  selector: "app-top-tab",
-  templateUrl: "./top-tab.component.html",
-  styleUrls: ["./top-tab.component.css"],
+  selector: 'app-top-tab',
+  templateUrl: './top-tab.component.html',
+  styleUrls: ['./top-tab.component.css'],
 })
 export class TopTabComponent implements OnInit {
   @Input() isPrimary = false;
@@ -21,6 +21,7 @@ export class TopTabComponent implements OnInit {
   @Input() allContactsSelected = true;
   @Input() totalItemCount = 0;
   @Input() totalSavableItemCount = 0;
+  @Input() isFilter: boolean;
   @Output() selectAllChanged = new EventEmitter();
   @Output() selectVisibleChanged = new EventEmitter();
   @Output() successfullySaved = new EventEmitter();

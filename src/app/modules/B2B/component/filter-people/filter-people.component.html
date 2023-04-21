@@ -375,7 +375,10 @@
                     *ngFor="let country of countryList"
                     [value]="country"
                   >
-                    {{ country.country }}
+                  <div class="row align-items-center">
+                    <img class="col-2 country-logo" width="10px" [src]="country.flagUrl" />
+                    <span class="col-10">{{ country.country }}</span>
+                  </div>
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
@@ -1447,7 +1450,7 @@
         <!-- Full name end -->
         <!-- Revenue panel -->
 
-        <mat-expansion-panel
+        <!-- <mat-expansion-panel
           [disabled]="searchQuota <= 0"
           #panelRevenue
           hideToggle
@@ -1539,7 +1542,7 @@
                 >close</mat-icon
               >
             </mat-form-field>
-          </div>
+          </div> -->
           <!-- <div class="chipContainerRevenue"></div> -->
           <!-- <mat-card class="revenueCard">
           <div class="flex-row">
@@ -1579,7 +1582,7 @@
           <button class="applyButton activeApplyButton">Apply</button>
           </div>
         </mat-card> -->
-        </mat-expansion-panel>
+        <!-- </mat-expansion-panel> -->
       </mat-accordion>
     </div>
   </div>
