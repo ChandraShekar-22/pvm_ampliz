@@ -455,7 +455,7 @@ export class B2bService {
     return response;
   }
   decreaseQuotaByOne(): Observable<any> {
-    const url = environment.prodAdbApi + '/ADB/api/decrement-search-quota-by-one';
+    const url = environment.prodGlobalB2BApi + '/amplizglobalb2bwriteapi/user/decrement-search-quota-by-one';
     const response = this.http.post(url, {});
     return response;
   }

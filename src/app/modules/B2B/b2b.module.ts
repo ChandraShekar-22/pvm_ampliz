@@ -56,6 +56,7 @@ import { CommonComponentsModule } from '../common-components/common-components.m
 import { ButtoncellrendererComponent } from '../basic/component/ag-grid/buttoncellrenderer/buttoncellrenderer.component';
 import { TrimUnwantedStringPipe } from "./pipes/trim-unwanted-string.pipe";
 import { ClearFilterComponent } from './component/clear-filter/clear-filter.component';
+import { NoFilterComponent } from './component/no-filter/no-filter.component';
 const appRoutes = [
   {
     path: "onboard",
@@ -135,6 +136,7 @@ const appRoutes = [
     FilterCompanyComponent,
     TrimUnwantedStringPipe,
     ClearFilterComponent,
+    NoFilterComponent,
   ],
   imports: [
     CommonComponentsModule,

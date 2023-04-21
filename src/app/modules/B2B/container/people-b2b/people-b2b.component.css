@@ -148,7 +148,7 @@ mat-form-field.mat-form-field {
 .disabledPagination {
   pointer-events: none;
   color: grey;
-  cursor: default;
+  cursor: not-allowed;
 }
 .opt ::ng-deep .mat-form-field-underline {
   display: none;

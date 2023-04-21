@@ -34,6 +34,9 @@ export class DataService {
   //saved contacts
   public savedContacts: BehaviorSubject<Array<Contact>> = new BehaviorSubject([]);
 
+  // var for recent search
+  public recentSearchData: BehaviorSubject<Array<Contact>> = new BehaviorSubject([]);
+
   // observable for visibility datas for search
   searchVisibility = this.isSearchVisible.asObservable();
   recentSearchVisibility = this.isRecentSearchVisible.asObservable();
@@ -54,6 +57,8 @@ export class DataService {
   refreshHeaderTrigger = this.refreshHeaderProgess.asObservable();
   // Observable for Subscription status
   subscriptionStatus = this.subscriptionStatusData.asObservable();
+
+  recentSearch = this.recentSearchData.asObservable();
 
   constructor() {}
 
@@ -97,7 +102,6 @@ export class DataService {
   changeLoadStatus(data: any) {
     this.firstTimeLoad.next(data);
   }
-
   addToSavedContacts(value: Array<Contact>) {
     this.savedContacts.next(value);
   }
@@ -112,8 +116,13 @@ export class DataService {
     this.subscriptionStatusData.next(status);
   }
 
+  // Recent search
+  passRecentSearch(recentData: any) {
+    this.recentSearchData.next(recentData);
+  }
+
   get seniorityList() {
-    return ['Owner', 'Founder', 'suite', 'Partner', 'Vp', 'Head', 'Director', 'Manager', 'Senior', 'Entry', 'Intern'];
+    return ['owner', 'founder', 'suite', 'partner', 'vp', 'head', 'director', 'manager', 'senior', 'entry', 'intern'];
   }
 
   // Seniority functions for senioirty with IDs
