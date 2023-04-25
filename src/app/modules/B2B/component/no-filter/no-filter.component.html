@@ -12,7 +12,7 @@
         <p>Your latest prospecting activity</p>
 
         <div class="chip-wrapper">
-          <ng-container *ngFor="let chip of recentData; let indexOfelement = index">
+          <ng-container *ngFor="let chip of recentData; let indexOfelement = index ">
             <ng-container class="chip-wrapper" *ngFor="let key of Object.keys(chip)">
                 <!-- (click)="searchRecent(indexOfelement)" -->
               <span class="row chip-container" >
@@ -20,8 +20,14 @@
               </span>
             </ng-container>
           </ng-container>
+          <span class="view-more-text" (click)="viewMoreClicked()">View more</span>
         </div>
       </div>
     </div>
   </div>
+   <app-recent-view-more
+  [recentViewMore]="recentViewMore"
+  *ngIf="recentViewMore"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  ></app-recent-view-more>
 </div>

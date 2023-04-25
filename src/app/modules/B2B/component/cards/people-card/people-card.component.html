@@ -112,7 +112,7 @@
             </span>
           </ng-container>
           <!-- If Email is not present -->
-          <ng-container *ngIf="emailToShow.length <= 0 && phoneToShow.length > 0 ">
+          <ng-container *ngIf="requestEmail">
             <span class="email-container">
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <span class="physican_email" (click)="request('Request Email Access', contactInfo.contactId)"
@@ -123,7 +123,7 @@
           <!-- ./Email -->
 
           <!-- Phone -->
-          <ng-container *ngIf="phoneToShow.length > 0">
+          <ng-container *ngIf="phoneToShow.length > 0 && phoneToShow[0] !== null">
             <div *ngFor="let item of phoneToShow">
               <span class="physican_phone" [class.email-text]="!isPhoneMasked">
                 <i class="fa fa-phone" aria-hidden="true"></i>
@@ -133,7 +133,7 @@
           </ng-container>
           <!-- If Phone does't exist -->
           <!-- && showRequestPhone -->
-          <ng-container *ngIf="phoneToShow.length <= 0 && emailToShow.length > 0 ">
+          <ng-container *ngIf="requestPhone">
             <span class="physican_email" (click)="request('Request Phone Access', contactInfo.contactId)">
               <i class="fa fa-phone" aria-hidden="true"></i>
               Request Phone</span
@@ -174,7 +174,7 @@
                           <span class="email-type-text">{{ contact.type }}</span>
                         </div>
                       </div>
-                      <div class="email-list-right row col-8">
+                      <div class="email-list-right col-8">
                         <div class="email-text-container">
                           <a
                             [href]="'mailto:' + contactInfo.email"
@@ -183,15 +183,14 @@
                             [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
                             >{{ contact.email }}</a
                           >
-                        </div>
-                        <div class="copy-clipboard-container">
+                          <div class="copy-clipboard-container">
                           <button class="copy-clipboard-icon-button" (click)="copyToClipboard(contact.email)">
                             <svg
                               viewBox="0 0 24 24"
                               width="16"
                               height="16"
                               stroke="currentColor"
-                              stroke-width="2"
+                              stroke-width="1.5"
                               fill="none"
                               stroke-linecap="round"
                               stroke-linejoin="round"
@@ -201,6 +200,7 @@
                               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                             </svg>
                           </button>
+                        </div>
                         </div>
                       </div>
                     </div>
@@ -232,7 +232,7 @@
                             width="16"
                             height="16"
                             stroke="currentColor"
-                            stroke-width="2"
+                            stroke-width="1.5"
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"

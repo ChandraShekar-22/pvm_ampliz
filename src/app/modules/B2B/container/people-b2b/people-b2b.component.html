@@ -15,13 +15,14 @@
         (closeClick)="showActivityCards = false; showActivityBack = false"
       ></app-activity-card>
     </div>
-    <div class="b2b-content" style="position: relative" *ngIf="showResult">
+    <div class="b2b-content" style="position: relative" *ngIf="showResult && !showNoResult">
       <div class="b2b-content-main">
         <app-low-credit-card
           *ngIf="lowCreditAlert"
           (closeClicked)="lowCreditAlert = true"
           (getFreeClicked)="openActivityComponents()"
         ></app-low-credit-card>
+
         <div [class.topBorder]="!lowCreditAlert" class="other-border">
           <app-top-tab
             #topTab
@@ -59,9 +60,10 @@
                 <mat-form-field style="max-width: 50px; border: none; padding-top: 10px">
                   <!-- <mat-label>Records</mat-label> -->
                   <mat-select
-                    [disabled]="!isSubscribed"
+                    [disabled]="!isSubscribed && topTabLoader"
                     [(ngModel)]="selectedFilter.count"
                     (selectionChange)="handleRecordsChange()"
+                    [hidden]="!isFilter && !showViewedContact"
                   >
                     <mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{ opt }}</mat-option>
                   </mat-select>
@@ -75,30 +77,33 @@
             <!-- save and export part end -->
 
             <!-- pagination part start -->
-            <div class="paginationText">
+            <div class="paginationText" *ngIf="!topTabLoader" [hidden]="!isFilter && !showViewedContact">
               {{ offset + 1 }}
               -
               {{ offset + selectedFilter.count < totalItemCount ? offset + selectedFilter.count : totalItemCount }}
               of {{ totalItemCount | numberWithCommas }} people
             </div>
+            <div *ngIf="topTabLoader" class="pagination-skeleton"></div>
             <mat-icon
               (click)="decrementPage()"
               class="leftIcon"
               aria-hidden="false"
               aria-label="Example home icon"
               [ngClass]="decrementEnabled ? '' : 'disabled'"
-              [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }"
+              [hidden]="!isFilter && !showViewedContact"
+              [ngClass]="topTabLoader ? 'disable-click' : ''"
             >
               <!-- [class.disabled]="!isFilter" -->
               keyboard_arrow_left</mat-icon
             >
             <mat-icon
+              [hidden]="!isFilter && !showViewedContact"
               (click)="incrementPage()"
               class="rightIcon"
               aria-hidden="false"
               aria-label="Example home icon"
               [ngClass]="incrementEnabled ? '' : 'disabled'"
-              [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }"
+              [ngClass]="topTabLoader ? 'disable-click' : ''"
             >
               <!-- [class.disabled]="!isFilter" -->
               keyboard_arrow_right</mat-icon
@@ -116,7 +121,7 @@
             [selectedFilter]="selectedFilter"
           ></app-bulk-save-card>
           <!-- && isFilter -->
-          <div *ngIf="!showLoader && !showUpgradeCard && isFilter">
+          <div *ngIf="(!showLoader && !showUpgradeCard && isFilter) || (showViewedContact && !isFilter)">
             <app-people-card
               *ngFor="let contact of contactsList.contacts; index as i"
               [contactInfo]="contact"
@@ -133,16 +138,25 @@
           <div class="h-100" *ngIf="showUpgradeCard">
             <app-upgrade *ngIf="!showLoader" type="b2b"></app-upgrade>
           </div>
-          <div class="h-100" *ngIf="!isFilter">
+
+          
+          <div class="h-100" *ngIf="!isFilter && !showNoResult && !showViewedContact">
             <app-no-filter></app-no-filter>
           </div>
           <!-- && isFilter -->
-          <app-b2b-loader *ngIf="showLoader" [loopCount]="10"></app-b2b-loader>
+          <app-b2b-loader
+            *ngIf="(showLoader && isFilter) || (showLoader && showViewedContact)"
+            [loopCount]="10"
+          ></app-b2b-loader>
         </div>
       </div>
     </div>
     <div class="col h-100" *ngIf="showNoResult">
-      <app-no-result (onFilterChange)="filterChanged($event)" (filterApplied)="isFilterApplied($event)" [searchParams]="selectedFilter"></app-no-result>
+      <app-no-result
+        (onFilterChange)="filterChanged($event)"
+        (filterApplied)="isFilterApplied($event)"
+        [searchParams]="selectedFilter"
+      ></app-no-result>
     </div>
     <div
       class="col h-100"

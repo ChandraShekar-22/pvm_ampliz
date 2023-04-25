@@ -1,13 +1,6 @@
 <div [class.withBorder]="isBorder">
   <nav mat-tab-nav-bar>
-    <div
-      class="row-tab"
-      style="
-        width: 100% !important;
-        align-items: center;
-        background-color: #ffffff;
-      "
-    >
+    <div class="row-tab" style="width: 100% !important; align-items: center; background-color: #ffffff">
       <div *ngIf="haveCheckbox == true" class="form-check">
         <input
           *ngIf="!partiallySelected"
@@ -17,16 +10,12 @@
           id="flexCheckDefault"
           (change)="checkboxValueChange($event)"
         />
-        <div
-          (click)="checkboxValueChange(false)"
-          *ngIf="partiallySelected"
-          class="form-check-input partiallySelected"
-        >
+        <div (click)="checkboxValueChange(false)" *ngIf="partiallySelected" class="form-check-input partiallySelected">
           <div class="insideContent"></div>
         </div>
       </div>
 
-      <div *ngIf="haveSelectBox == true" class="form-check" [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }">
+      <div *ngIf="haveSelectBox == true" class="form-check" [ngStyle]="{ 'pointer-events': !isFilter ? 'none' : '' }">
         <app-select-bulk-modal
           (selectVisibleClicked)="handleSelectVisibleChange()"
           [allContactsSelected]="allContactsSelected"
@@ -41,14 +30,9 @@
         ></app-select-bulk-modal>
       </div>
       <div style="flex: 1 !important" *ngIf="!showLoader && showHeader">
-        <span
-          *ngIf="!showLoader"
-          class="icon-content"
-          style="padding-left: 13px"
-          >{{ tabItems[0].name }}</span
-        >
+        <span *ngIf="!showLoader" class="icon-content" style="padding-left: 13px">{{ tabItems[0].name }}</span>
       </div>
-      <div style="flex: 1 !important" *ngIf="!showHeader" [ngStyle]="{'pointer-events': !isFilter ? 'none' : '' }">
+      <div style="flex: 1 !important" *ngIf="!showHeader">
         <!-- <span *ngIf="!showLoader" class="icon-content">{{ tabItems[0].name }}</span> -->
         <a
           mat-tab-link

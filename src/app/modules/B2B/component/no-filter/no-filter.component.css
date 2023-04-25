@@ -24,15 +24,24 @@ h6 {
 }
 .chip-container {
   padding: 10px;
-  border: 0.5px solid #0071EB;
+  border: 0.5px solid #0071eb;
   border-radius: 25px;
   font-size: 11px;
   margin: 13px 10px 0px 0px;
   font-weight: 300;
   color: #060606;
-  background-color: #F2F9FF;
+  background-color: #f2f9ff;
   cursor: pointer;
 }
 .chip-container span {
-    font-weight: 500;
+  font-weight: 500;
+}
+.view-more-text {
+  align-self: center;
+  margin: 13px 0px 0 10px;
+  font-size: 12px;
+  font-weight: 400;
+  /* text-decoration: underline; */
+  color: #0071eb;
+  cursor: pointer;
 }

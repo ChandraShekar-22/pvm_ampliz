@@ -19,6 +19,7 @@ import { B2bService } from '../../services/b2b.service';
 import { SearchContactInput } from '../../models/SearchContactModel';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
+import { Item } from 'angular2-multiselect-dropdown';
 
 @Component({
   selector: 'app-filter-people',
@@ -43,10 +44,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     private filterStorageService: FilterStorageService,
     private dataService: DataService,
     private renderer: Renderer2
-  ) {
-    let url = window.location.href;
-    this.companyReceviedFromExt(url);
-  }
+  ) {}
   @Output() onFilterChange = new EventEmitter<any>();
   @Output() filterApplied = new EventEmitter<any>();
   @Input() isSubscribed: boolean;
@@ -174,6 +172,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
   subscription: Subscription;
 
   searchQuota: number = 1;
+  totalQuota: any;
 
   ngOnInit() {
     this.handleForms();
@@ -193,20 +192,10 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
         this.clearAll();
       }
     });
-    this.dataService.searchQuota.subscribe((quota) => {
-      let val: any = quota;
-      this.searchQuota = val.dailyRemainingQuota;
-      // console.log("QUOTUA", this.searchQuota);
+    this.dataService.searchQuota.subscribe((quota: any) => {
+      this.searchQuota = quota.dailyRemainingQuota;
+      this.totalQuota = quota;
     });
-  }
-  companyReceviedFromExt(url) {
-    if (url.includes('?companyName')) {
-      let paramString = url.split('?')[1];
-      let queryString = new URLSearchParams(paramString);
-      const searchData = new SearchContactInput();
-      searchData.companyList.push(queryString.get('companyName'));
-      this.omitChanges(searchData);
-    }
   }
 
   getDepartmentList() {
@@ -243,7 +232,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     this.dataService.passSearchContactInput(this.searchContactInput, false);
   }
 
-  omitChanges(fromUrl?: any) {
+  omitChanges() {
     this.searchContactInput.companyList = this.includedCompanyList;
     this.searchContactInput.fullNameList = this.includedContactsList;
     this.searchContactInput.titleInclude = this.includedTitleList;
@@ -273,16 +262,18 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     //   this.searchContactInput.revenue,
     //   "this.searchContactInput.revenue"
     // );
-    this.searchContactInput.stateList = this.selectedStates.map((state) => state.stateFullName);
-    this.searchContactInput.cityList = this.selectedCities.map((state) => state.city);
-    this.searchContactInput.countryList = this.selectedCountry.map((itm) => itm.country);
+
+    this.searchContactInput.stateList = this.selectedStates.map((state) =>
+      state.stateFullName ? state.stateFullName.toLowerCase() : state.toLowerCase()
+    );
+    this.searchContactInput.cityList = this.selectedCities.map((city) =>
+      city.city ? city.city.toLowerCase() : city.toLowerCase()
+    );
+    this.searchContactInput.countryList = this.selectedCountry.map((itm) =>
+      itm.country ? itm.country.toLowerCase() : itm.toLowerCase()
+    );
     // ? [this.selectedCountry.countryId]
     // : [];
-
-    if (fromUrl) {
-      this.includedCompanyList.push(fromUrl);
-      this.searchContactInput.companyList = this.includedCompanyList;
-    }
 
     this.getActiveFilterCount(this.searchContactInput);
     if (this.activeFilterCount > 0) {
@@ -697,6 +688,10 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     if (value && found === -1) {
       this.includedIndustryList.push(value);
       this.setLocalStorageValues('recentIncludeIndustry', value);
+    }
+    console.log('EVENT INPUT', event.input);
+    if (event.input) {
+      event.input.value = '';
     }
     this.industryList = this.industryList.filter((item) => item !== value);
     this.omitChanges();
@@ -1157,6 +1152,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
   }
 
   clearAll() {
+    this.filterApplied.emit(false);
     this.includedCompanyList = [];
     this.includedContactsList = [];
     this.includedTitleList = [];

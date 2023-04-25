@@ -390,7 +390,7 @@ img.img-default-avatar {
   align-items: center;
   cursor: pointer;
   transition: all 0.3ms ease;
-  margin: 12px 0px;
+  margin: 5px 0px;
 }
 .show-more-icon {
   margin-left: 5px;
@@ -412,14 +412,11 @@ img.img-default-avatar {
 .email-list-container {
   display: flex;
   flex-direction: column;
-  /* padding: 20px 30px; */
 }
 .email-list {
-  /* display: flex;
-  flex-direction: row; */
   align-items: center;
-  /* justify-content: space-around; */
   padding: 10px;
+  padding-right: 0px;
 }
 .email-list-left {
   align-items: center;

@@ -11,9 +11,11 @@ export class NoFilterComponent implements OnInit {
   recentSearch: any = this.dataService.recentSearchData.value.slice(0, 5);
   recentData: any = [];
   searchContactInput: SearchContactInput = new SearchContactInput();
+  recentViewMore: boolean = false;
   Object = Object;
 
   ngOnInit(): void {
+    console.log('IN INIT');
     this.recentSearch.map((item) => {
       if (item.searchType === 'Contact') {
         const obj = this.nonNullValues(item.contactSearchParams, (val) =>
@@ -28,12 +30,20 @@ export class NoFilterComponent implements OnInit {
       //   // data = val.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
       // });
     });
+    console.log('RECENT', this.recentData);
   }
 
   searchRecent(index: any) {
     if (this.recentSearch[index].searchType === 'Contact') {
       this.dataService.passSearchContactInput(this.recentSearch[index].contactSearchParams);
     }
+  }
+
+  viewMoreClicked() {
+    this.recentViewMore = true;
+  }
+  cancelBtnClick(value: boolean) {
+    this.recentViewMore = value;
   }
 
   nonNullValues(obj, predicate) {

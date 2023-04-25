@@ -13,6 +13,6 @@ export class DailySearchQuotaComponent implements OnInit {
 
   ngOnInit() {}
   ngOnChanges(): void {
-    this.progress = (this.usedCredit / this.dailyCredit) * 100;
+  this.progress = (this.usedCredit / this.dailyCredit) * 100;
   }
 }
