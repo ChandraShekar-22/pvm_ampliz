@@ -26,7 +26,9 @@
   margin: 0px;
   padding: 0px;
   font-weight: 400;
-  cursor: pointer;
+}
+.physician-name-container {
+  margin: 0px;
 }
 
 .physician_info {
@@ -91,7 +93,8 @@
 }
 
 .saveBtn_wrp {
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -234,9 +237,6 @@
   font-weight: 400;
 }
 
-.saveBtn_wrp {
-  margin-top: 10px !important;
-}
 
 .physican_container {
   min-height: 115px !important;
@@ -390,7 +390,7 @@ img.img-default-avatar {
   align-items: center;
   cursor: pointer;
   transition: all 0.3ms ease;
-  margin: 5px 0px;
+  margin-top: 10px;
 }
 .show-more-icon {
   margin-left: 5px;
@@ -498,6 +498,9 @@ img.img-default-avatar {
 }
 .email-container a span{
   color: #0071eb !important;
+}
+.add-space {
+  margin-top: 30px;
 }
 
 ::ng-deep .mat-menu-panel.show-more-menu {

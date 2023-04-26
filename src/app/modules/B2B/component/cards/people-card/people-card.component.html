@@ -43,9 +43,15 @@
             ></i-feather>
           </div> -->
           <div class="physician_content">
-            <h5 class="physician_name">
-              {{ contactInfo?.fullName | titlecase }}
-            </h5>
+            <div class="physician-name-container row align-items-center">
+              <h5 class="physician_name">{{ contactInfo?.fullName | titlecase }}</h5>
+              <!-- <i
+                *ngIf="contactInfo['linkedinURL']"
+                class="fa fa-brands fa-linkedin"
+                (click)="openUrl('linkedinURL')"
+              ></i> -->
+              <img class="ml-2" src="../../../../../../assets/images/linkedin.png" width="12px" height="12px" style="cursor: pointer" *ngIf="contactInfo['linkedinURL']" (click)="openUrl('linkedinURL')"/>
+            </div>
             <div class="physician_info">
               <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{ contactInfo?.title.toString() }}</span>
               <span class="physican_location"
@@ -184,23 +190,23 @@
                             >{{ contact.email }}</a
                           >
                           <div class="copy-clipboard-container">
-                          <button class="copy-clipboard-icon-button" (click)="copyToClipboard(contact.email)">
-                            <svg
-                              viewBox="0 0 24 24"
-                              width="16"
-                              height="16"
-                              stroke="currentColor"
-                              stroke-width="1.5"
-                              fill="none"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="css-i6dzq copy-clipboard-icon"
-                            >
-                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                            </svg>
-                          </button>
-                        </div>
+                            <button class="copy-clipboard-icon-button" (click)="copyToClipboard(contact.email)">
+                              <svg
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="css-i6dzq copy-clipboard-icon"
+                              >
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                              </svg>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -249,12 +255,11 @@
               </div>
             </mat-menu>
           </ng-container>
-          <div class="saveBtn_wrp">
-            <i *ngIf="contactInfo['linkedinURL']" class="fa fa-brands fa-linkedin" (click)="openUrl('linkedinURL')"></i>
+          <div *ngIf="contactInfo['facebook'] || contactInfo['twitterURL'] " class="saveBtn_wrp">
             <i *ngIf="contactInfo['facebook']" class="fa fa-brands fa-facebook" (click)="openUrl('facebook')"></i>
             <i *ngIf="contactInfo['twitterURL']" class="fa fa-brands fa-twitter" (click)="openUrl('twitterURL')"></i>
           </div>
-          <div class="saveBtn_wrp row">
+          <div class="saveBtn_wrp row" [class.add-space]="showRequestContactBtn">
             <!-- <button class="physician_save" (click)="invokeSaveList()">
               Save
             </button> -->
