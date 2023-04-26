@@ -43,9 +43,15 @@
             ></i-feather>
           </div> -->
           <div class="physician_content">
-            <h5 class="physician_name">
-              {{ contactInfo?.fullName | titlecase }}
-            </h5>
+            <div class="physician-name-container row align-items-center">
+              <h5 class="physician_name">{{ contactInfo?.fullName | titlecase }}</h5>
+              <!-- <i
+                *ngIf="contactInfo['linkedinURL']"
+                class="fa fa-brands fa-linkedin"
+                (click)="openUrl('linkedinURL')"
+              ></i> -->
+              <img class="ml-2" src="../../../../../../assets/images/linkedin.png" width="12px" height="12px" style="cursor: pointer" *ngIf="contactInfo['linkedinURL']" (click)="openUrl('linkedinURL')"/>
+            </div>
             <div class="physician_info">
               <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{ contactInfo?.title.toString() }}</span>
               <span class="physican_location"
@@ -112,7 +118,7 @@
             </span>
           </ng-container>
           <!-- If Email is not present -->
-          <ng-container *ngIf="emailToShow.length <= 0 && phoneToShow.length > 0 ">
+          <ng-container *ngIf="requestEmail">
             <span class="email-container">
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <span class="physican_email" (click)="request('Request Email Access', contactInfo.contactId)"
@@ -123,7 +129,7 @@
           <!-- ./Email -->
 
           <!-- Phone -->
-          <ng-container *ngIf="phoneToShow.length > 0">
+          <ng-container *ngIf="phoneToShow.length > 0 && phoneToShow[0] !== null">
             <div *ngFor="let item of phoneToShow">
               <span class="physican_phone" [class.email-text]="!isPhoneMasked">
                 <i class="fa fa-phone" aria-hidden="true"></i>
@@ -133,7 +139,7 @@
           </ng-container>
           <!-- If Phone does't exist -->
           <!-- && showRequestPhone -->
-          <ng-container *ngIf="phoneToShow.length <= 0 && emailToShow.length > 0 ">
+          <ng-container *ngIf="requestPhone">
             <span class="physican_email" (click)="request('Request Phone Access', contactInfo.contactId)">
               <i class="fa fa-phone" aria-hidden="true"></i>
               Request Phone</span
@@ -174,7 +180,7 @@
                           <span class="email-type-text">{{ contact.type }}</span>
                         </div>
                       </div>
-                      <div class="email-list-right row col-8">
+                      <div class="email-list-right col-8">
                         <div class="email-text-container">
                           <a
                             [href]="'mailto:' + contactInfo.email"
@@ -183,24 +189,24 @@
                             [attr.href]="!isEmailMasked ? 'mailto:' + contactInfo.email : null"
                             >{{ contact.email }}</a
                           >
-                        </div>
-                        <div class="copy-clipboard-container">
-                          <button class="copy-clipboard-icon-button" (click)="copyToClipboard(contact.email)">
-                            <svg
-                              viewBox="0 0 24 24"
-                              width="16"
-                              height="16"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              fill="none"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="css-i6dzq copy-clipboard-icon"
-                            >
-                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                            </svg>
-                          </button>
+                          <div class="copy-clipboard-container">
+                            <button class="copy-clipboard-icon-button" (click)="copyToClipboard(contact.email)">
+                              <svg
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="css-i6dzq copy-clipboard-icon"
+                              >
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                              </svg>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -232,7 +238,7 @@
                             width="16"
                             height="16"
                             stroke="currentColor"
-                            stroke-width="2"
+                            stroke-width="1.5"
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -249,12 +255,11 @@
               </div>
             </mat-menu>
           </ng-container>
-          <div class="saveBtn_wrp">
-            <i *ngIf="contactInfo['linkedinURL']" class="fa fa-brands fa-linkedin" (click)="openUrl('linkedinURL')"></i>
+          <div *ngIf="contactInfo['facebook'] || contactInfo['twitterURL'] " class="saveBtn_wrp">
             <i *ngIf="contactInfo['facebook']" class="fa fa-brands fa-facebook" (click)="openUrl('facebook')"></i>
             <i *ngIf="contactInfo['twitterURL']" class="fa fa-brands fa-twitter" (click)="openUrl('twitterURL')"></i>
           </div>
-          <div class="saveBtn_wrp row">
+          <div class="saveBtn_wrp row" [class.add-space]="showRequestContactBtn">
             <!-- <button class="physician_save" (click)="invokeSaveList()">
               Save
             </button> -->

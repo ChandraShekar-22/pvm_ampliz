@@ -60,8 +60,8 @@ export class CompanyB2bComponent implements OnInit, OnChanges {
       this.manageLowCreditView(remainingCredits);
     });
 
-    this.dataService.searchQuota.subscribe((quota) => {
-      this.searchQuotaUsed = quota;
+    this.dataService.searchQuota.subscribe((quota: any) => {
+      this.searchQuotaUsed = quota.dailyRemainingQuota;
       this.getLoaderValue();
     });
   }

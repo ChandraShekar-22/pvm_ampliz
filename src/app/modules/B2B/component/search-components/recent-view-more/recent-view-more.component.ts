@@ -12,9 +12,9 @@ import { DataService } from "../../../services/data.service";
 import { SearchContactInput } from "../../../models/SearchContactModel";
 import { SearchCompanyInput } from "../../../models/SearchCompany";
 @Component({
-  selector: "app-recent-view-more",
-  templateUrl: "./recent-view-more.component.html",
-  styleUrls: ["./recent-view-more.component.css"],
+  selector: 'app-recent-view-more',
+  templateUrl: './recent-view-more.component.html',
+  styleUrls: ['./recent-view-more.component.css'],
 })
 export class RecentViewMoreComponent implements OnInit, OnDestroy {
   @Input() recentViewMore: boolean = true;
@@ -30,120 +30,116 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
   recentViewmoreElmnt: any;
   searchCred: any = {};
   saveSearchListDrawer: boolean = false;
-  saveSearchType: string = "";
+  saveSearchType: string = '';
   loading: boolean = true;
   filterDatas = [
     {
-      title: "Company Name",
-      key: "companyList",
-      type: "array",
+      title: 'Company Name',
+      key: 'companyList',
+      type: 'array',
     },
     {
-      title: "Full name",
-      key: "fullNameList",
-      type: "array",
+      title: 'Full name',
+      key: 'fullNameList',
+      type: 'array',
     },
     {
-      title: "Country List",
-      key: "countryList",
-      type: "array",
-      subkey: "country",
+      title: 'Country List',
+      key: 'countryList',
+      type: 'array',
+    },
+    // subkey: "country",
+    {
+      title: 'State List',
+      key: 'stateList',
+      type: 'array',
+    },
+    // subkey: "stateFullName",
+    {
+      title: 'City List',
+      key: 'cityList',
+      type: 'array',
+    },
+    // subkey: "city",
+    {
+      title: 'Included title',
+      key: 'titleInclude',
+      type: 'array',
     },
     {
-      title: "State List",
-      key: "stateList",
-      type: "array",
-      subkey: "stateFullName",
+      title: 'Excluded title',
+      key: 'titleExclude',
+      type: 'array',
     },
     {
-      title: "City List",
-      key: "cityList",
-      type: "array",
-      subkey: "city",
+      title: 'Included industry',
+      key: 'industryInclude',
+      type: 'array',
     },
     {
-      title: "Included title",
-      key: "titleInclude",
-      type: "array",
+      title: 'Excluded industry',
+      key: 'industryExclude',
+      type: 'array',
     },
     {
-      title: "Excluded title",
-      key: "titleExclude",
-      type: "array",
+      title: 'Included departments',
+      key: 'deptInclude',
+      type: 'array',
     },
     {
-      title: "Included industry",
-      key: "industryInclude",
-      type: "array",
+      title: 'Excluded departments',
+      key: 'deptExclude',
+      type: 'array',
     },
     {
-      title: "Excluded industry",
-      key: "industryExclude",
-      type: "array",
+      title: 'Seniority',
+      key: 'seniority',
+      type: 'array',
     },
     {
-      title: "Included departments",
-      key: "deptInclude",
-      type: "array",
+      title: 'Included Skill',
+      key: 'skillInclude',
+      type: 'array',
     },
     {
-      title: "Excluded departments",
-      key: "deptExclude",
-      type: "array",
+      title: 'Excluded Skill',
+      key: 'skillExclude',
+      type: 'array',
     },
     {
-      title: "Seniority",
-      key: "seniority",
-      type: "array",
+      title: 'Employee Range',
+      key: 'employeeRangeList',
+      type: 'array',
     },
     {
-      title: "Included Skill",
-      key: "skillInclude",
-      type: "array",
+      title: 'Revenue',
+      key: 'revenue',
+      type: 'Array',
     },
     {
-      title: "Excluded Skill",
-      key: "skillExclude",
-      type: "array",
+      title: 'Domain',
+      key: 'domainList',
+      type: 'text',
     },
     {
-      title: "Employee Range",
-      key: "employeeRangeList",
-      type: "array",
+      title: 'Employee Range',
+      key: 'employeeRange',
+      type: 'array',
     },
     {
-      title: "Revenue",
-      key: "revenue",
-      type: "Array",
-    },
-    {
-      title: "Domain",
-      key: "domainList",
-      type: "text",
-    },
-    {
-      title: "Employee Range",
-      key: "employeeRange",
-      type: "array",
-    },
-    {
-      title: "Technology Excluded",
-      key: "techExclude",
-      type: "array",
+      title: 'Technology Excluded',
+      key: 'techExclude',
+      type: 'array',
     },
 
     {
-      title: "Technology Included",
-      key: "techInclude",
-      type: "array",
+      title: 'Technology Included',
+      key: 'techInclude',
+      type: 'array',
     },
   ];
 
-  constructor(
-    public b2bService: B2bService,
-    public router: Router,
-    private dataService: DataService
-  ) {}
+  constructor(public b2bService: B2bService, public router: Router, private dataService: DataService) {}
 
   ngOnInit() {
     this.getSearchData();
@@ -151,13 +147,13 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.recentViewmoreElmnt.removeEventListener("scroll", () => {});
+    this.recentViewmoreElmnt.removeEventListener('scroll', () => {});
   }
 
   scrollHandler() {
-    this.recentViewmoreElmnt = document.getElementById("recentViewmoreScroll");
+    this.recentViewmoreElmnt = document.getElementById('recentViewmoreScroll');
     const that = this;
-    this.recentViewmoreElmnt.addEventListener("scroll", function (e) {
+    this.recentViewmoreElmnt.addEventListener('scroll', function (e) {
       that.onScrollRecent(e);
     });
   }
@@ -170,6 +166,7 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
           this.recentSearchList = res.searchReportList;
           res.searchReportList.map((item) => {
             // console.log(new Date(item.searchAt).toISOString().split("T")[0]);
+
             const savedTime = new Date(item.searchAt).toISOString().split('T')[0];
             const arr = this.dateWiseSearchList[savedTime] || [];
             // console.log(arr, item, "Arr and item");
@@ -226,10 +223,7 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
   }
   onScrollRecent(event: any) {
     // visible height + pixel scrolled >= total height
-    if (
-      event.target.offsetHeight + event.target.scrollTop >=
-      event.target.scrollHeight
-    ) {
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
       this.offset = this.offset + 1;
       this.getSearchData();
       // console.log("End");
@@ -238,7 +232,7 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
   searchContact(searchBody: any) {
     // console.log(searchBody);
     // this.dataService.searchOrRecentTapped(true);
-    if (searchBody.searchType == "Contact") {
+    if (searchBody.searchType == 'Contact') {
       const contactObj = this.searchContactInput.fromJson(searchBody.contactSearchParams);
 
       // If seniority is with IDs
@@ -252,13 +246,10 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
 
       //   contactObj.seniority = filteredSeniority;
       // }
-
       this.dataService.passSearchContactInput(contactObj);
       this.dataService.changeSelectedTab(0);
     } else {
-      const companyObj = this.searchCompanyInput.fromJson(
-        searchBody.companySearchParams
-      );
+      const companyObj = this.searchCompanyInput.fromJson(searchBody.companySearchParams);
       this.dataService.passSearchCompanyInput(companyObj);
       this.dataService.changeSelectedTab(1);
     }
@@ -271,7 +262,7 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
     // console.log(searchData);
     this.saveSearchListDrawer = true;
     this.saveSearchType = searchData.searchType;
-    if (this.saveSearchType == "Contact") {
+    if (this.saveSearchType == 'Contact') {
       const bdy: SearchContactInput = new SearchContactInput();
       this.searchCred = bdy.fromJson(searchData.contactSearchParams);
     } else {

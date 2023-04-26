@@ -1,5 +1,5 @@
 .btn {
-    border: 0.5px solid #BBC5CE
+  border: 0.5px solid #bbc5ce;
 }
 .email-btn {
   border-right: none;
@@ -32,11 +32,8 @@
 .linkedin-btn:hover ~ .phone-btn {
   border-right: 0.5px solid #0071eb !important;
 }
-
 ::ng-deep .mat-tooltip {
-    background-color: black;
-    color: white
+  white-space: pre-line;
+  background-color: black;
+  color: white;
 }
-
-
-

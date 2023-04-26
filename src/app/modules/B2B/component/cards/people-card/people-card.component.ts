@@ -53,10 +53,10 @@ export class PeopleCardComponent implements OnInit {
   }
 
   sortEmails() {
+    let emailList = [];
+    this.emailToShow = [];
+    this.allEmail = [];
     if (this.isEmailAvailable) {
-      let emailList = [];
-      this.emailToShow = [];
-      this.allEmail = [];
       if (this.contactInfo.workEmails.length > 0) {
         this.contactInfo.workEmails.map((work) => {
           const obj1: any = {};
@@ -86,10 +86,9 @@ export class PeopleCardComponent implements OnInit {
   }
 
   sortPhones() {
+    this.allPhone = [];
+    this.phoneToShow = [];
     if (this.contactInfo.directDialPhone.length > 0) {
-      console.log('PHONES', this.contactInfo.directDialPhone);
-      this.allPhone = [];
-      this.phoneToShow = [];
       this.phoneToShow.push(this.contactInfo.directDialPhone[0]);
       if (this.contactInfo.directDialPhone.length > 1) {
         this.contactInfo.directDialPhone.map((phone) => {
@@ -117,6 +116,9 @@ export class PeopleCardComponent implements OnInit {
   get isSaveButton() {
     return this.contactInfo.leadSaveStatus == 'Viewed';
   }
+  get requestEmail() {
+    return this.emailToShow.length <= 0 && this.phoneToShow.length > 0;
+  }
   get requestPhone() {
     return this.phoneToShow.length <= 0 && this.emailToShow.length > 0;
   }
@@ -133,7 +135,12 @@ export class PeopleCardComponent implements OnInit {
   }
 
   get isEmailMasked() {
-    if (this.contactInfo.personalEmails.length > 0 && this.contactInfo.workEmails.length > 0) {
+    if (
+      this.contactInfo.personalEmails.length > 0 &&
+      this.contactInfo.workEmails.length > 0 &&
+      this.contactInfo.personalEmails !== null &&
+      this.contactInfo.workEmails !== null
+    ) {
       if (this.contactInfo.personalEmails[0].indexOf('*') > -1 && this.contactInfo.workEmails[0].indexOf('*') > -1) {
         return true;
       } else {
@@ -154,12 +161,14 @@ export class PeopleCardComponent implements OnInit {
     }
   }
   get isPhoneMasked() {
-    if (this.contactInfo.directDialPhone.length > 0) {
+    if (this.contactInfo.directDialPhone.length > 0 && this.contactInfo.directDialPhone[0] !== null) {
       if (this.contactInfo.directDialPhone[0].indexOf('*') > -1) {
         return true;
       } else {
         return false;
       }
+    } else {
+      return false;
     }
   }
 
@@ -230,9 +239,14 @@ export class PeopleCardComponent implements OnInit {
     // this.allEmail = [];
     // this.allEmail = [];
 
-    this.contactInfo.personalEmails = res.personalEmails.length > 0 ? res.personalEmails : [];
-    this.contactInfo.workEmails = res.workEmails.length > 0 ? res.workEmails : [];
-    this.contactInfo.directDialPhone = res.phone.length > 0 ? res.phone : [];
+    // this.contactInfo.personalEmails = res.personalEmails.length > 0 ? res.personalEmails : [];
+    // this.contactInfo.workEmails = res.workEmails.length > 0 ? res.workEmails : [];
+    // this.contactInfo.directDialPhone = res.phone.length > 0 ? res.phone : [];
+    // this.contactInfo.linkedinURL = res.linkedinUrl;
+
+    this.contactInfo.personalEmails = res.personalEmails;
+    this.contactInfo.workEmails = res.workEmails;
+    this.contactInfo.directDialPhone = res.phone;
     this.contactInfo.linkedinURL = res.linkedinUrl;
 
     // console.log('CONTACT INFOR', this.contactInfo);

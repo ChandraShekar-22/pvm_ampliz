@@ -129,9 +129,8 @@ export class SearchContactInput {
   getChangedItems() {
     let changedItems = [];
     SearchContactInput.titleKeyArray.map((item) => {
-      console.log(item, "item");
       if (this[item.key].length > 0) {
-        item["value"] = this[item.key];
+        item['value'] = this[item.key];
         changedItems.push(item);
       }
     });

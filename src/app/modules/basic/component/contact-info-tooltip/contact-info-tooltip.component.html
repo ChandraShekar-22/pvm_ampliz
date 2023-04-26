@@ -1,5 +1,5 @@
 <div class="btn-group" role="group" aria-label="Contact Info">
-  <button [matTooltip]="email ? email : 'Email not available'" type="button" class="btn btn-sm email-btn">
+  <button [matTooltip]="emailList ? emailList : 'Email not available'" matTooltipClass="tool-tip" type="button" class="btn btn-sm email-btn">
     <svg
       viewBox="0 0 24 24"
       width="16"
@@ -20,6 +20,7 @@
     [matTooltip]="phone ? phone : 'Phone number not available'"
     type="button"
     class="btn btn-sm phone-btn"
+    matTooltipClass="tool-tip"
   >
     <svg
       viewBox="0 0 24 24"
@@ -41,6 +42,7 @@
     [matTooltip]="linkedIn ? linkedIn : 'Linkedin ID not available'"
     type="button"
     class="btn btn-sm linkedin-btn"
+    matTooltipClass="tool-tip"
   >
     <!-- <img src="src/assets/images/logos_linkedin-icon.svg" /> -->
     <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">

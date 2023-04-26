@@ -87,15 +87,11 @@
   margin-top: 20px;
 }
 
-.b2b-content-main
-  .mat-tab-header-pagination-controls-enabled
-  .mat-tab-header-pagination {
+.b2b-content-main .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
   display: none !important;
 }
 
-.b2b-content-main
-  .mat-tab-header-pagination-controls-enabled
-  .mat-tab-header-pagination {
+.b2b-content-main .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
   display: none !important;
 }
 
@@ -163,6 +159,9 @@ mat-form-field.mat-form-field {
   cursor: not-allowed !important;
   color: grey;
 }
+.disable-click {
+  pointer-events: none;
+}
 
 .lockIcon {
   height: 14px !important;
@@ -189,4 +188,14 @@ mat-form-field.mat-form-field {
   top: 0px;
   opacity: 0.2;
   border-radius: 5px;
+}
+.pagination-skeleton {
+  border-radius: 30px;
+  background-color: #eee;
+  width: 100px;
+  height: 10px;
+  display: block;
+  overflow: hidden;
+  cursor: default;
+  margin-right: 10px;
 }

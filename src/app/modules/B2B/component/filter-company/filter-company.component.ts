@@ -20,20 +20,15 @@ import { DataService } from "../../services/data.service";
 import { Subscription } from "rxjs";
 
 @Component({
-  selector: "app-filter-company",
-  templateUrl: "./filter-company.component.html",
-  styleUrls: ["./filter-company.component.css"],
+  selector: 'app-filter-company',
+  templateUrl: './filter-company.component.html',
+  styleUrls: ['./filter-company.component.css'],
   animations: [
-    trigger("grow", [
-      transition("void <=> *", []),
-      transition(
-        "* <=> *",
-        [
-          style({ height: "{{startHeight}}px", opacity: 0 }),
-          animate(".5s ease"),
-        ],
-        { params: { startHeight: 0 } }
-      ),
+    trigger('grow', [
+      transition('void <=> *', []),
+      transition('* <=> *', [style({ height: '{{startHeight}}px', opacity: 0 }), animate('.5s ease')], {
+        params: { startHeight: 0 },
+      }),
     ]),
   ],
 })
@@ -47,7 +42,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   @Input() isSubscribed: boolean;
   selectable = true;
   removable = true;
-  selectedPanel = "";
+  selectedPanel = '';
   separatorKeysCodes: number[] = [ENTER, COMMA];
   includeDomainInput: ElementRef<HTMLInputElement>;
   includedEmployeeList: Array<any> = [];
@@ -72,7 +67,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   companyList: Array<any> = [];
   includedCompanyList: Array<any> = [];
   recentCompany: Array<any> = [];
-  @ViewChild("includeCompanyInput")
+  @ViewChild('includeCompanyInput')
   includeCompanyInput: ElementRef<HTMLInputElement>;
 
   // domain Variables
@@ -80,7 +75,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   domainList: Array<any> = [];
   includedDominList: Array<any> = [];
   recentDomain: Array<any> = [];
-  @ViewChild("includedomainInput")
+  @ViewChild('includedomainInput')
   includedomainInput: ElementRef<HTMLInputElement>;
 
   // Industry  Variables
@@ -92,9 +87,9 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   excludedIndustryList: Array<any> = [];
   recentIncludeIndustry: Array<any> = [];
   recentExcludeIndustry: Array<any> = [];
-  @ViewChild("includeIndustryInput")
+  @ViewChild('includeIndustryInput')
   includeIndustryInput: ElementRef<HTMLInputElement>;
-  @ViewChild("excludeIndustryInput")
+  @ViewChild('excludeIndustryInput')
   excludeIndustryInput: ElementRef<HTMLInputElement>;
 
   // Technology Variables
@@ -102,26 +97,26 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   technologyList: Array<any> = [];
   includedTechnologyList: Array<any> = [];
   recentTechnology: Array<any> = [];
-  @ViewChild("includeTechnologyInput")
+  @ViewChild('includeTechnologyInput')
   includeTechnologyInput: ElementRef<HTMLInputElement>;
 
   // Revenue Variables
   revenueList: Array<any> = [];
   includedRevenueRange: Array<any> = [];
-  @ViewChild("includeRevenueInput")
+  @ViewChild('includeRevenueInput')
   includeRevenueInput: ElementRef<HTMLInputElement>;
   //Country Variables
   countryList: Array<any> = [];
   countryControl: UntypedFormControl = new UntypedFormControl();
   selectedCountry: Array<any> = [];
-  @ViewChild("countryInput")
+  @ViewChild('countryInput')
   countryInput: ElementRef<HTMLInputElement>;
 
   //State Variables
   stateList: Array<any> = [];
   stateControl: UntypedFormControl = new UntypedFormControl();
   selectedStates: Array<any> = [];
-  @ViewChild("stateInput")
+  @ViewChild('stateInput')
   stateInput: ElementRef<HTMLInputElement>;
 
   //City Variables
@@ -133,10 +128,13 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   searchListDrawer: boolean = false;
 
   subscription: Subscription;
-  searchQuota: number = 1;
-  @ViewChild("cityInput")
+  searchQuota: any;
+  @ViewChild('cityInput')
   cityInput: ElementRef<HTMLInputElement>;
   cityList: any = [];
+
+  totalQuota: any;
+
   ngOnInit() {
     this.getAllFilterDatas();
     this.getEmployeeList();
@@ -148,8 +146,9 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
         this.makeSearchDatas(res.data);
       }
     });
-    this.dataService.searchQuota.subscribe((quota) => {
-      this.searchQuota = quota;
+    this.dataService.searchQuota.subscribe((quota: any) => {
+      this.searchQuota = quota.dailyRemainingQuota;
+      this.totalQuota = quota;
     });
   }
 
@@ -168,28 +167,16 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   }
 
   omitChanges() {
-    this.searchCompanyInput.companyList = this.includedCompanyList.map(
-      (item) => item.name
-    );
-    this.searchCompanyInput.domainList = this.includedDominList.map(
-      (item) => item.name
-    );
+    this.searchCompanyInput.companyList = this.includedCompanyList.map((item) => item.name);
+    this.searchCompanyInput.domainList = this.includedDominList.map((item) => item.name);
     this.searchCompanyInput.employeeRangeList = this.includedEmployeeRange;
     this.searchCompanyInput.revenue = this.includedRevenueRange;
     this.searchCompanyInput.industryInclude = this.includedIndustryList;
     this.searchCompanyInput.industryExclude = this.excludedIndustryList;
-    this.searchCompanyInput.techInclude = this.includedTechnologyList.map(
-      (item) => item.name
-    );
-    this.searchCompanyInput.stateList = this.selectedStates.map(
-      (state) => state.stateFullName
-    );
-    this.searchCompanyInput.cityList = this.selectedCities.map(
-      (city) => city.city
-    );
-    this.searchCompanyInput.countryList = this.selectedCountry.map(
-      (itm) => itm.country
-    );
+    this.searchCompanyInput.techInclude = this.includedTechnologyList.map((item) => item.name);
+    this.searchCompanyInput.stateList = this.selectedStates.map((state) => state.stateFullName);
+    this.searchCompanyInput.cityList = this.selectedCities.map((city) => city.city);
+    this.searchCompanyInput.countryList = this.selectedCountry.map((itm) => itm.country);
     this.getActiveFilterCount(this.searchCompanyInput);
     if (this.activeFilterCount > 0) {
       this.b2bService.decreaseQuotaByOne().subscribe((res) => {});
@@ -212,38 +199,32 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
     this.includedRevenueRange = searchData.revenue;
     this.selectedStates = searchData.stateList;
     this.selectedCities = searchData.cityList;
-    this.selectedCountry =
-      searchData.countryList.length > 0 ? searchData.countryList : [];
+    this.selectedCountry = searchData.countryList.length > 0 ? searchData.countryList : [];
     this.omitChanges();
   }
 
   getRecentValues() {
-    this.recentCompany = this.filterStorageservice.get("recentCompany") || [];
-    this.recentDomain = this.filterStorageservice.get("recentDomain") || [];
-    this.recentIncludeIndustry =
-      this.filterStorageservice.get("recentIncludeIndustry") || [];
-    this.recentExcludeIndustry =
-      this.filterStorageservice.get("recentExcludeIndustry") || [];
-    this.recentTechnology =
-      this.filterStorageservice.get("recentTechnology") || [];
+    this.recentCompany = this.filterStorageservice.get('recentCompany') || [];
+    this.recentDomain = this.filterStorageservice.get('recentDomain') || [];
+    this.recentIncludeIndustry = this.filterStorageservice.get('recentIncludeIndustry') || [];
+    this.recentExcludeIndustry = this.filterStorageservice.get('recentExcludeIndustry') || [];
+    this.recentTechnology = this.filterStorageservice.get('recentTechnology') || [];
   }
 
-  clearItems(key, type: any = "array") {
-    if (type == "array") {
+  clearItems(key, type: any = 'array') {
+    if (type == 'array') {
       this[key] = [];
     } else {
-      this[key] = "";
+      this[key] = '';
     }
     this.omitChanges();
   }
 
   removeEmployeeRange(index: number) {
     // console.log(index);
-    this.includedEmployeeRange = this.includedEmployeeRange.filter(
-      (item, i) => {
-        return i != index;
-      }
-    );
+    this.includedEmployeeRange = this.includedEmployeeRange.filter((item, i) => {
+      return i != index;
+    });
     this.omitChanges();
   }
 
@@ -252,7 +233,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
       this.revenueList = res.revenueList;
     });
   }
-  getCountryList(value = "") {
+  getCountryList(value = '') {
     this.b2bService.getCountryList(value).subscribe((res) => {
       this.countryList = res.countryList;
       this.getStateList();
@@ -260,36 +241,32 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   }
 
   countrySelected(event) {
-    const index = this.selectedCountry.findIndex(
-      (item) => item.countryId == event.option.value.countryId
-    );
+    const index = this.selectedCountry.findIndex((item) => item.countryId == event.option.value.countryId);
     if (index == -1) {
       this.selectedCountry.push(event.option.value);
     }
     this.getStateList();
-    this.countryControl.setValue("");
-    this.countryInput.nativeElement.value = "";
+    this.countryControl.setValue('');
+    this.countryInput.nativeElement.value = '';
     this.omitChanges();
     // this
   }
   removeCountry(countryId: any) {
-    if (countryId == "all") {
+    if (countryId == 'all') {
       this.selectedCountry = [];
     } else {
-      const index = this.selectedCountry.findIndex(
-        (item) => item.countryId == countryId
-      );
+      const index = this.selectedCountry.findIndex((item) => item.countryId == countryId);
       this.selectedCountry.splice(index, 1);
     }
     this.stateList = [];
     this.cityList = [];
     this.selectedStates = [];
     this.selectedCities = [];
-    this.getStateList("");
+    this.getStateList('');
     this.omitChanges();
   }
 
-  getStateList(value = "") {
+  getStateList(value = '') {
     if (this.selectedCountry.length > 0) {
       this.b2bService
         .getStateList(
@@ -299,7 +276,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           this.stateList = res.stateDataList;
           // console.log(this.selectedStates,"Sleected states");
-          this.getCityList("");
+          this.getCityList('');
         });
     } else {
       this.selectedStates = [];
@@ -308,24 +285,20 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
 
   selectStates(event) {
     const receivedState = event.option.value;
-    const found = this.selectedStates.findIndex(
-      (ele) => ele.stateId === receivedState.stateId
-    );
+    const found = this.selectedStates.findIndex((ele) => ele.stateId === receivedState.stateId);
     if (found === -1) {
       this.selectedStates.push(receivedState);
-      this.stateInput.nativeElement.value = "";
+      this.stateInput.nativeElement.value = '';
       this.stateControl.setValue(null);
-      this.getCityList("");
+      this.getCityList('');
       this.omitChanges();
     }
   }
 
   removeState(inState: any) {
-    this.selectedStates = this.selectedStates.filter(
-      (state) => inState.stateId !== state.stateId
-    );
+    this.selectedStates = this.selectedStates.filter((state) => inState.stateId !== state.stateId);
     this.selectedCities = [];
-    this.getCityList("");
+    this.getCityList('');
     this.omitChanges();
   }
 
@@ -349,75 +322,61 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   }
 
   onCitySelect(city: any) {
-    const found = this.selectedCities.findIndex(
-      (ele) => ele.cityId === city.cityId
-    );
+    const found = this.selectedCities.findIndex((ele) => ele.cityId === city.cityId);
 
     if (found !== -1) {
     } else {
       this.selectedCities.push(city);
-      this.cityInput.nativeElement.value = "";
+      this.cityInput.nativeElement.value = '';
       this.cityControl.setValue(null);
       this.omitChanges();
     }
   }
 
   onCityDeselect(city: any) {
-    this.selectedCities = this.selectedCities.filter(
-      (ele) => ele.cityId !== city.cityId
-    );
+    this.selectedCities = this.selectedCities.filter((ele) => ele.cityId !== city.cityId);
     this.omitChanges();
   }
   // Company Functions.......
-  selectedCompany(event: any, type = "chip"): void {
-    const value =
-      type == "chip"
-        ? (event.value || "").trim()
-        : event.option.value.companyName.trim();
+  selectedCompany(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.companyName.trim();
     const found = this.includedCompanyList.indexOf(value);
     if (value && found === -1) {
       this.includedCompanyList.push({ name: value });
       this.omitChanges();
-      this.setLocalStorageValues("recentCompany", { companyName: value });
+      this.setLocalStorageValues('recentCompany', { companyName: value });
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
     this.companyList = [];
-    this.includeCompanyInput.nativeElement.value = "";
+    this.includeCompanyInput.nativeElement.value = '';
   }
 
   removeCompany(content) {
-    const index = this.includedCompanyList.findIndex(
-      (itm) => itm.name === content.name
-    );
+    const index = this.includedCompanyList.findIndex((itm) => itm.name === content.name);
     this.includedCompanyList.splice(index, 1);
     this.omitChanges();
     this.companyList = [];
   }
 
-  selectedDomain(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
-    const found = this.includedDominList.findIndex(
-      (item) => item.name == value
-    );
+  selectedDomain(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
+    const found = this.includedDominList.findIndex((item) => item.name == value);
     if (value && found === -1) {
       this.includedDominList.push({ name: value });
       this.omitChanges();
-      this.setLocalStorageValues("recentDomain", { name: value });
+      this.setLocalStorageValues('recentDomain', { name: value });
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
     this.domainList = [];
-    this.includedomainInput.nativeElement.value = "";
+    this.includedomainInput.nativeElement.value = '';
   }
   removeDomain(content) {
-    const index = this.includedDominList.findIndex(
-      (itm) => itm.name === content.name
-    );
+    const index = this.includedDominList.findIndex((itm) => itm.name === content.name);
     this.includedDominList.splice(index, 1);
     this.domainList = [];
     this.omitChanges();
@@ -425,43 +384,41 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
 
   // Industry Functions...........
 
-  includeIndustry(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+  includeIndustry(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.includedIndustryList.indexOf(value);
     if (value && found === -1) {
       this.includedIndustryList.push(value);
       this.omitChanges();
-      this.setLocalStorageValues("recentIncludeIndustry", value);
+      this.setLocalStorageValues('recentIncludeIndustry', value);
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
-    this.includeIndustryInput.nativeElement.value = "";
+    this.includeIndustryInput.nativeElement.value = '';
     this.industryList = [];
   }
 
-  excludeIndustry(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
+  excludeIndustry(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
     const found = this.excludedIndustryList.indexOf(value);
     if (value && found === -1) {
       this.excludedIndustryList.push(value);
       this.omitChanges();
-      this.setLocalStorageValues("recentExcludeIndustry", value);
+      this.setLocalStorageValues('recentExcludeIndustry', value);
       // Clear the input value
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
-    this.excludeIndustryInput.nativeElement.value = "";
+    this.excludeIndustryInput.nativeElement.value = '';
     this.industryList = [];
   }
 
   removeIndustry(value) {
     const index = this.includedIndustryList.indexOf(value);
     this.includedIndustryList.splice(index, 1);
-    this.includeIndustryInput.nativeElement.value = "";
+    this.includeIndustryInput.nativeElement.value = '';
     this.industryList = [];
     this.omitChanges();
   }
@@ -470,31 +427,26 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
     const index = this.excludedIndustryList.indexOf(value);
     this.excludedIndustryList.splice(index, 1);
     this.omitChanges();
-    this.excludeIndustryInput.nativeElement.value = "";
+    this.excludeIndustryInput.nativeElement.value = '';
     this.industryList = [];
   }
-  selectedTechnology(event: any, type = "chip"): void {
-    const value =
-      type == "chip" ? (event.value || "").trim() : event.option.value.trim();
-    const found = this.includedTechnologyList.findIndex(
-      (item) => item.name == value
-    );
+  selectedTechnology(event: any, type = 'chip'): void {
+    const value = type == 'chip' ? (event.value || '').trim() : event.option.value.trim();
+    const found = this.includedTechnologyList.findIndex((item) => item.name == value);
     if (value && found === -1) {
       this.includedTechnologyList.push({ name: value });
       this.omitChanges();
-      this.setLocalStorageValues("recentTechnology", { name: value });
+      this.setLocalStorageValues('recentTechnology', { name: value });
       if (event.input) {
-        event.input.value = "";
+        event.input.value = '';
       }
     }
-    this.includeTechnologyInput.nativeElement.value = "";
+    this.includeTechnologyInput.nativeElement.value = '';
     this.technologyList = [];
   }
 
   removeTechnology(content) {
-    const index = this.includedTechnologyList.findIndex(
-      (itm) => itm.name === content.name
-    );
+    const index = this.includedTechnologyList.findIndex((itm) => itm.name === content.name);
     this.includedTechnologyList.splice(index, 1);
     this.omitChanges();
   }
@@ -539,10 +491,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
       if (value.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedIndustryList,
-            ...this.excludedIndustryList,
-          ],
+          previouslySearchedTerm: [...this.includedIndustryList, ...this.excludedIndustryList],
         };
         this.b2bService.getIndustryList(body).subscribe((res) => {
           this.industryList = res.industryList;
@@ -556,10 +505,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
       if (value.length > 1) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedIndustryList,
-            ...this.excludedIndustryList,
-          ],
+          previouslySearchedTerm: [...this.includedIndustryList, ...this.excludedIndustryList],
         };
         this.b2bService.getIndustryList(body).subscribe((res) => {
           this.industryList = res.industryList;
@@ -573,9 +519,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
       if (value.length > 2) {
         const body = {
           searchPhrase: value,
-          previouslySearchedTerm: [
-            ...this.includedTechnologyList.map((item) => item.name),
-          ],
+          previouslySearchedTerm: [...this.includedTechnologyList.map((item) => item.name)],
         };
         this.b2bService.getTechnologyList(body).subscribe((res) => {
           this.technologyList = res.technologyList;
@@ -586,17 +530,17 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
     });
 
     this.cityControl.valueChanges.subscribe((value: string) => {
-      if (typeof value != "object") {
+      if (typeof value != 'object') {
         this.getCityList(value);
       }
     });
     this.stateControl.valueChanges.subscribe((value: string) => {
-      if (typeof value != "object") {
+      if (typeof value != 'object') {
         this.getStateList(value);
       }
     });
     this.countryControl.valueChanges.subscribe((value: string) => {
-      if (typeof value != "object") {
+      if (typeof value != 'object') {
         this.getCountryList(value);
       }
     });
@@ -605,7 +549,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   async setLocalStorageValues(type, value) {
     const data: Array<any> = (await this.filterStorageservice.get(type)) || [];
     let valueIndex = 0;
-    if (typeof value == "object") {
+    if (typeof value == 'object') {
       //At some cases we are adding the values as object.So we are taking the first key of the object
       const firstKey = Object.keys(value)[0];
       valueIndex = data.findIndex((itm) => itm[firstKey] == value[firstKey]);
@@ -649,29 +593,17 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   getPersistData() {
     // let that = this;
     setTimeout(() => {
-      this.includedCompanyList =
-        this.filterStorageservice.get("b2b_company_includedCompanyList") || [];
-      this.includedDominList =
-        this.filterStorageservice.get("b2b_company_includedDomainList") || [];
-      this.includedIndustryList =
-        this.filterStorageservice.get("b2b_company_includedIndustryList") || [];
-      this.excludedIndustryList =
-        this.filterStorageservice.get("b2b_company_excludedIndustryList") || [];
-      this.includedTechnologyList =
-        this.filterStorageservice.get("b2b_company_includedTechnologyList") ||
-        [];
-      this.includedEmployeeRange =
-        this.filterStorageservice.get("b2b_company_includedEmployeeRange") ||
-        [];
-      this.includedRevenueRange =
-        this.filterStorageservice.get("b2b_company_includedRevenueRange") || [];
+      this.includedCompanyList = this.filterStorageservice.get('b2b_company_includedCompanyList') || [];
+      this.includedDominList = this.filterStorageservice.get('b2b_company_includedDomainList') || [];
+      this.includedIndustryList = this.filterStorageservice.get('b2b_company_includedIndustryList') || [];
+      this.excludedIndustryList = this.filterStorageservice.get('b2b_company_excludedIndustryList') || [];
+      this.includedTechnologyList = this.filterStorageservice.get('b2b_company_includedTechnologyList') || [];
+      this.includedEmployeeRange = this.filterStorageservice.get('b2b_company_includedEmployeeRange') || [];
+      this.includedRevenueRange = this.filterStorageservice.get('b2b_company_includedRevenueRange') || [];
 
-      this.selectedStates =
-        this.filterStorageservice.get("b2b_company_selectedStates") || [];
-      this.selectedCities =
-        this.filterStorageservice.get("b2b_company_selectedCities") || [];
-      this.selectedCountry =
-        this.filterStorageservice.get("b2b_company_selectedCountry") || [];
+      this.selectedStates = this.filterStorageservice.get('b2b_company_selectedStates') || [];
+      this.selectedCities = this.filterStorageservice.get('b2b_company_selectedCities') || [];
+      this.selectedCountry = this.filterStorageservice.get('b2b_company_selectedCountry') || [];
       // setTimeout(() => {
       this.omitChanges();
     });
@@ -706,45 +638,15 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
   }
 
   storeFilterData() {
-    this.filterStorageservice.set(
-      "b2b_company_includedCompanyList",
-      this.includedCompanyList
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_includedDomainList",
-      this.includedDominList
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_includedIndustryList",
-      this.includedIndustryList
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_excludedIndustryList",
-      this.excludedIndustryList
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_includedTechnologyList",
-      this.includedTechnologyList
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_includedEmployeeRange",
-      this.includedEmployeeRange
-    ) || "";
-    this.filterStorageservice.set(
-      "b2b_company_includedRevenueRange",
-      this.includedRevenueRange
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_selectedStates",
-      this.selectedStates
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_selectedCities",
-      this.selectedCities
-    ) || [];
-    this.filterStorageservice.set(
-      "b2b_company_selectedCountry",
-      this.selectedCountry
-    );
+    this.filterStorageservice.set('b2b_company_includedCompanyList', this.includedCompanyList) || [];
+    this.filterStorageservice.set('b2b_company_includedDomainList', this.includedDominList) || [];
+    this.filterStorageservice.set('b2b_company_includedIndustryList', this.includedIndustryList) || [];
+    this.filterStorageservice.set('b2b_company_excludedIndustryList', this.excludedIndustryList) || [];
+    this.filterStorageservice.set('b2b_company_includedTechnologyList', this.includedTechnologyList) || [];
+    this.filterStorageservice.set('b2b_company_includedEmployeeRange', this.includedEmployeeRange) || '';
+    this.filterStorageservice.set('b2b_company_includedRevenueRange', this.includedRevenueRange) || [];
+    this.filterStorageservice.set('b2b_company_selectedStates', this.selectedStates) || [];
+    this.filterStorageservice.set('b2b_company_selectedCities', this.selectedCities) || [];
+    this.filterStorageservice.set('b2b_company_selectedCountry', this.selectedCountry);
   }
 }

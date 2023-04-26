@@ -253,7 +253,6 @@ export class B2bListComponent implements OnInit {
   async setRowData() {
     await this.b2bService.getB2bApacList(this.offset, this.count, true).subscribe(
       (res) => {
-        console.log('DATA SOURCE', this.datasource);
         this.datasource = res.savedlistInfoList;
         this.paramsData.api.setRowData(this.datasource);
         // this.gridApi.sizeColumnsToFit();
