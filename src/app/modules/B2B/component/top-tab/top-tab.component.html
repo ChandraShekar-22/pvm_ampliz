@@ -41,7 +41,9 @@
           [active]="activeLink == i"
           [class.activeNormal]="activeLink == i && !isPrimary"
           [class.activePrimary]="activeLink == i && isPrimary"
+          [disabled]="showLoader"
           class="tab-anchor"
+
         >
           <i-feather
             name="{{ tab?.icon?.name }}"
