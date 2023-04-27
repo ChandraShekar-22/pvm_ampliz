@@ -50,10 +50,18 @@
                 class="fa fa-brands fa-linkedin"
                 (click)="openUrl('linkedinURL')"
               ></i> -->
-              <img class="ml-2" src="../../../../../../assets/images/linkedin.png" width="12px" height="12px" style="cursor: pointer" *ngIf="contactInfo['linkedinURL']" (click)="openUrl('linkedinURL')"/>
+              <img
+                class="ml-2"
+                src="../../../../../../assets/images/linkedin.png"
+                width="12px"
+                height="12px"
+                style="cursor: pointer"
+                *ngIf="contactInfo['linkedinURL']"
+                (click)="openUrl('linkedinURL')"
+              />
             </div>
             <div class="physician_info">
-              <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{ contactInfo?.title.toString() }}</span>
+              <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{ contactInfo?.title.toString() | titlecase }}</span>
               <span class="physican_location"
                 ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ contactInfo?.location | titlecase }}</span
               >
@@ -61,10 +69,10 @@
             <div
               (click)="doSearchContact('companyList', contactInfo.company)"
               class="company_cont"
-              *ngIf="(contactInfo.company | trimUnwantedString) !== ''"
+              *ngIf="contactInfo.company !== null"
             >
-              <!-- <i class="fa fab fa-amazon pr-1" aria-hidden="true"></i> -->
-              <span style="color: #999">{{ contactInfo.company | trimUnwantedString }}</span>
+              <i class="fa fa-building-o pr-1" aria-hidden="true" ></i>
+              <span>{{ contactInfo.company | trimUnwantedString | titlecase }}</span>
             </div>
             <!------------>
             <mat-chip-list>
@@ -80,7 +88,7 @@
                 {{ skill }}
               </mat-chip>
               <span *ngIf="skillSet.length > sliceLength" class="moreButton" (click)="handleShowMore()">
-                {{ showMore ? 'More +' : 'Less -' }}
+                {{ showMoreSkill ? 'More +' : 'Less -' }}
               </span>
             </mat-chip-list>
             <!------------>
@@ -105,7 +113,7 @@
           </ng-container> -->
 
           <!-- Email -->
-          <ng-container *ngIf="emailToShow[0] !== ''">
+          <ng-container *ngIf="showEmail">
             <span class="email-container" *ngFor="let item of emailToShow">
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <a
@@ -118,7 +126,7 @@
             </span>
           </ng-container>
           <!-- If Email is not present -->
-          <ng-container *ngIf="requestEmail">
+          <ng-container *ngIf="showRequestEmail">
             <span class="email-container">
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <span class="physican_email" (click)="request('Request Email Access', contactInfo.contactId)"
@@ -129,7 +137,7 @@
           <!-- ./Email -->
 
           <!-- Phone -->
-          <ng-container *ngIf="phoneToShow.length > 0 && phoneToShow[0] !== null">
+          <ng-container *ngIf="showPhone">
             <div *ngFor="let item of phoneToShow">
               <span class="physican_phone" [class.email-text]="!isPhoneMasked">
                 <i class="fa fa-phone" aria-hidden="true"></i>
@@ -139,7 +147,7 @@
           </ng-container>
           <!-- If Phone does't exist -->
           <!-- && showRequestPhone -->
-          <ng-container *ngIf="requestPhone">
+          <ng-container *ngIf="showRequestPhone">
             <span class="physican_email" (click)="request('Request Phone Access', contactInfo.contactId)">
               <i class="fa fa-phone" aria-hidden="true"></i>
               Request Phone</span
@@ -147,7 +155,7 @@
           </ng-container>
           <!-- ./Phone -->
 
-          <ng-container *ngIf="(allEmail.length > 0 || allPhone.length > 0) && !isEmailMasked">
+          <ng-container *ngIf="showAllContacts">
             <span class="show-more-button" [matMenuTriggerFor]="aboveMenu" #t="matMenuTrigger">
               Show all
               <svg
@@ -214,13 +222,7 @@
                 </div>
                 <!-- email container ends -->
 
-                <!-- <div class="phone-list" *ngFor="let phone of allPhone">
-                    <span>
-                      <i class="fa fa-phone phone-list-icon" aria-hidden="true"></i>
-                      {{ phone }}</span
-                    >
-                  </div> -->
-
+                <!-- Phone Container starts -->
                 <div class="phone-wrapper" *ngIf="allPhone.length > 0">
                   <span class="phone-container-heading">Phone</span>
                   <div class="phone-list-container row" *ngFor="let phone of allPhone">
@@ -252,27 +254,24 @@
                     </div>
                   </div>
                 </div>
+                <!-- Phone Container ends -->
               </div>
             </mat-menu>
           </ng-container>
-          <div *ngIf="contactInfo['facebook'] || contactInfo['twitterURL'] " class="saveBtn_wrp">
+          <div *ngIf="contactInfo['facebook'] || contactInfo['twitterURL']" class="saveBtn_wrp">
             <i *ngIf="contactInfo['facebook']" class="fa fa-brands fa-facebook" (click)="openUrl('facebook')"></i>
             <i *ngIf="contactInfo['twitterURL']" class="fa fa-brands fa-twitter" (click)="openUrl('twitterURL')"></i>
           </div>
           <div class="saveBtn_wrp row" [class.add-space]="showRequestContactBtn">
-            <!-- <button class="physician_save" (click)="invokeSaveList()">
-              Save
-            </button> -->
             <app-save-contact-modal
-              *ngIf="showSaveButton && !showRequestContactBtn"
+              *ngIf="showSaveContactModal"
               [selectedItems]="[contactInfo.contactId]"
-              [isSaveButton]="isSaveButton || saveBtnTrigger"
+              [isSaveButton]="showSaveButton"
               [fromCard]="true"
               (successfullyAdded)="contactReceived($event)"
               (contactViewed)="refreshValues($event)"
               class="col-4"
             ></app-save-contact-modal>
-
             <app-request-contact
               *ngIf="showRequestContactBtn"
               class="col-4"

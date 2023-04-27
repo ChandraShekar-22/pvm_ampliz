@@ -15,7 +15,6 @@ export class NoFilterComponent implements OnInit {
   Object = Object;
 
   ngOnInit(): void {
-    console.log('IN INIT');
     this.recentSearch.map((item) => {
       if (item.searchType === 'Contact') {
         const obj = this.nonNullValues(item.contactSearchParams, (val) =>
@@ -30,7 +29,6 @@ export class NoFilterComponent implements OnInit {
       //   // data = val.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
       // });
     });
-    console.log('RECENT', this.recentData);
   }
 
   searchRecent(index: any) {
