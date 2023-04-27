@@ -132,7 +132,7 @@
   align-items: center;
   min-height: 24px;
   height: 1px;
-  font-size: 12px;
+  font-size: 10px;
   /* margin-top: 25px !important; */
   font-weight: 300;
 }
@@ -148,7 +148,7 @@
   cursor: default;
   min-height: 24px;
   height: 1px;
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
   font-weight: 300;
 }
@@ -184,22 +184,22 @@
 }
 
 .company_cont {
-  color: #2d8cff;
+  color: #999;
   display: flex;
   align-items: center;
   padding-top: 10px;
   font-weight: 400;
-  font-size: 13px !important;
+  font-size: 12px !important;
 }
+
 
 .physican_location img {
   padding-right: 5px;
   height: 15px !important;
 }
 
-.company_cont img {
+.company_cont i {
   margin-right: 5px;
-  height: 14px !important;
 }
 
 .physican_email {

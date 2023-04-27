@@ -179,7 +179,7 @@ export class FilterCompanyComponent implements OnInit, OnDestroy {
     this.searchCompanyInput.countryList = this.selectedCountry.map((itm) => itm.country);
     this.getActiveFilterCount(this.searchCompanyInput);
     if (this.activeFilterCount > 0) {
-      this.b2bService.decreaseQuotaByOne().subscribe((res) => {});
+      // this.b2bService.decreaseQuotaByOne().subscribe((res) => {});
     }
     // ? [this.selectedCountry.countryId]
     // : [];

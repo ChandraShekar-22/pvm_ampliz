@@ -277,7 +277,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
 
     this.getActiveFilterCount(this.searchContactInput);
     if (this.activeFilterCount > 0) {
-      this.b2bService.decreaseQuotaByOne().subscribe((res) => {});
+      // this.b2bService.decreaseQuotaByOne().subscribe((res) => {});
       this.onFilterChange.emit(this.searchContactInput);
       this.filterApplied.emit(true);
     } else {
