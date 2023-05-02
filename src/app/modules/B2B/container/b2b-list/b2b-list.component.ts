@@ -108,28 +108,7 @@ export class B2bListComponent implements OnInit {
           } else {
             return '<div class="listLink"><a href="javascript:void(0)">' + listName + '</a><br/><div>';
           }
-
-          // else if (
-          //   params.data.status === "inProgress" ||
-          //   params.data.noOfLeads <= 0
-          // ) {
-          //   return "<span>" + params.value + "<br/></span>";
-          // } else {
-          //   return (
-          //     '<div class="listLink"><a href="javascript:void(0)">' +
-          //     params.value +
-          //     "</a><br/><div>"
-          //   );
-          // }
         },
-
-        // cellRendererSelector: function (params) {
-        //   if (params.value.length > 20) {
-        //     return {
-        //       component: CustomTooltipComponent,
-        //     };
-        //   }
-        // }
       },
       {
         headerName: 'Contacts',
@@ -247,7 +226,8 @@ export class B2bListComponent implements OnInit {
     this.gridApi.setRowData(10);
     this.gridColumnApi = params.columnApi;
     this.paramsData.api.setRowData(dataSource);
-    this.setRowData();
+    // this.setRowData();
+    this.setColumnToFitPage();
   }
 
   async setRowData() {
@@ -261,6 +241,14 @@ export class B2bListComponent implements OnInit {
     );
   }
 
+  setColumnToFitPage() {
+    var allColumnIds = [];
+    this.gridColumnApi.getAllColumns().forEach(function (column) {
+      allColumnIds.push(column.colId);
+    });
+    this.gridColumnApi.autoSizeColumns(allColumnIds);
+  }
+
   // variables List Tabs
   tabItems = ['All', 'Processing', 'Completed'];
   activeLink = this.tabItems[0];
@@ -268,63 +256,6 @@ export class B2bListComponent implements OnInit {
 
   ngOnInit() {
     this.setPage(1);
-    // this.getB2BApacList(0);
-  }
-
-  getB2BApacList(tab: number) {
-    this.setPage(0);
-    // if (tab === 0) {
-    //   this.gridApi.showLoadingOverlay();
-    //   this.b2bService
-    //     .getB2bApacList(this.offset, this.count, true)
-    //     .subscribe((res) => {
-    //       this.datasource = res.savedlistInfoList;
-    //       this.paramsData.api.setRowData(this.datasource);
-    //       this.totalSize = res.totalCount;
-    //       this.gridApi.hideOverlay();
-    //     });
-    // } else if (tab === 1) {
-    //   this.gridApi.showLoadingOverlay();
-    //   this.b2bService
-    //     .getB2bApacList(this.offset, this.count, true, "inProgress")
-    //     .subscribe((res) => {
-    //       this.datasource = res.savedlistInfoList;
-    //       // this.datasource = this.datasource.filter((item) => {
-    //       //   return item.status === "inProgress";
-    //       // });
-    //       this.totalSize = res.totalCount;
-    //       this.paramsData.api.setRowData(this.datasource);
-    //       this.gridApi.hideOverlay();
-    //     });
-    // } else if (tab === 2) {
-    //   this.gridApi.showLoadingOverlay();
-    //   this.paramsData.api.showLoadingOverlay();
-    //   this.b2bService
-    //     .getB2bApacList(this.offset, this.count, true, "completed")
-    //     .subscribe((res) => {
-    //       this.datasource = res.savedlistInfoList;
-    //       // this.datasource = this.datasource.filter((item) => {
-    //       //   return item.status != "inProgress";
-    //       // });
-    //       this.totalSize = res.totalCount;
-    //       this.paramsData.api.setRowData(this.datasource);
-    //       this.gridApi.hideOverlay();
-    //     });
-    // }
-    // this.b2bService.getB2bApacList(this.offset, this.count, true).subscribe(
-    //   (res) => {
-    //     this.datasource = res.savedlistInfoList;
-    //     var newList = this.datasource.filter((el) => {
-    //       return el.status === "inProgress";
-    //     });
-    //     this.paramsData.api.setRowData(newList);
-    //     // this.onGridReady(, newList)
-    //     console.log("DATA SOURCE", newList);
-    //     // this.paramsData.api.setRowData(this.datasource);
-    //     // this.gridApi.sizeColumnsToFit();
-    //   },
-    //   (error) => {}
-    // );
   }
 
   onPageSizeChanged(ev) {
