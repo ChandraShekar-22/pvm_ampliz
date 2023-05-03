@@ -61,7 +61,9 @@
               />
             </div>
             <div class="physician_info">
-              <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{ contactInfo?.title.toString() | titlecase }}</span>
+              <span *ngIf="contactInfo?.title" style="margin-right: 15px">{{
+                contactInfo?.title.toString() | titlecase
+              }}</span>
               <span class="physican_location"
                 ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ contactInfo?.location | titlecase }}</span
               >
@@ -71,9 +73,25 @@
               class="company_cont"
               *ngIf="contactInfo.company !== null"
             >
-              <i class="fa fa-building-o pr-1" aria-hidden="true" ></i>
-              <span>{{ contactInfo.company | trimUnwantedString | titlecase }}</span>
+              <i class="fa fa-building-o pr-1" aria-hidden="true"></i>
+              <span
+                id="company-panel"
+                #companyPanel
+                mat-button
+                >{{ contactInfo.company | trimUnwantedString | titlecase }}</span
+              >
+              <!-- (mouseenter)="openCompanyPanel(companyPanelTrigger)"
+                (mouseleave)="closeCompanyPanel(companyPanelTrigger)"
+                [matMenuTriggerFor]="companyDetailPanel"
+                #companyPanelTrigger="matMenuTrigger" -->
+
+              <!-- <mat-menu #companyDetailPanel>
+                <ng-container>
+                  <li (mouseenter)="inMenu()" (mouseleave)="notInMenu(companyPanelTrigger)">IT WORKS MAN</li>
+                </ng-container>
+              </mat-menu> -->
             </div>
+
             <!------------>
             <mat-chip-list>
               <mat-chip
