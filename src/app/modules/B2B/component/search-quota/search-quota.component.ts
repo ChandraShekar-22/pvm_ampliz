@@ -10,11 +10,14 @@ export class SearchQuotaComponent implements OnInit {
   @Input() usedQuota: any = 0;
   @Input() dailyQuota: any = 0;
   @Input() isSubscribed: boolean;
-  progress: number = 0;
+  // progress: number = this.parseVal();
   constructor(private ngZone: NgZone, public router: Router) {}
 
-  ngOnInit() {
-    this.progress = (this.usedQuota / this.dailyQuota) * 100;
+  ngOnInit() {}
+
+  get progress() {
+    let initialVal = (this.usedQuota / this.dailyQuota) * 100;
+    return parseFloat(initialVal.toFixed(2));
   }
 
   openPayment() {

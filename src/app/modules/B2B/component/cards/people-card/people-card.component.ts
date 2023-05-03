@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchContactInput } from 'src/app/modules/B2B/models/SearchContactModel';
 import { DataService } from 'src/app/modules/B2B/services/data.service';
@@ -6,7 +6,9 @@ import { AmplizService } from '../../../../healthcare/services/ampliz.service';
 import { MessageService } from '../../../services/message.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { E } from '@angular/cdk/keycodes';
-import { TouchSequence } from 'selenium-webdriver';
+// import { TouchSequence } from 'selenium-webdriver';
+import { trigger } from '@angular/animations';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-people-card',
@@ -14,7 +16,9 @@ import { TouchSequence } from 'selenium-webdriver';
   styleUrls: ['./people-card.component.css'],
 })
 export class PeopleCardComponent implements OnInit {
-  @Input() contactInfo: any;
+  @ViewChild('companyPanel') companyPanel: ElementRef;
+  @Input()
+  contactInfo: any;
   @Input() checkboxSelected: boolean = false;
   @Input() isSubscribed: boolean = false;
   @Output() checkboxChange = new EventEmitter();
@@ -32,6 +36,8 @@ export class PeopleCardComponent implements OnInit {
   allEmail: any = [];
   allPhone: any = [];
   showMoreList = [];
+  cursorInCompanyPanel: boolean = false;
+  isCompanyPanelTriggered: boolean = false;
 
   get isDomain() {
     return this.contactInfo.domain !== null;
@@ -120,7 +126,8 @@ export class PeopleCardComponent implements OnInit {
     private dataService: DataService,
     private amplizService: AmplizService,
     private messageService: MessageService,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -203,7 +210,7 @@ export class PeopleCardComponent implements OnInit {
   }
 
   openUrl(type) {
-    const url = this.contactInfo[type];
+    const url = 'https://www.' + this.contactInfo[type];
     if (url !== '') {
       window.open(url, 'popUpWindow');
     }
@@ -267,4 +274,44 @@ export class PeopleCardComponent implements OnInit {
   contactReceived(res) {
     this.contactInfo = res;
   }
+
+  // openCompanyPanel(trigger) {
+  //   setTimeout(() => {
+  //     this.isCompanyPanelTriggered = true;
+  //     trigger.openMenu();
+  //     // this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-focused');
+  //     // this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-program-focused');
+  //     console.log('TRIGER', trigger.menu);
+  //     this.renderer.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-focused');
+  //     this.renderer.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-program-focused');
+  //   }, 100);
+  // }
+  // closeCompanyPanel(trigger) {
+  //   setTimeout(() => {
+  //     if (!this.cursorInCompanyPanel) {
+  //       console.log('IN CLOSE');
+  //       trigger.closeMenu();
+  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-focused');
+  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-program-focused');
+  //     } else {
+  //       console.log('IN CLOSE ELSE');
+  //       this.isCompanyPanelTriggered = false;
+  //     }
+  //   }, 100);
+  // }
+  // inMenu() {
+  //   this.cursorInCompanyPanel = true;
+  // }
+  // notInMenu(trigger) {
+  //   setTimeout(() => {
+  //     if (!this.isCompanyPanelTriggered) {
+  //       this.cursorInCompanyPanel = false;
+  //       trigger.closeMenu();
+  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-focused');
+  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-program-focused');
+  //     } else {
+  //       this.cursorInCompanyPanel = false;
+  //     }
+  //   }, 100);
+  // }
 }

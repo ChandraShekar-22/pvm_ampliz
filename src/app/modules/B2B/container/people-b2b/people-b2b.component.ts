@@ -63,7 +63,8 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     private b2bService: B2bService,
     private dataService: DataService,
     private loaderService: SkeletonloaderService,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   get showNoResult() {
@@ -109,8 +110,11 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     this.getLoaderValue();
 
     this.getSearchContactNetNew(this.selectedFilter);
-    let url = window.location.href;
-    this.companyReceviedFromExt(url);
+
+    setTimeout(() => {
+      let url = window.location.href;
+      this.companyReceviedFromExt(url);
+    }, 100);
     // this.collectCreditAndQuotaStatus();
     // Add this line in left right icons ==> [ngClass]="{'disabledPagination': isSubscribed==false}"
     this.getSearchQuota();
@@ -127,6 +131,10 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
       searchData.companyList.push(queryString.get('companyName'));
       const contactObj = this.selectedFilter.fromJson(searchData);
       this.dataService.passSearchContactInput(contactObj);
+      this.router.navigate([], {
+        queryParams: {},
+        replaceUrl: true,
+      });
     }
   }
 
@@ -311,8 +319,8 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     if (this.isFilter) {
       this.b2bService.searchContactNetNew(contactsBody).subscribe(
         (netNewRes) => {
-          this.totalCount = netNewRes.totalCount;
-          this.totalItemCount = netNewRes.totalCount;
+          this.totalCount = netNewRes.netNew;
+          this.totalItemCount = netNewRes.netNew;
           if (this.totalItemCount > 1000) {
             this.totalSavableItemCount = 1000;
           } else {
@@ -410,8 +418,10 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     if (event == true) {
       this.contactsList.contacts.map((contact: any) => {
         if (
-          ((contact.directDialPhone.length > 0 && contact.email.length > 0) || contact.email.length > 0) &&
-          contact.inSavedList === false
+          ((contact.directDialPhone.length > 0 && contact.personalEmails.length > 0) ||
+            contact.workEmails.length > 0) &&
+          contact.inSavedList === false &&
+          contact.domain !== null
         ) {
           this.handleCheckboxChangeForAll(contact);
           this.handleCurrentCheckboxChange(contact);
