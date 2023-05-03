@@ -203,7 +203,7 @@ export class PeopleCardComponent implements OnInit {
   }
 
   openUrl(type) {
-    const url = this.contactInfo[type];
+    const url = 'https://www.' + this.contactInfo[type];
     if (url !== '') {
       window.open(url, 'popUpWindow');
     }
