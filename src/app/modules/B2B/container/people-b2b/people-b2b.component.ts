@@ -105,6 +105,7 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     // this.getContactsList();
     this.getApacList();
     this.getViewedListCount();
+    this.getSearchQuota();
     this.checkRecentSearch();
     this.getLandingPageVisibility();
     this.getLoaderValue();
@@ -117,7 +118,6 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     }, 100);
     // this.collectCreditAndQuotaStatus();
     // Add this line in left right icons ==> [ngClass]="{'disabledPagination': isSubscribed==false}"
-    this.getSearchQuota();
     this.dataService.savedContacts.subscribe((res: Array<Contact>) => {
       this.contactsList.updateContactsListFromSavedList(res);
     });
