@@ -54,11 +54,72 @@
   align-items: center;
   padding-top: 5px;
   font-weight: 400;
+}
+.company_cont img {
+  margin-right: 1px;
+}
+
+.company_cont {
   cursor: pointer;
 }
 
-.company_cont img {
-  margin-right: 5px;
+/* company info panel */
+.company-panel-info {
+  overflow-x: auto;
+  font-size: 13px;
+  font-weight: 400;
+  color: #696969;
+}
+.company-panel-detail {
+  border-bottom: 0.5px solid #e8e6e6;
+  padding: 15px 10px;
+}
+.company-panel-detail #company-name{
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000 !important;
+}
+.company-logo-container {
+  text-align: center;
+}
+.company-logo-container img {
+  width: 100%;
+  height: auto;
+}
+.company-panel-detail #company-domain {
+  color: #0071eb;
+  cursor: pointer;
+}
+.company-panel-detail #show-more-description {
+  color: #0071eb;
+  cursor: pointer;
+}
+.company-social-media img {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.company-panel-detail img {
+  width: 14px;
+  height: 14px;
+}
+.company-panel-container {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.company-info-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 2px;
+}
+.company-info-icon:hover {
+  color: #0071eb;
+  transition: 0.5ms all ease-in-out;
 }
 
 .physican_additionInfo {
@@ -192,12 +253,10 @@
   font-size: 12px !important;
 }
 
-
 .physican_location img {
   padding-right: 5px;
   height: 15px !important;
 }
-
 .company_cont i {
   margin-right: 5px;
 }
@@ -236,7 +295,6 @@
   font-size: 12px;
   font-weight: 400;
 }
-
 
 .physican_container {
   min-height: 115px !important;
@@ -496,7 +554,7 @@ img.img-default-avatar {
   visibility: visible;
   margin-left: 5px;
 }
-.email-container a span{
+.email-container a span {
   color: #0071eb !important;
 }
 .add-space {
@@ -505,6 +563,13 @@ img.img-default-avatar {
 
 ::ng-deep .mat-menu-panel.show-more-menu {
   min-width: 450px !important;
+}
+::ng-deep.mat-menu-panel.company-panel-menu {
+  /* min-width: 350px !important; */
+  width: 360px !important;
+  overflow-x: auto !important;
+  max-height: 390px !important;
+  padding-bottom: 0px !important;
 }
 /* ::ng-deep .mat-menu-panel.show-more-menu {
     width: 500px !important;

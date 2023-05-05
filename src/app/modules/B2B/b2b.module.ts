@@ -57,6 +57,7 @@ import { ButtoncellrendererComponent } from '../basic/component/ag-grid/buttonce
 import { TrimUnwantedStringPipe } from "./pipes/trim-unwanted-string.pipe";
 import { ClearFilterComponent } from './component/clear-filter/clear-filter.component';
 import { NoFilterComponent } from './component/no-filter/no-filter.component';
+import { CompanyPanelLoaderComponent } from './component/company-panel-loader/company-panel-loader.component';
 const appRoutes = [
   {
     path: "onboard",
@@ -137,6 +138,7 @@ const appRoutes = [
     TrimUnwantedStringPipe,
     ClearFilterComponent,
     NoFilterComponent,
+    CompanyPanelLoaderComponent,
   ],
   imports: [
     CommonComponentsModule,

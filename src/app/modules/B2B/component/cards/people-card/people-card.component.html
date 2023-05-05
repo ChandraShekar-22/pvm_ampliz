@@ -68,29 +68,40 @@
                 ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ contactInfo?.location | titlecase }}</span
               >
             </div>
-            <div
-              (click)="doSearchContact('companyList', contactInfo.company)"
-              class="company_cont"
-              *ngIf="contactInfo.company !== null"
-            >
-              <i class="fa fa-building-o pr-1" aria-hidden="true"></i>
-              <span
-                id="company-panel"
-                #companyPanel
-                mat-button
-                >{{ contactInfo.company | trimUnwantedString | titlecase }}</span
-              >
-              <!-- (mouseenter)="openCompanyPanel(companyPanelTrigger)"
-                (mouseleave)="closeCompanyPanel(companyPanelTrigger)"
-                [matMenuTriggerFor]="companyDetailPanel"
-                #companyPanelTrigger="matMenuTrigger" -->
+            <div class="company_cont" *ngIf="contactInfo.company !== null">
+              <div class="company-container" (click)="doSearchContact('companyList', contactInfo.company)">
+                <i class="fa fa-building-o pr-1" aria-hidden="true"></i>
+                <span>{{ contactInfo.company | trimUnwantedString | titlecase }}</span>
+              </div>
 
-              <!-- <mat-menu #companyDetailPanel>
-                <ng-container>
-                  <li (mouseenter)="inMenu()" (mouseleave)="notInMenu(companyPanelTrigger)">IT WORKS MAN</li>
-                </ng-container>
-              </mat-menu> -->
+              <!-- Company Info Panel -->
+              <div
+                class="company-info-container"
+                (click)="getCompanyDetails(companyTrigger)"
+                [matMenuTriggerFor]="companyPanel"
+                #companyTrigger="matMenuTrigger"
+                *ngIf="contactInfo.domain! !== null"
+              >
+                <!-- (mouseenter)="showCompanyPanel(companyTrigger)" -->
+                <svg
+                  viewBox="0 0 24 24"
+                  width="12"
+                  height="12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="css-i6dzq1 company-info-icon"
+                  [style.color]="companyTrigger.menuOpen ? '#0071eb' : ''"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+              </div>
             </div>
+            <!-- Company Info panel end -->
 
             <!------------>
             <mat-chip-list>
@@ -308,3 +319,155 @@
   (cancelBtnClick)="cancelBtnClick($event)"
   *ngIf="b2bSaveDrawer"
 ></app-b2b-savelist>
+
+<!-- company panel menu -->
+
+<mat-menu
+  class="company-panel-menu"
+  #companyPanel="matMenu"
+  xPosition="before"
+  menuOpen="menuOpen"
+  yPosition="above"
+  xPosition="after"
+>
+  <!-- (mouseleave)="hideCompanyPanel(companyTrigger)" -->
+  <div class="company-panel-container" (click)="$event.stopPropagation()">
+    <app-company-panel-loader *ngIf="companyPanelLoader" [loopCount]="6"></app-company-panel-loader>
+
+    <div class="company-panel-container" *ngIf="!companyPanelLoader">
+      <div class="company-panel-info col">
+
+        <!-- companyName -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.companyName !== null"
+        >
+          <div class="company-logo-container col-2">
+            <img
+              [src]="companyPanelList.companyLogo"
+              *ngIf="companyPanelList.companyLogo !== null"
+            />
+          </div>
+          <img
+            class="col-2"
+            [src]="companyPanelIcon + 'Company-logo.svg'"
+            *ngIf="companyPanelList.companyLogo == null"
+          />
+          <span id="company-name" class="col-10">{{ companyPanelList.companyName | titlecase }}</span>
+        </div>
+        <!-- companyName -->
+
+        <!-- companyUrl -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.domain !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'domain.svg'" />
+          <span id="company-domain" (click)="openCompanyPanelUrl(companyPanelList.domain)" class="col-10">{{
+            'www.' + companyPanelList.domain
+          }}</span>
+        </div>
+        <!-- companyUrl -->
+
+        <!-- companyDescription -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-baseline"
+          *ngIf="companyPanelList.companyDescription !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'discription.svg'" />
+          <span class="col-10"
+            >{{ companyPanelList.companyDescription | slice : 0 : descriptionSlice }}
+            <span id="show-more-description" (click)="companyShowMore()">
+              {{ showFullDescription ? 'View more...' : ' View less...' }}</span
+            >
+          </span>
+        </div>
+        <!-- companyDescription -->
+
+        <!-- companyLocation -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.location !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'location.svg'" />
+          <span class="col-10">{{ companyPanelList.location | titlecase }} </span>
+        </div>
+        <!-- companyLcoation -->
+
+        <!-- employeeCount -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.employeeRange !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'Employee-range.svg'" />
+          <span class="col-10">{{ companyPanelList.employeeRange }} </span>
+        </div>
+        <!-- employeeCount -->
+
+        <!-- companyIndustry -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.idustry !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'industry.svg'" />
+          <span class="col-10">{{ companyPanelList.industry | titlecase }} </span>
+        </div>
+        <!-- companyIndustry -->
+
+        <!-- companyRevenue -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.revenue !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'Revenue.svg'" />
+          <span class="col-10">{{ companyPanelList.revenue }} </span>
+        </div>
+        <!-- companyRevenue -->
+
+        <!-- companyFoundedYear -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.foundedYear !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'Founded-year.svg'" />
+          <span class="col-10">{{ companyPanelList.foundedYear }} </span>
+        </div>
+        <!-- companyFoundedYear -->
+
+        <!-- socialIcons -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.linkedinURL !== null || companyPanelList.twitterUrl !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'social-media.svg'" />
+          <span class="col-10 d-flex company-social-media">
+            <img
+              *ngIf="companyPanelList.linkedinURL !== null"
+              [src]="companyPanelIcon + 'linkedin.png'"
+              (click)="openCompanyPanelUrl(companyPanelList.linkedinURL)"
+            />
+            <img
+              class="ml-3"
+              *ngIf="companyPanelList.twitterUrl !== null"
+              [src]="companyPanelIcon + 'twitter.png'"
+              (click)="openCompanyPanelUrl(companyPanelList.twitterUrl)"
+            />
+          </span>
+        </div>
+        <!-- socialIcons -->
+
+         <!-- LinkedinFollowers -->
+        <div
+          class="company-panel-detail row justify-space-around align-items-center"
+          *ngIf="companyPanelList.linkedinFollowers !== null"
+        >
+          <img class="col-2" [src]="companyPanelIcon + 'Linkedinfollowers.svg'" />
+          <span class="col-10">{{ companyPanelList.linkedinFollowers }} </span>
+        </div>
+        <!-- LinkedinFollowers -->
+
+      </div>
+    </div>
+  </div>
+</mat-menu>
+<!-- company panel menu ends -->
