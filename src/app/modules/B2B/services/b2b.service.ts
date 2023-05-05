@@ -474,4 +474,9 @@ export class B2bService {
     const response = this.http.post(url, body);
     return response;
   }
+  getCompanyDetails(body: any): Observable<any> {
+    const url = environment.prodGlobalB2BApi + '/amplizglobalb2bwriteapi/base/company-details';
+    const response = this.http.post(url, body);
+    return response;
+  }
 }

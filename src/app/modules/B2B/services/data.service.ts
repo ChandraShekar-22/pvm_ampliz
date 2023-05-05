@@ -121,6 +121,10 @@ export class DataService {
     this.recentSearchData.next(recentData);
   }
 
+  nonNullValuesinObj(obj) {
+    return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value !== null));
+  }
+
   get seniorityList() {
     return ['owner', 'founder', 'suite', 'partner', 'vp', 'head', 'director', 'manager', 'senior', 'entry', 'intern'];
   }

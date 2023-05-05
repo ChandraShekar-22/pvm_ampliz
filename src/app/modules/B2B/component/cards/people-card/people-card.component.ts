@@ -4,11 +4,12 @@ import { SearchContactInput } from 'src/app/modules/B2B/models/SearchContactMode
 import { DataService } from 'src/app/modules/B2B/services/data.service';
 import { AmplizService } from '../../../../healthcare/services/ampliz.service';
 import { MessageService } from '../../../services/message.service';
+import { B2bService } from '../../../services/b2b.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { E } from '@angular/cdk/keycodes';
 // import { TouchSequence } from 'selenium-webdriver';
-import { trigger } from '@angular/animations';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+// import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { MatMenu, MatMenuTrigger, matMenuAnimations } from '@angular/material/menu';
 
 @Component({
   selector: 'app-people-card',
@@ -16,7 +17,7 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
   styleUrls: ['./people-card.component.css'],
 })
 export class PeopleCardComponent implements OnInit {
-  @ViewChild('companyPanel') companyPanel: ElementRef;
+  @ViewChild('companyPanel') companyPanel: MatMenuTrigger;
   @Input()
   contactInfo: any;
   @Input() checkboxSelected: boolean = false;
@@ -36,8 +37,12 @@ export class PeopleCardComponent implements OnInit {
   allEmail: any = [];
   allPhone: any = [];
   showMoreList = [];
-  cursorInCompanyPanel: boolean = false;
-  isCompanyPanelTriggered: boolean = false;
+  companyPanelLoader: boolean = false;
+  companyPanelList: any = [];
+  descriptionSlice: number = 150;
+  showFullDescription: boolean = true;
+
+  companyPanelIcon: any = '../../../../../../assets/images/company-panel/';
 
   get isDomain() {
     return this.contactInfo.domain !== null;
@@ -127,7 +132,8 @@ export class PeopleCardComponent implements OnInit {
     private amplizService: AmplizService,
     private messageService: MessageService,
     private clipboard: Clipboard,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private b2bService: B2bService
   ) {}
 
   ngOnInit() {
@@ -275,43 +281,45 @@ export class PeopleCardComponent implements OnInit {
     this.contactInfo = res;
   }
 
-  // openCompanyPanel(trigger) {
-  //   setTimeout(() => {
-  //     this.isCompanyPanelTriggered = true;
-  //     trigger.openMenu();
-  //     // this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-focused');
-  //     // this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-program-focused');
-  //     console.log('TRIGER', trigger.menu);
-  //     this.renderer.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-focused');
-  //     this.renderer.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-program-focused');
-  //   }, 100);
-  // }
-  // closeCompanyPanel(trigger) {
-  //   setTimeout(() => {
-  //     if (!this.cursorInCompanyPanel) {
-  //       console.log('IN CLOSE');
-  //       trigger.closeMenu();
-  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-focused');
-  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-program-focused');
-  //     } else {
-  //       console.log('IN CLOSE ELSE');
-  //       this.isCompanyPanelTriggered = false;
-  //     }
-  //   }, 100);
-  // }
-  // inMenu() {
-  //   this.cursorInCompanyPanel = true;
-  // }
-  // notInMenu(trigger) {
-  //   setTimeout(() => {
-  //     if (!this.isCompanyPanelTriggered) {
-  //       this.cursorInCompanyPanel = false;
-  //       trigger.closeMenu();
-  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-focused');
-  //       this.renderer.removeClass(this.companyPanel.nativeElement, 'cdk-program-focused');
-  //     } else {
-  //       this.cursorInCompanyPanel = false;
-  //     }
-  //   }, 100);
-  // }
+  getCompanyDetails(trigger?: any) {
+    this.companyPanelLoader = true;
+    let domain = {
+      webAddress: this.contactInfo.domain,
+    };
+    this.b2bService.getCompanyDetails(domain).subscribe(
+      (res) => {
+        // this.createCompanyObj(this.dataService.nonNullValuesinObj(res.companyDetails[0]));
+        this.companyPanelList = res.companyDetails[0];
+        this.companyPanelLoader = false;
+        if (this.companyPanelList.industry.length > 0) {
+          if (this.companyPanelList.industry.length > 1) {
+            this.companyPanelList.industry = this.companyPanelList.industry.join(', ');
+          } else {
+            this.companyPanelList.industry = this.companyPanelList.industry.toString();
+          }
+        }
+      },
+      (err) => {
+        this.messageService.displayError(true, 'Please try again later');
+        this.companyPanelLoader = false;
+        trigger.closeMenu();
+      }
+    );
+  }
+
+  openCompanyPanelUrl(link) {
+    const url = `https://www.${link}`;
+    if (url !== '') {
+      window.open(url, 'popUpWindow');
+    }
+  }
+
+  companyShowMore() {
+    if (this.showFullDescription) {
+      this.descriptionSlice = this.companyPanelList.companyDescription.length;
+    } else {
+      this.descriptionSlice = 150;
+    }
+    this.showFullDescription = !this.showFullDescription;
+  }
 }
