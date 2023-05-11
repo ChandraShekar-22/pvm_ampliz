@@ -1,206 +1,52 @@
 <div id="wrapper">
   <!-- Top Bar Start -->
-  <app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+  <app-header [user]="user" style="width: 100%" ></app-header>{{ user }}
   <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
   <!-- Top Bar End -->
   <!-- ========== Left Sidebar Start ========== -->
 
   <app-sidemenu elementName="dashboard"></app-sidemenu>
-  <!-- Left Sidebar End -->
-  <!-- ============================================================== -->
-  <!-- Start right Content here -->
-  <!-- ============================================================== -->
   <div class="content-page enlarged">
-    <!-- Start content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 mb-4">
-            <!-- <h4 class="header-title m-t-0 m-b-20">Welcome To Ampliz Sales Buddy ! </h4> -->
-            <div *ngIf="showChrmBtn" class="row">
-              <div class="col-6 col-lg-6">
-                <div class="header-title m-t-0 m-b-20 mt-1 pull-right">
-                  <h3 class="text-info mb-4">
-                    Getting Started With The Ampliz Plugin
-                  </h3>
-                  <p class="chrm-info mb-4">
-                    Add SalesBuddy plugin to quickly find contact information on
-                    web address. <br />
-
-                    Get the Plugin for your favorite browser.
-                  </p>
-
-                  <a
-                    href="https://chrome.google.com/webstore/detail/ampliz-sales-buddy/abgoaphadkcmbkapnamhkcgkaddlmfal?hl=en"
-                    style="cursor: pointer"
-                    target="blank"
-                    type="button"
-                    class="btn btn-yellow"
-                  >
-                    <i class="fa fa-chrome" aria-hidden="true"> </i> Install
-                    Plugin
-                  </a>
-                </div>
-              </div>
-              <div class="col-6 col-lg-6 mr" style="padding: 0px 0px 0px 0px">
-                <img
-                  class="pl-5"
-                  src="https://www.ampliz.com/assets/img/erp-home/4-updated.png"
-                  style="height: 250px"
-                />
-              </div>
-            </div>
-          </div>
+    <div class="content row">
+      <!-- content left starts -->
+      <div class="content-left col-4">
+        <div class="quota-card">
+          <app-quota-card [username]="username" (lowCredit)="toggleLowCredit($event)"></app-quota-card>
         </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="text-center card-box mx-top">
-              <div class="member-card">
-                <div class="member-thumb m-b-10">
-                  <img
-                    src="assets/img/company-blue.png"
-                    class="img-thumbnail"
-                    alt="Company Search"
-                  />
-                </div>
-                <div class="">
-                  <h5 class="m-b-5 mt-2 text-info">Company Search</h5>
-                </div>
-                <p class="text-muted font-13 mt-3">
-                  Gain access to 7+ million companies
-                </p>
-                <!-- <span class="user-badge bg-warning">Coming soon</span> -->
-                <button
-                  type="button"
-                  class="btn btn-new btn-sm m-t-10 btn-new-Pri"
-                  routerLink="/company_search"
-                >
-                  Find Company
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- end col -->
-          <div class="col-md-4">
-            <div class="text-center card-box mx-top">
-              <div class="member-card">
-                <!-- <span class="user-badge bg-custom">New</span> -->
-                <div class="member-thumb m-b-10">
-                  <img
-                    src="assets/img/ICP-blue.png"
-                    class="img-thumbnail"
-                    alt="Ideal Customer Profile"
-                  />
-                </div>
-                <div class="">
-                  <h5 class="m-b-5 mt-2 text-info">Ideal Customer Profile</h5>
-                </div>
-                <p class="text-muted font-13 mt-3">
-                  Ideal Customer Profile (ICP) helps identify, source, and
-                  prioritize your best prospects
-                </p>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm m-t-10"
-                  routerLink="/idealprofile"
-                >
-                  Set your Ideal Customer Profile
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- end col -->
-
-          <div class="col-md-4">
-            <div class="text-center card-box mx-top">
-              <div class="member-card">
-                <div class="member-thumb m-b-10">
-                  <img
-                    src="assets/img/Domain-blue.png"
-                    class="img-thumbnail"
-                    alt="Domain Search"
-                  />
-                </div>
-                <div class="">
-                  <h5 class="m-b-5 mt-2 text-info">Contact Search</h5>
-                </div>
-                <p class="text-muted font-13 mt-3">
-                  Gain access to 100+ million contacts
-                </p>
-                <span class="user-badge bg-warning">Coming Soon</span>
-              </div>
-            </div>
-          </div>
-          <!-- end col -->
+        <div class="low-quota mt-3 mx-2" *ngIf="lowCredit">
+          <app-low-credit-alert-card ></app-low-credit-alert-card>
         </div>
-
-        <div class="row">
-          <div class="col-sm-12" *ngFor="let item of subscriptions">
-            <div class="">
-              <div class="row">
-                <div class="col-lg-6 col-sm-6">
-                  <div class="col-lg-12 col-sm-12 card-box">
-                    <div class="widget-inline-box">
-                      <!-- <h3><i class="text-custom mdi mdi-wallet-outline"></i> <b>7841</b></h3> -->
-                      <div class="col-lg-4 col-sm-12 pull-left">
-                        <img
-                          alt=""
-                          src="assets/img/wlt2.png"
-                          style="height: 100px"
-                        />
-                      </div>
-                      <div class="col-lg-8 col-sm-12 pull-right pt-4">
-                        <h5 class="m-t-10">
-                          <b class="text-info"
-                            >{{ currentCredit }}/{{
-                              item.SubscriptionCredits
-                            }}
-                            Credits</b
-                          >
-                        </h5>
-                        <!-- <p class="text-muted ">You have 100 credits for free plan</p> -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-sm-6">
-                  <div class="col-lg-12 col-sm-12 card-box">
-                    <div class="widget-inline-box b-0">
-                      <div class="col-lg-4 col-sm-12 pull-left">
-                        <img
-                          alt=""
-                          src="assets/img/123.png"
-                          style="height: 100px"
-                        />
-                      </div>
-                      <div class="col-lg-8 col-sm-12 pull-right pt-4">
-                        <!-- <a href="#" class="btn btn-sm  btn-default pull-right">UPGRADE PLAN</a> -->
-                        <h5 class="m-t-10">
-                          <b class="text-info">Subscription</b>
-                        </h5>
-                        <p class="text-muted">
-                          <b>Plan</b> &nbsp; {{ item.SubscriptionType }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--end row -->
       </div>
-      <!-- container -->
+      <!-- content left ends -->
 
-      <app-footer></app-footer>
+      <!-- content right starts -->
+      <div class="content-right col">
+        <!-- Chrome card starts -->
+        <div class="chrome-card" *ngIf="showChrmBtn">
+          <app-dashboard-chrome-card></app-dashboard-chrome-card>
+        </div>
+        <!-- Chrome card ends -->
+
+        <div class="bottom row mt-2">
+          <!-- Search card starts -->
+          <div class="search-card col-6">
+            <app-recommend-card></app-recommend-card>
+          </div>
+          <!-- Search card ends -->
+
+          <!-- Recent search starts -->
+          <div class="col-6">
+            <div class="recent-card mb-2">
+              <app-history-search-card></app-history-search-card>
+            </div>
+            <div class="feedback-card w-100">
+              <app-feedback-card [username]="username"></app-feedback-card>
+            </div>
+          </div>
+          <!-- Recent search ends -->
+        </div>
+      </div>
+      <!-- content right ends -->
     </div>
-    <!-- content -->
   </div>
-
-  <!-- ============================================================== -->
-  <!-- End Right content here -->
-  <!-- ============================================================== -->
 </div>

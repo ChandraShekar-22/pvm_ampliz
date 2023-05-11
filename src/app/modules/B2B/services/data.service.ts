@@ -60,7 +60,11 @@ export class DataService {
 
   recentSearch = this.recentSearchData.asObservable();
 
-  constructor() {}
+  constructor() {
+    interface NestedObject {
+      [key: string]: NestedObject | null | string | number | boolean;
+    }
+  }
 
   // Make Save search visibility
   makeSavesearchVisible(visibility: boolean) {
@@ -122,7 +126,53 @@ export class DataService {
   }
 
   nonNullValuesinObj(obj) {
-    return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value !== null));
+    // return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value !== null));
+    console.log('TYPE OF ', typeof obj);
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key) && obj[key] !== null && obj[key] !== '') {
+        return obj;
+      }
+    }
+
+    return null;
+  }
+
+  // Time Diff
+  getTimeDifference(item: any) {
+    const newDate: any = new Date();
+    const date: any = new Date(item);
+
+    const diffInMs = Math.abs(newDate.getTime() - date.getTime());
+    const diffInSeconds = Math.floor(diffInMs / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    let result = '';
+    if (diffInDays > 0) {
+      result += `${diffInDays} day${diffInDays === 1 ? '' : 's'}`;
+      if (diffInDays > 1) {
+        result += '';
+      } else {
+        result += ', ';
+      }
+    }
+    if (diffInDays <= 1 && diffInHours % 24 > 0) {
+      result += `${diffInHours % 24} hour${diffInHours % 24 === 1 ? '' : 's'}, `;
+    }
+    if (diffInDays <= 1 && (diffInMinutes % 60 > 0 || diffInHours % 24 === 0)) {
+      if (diffInMinutes < 1) {
+        result += `1 minute`;
+      } else {
+        result += `${diffInMinutes % 60} minute${diffInMinutes % 60 === 1 ? '' : 's'}`;
+        if (diffInMinutes <= 1 && diffInSeconds > 0) {
+          result += `, ${diffInSeconds % 60} second${diffInSeconds % 60 === 1 ? '' : 's'}`;
+        }
+      }
+    }
+    // Remove trailing comma and space
+    result = result.replace(/, $/, '');
+    return result;
   }
 
   get seniorityList() {
