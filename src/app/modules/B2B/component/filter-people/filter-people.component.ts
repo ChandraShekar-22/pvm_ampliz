@@ -185,13 +185,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     this.getIndustryList();
 
     // this.dataService.searchOrRecentTapped(false);
-    this.subscription = this.dataService.contactSearch.subscribe((res) => {
-      if (res.fromSearch) {
-        this.makeSearchDatas(res.data);
-      } else {
-        this.clearAll();
-      }
-    });
+
     this.dataService.searchQuota.subscribe((quota: any) => {
       this.searchQuota = quota.dailyRemainingQuota;
       this.totalQuota = quota;
@@ -224,7 +218,13 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
 
   ngOnChanges() {}
   ngAfterViewInit() {
-    this.getPersistData();
+    this.subscription = this.dataService.contactSearch.subscribe((res) => {
+      if (res.fromSearch) {
+        this.makeSearchDatas(res.data);
+      } else {
+        this.getPersistData();
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -1123,6 +1123,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     this.filterStorageService.set('b2b_people_selectedCities', this.selectedCities);
     this.filterStorageService.set('b2b_people_selectedCountry', this.selectedCountry);
     this.filterStorageService.set('b2b_people_selectedCompanyKeywords', this.selectedCompanyKeywords);
+    console.log('FilterStorage', this.filterStorageService.get('b2b_people_selectedCountry'));
   }
   compareObjects(o1: any, o2: any) {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
