@@ -54,14 +54,16 @@ export class RecommendCardComponent implements OnInit {
         this.loader = false;
       },
       (err) => (this.loader = false)
-    );
-  }
-
-  viewEmployees(company: any) {
+      );
+    }
+    
+    viewEmployees(company: any) {
+    this.dataService.changeSelectedTab(1);
     this.router.navigate(['/b2b'], { queryParams: { companyName: company } });
   }
 
   viewContact(contact: any) {
+    this.dataService.changeSelectedTab(0);
     this.router.navigate(['/b2b'], {
       queryParams: {
         name: contact.fullName,

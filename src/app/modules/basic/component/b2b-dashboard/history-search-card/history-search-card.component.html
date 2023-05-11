@@ -10,7 +10,7 @@
       <!-- Recent search Tab -->
       <div *ngIf="activeTab === 0" [ngClass]="activeTab === 0 ? 'show' : 'hide'">
         <div *ngIf="tabs[0].content.length > 0">
-          <div class="info-card" *ngFor="let item of tabs[0].content">
+          <div class="info-card" *ngFor="let item of tabs[0].content; let index = index">
             <div class="info-container row align-items-center">
               <div class="info-detail row col-11">
                 <div class="info-name text-capitalize col-12">
@@ -21,7 +21,7 @@
                 </span>
               </div>
               <div class="col-1">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg (click)="search(index, true)" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M3.125 7.5H11.875"
                     stroke="#0071EB"
@@ -62,7 +62,7 @@
       <!-- Save search Tab -->
       <div *ngIf="activeTab === 1" [ngClass]="activeTab === 1 ? 'show' : 'hide'">
         <div *ngIf="tabs[1].content.length > 0">
-          <div class="info-card" *ngFor="let item of tabs[1].content">
+          <div class="info-card" *ngFor="let item of tabs[1].content let index = index" >
             <div class="info-container row align-items-center">
               <div class="info-detail row col-11">
                 <div class="info-name text-capitalize col-12">
@@ -73,7 +73,7 @@
                 </span>
               </div>
               <div class="col-1">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg (click)="search(index, false)" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M3.125 7.5H11.875"
                     stroke="#0071EB"

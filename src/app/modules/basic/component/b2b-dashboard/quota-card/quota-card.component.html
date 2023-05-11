@@ -20,10 +20,10 @@
     <span id="heading" class="text-uppercase">Total credits</span>
     <div id="progress">
       <span>
-        <b>{{ 56 | number : '1.0-0' }}</b> used of <b>{{ 100 | number : '1.0-0' }}</b>
+        <b>{{ credit.totalUsedCredit | number : '1.0-0' }}</b> used of <b>{{ credit.totalCredit| number : '1.0-0' }}</b>
         daily credits
       </span>
-      <mat-progress-bar class="progress-bar" id="credit-progress" mode="determinate" [value]="52"></mat-progress-bar>
+      <mat-progress-bar class="progress-bar" id="credit-progress" mode="determinate" [value]="credit.totalPercentage"></mat-progress-bar>
     </div>
   </div>
   <!-- Total Credit Ends -->

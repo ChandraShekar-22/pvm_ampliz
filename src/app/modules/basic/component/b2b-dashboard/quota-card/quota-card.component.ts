@@ -19,6 +19,7 @@ export class QuotaCardComponent implements OnInit {
     totalCredit: 0,
     totalUsedCredit: 0,
     dailyPercentage: 0,
+    totalPercentage: 0,
   };
   quota = {
     dailyUsedQuota: 0,
@@ -41,11 +42,16 @@ export class QuotaCardComponent implements OnInit {
   }
 
   sortCredits(credit: any) {
-    this.credit.dailyCredit = credit.dailyCredit;
-    this.credit.dailyUsedCredit = credit.usedCredit;
-    this.credit.dailyPercentage = (credit.usedCredit / credit.dailyCredit) * 100;
-    if (this.credit.dailyPercentage >= 80) {
-      this.lowCredit.emit(true);
+    if (typeof credit === 'object') {
+      this.credit.dailyCredit = credit.dailyCredit;
+      this.credit.dailyUsedCredit = credit.usedCredit;
+      this.credit.dailyPercentage = (credit.usedCredit / credit.dailyCredit) * 100;
+      if (this.credit.dailyPercentage >= 80) {
+        this.lowCredit.emit(true);
+      }
+      this.credit.totalCredit = credit.totalAvailableCredits;
+      this.credit.totalUsedCredit = credit.subscriptionStatusList[0].SubscriptionCredits;
+      this.credit.totalPercentage = (this.credit.totalUsedCredit / this.credit.totalCredit) * 100;
     }
   }
 
