@@ -1,0 +1,85 @@
+:root {
+  --primary: #0071eb;
+  --secondary: #8c8a8a;
+  --white: #ffffff;
+}
+.container {
+  background: var(--white);
+  border: 1px solid #e4e2e2;
+  border-radius: 12px;
+  padding: 20px 40px;
+}
+.container #wrapper {
+  padding: 15px 0px;
+  border-bottom: 0.5px solid #e4e2e2;
+}
+#heading {
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--secondary);
+}
+
+/* Header css */
+
+.header h6 span {
+  color: var(--primary);
+}
+.header h6 {
+  color: black;
+  font-size: 25px;
+}
+.header p {
+  font-weight: 300;
+  color: var(--secondary);
+}
+/* ------- */
+
+/* Subsription panel css */
+
+.subscription-panel p {
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 15px;
+  color: black;
+}
+.subscription-panel p span {
+  font-size: 11px;
+  margin-left: 5px;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+/* Progress bar css */
+#progress span {
+  color: black;
+  font-size: 11px;
+  font-weight: 300;
+}
+#progress span b {
+  font-weight: 500;
+}
+
+.progress-bar {
+  margin-top: 10px;
+  border-radius: 5px;
+  height: 5px;
+  margin-bottom: 10px;
+}
+.progress-bar #credit-progress {
+  color: var(--primary);
+}
+.progress-bar ::ng-deep .mat-progress-bar-buffer {
+  background: #e4f1ff !important;
+}
+
+/* Quota Css */
+.quota-limit {
+  border: none !important;
+}
+.quota-progress ::ng-deep .mat-progress-bar-fill::after {
+  background-color: #ebad10 !important;
+}
+.quota-progress ::ng-deep .mat-progress-bar-buffer {
+  background: #fff1cd !important;
+}
+/* ------- */

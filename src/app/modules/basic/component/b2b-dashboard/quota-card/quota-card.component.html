@@ -1,0 +1,80 @@
+<div class="container" *ngIf="!loader">
+  <!-- Header starts -->
+  <div id="wrapper" class="header">
+    <h6>
+      Hey, <span>{{ username }}!</span>
+    </h6>
+    <p>Let's check your credits and subscription stats today</p>
+  </div>
+  <!-- Header ends -->
+
+  <!-- subscription Type starts -->
+  <div id="wrapper" class="subscription-panel">
+    <span id="heading" class="text-uppercase">Subscription</span>
+    <p>{{ subscription ? 'Paid' : 'Free' }} <span *ngIf="!subscription">Upgrade plan</span></p>
+  </div>
+  <!-- subscription Type ends -->
+
+  <!-- Total Credit Starts -->
+  <div id="wrapper" class="total-credit">
+    <span id="heading" class="text-uppercase">Total credits</span>
+    <div id="progress">
+      <span>
+        <b>{{ 56 | number : '1.0-0' }}</b> used of <b>{{ 100 | number : '1.0-0' }}</b>
+        daily credits
+      </span>
+      <mat-progress-bar class="progress-bar" id="credit-progress" mode="determinate" [value]="52"></mat-progress-bar>
+    </div>
+  </div>
+  <!-- Total Credit Ends -->
+
+  <!-- Daily Credit Starts -->
+  <div id="wrapper" class="daily-credit">
+    <span id="heading" class="text-uppercase">Daily credits</span>
+    <div id="progress">
+      <span>
+        <b>{{ credit.dailyUsedCredit| number : '1.0-0' }}</b> used of <b>{{ credit.dailyCredit| number : '1.0-0' }}</b>
+        daily credits
+      </span>
+      <mat-progress-bar class="progress-bar" id="credit-progress" mode="determinate" [value]="credit.dailyPercentage"></mat-progress-bar>
+    </div>
+  </div>
+  <!-- Daily Credit Ends -->
+
+  <!-- Total Quota Starts -->
+  <div id="wrapper">
+    <span id="heading" class="text-uppercase">Total Search quota</span>
+    <div id="progress">
+      <span>
+        <b>{{ quota.totalUsedQuota | number : '1.0-0' }}</b> used of <b>{{ quota.totalQuota | number : '1.0-0' }}</b>
+        Total Quota
+      </span>
+      <mat-progress-bar
+        class="progress-bar quota-progress"
+        id="quota-progress"
+        mode="determinate"
+        [value]="quota.totalPercentage"
+      ></mat-progress-bar>
+    </div>
+  </div>
+  <!-- Total Quota Ends -->
+
+  <!-- Search Quota Starts -->
+  <div id="wrapper" class="quota-limit">
+    <span id="heading" class="text-uppercase">Daily Search quota</span>
+    <div id="progress">
+      <span>
+        <b>{{ quota.dailyUsedQuota | number : '1.0-0' }}</b> used of <b>{{ quota.dailyQuota | number : '1.0-0' }}</b>
+        daily Quota
+      </span>
+      <mat-progress-bar
+        class="progress-bar quota-progress"
+        id="quota-progress"
+        mode="determinate"
+        [value]="quota.dailyPercentage"
+      ></mat-progress-bar>
+    </div>
+  </div>
+  <!-- Search Quota Ends -->
+</div>
+<app-card-skeleton-loader *ngIf="loader" [fromDashboard]="true" [loopCount]="4"></app-card-skeleton-loader>
