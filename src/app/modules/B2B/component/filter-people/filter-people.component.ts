@@ -20,6 +20,7 @@ import { SearchContactInput } from '../../models/SearchContactModel';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
 import { Item } from 'angular2-multiselect-dropdown';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-filter-people',
@@ -43,7 +44,8 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     private b2bService: B2bService,
     private filterStorageService: FilterStorageService,
     private dataService: DataService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private messageService: MessageService
   ) {}
   @Output() onFilterChange = new EventEmitter<any>();
   @Output() filterApplied = new EventEmitter<any>();
@@ -175,6 +177,10 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
   totalQuota: any;
 
   ngOnInit() {
+    this.getSearchQuota();
+    setTimeout(() => {
+      this.handleRecent();
+    }, 300);
     this.handleForms();
     this.getEmployeeList();
     this.getRevenueList();
@@ -185,10 +191,21 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     this.getIndustryList();
 
     // this.dataService.searchOrRecentTapped(false);
+  }
 
+  getSearchQuota() {
     this.dataService.searchQuota.subscribe((quota: any) => {
       this.searchQuota = quota.dailyRemainingQuota;
       this.totalQuota = quota;
+    });
+  }
+  handleRecent() {
+    this.subscription = this.dataService.contactSearch.subscribe((res) => {
+      if (res.fromSearch) {
+        this.makeSearchDatas(res.data);
+      } else {
+        this.getPersistData();
+      }
     });
   }
 
@@ -217,15 +234,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
   // }
 
   ngOnChanges() {}
-  ngAfterViewInit() {
-    this.subscription = this.dataService.contactSearch.subscribe((res) => {
-      if (res.fromSearch) {
-        this.makeSearchDatas(res.data);
-      } else {
-        this.getPersistData();
-      }
-    });
-  }
+  ngAfterViewInit() {}
 
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe();
@@ -249,7 +258,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     this.searchContactInput.deptInclude = this.includedDepartmentList;
     this.searchContactInput.skillInclude = this.includedSkillList;
     this.searchContactInput.skillExclude = this.excludedSkillList;
-    this.searchContactInput.employeeRangeList = this.includedEmployeeRange;
+    this.searchContactInput.employeeRange = this.includedEmployeeRange;
     this.searchContactInput.revenue = this.includedRevenueRange;
 
     // this.searchContactInput.specialtyIds = this.selectedCompanyKeywords.map(
@@ -312,33 +321,37 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     // }, 50);
   }
   makeSearchDatas(searchData: SearchContactInput) {
-    if (searchData.companyList.length > 0) {
-      this.includedCompanyList = searchData.companyList;
-      this.setLocalStorageValues('recentCompany', searchData.companyList[0]); // For showing result in rcent used company option
+    if (this.searchQuota > 0) {
+      if (searchData.companyList.length > 0) {
+        this.includedCompanyList = searchData.companyList;
+        this.setLocalStorageValues('recentCompany', searchData.companyList[0]); // For showing result in rcent used company option
+      }
+
+      this.includedContactsList = searchData.fullNameList;
+      // searchData.fullName !== "" ? searchData.fullName.split(",") : [];
+      this.includedTitleList = searchData.titleInclude;
+      this.excludedTitleList = searchData.titleExclude;
+      this.includedIndustryList = searchData.industryInclude;
+      this.excludedIndustryList = searchData.industryExclude;
+      this.includedDepartmentList = searchData.deptInclude;
+      this.includedSkillList = searchData.skillInclude;
+      this.excludedSkillList = searchData.skillExclude;
+      this.includedEmployeeRange = searchData.employeeRange;
+      searchData.revenue = [...searchData.revenue];
+      this.includedRevenueRange = searchData.revenue;
+      this.selectedCompanyKeywords = searchData.specialtyIds;
+      // console.log(this.includedRevenueRange, "inside make search");
+      this.selectedStates = searchData.stateList;
+      this.selectedCities = searchData.cityList;
+      this.selectedCountry = searchData.countryList.length > 0 ? searchData.countryList : [];
+      this.includedSeniorityList = searchData.seniority;
+
+      // const seniorityObj = this.getSeniorityObject(searchData.seniority);
+      // this.includedSeniorityList = seniorityObj;
+      this.omitChanges();
+    } else {
+      this.messageService.displayError(true, "You don't have enough search quota");
     }
-
-    this.includedContactsList = searchData.fullNameList;
-    // searchData.fullName !== "" ? searchData.fullName.split(",") : [];
-    this.includedTitleList = searchData.titleInclude;
-    this.excludedTitleList = searchData.titleExclude;
-    this.includedIndustryList = searchData.industryInclude;
-    this.excludedIndustryList = searchData.industryExclude;
-    this.includedDepartmentList = searchData.deptInclude;
-    this.includedSkillList = searchData.skillInclude;
-    this.excludedSkillList = searchData.skillExclude;
-    this.includedEmployeeRange = searchData.employeeRangeList;
-    searchData.revenue = [...searchData.revenue];
-    this.includedRevenueRange = searchData.revenue;
-    this.selectedCompanyKeywords = searchData.specialtyIds;
-    // console.log(this.includedRevenueRange, "inside make search");
-    this.selectedStates = searchData.stateList;
-    this.selectedCities = searchData.cityList;
-    this.selectedCountry = searchData.countryList.length > 0 ? searchData.countryList : [];
-    this.includedSeniorityList = searchData.seniority;
-
-    // const seniorityObj = this.getSeniorityObject(searchData.seniority);
-    // this.includedSeniorityList = seniorityObj;
-    this.omitChanges();
   }
 
   handleSearchSave() {
@@ -689,7 +702,6 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
       this.includedIndustryList.push(value);
       this.setLocalStorageValues('recentIncludeIndustry', value);
     }
-    console.log('EVENT INPUT', event.input);
     if (event.input) {
       event.input.value = '';
     }
@@ -1123,7 +1135,6 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     this.filterStorageService.set('b2b_people_selectedCities', this.selectedCities);
     this.filterStorageService.set('b2b_people_selectedCountry', this.selectedCountry);
     this.filterStorageService.set('b2b_people_selectedCompanyKeywords', this.selectedCompanyKeywords);
-    console.log('FilterStorage', this.filterStorageService.get('b2b_people_selectedCountry'));
   }
   compareObjects(o1: any, o2: any) {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;

@@ -4,7 +4,6 @@ import { B2bService } from '../../../services/b2b.service';
 import { DataService } from '../../../services/data.service';
 import { SearchContactInput } from '../../../models/SearchContactModel';
 import { SearchCompanyInput } from '../../../models/SearchCompany';
-import { MessageService } from '../../../services/message.service';
 @Component({
   selector: 'app-recent-view-more',
   templateUrl: './recent-view-more.component.html',
@@ -134,12 +133,7 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(
-    public b2bService: B2bService,
-    public router: Router,
-    private dataService: DataService,
-    private messageService: MessageService
-  ) {}
+  constructor(public b2bService: B2bService, public router: Router, private dataService: DataService) {}
 
   ngOnInit() {
     this.getSearchData();
@@ -233,33 +227,30 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
     }
   }
   searchContact(searchBody: any) {
-    if (this.searchQuota > 0) {
-      if (searchBody.searchType == 'Contact') {
-        // console.log(searchBody);
-        // this.dataService.searchOrRecentTapped(true);
-        const contactObj = this.searchContactInput.fromJson(searchBody.contactSearchParams);
+    if (searchBody.searchType == 'Contact') {
+      // console.log(searchBody);
+      // this.dataService.searchOrRecentTapped(true);
+      const contactObj = this.searchContactInput.fromJson(searchBody.contactSearchParams);
 
-        // If seniority is with IDs
+      // If seniority is with IDs
 
-        // if (contactObj.seniority.length > 0) {
-        //   const senioirty = contactObj.seniority.map((el) => {
-        //     return el;
-        //   });
-        //   const filteredSeniority =
-        //     this.dataService.handleSeniorityById(senioirty);
+      // if (contactObj.seniority.length > 0) {
+      //   const senioirty = contactObj.seniority.map((el) => {
+      //     return el;
+      //   });
+      //   const filteredSeniority =
+      //     this.dataService.handleSeniorityById(senioirty);
 
-        //   contactObj.seniority = filteredSeniority;
-        // }
-        this.dataService.passSearchContactInput(contactObj);
-        this.dataService.changeSelectedTab(0);
-      } else {
-        const companyObj = this.searchCompanyInput.fromJson(searchBody.companySearchParams);
-        this.dataService.passSearchCompanyInput(companyObj);
-        this.dataService.changeSelectedTab(1);
-      }
+      //   contactObj.seniority = filteredSeniority;
+      // }
+      this.dataService.passSearchContactInput(contactObj);
+      this.dataService.changeSelectedTab(0);
     } else {
-      this.messageService.displayError(true, "You don't have enough search quota");
+      const companyObj = this.searchCompanyInput.fromJson(searchBody.companySearchParams);
+      this.dataService.passSearchCompanyInput(companyObj);
+      this.dataService.changeSelectedTab(1);
     }
+
     this.dataService.makeSavesearchVisible(false);
     this.dataService.makeRecentsearchVisible(false);
     this.cancelSaveDiv();

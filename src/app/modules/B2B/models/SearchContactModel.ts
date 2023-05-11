@@ -19,11 +19,11 @@ export class SearchContactInput {
     public cityList: Array<any> = [],
     public revenue: Array<any> = [],
     public specialtyIds: Array<any> = [],
-    // public employeeRange: string = '',
-    public employeeRangeList: Array<any> = [],
-    public searchType: string = "TOTAL",
+    public employeeRange: Array<any> = [],
+    // public employeeRangeList: Array<any> = [],
+    public searchType: string = 'TOTAL',
     public savedListOffset: number = 0,
-    public clientIp: string = ""
+    public clientIp: string = ''
   ) {}
 
   public toJson(): object {
@@ -46,8 +46,8 @@ export class SearchContactInput {
       cityList: this.cityList,
       revenue: this.revenue,
       specialtyIds: this.specialtyIds,
-      // employeeRange: this.employeeRange,
-      employeeRangeList: this.employeeRangeList,
+      employeeRange: this.employeeRange,
+      // employeeRangeList: this.employeeRangeList,
       searchType: this.searchType,
       fullNameList: this.fullNameList,
       savedListOffset: this.savedListOffset,
@@ -76,8 +76,8 @@ export class SearchContactInput {
       obj.cityList,
       obj.revenue,
       obj.specialtyIds,
-      // obj.employeeRange,
-      obj.employeeRangeList,
+      obj.employeeRange,
+      // obj.employeeRangeList,
       obj.searchType,
       obj.savedListOffset
     );
@@ -121,7 +121,8 @@ export class SearchContactInput {
       this.stateList.length > 0 ||
       this.cityList.length > 0 ||
       this.revenue.length > 0 ||
-      this.employeeRangeList.length > 0 ||
+      // this.employeeRangeList.length > 0 ||
+      this.employeeRange.length > 0 ||
       this.specialtyIds.length > 0
     );
   }
@@ -138,22 +139,23 @@ export class SearchContactInput {
   }
 
   static titleKeyArray = [
-    { key: "companyList", title: "Company List", type: "array" },
-    { key: "fullNameList", title: "Full Name", type: "array" },
-    { key: "titleInclude", title: "Title Include", type: "array" },
-    { key: "titleExclude", title: "Title Exclude", type: "array" },
-    { key: "industryInclude", title: "Industry Include", type: "array" },
-    { key: "industryExclude", title: "Industry Exclude", type: "array" },
-    { key: "deptInclude", title: "Department Include", type: "array" },
-    { key: "deptExclude", title: "Department Exclude", type: "array" },
-    { key: "skillInclude", title: "Skill Include", type: "array" },
-    { key: "skillExclude", title: "Skill Exclude", type: "array" },
-    { key: "seniority", title: "Seniority", type: "array" },
-    { key: "countryList", title: "Country List", type: "array" },
-    { key: "stateList", title: "State List", type: "array" },
-    { key: "cityList", title: "City List", type: "array" },
-    { key: "revenue", title: "Revenue", type: "array" },
-    { key: "employeeRangeList", title: "Employee Range", type: "array" },
-    { key: "specialtyIds", title: "Company Keyword", type: "array" },
+    { key: 'companyList', title: 'Company List', type: 'array' },
+    { key: 'fullNameList', title: 'Full Name', type: 'array' },
+    { key: 'titleInclude', title: 'Title Include', type: 'array' },
+    { key: 'titleExclude', title: 'Title Exclude', type: 'array' },
+    { key: 'industryInclude', title: 'Industry Include', type: 'array' },
+    { key: 'industryExclude', title: 'Industry Exclude', type: 'array' },
+    { key: 'deptInclude', title: 'Department Include', type: 'array' },
+    { key: 'deptExclude', title: 'Department Exclude', type: 'array' },
+    { key: 'skillInclude', title: 'Skill Include', type: 'array' },
+    { key: 'skillExclude', title: 'Skill Exclude', type: 'array' },
+    { key: 'seniority', title: 'Seniority', type: 'array' },
+    { key: 'countryList', title: 'Country List', type: 'array' },
+    { key: 'stateList', title: 'State List', type: 'array' },
+    { key: 'cityList', title: 'City List', type: 'array' },
+    { key: 'revenue', title: 'Revenue', type: 'array' },
+    { key: 'employeeRange', title: 'Employee Range', type: 'array' },
+    // { key: "employeeRangeList", title: "Employee Range", type: "array" },
+    { key: 'specialtyIds', title: 'Company Keyword', type: 'array' },
   ];
 }

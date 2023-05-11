@@ -118,46 +118,44 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   async getB2bCredits() {
     this.b2bService.b2bCheckSubscriptionStatus().subscribe(
-        (res) => {
-          this.b2bDataService.passSubscriptionStatus(res);
-          this.dailyCurrentCredits = res.dailyCredit;
-          this.dailyUsedCredits = res.usedCredit;
-          if (res.subscriptionStatusList[0].SubscriptionType == "Free") {
-            localStorage.setItem("SubscriptionisActive", "false");
-            this.subscribed = false;
-          }
-          if (res.subscriptionStatusList[0].SubscriptionType == "Paid") {
-            localStorage.setItem("SubscriptionisActive", "true");
-            this.button = "button";
-            this.subscribed = false;
-          }
-          this.subscriptionStatus = localStorage.getItem(
-            "SubscriptionisActive"
-          );
+      (res) => {
+        this.b2bDataService.passSubscriptionStatus(res);
+        this.dailyCurrentCredits = res.dailyCredit;
+        this.dailyUsedCredits = res.usedCredit;
+        if (res.subscriptionStatusList[0].SubscriptionType == 'Free') {
+          localStorage.setItem('SubscriptionisActive', 'false');
+          this.subscribed = false;
+        }
+        if (res.subscriptionStatusList[0].SubscriptionType == 'Paid') {
+          localStorage.setItem('SubscriptionisActive', 'true');
+          this.button = 'button';
+          this.subscribed = false;
+        }
+        this.subscriptionStatus = localStorage.getItem('SubscriptionisActive');
 
-          if (this.subscriptionStatus == "false") {
-            if (this.dataSet != "B2B") {
-              this.button = "Request Pricing";
-              this.data = "Request Pricing";
-              this.showBtn = true;
-            } else {
-              this.button = "Upgrade";
-              this.data = "Upgrade";
-              this.showBtn = true;
-            }
-          }
-          if (this.subscriptionStatus == "true") {
-            this.button = "";
-            this.data = "";
-            this.showBtn = false;
-          }
-        },
-        (error) => {
-          if (error.status === 401) {
-            this.amplizService.logout();
+        if (this.subscriptionStatus == 'false') {
+          if (this.dataSet != 'B2B') {
+            this.button = 'Request Pricing';
+            this.data = 'Request Pricing';
+            this.showBtn = true;
+          } else {
+            this.button = 'Upgrade';
+            this.data = 'Upgrade';
+            this.showBtn = true;
           }
         }
-      );
+        if (this.subscriptionStatus == 'true') {
+          this.button = '';
+          this.data = '';
+          this.showBtn = false;
+        }
+      },
+      (error) => {
+        if (error.status === 401) {
+          this.amplizService.logout();
+        }
+      }
+    );
   }
 
   async getHcCredits() {
