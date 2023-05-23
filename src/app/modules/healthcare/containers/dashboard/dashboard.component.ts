@@ -73,10 +73,10 @@ export class DashboardComponent implements OnInit {
 
   checkChromeExtenstion() {
     if (chrome.runtime) {
+      console.log('IN IF');
       chrome.runtime.sendMessage('abgoaphadkcmbkapnamhkcgkaddlmfal', { message: 'isinstalled' }, (response) => {
         //
         if (chrome.runtime.lastError) {
-          console.log('IN IF');
           //
           this.showChrmBtn = true;
           //

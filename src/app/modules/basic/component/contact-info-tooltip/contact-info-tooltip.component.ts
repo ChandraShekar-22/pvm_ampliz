@@ -10,6 +10,7 @@ export class ContactInfoTooltipComponent implements OnInit {
   params: any;
   email: any = [];
   emailList: any = [];
+  emailToShow: any = [];
   phone: any;
   linkedIn: string;
   constructor() {}
@@ -33,7 +34,7 @@ export class ContactInfoTooltipComponent implements OnInit {
     // this.emailList = this.email.join('&#13;');
     // console.log('EMAIL List', this.emailList);
 
-    // this.sortEmails();
+    this.sortEmails();
     this.phone = this.params.data.phoneNumber;
     this.linkedIn = this.params.data.linkedin_Uri;
   }
@@ -57,7 +58,10 @@ export class ContactInfoTooltipComponent implements OnInit {
         this.emailList.push(obj1);
       });
     }
-    console.log('EMAIL LIST', this.emailList);
+
+    this.emailList.map((email) => {
+      this.emailToShow.push(email.email);
+    });
   }
 
   // mapEmails() {

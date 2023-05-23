@@ -1,5 +1,9 @@
 <div class="btn-group" role="group" aria-label="Contact Info">
-  <button [matTooltip]="emailList ? emailList : 'Email not available'" matTooltipClass="tool-tip" type="button" class="btn btn-sm email-btn">
+  <button
+    matTooltip="{{ emailToShow.join('\n') }}"
+    type="button"
+    class="btn btn-sm email-btn"
+  >
     <svg
       viewBox="0 0 24 24"
       width="16"
@@ -15,6 +19,7 @@
       <polyline points="22,6 12,13 2,6"></polyline>
     </svg>
   </button>
+
   <button
     *ngIf="phone !== ''"
     [matTooltip]="phone ? phone : 'Phone number not available'"
