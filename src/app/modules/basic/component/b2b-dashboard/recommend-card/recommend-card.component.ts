@@ -58,7 +58,7 @@ export class RecommendCardComponent implements OnInit {
     }
     
     viewEmployees(company: any) {
-    this.dataService.changeSelectedTab(1);
+    this.dataService.changeSelectedTab(0);
     this.router.navigate(['/b2b'], { queryParams: { companyName: company } });
   }
 

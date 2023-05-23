@@ -73,7 +73,7 @@ p {
   cursor: pointer;
 }
 .info-card {
-  padding: 23px 23px;
+  padding: 14.5px 23px;
   margin: 0;
   border-bottom: 0.5px solid #e4e2e2;
 }
@@ -92,7 +92,7 @@ p {
 }
 
 .no-result-container {
-  padding: 152px 50px;
+  padding: 100px 50px;
   text-align: center;
   justify-content: center;
 }

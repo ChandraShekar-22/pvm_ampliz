@@ -61,7 +61,7 @@
   cursor: pointer;
 }
 .info-card {
-  padding: 18px 23px;
+  padding: 10px 23px;
   margin: 0;
 }
 .info-container {
@@ -85,15 +85,16 @@
   color: var(--secondary);
 }
 .view-more {
-    cursor: pointer;
-    color: var(--primary);
-    font-weight: 400;
-    font-size: 12px;
-    padding-bottom: 15px;
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: 400;
+  font-size: 12px;
+  padding-bottom: 15px;
+  padding-top: 11px;
 }
 
 .no-result-container {
-  padding: 123px 50px;
+  padding: 100px 50px;
   text-align: center;
   justify-content: center;
 }
