@@ -1,16 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  EventEmitter,
-  Output,
-  OnDestroy,
-} from "@angular/core";
-import { Router } from "@angular/router";
-import { B2bService } from "../../../services/b2b.service";
-import { DataService } from "../../../services/data.service";
-import { SearchContactInput } from "../../../models/SearchContactModel";
-import { SearchCompanyInput } from "../../../models/SearchCompany";
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { B2bService } from '../../../services/b2b.service';
+import { DataService } from '../../../services/data.service';
+import { SearchContactInput } from '../../../models/SearchContactModel';
+import { SearchCompanyInput } from '../../../models/SearchCompany';
 @Component({
   selector: 'app-recent-view-more',
   templateUrl: './recent-view-more.component.html',
@@ -32,6 +25,7 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
   saveSearchListDrawer: boolean = false;
   saveSearchType: string = '';
   loading: boolean = true;
+  searchQuota: any;
   filterDatas = [
     {
       title: 'Company Name',
@@ -144,6 +138,9 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getSearchData();
     this.scrollHandler();
+    this.dataService.searchQuota.subscribe((quota: any) => {
+      this.searchQuota = quota.dailyRemainingQuota;
+    });
   }
 
   ngOnDestroy() {
@@ -230,9 +227,9 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
     }
   }
   searchContact(searchBody: any) {
-    // console.log(searchBody);
-    // this.dataService.searchOrRecentTapped(true);
     if (searchBody.searchType == 'Contact') {
+      // console.log(searchBody);
+      // this.dataService.searchOrRecentTapped(true);
       const contactObj = this.searchContactInput.fromJson(searchBody.contactSearchParams);
 
       // If seniority is with IDs
@@ -253,6 +250,7 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
       this.dataService.passSearchCompanyInput(companyObj);
       this.dataService.changeSelectedTab(1);
     }
+
     this.dataService.makeSavesearchVisible(false);
     this.dataService.makeRecentsearchVisible(false);
     this.cancelSaveDiv();
@@ -279,4 +277,3 @@ export class RecentViewMoreComponent implements OnInit, OnDestroy {
     this.dataService.makeSavesearchVisible(true);
   }
 }
-

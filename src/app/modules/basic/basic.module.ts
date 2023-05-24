@@ -66,6 +66,13 @@ import { DailySearchQuotaComponent } from "./component/daily-search-quota/daily-
 import { CustomTooltipComponent } from "./component/custom-tooltip/custom-tooltip.component";
 import { ContactInfoTooltipComponent } from "./component/contact-info-tooltip/contact-info-tooltip.component";
 import { ListActionButtonComponent } from "./component/list-action-button/list-action-button.component";
+import { QuotaCardComponent } from './component/b2b-dashboard/quota-card/quota-card.component';
+import { CardSkeletonLoaderComponent } from './component/b2b-dashboard/card-skeleton-loader/card-skeleton-loader.component';
+import { LowCreditAlertCardComponent } from './component/b2b-dashboard/low-credit-alert-card/low-credit-alert-card.component';
+import { DashboardChromeCardComponent } from './component/b2b-dashboard/dashboard-chrome-card/dashboard-chrome-card.component';
+import { FeedbackCardComponent } from './component/b2b-dashboard/feedback-card/feedback-card.component';
+import { RecommendCardComponent } from './component/b2b-dashboard/recommend-card/recommend-card.component';
+import { HistorySearchCardComponent } from './component/b2b-dashboard/history-search-card/history-search-card.component';
 const appRoutes = [
   {
     path: "login",
@@ -188,6 +195,13 @@ const appRoutes = [
     CustomTooltipComponent,
     ContactInfoTooltipComponent,
     ListActionButtonComponent,
+    QuotaCardComponent,
+    CardSkeletonLoaderComponent,
+    LowCreditAlertCardComponent,
+    DashboardChromeCardComponent,
+    FeedbackCardComponent,
+    RecommendCardComponent,
+    HistorySearchCardComponent,
   ],
   imports: [
     CommonComponentsModule,

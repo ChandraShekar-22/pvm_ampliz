@@ -1,4 +1,4 @@
-.bg-green {
+/* .bg-green {
     background: #d3ecfa;
 }
 
@@ -46,4 +46,12 @@
   background-color: #ffffff!important;
   border: 1px solid #07c166 !important;
   color: #38c17e!important;
+} */
+
+.content-page {
+  height: 100% !important;
+  background-color: #f5f5f5;
+}
+.feedback-card {
+  margin-left: 11px;
 }

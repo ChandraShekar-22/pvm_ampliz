@@ -1,0 +1,22 @@
+.wrapper {
+  padding: 30px;
+  background-color: #fffcf5;
+  border: 1px solid #ebad10;
+  border-radius: 12px;
+  font-size: 14px !important;
+}
+.low-credit-text {
+  margin-left: 15px;
+  margin-top: 5px;
+  color: black;
+  font-weight: 400;
+}
+.action-container {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.action-container span {
+  color: #ebad10;
+  cursor: pointer;
+}

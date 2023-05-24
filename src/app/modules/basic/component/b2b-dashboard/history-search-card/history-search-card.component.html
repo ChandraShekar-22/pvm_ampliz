@@ -1,0 +1,122 @@
+<div class="main-container">
+  <div class="tabs-container">
+    <div class="tab-btn">
+      <button *ngFor="let tab of tabs; let i = index" [class.activeTab]="activeTab === i" (click)="setActive(i)">
+        {{ tab.title }}
+      </button>
+    </div>
+
+    <div class="tab-content" *ngIf="!loader">
+      <!-- Recent search Tab -->
+      <div *ngIf="activeTab === 0" [ngClass]="activeTab === 0 ? 'show' : 'hide'">
+        <div *ngIf="tabs[0].content.length > 0">
+          <div class="info-card" *ngFor="let item of tabs[0].content; let index = index">
+            <div class="info-container row align-items-center">
+              <div class="info-detail row col-11">
+                <div class="info-name text-capitalize col-12">
+                  {{ item.search }}
+                </div>
+                <span class="col-12">
+                  {{ item.time }}
+                </span>
+              </div>
+              <div class="col-1">
+                <svg (click)="search(index, true)" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3.125 7.5H11.875"
+                    stroke="#0071EB"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M7.5 3.125L11.875 7.5L7.5 11.875"
+                    stroke="#0071EB"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="view-more text-center" *ngIf="tabs[0].content.length >= 5">
+            <span *ngIf="tabs[0].content.length >= 5">View more</span>
+          </div>
+        </div>
+        <!-- ---- -->
+
+        <!-- no recenet search  -->
+        <div class="no-result-container" *ngIf="tabs[0].content.length < 0">
+          <div class="row justify-content-center">
+            <img src="../../../../../../assets/images/search-user.png" width="65" alt="" />
+            <h6 class="col-12">No searches yet</h6>
+            <p class="col-12">Use Prospect search to generate targeted lists of decision makers</p>
+            <button class="no-result-btn">Go to B2B search</button>
+          </div>
+        </div>
+        <!-- ---- -->
+      </div>
+      <!-- --- -->
+
+      <!-- Save search Tab -->
+      <div *ngIf="activeTab === 1" [ngClass]="activeTab === 1 ? 'show' : 'hide'">
+        <div *ngIf="tabs[1].content.length > 0">
+          <div class="info-card" *ngFor="let item of tabs[1].content let index = index" >
+            <div class="info-container row align-items-center">
+              <div class="info-detail row col-11">
+                <div class="info-name text-capitalize col-12">
+                  {{ item.search }}
+                </div>
+                <span class="col-12">
+                  {{ item.time }}
+                </span>
+              </div>
+              <div class="col-1">
+                <svg (click)="search(index, false)" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3.125 7.5H11.875"
+                    stroke="#0071EB"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M7.5 3.125L11.875 7.5L7.5 11.875"
+                    stroke="#0071EB"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="view-more text-center" *ngIf="tabs[1].content.length >= 5">
+            <span>View more</span>
+          </div>
+        </div>
+        <!-- --- -->
+
+        <!-- No Saved search -->
+        <div class="no-result-container" *ngIf="tabs[1].content.length < 0">
+          <div class="row justify-content-center">
+            <svg width="42" height="60" viewBox="0 0 42 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M32.6666 0.833336H9.33325C4.50288 0.838677 0.588593 4.75296 0.583252 9.58334V57.7083C0.583608 57.9624 0.650365 58.2121 0.776759 58.4325C1.17819 59.1323 2.07096 59.3742 2.77075 58.973L20.9999 48.4741L39.2291 58.973C39.4514 59.0992 39.7026 59.166 39.9582 59.1667C40.7631 59.1652 41.4152 58.5132 41.4166 57.7083V9.58334C41.4112 4.75296 37.497 0.838677 32.6666 0.833336ZM38.4999 55.1847L21.7291 45.5261C21.5067 45.3999 21.2556 45.3331 20.9999 45.3324C20.7443 45.3331 20.4931 45.3999 20.2708 45.5261L3.49992 55.1847V9.58334C3.50401 6.36332 6.11324 3.7541 9.33325 3.75H32.6666C35.8866 3.7541 38.4958 6.36332 38.4999 9.58334V55.1847Z"
+                fill="#D6D3D3"
+              />
+            </svg>
+
+            <h6 class="col-12">No saved searches yet</h6>
+            <p class="col-12">Use Prospect search to generate targeted lists of decision makers</p>
+            <button class="no-result-btn">Go to B2B Search</button>
+          </div>
+        </div>
+        <!-- ---- -->
+      </div>
+    </div>
+    <app-card-skeleton-loader  [loopCount]="3" *ngIf="loader"></app-card-skeleton-loader>
+  </div>
+  <!-- Tab container ends -->
+</div>

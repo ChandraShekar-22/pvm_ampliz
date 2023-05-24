@@ -86,14 +86,14 @@ export class EmployeeListCardComponent implements OnInit {
   makeSearch(event, searchData) {
     // console.log(searchData,this.selectedTab);
     event.preventDefault();
-    if (this.selectedTab == "Contacts") {
+    if (this.selectedTab == 'Contacts') {
       const bdy: SearchContactInput = new SearchContactInput();
-      bdy.employeeRangeList = [searchData];
+      // bdy.employeeRangeList = [searchData];
       this.dataService.passSearchContactInput(bdy);
       this.dataService.changeSelectedTab(0);
     } else {
       const bdy: SearchCompanyInput = new SearchCompanyInput();
-      bdy.employeeRangeList = [searchData];
+      // bdy.employeeRangeList = [searchData];
       this.dataService.passSearchCompanyInput(bdy);
       this.dataService.changeSelectedTab(1);
     }

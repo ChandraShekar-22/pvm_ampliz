@@ -1,0 +1,133 @@
+:root {
+  --primary: #0071eb;
+  --secondary: #8c8a8a;
+}
+
+h6 {
+  color: black;
+  font-size: 15px;
+}
+p {
+  color: var(--secondary);
+  font-weight: 300;
+}
+.main-container {
+  background-color: #fff;
+  border-radius: 12px;
+  border: 1px solid #e4e2e2;
+}
+
+/* Header CSS */
+.header-container {
+  padding: 20px;
+}
+/* ----- */
+
+/* Tab Nav css */
+.tab-btn {
+  border-bottom: 0.5px solid #e4e2e2;
+}
+.tab-btn button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 12px;
+  margin-left: 22px;
+  margin-bottom: 10px;
+}
+.tab-btn button.activeTab {
+  color: var(--primary);
+  font-weight: 500;
+}
+.tab-btn button:hover {
+  color: var(--primary);
+}
+/* ------- */
+
+/* Tab Container Css */
+.tab-content {
+  padding-top: 0;
+}
+.tab-content > div {
+  height: 100%;
+}
+.tab-content > div.hide {
+  display: none;
+}
+.tab-content > div.show {
+  animation: tabTransition 0.5s;
+}
+/* ---- */
+
+/* Card Css */
+.view-btn {
+  border: none;
+  border-radius: 50px;
+  font-size: 10px;
+  color: #fff;
+  background-color: var(--primary);
+  white-space: nowrap;
+  text-align: center;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+.info-card {
+  padding: 14.5px 23px;
+  margin: 0;
+  border-bottom: 0.5px solid #e4e2e2;
+}
+.info-card img {
+  border-radius: 5px;
+}
+.info-name {
+  font-weight: 500;
+  font-size: 13px;
+  color: #000000;
+}
+.info-detail span {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--secondary);
+}
+
+.no-result-container {
+  padding: 100px 50px;
+  text-align: center;
+  justify-content: center;
+}
+.no-result-container svg {
+  margin-bottom: 10px;
+}
+.no-result-container h6 {
+  color: #000000;
+  font-weight: 400;
+  margin-top: 20px;
+}
+.no-result-container p {
+  color: var(--secondary);
+  font-weight: 300;
+  margin-top: 5px;
+}
+.no-result-btn {
+  background-color: transparent;
+  color: var(--primary);
+  border-radius: 20px;
+  border: 1px solid var(--primary);
+  font-size: 11px;
+  font-weight: 400;
+  padding: 5px 15px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+@keyframes tabTransition {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

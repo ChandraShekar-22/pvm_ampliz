@@ -105,37 +105,56 @@ export class PeopleB2bComponent implements OnInit, OnChanges, OnDestroy {
     // this.getContactsList();
     this.getApacList();
     this.getViewedListCount();
+    this.getSearchQuota();
     this.checkRecentSearch();
     this.getLandingPageVisibility();
     this.getLoaderValue();
 
     this.getSearchContactNetNew(this.selectedFilter);
+    this.catchParams();
 
-    setTimeout(() => {
-      let url = window.location.href;
-      this.companyReceviedFromExt(url);
-    }, 100);
     // this.collectCreditAndQuotaStatus();
     // Add this line in left right icons ==> [ngClass]="{'disabledPagination': isSubscribed==false}"
-    this.getSearchQuota();
     this.dataService.savedContacts.subscribe((res: Array<Contact>) => {
       this.contactsList.updateContactsListFromSavedList(res);
     });
   }
 
-  companyReceviedFromExt(url) {
-    if (url.includes('?companyName')) {
-      let paramString = url.split('?')[1];
-      let queryString = new URLSearchParams(paramString);
-      const searchData = new SearchContactInput();
-      searchData.companyList.push(queryString.get('companyName'));
-      const contactObj = this.selectedFilter.fromJson(searchData);
-      this.dataService.passSearchContactInput(contactObj);
-      this.router.navigate([], {
-        queryParams: {},
-        replaceUrl: true,
-      });
-    }
+  catchParams() {
+    this.activateRoute.queryParams.subscribe((params) => {
+      if (Object.keys(params).length !== 0) {
+        if (params.companyName) {
+          this.companyQuery(params.companyName);
+        }
+        if (params.country && params.name && params.department) {
+          this.contactQuery(params);
+        }
+        this.cleanUrl();
+      }
+    });
+  }
+
+  companyQuery(company: any) {
+    const searchData = new SearchContactInput();
+    searchData.companyList.push(company);
+    const contactObj = this.selectedFilter.fromJson(searchData);
+    this.dataService.passSearchContactInput(contactObj);
+  }
+
+  contactQuery(contact: any) {
+    const searchData = new SearchContactInput();
+    searchData.fullNameList = [contact.name];
+    searchData.deptInclude = [contact.department];
+    searchData.countryList = [contact.country];
+    const contactObj = this.selectedFilter.fromJson(searchData);
+    this.dataService.passSearchContactInput(contactObj);
+  }
+
+  cleanUrl() {
+    this.router.navigate([], {
+      queryParams: {},
+      replaceUrl: true,
+    });
   }
 
   collectCreditAndQuotaStatus() {
