@@ -1,0 +1,156 @@
+.npi-container {
+  padding: calc(63px + 30px) 51px 0 51px;
+  color: #000000 !important;
+  min-height: 100vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.list-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+
+.action_item {
+  background: #ffffff;
+  border: 0.5px solid #e9e9e9;
+  /* box-shadow: 0px 1px 1px rgba(165, 162, 162, 0.25); */
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 32px 14px 21px;
+  min-width: 285px;
+}
+.action_item > section {
+  text-align: right;
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 17px;
+  text-align: right;
+  color: #040404;
+}
+.action_item > section > span {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.action_container {
+  display: flex;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  justify-content: space-between;
+}
+
+.action_icon {
+  background: #f1f1f1;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.yellow_section {
+  background: #ebad10;
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: right;
+  color: #040404;
+  cursor: pointer;
+}
+.yellow_section > section {
+  display: flex;
+  align-items: center;
+}
+
+.yellow_section > .action_icon {
+  background: #efc55b;
+}
+
+.green_section {
+  cursor: pointer;
+  background: #0b8910;
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: right;
+  color: #ffffff;
+}
+.green_section > .action_icon {
+  background: #19b41f;
+}
+.green_section > section {
+  text-align: left;
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: right;
+  color: #ffffff;
+}
+.green_section > section > p {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: right;
+  color: #ffffff;
+  margin-top: 16px;
+}
+
+.disabl_card {
+  background: #e3e3e3;
+  border: 0.5px solid #eceaea;
+  box-shadow: 0px 1px 1px rgba(165, 162, 162, 0.25);
+  border-radius: 8px;
+}
+
+.disabl_card > .action_icon {
+  background: #ffffff;
+}
+.disabl_card > .action_icon svg,
+.disabl_card > .action_icon path {
+  stroke: #040404;
+}
+.disabl_card section {
+  color: #000000;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: right;
+}
+.disabl_card section > span {
+  color: #0071eb;
+}
+.disabl_card section p {
+  color: #ef2121;
+}
+.back_container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.npi-button {
+  border: 1px solid #0071eb;
+  background: transparent;
+  outline: none;
+  color: #0071eb;
+  border-radius: 50px;
+  padding: 10px 15px;
+  margin-right: 10px !important;
+  cursor: pointer;
+  font-size: 12px;
+}

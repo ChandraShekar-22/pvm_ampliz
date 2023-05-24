@@ -1,0 +1,159 @@
+<app-npi-data-progress-modal [name]="reportInfo.fileName" *ngIf="showProgressModal"></app-npi-data-progress-modal>
+<div id="wrapper">
+  <app-header [user]="" style="width: 100%"></app-header>
+  <app-sidemenu elementName="npi-lookup"></app-sidemenu>
+  <app-npi-dowload-list
+    [currentCredit]="currentCredits"
+    [saveListDiv]="downloadModal"
+    (cancelBtnClick)="openDownloadModel($event)"
+  ></app-npi-dowload-list>
+  <div class="content-page">
+    <div class="npi-container">
+      <div class="back_container">
+        <div class="listLink">
+          <!-- <button (click)=""></button> -->
+
+          <a [routerLink]="['/npi-lookup']" class="npi-button">Try Another File</a>
+        </div>
+      </div>
+      <app-npi-criteria [reportInfo]="reportInfo"></app-npi-criteria>
+      <section class="action_container">
+        <div class="action_item">
+          <section class="action_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+              <path
+                d="M5.83332 5.83334H29.1666C30.7708 5.83334 32.0833 7.14584 32.0833 8.75001V26.25C32.0833 27.8542 30.7708 29.1667 29.1666 29.1667H5.83332C4.22916 29.1667 2.91666 27.8542 2.91666 26.25V8.75001C2.91666 7.14584 4.22916 5.83334 5.83332 5.83334Z"
+                stroke="black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M32.0833 8.75L17.5 18.9583L2.91666 8.75"
+                stroke="black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </section>
+          <section>
+            <span> {{ emailCount }}</span>
+            <app-npi-filter-drop-down
+              [selected]="emailFilter"
+              (onFilterChange)="onFilterChange($event, 'emailCount')"
+              [options]="emailDropDownOptions"
+            ></app-npi-filter-drop-down>
+          </section>
+        </div>
+        <div class="action_item">
+          <section class="action_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path
+                d="M20.2431 7.33333C21.6675 7.61124 22.9766 8.30787 24.0028 9.33407C25.029 10.3603 25.7256 11.6693 26.0035 13.0937M20.2431 1.5C23.2024 1.82876 25.9621 3.154 28.0688 5.25813C30.1756 7.36226 31.5043 10.1202 31.8368 13.0792M30.3785 24.7167V29.0917C30.3801 29.4978 30.297 29.8998 30.1342 30.272C29.9715 30.6441 29.7329 30.9781 29.4336 31.2527C29.1343 31.5273 28.781 31.7363 28.3963 31.8664C28.0115 31.9966 27.6038 32.0449 27.1993 32.0083C22.7118 31.5207 18.4012 29.9873 14.6139 27.5312C11.0903 25.2922 8.10295 22.3048 5.86392 18.7812C3.3993 14.9768 1.86552 10.6452 1.38684 6.1375C1.35039 5.73422 1.39832 5.32777 1.52757 4.94403C1.65681 4.56029 1.86454 4.20767 2.13754 3.90861C2.41053 3.60956 2.7428 3.37062 3.1132 3.20701C3.48359 3.0434 3.884 2.95871 4.28892 2.95833H8.66392C9.37166 2.95137 10.0578 3.20199 10.5944 3.66348C11.131 4.12498 11.4815 4.76586 11.5806 5.46667C11.7652 6.86676 12.1077 8.24147 12.6014 9.56458C12.7976 10.0866 12.8401 10.6538 12.7238 11.1992C12.6075 11.7446 12.3373 12.2452 11.9452 12.6417L10.0931 14.4937C12.1691 18.1447 15.1921 21.1677 18.8431 23.2437L20.6952 21.3917C21.0917 20.9996 21.5923 20.7294 22.1376 20.613C22.683 20.4967 23.2503 20.5392 23.7722 20.7354C25.0954 21.2291 26.4701 21.5716 27.8702 21.7562C28.5786 21.8562 29.2255 22.213 29.688 22.7588C30.1505 23.3047 30.3962 24.0015 30.3785 24.7167Z"
+                stroke="#040404"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </section>
+          <section>
+            <span>{{ phoneCount }}</span>
+            <app-npi-filter-drop-down
+              [selected]="phoneFilter"
+              (onFilterChange)="onFilterChange($event, 'phoneCount')"
+              [options]="phoneDropDownOptions"
+            ></app-npi-filter-drop-down>
+          </section>
+        </div>
+        <div class="action_item yellow_section" (click)="bookDemo()">
+          <section class="action_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+              <path
+                d="M4.375 26.25V17.5C4.375 14.019 5.75781 10.6806 8.21922 8.21922C10.6806 5.75781 14.019 4.375 17.5 4.375C20.981 4.375 24.3194 5.75781 26.7808 8.21922C29.2422 10.6806 30.625 14.019 30.625 17.5V26.25"
+                stroke="#040404"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M30.625 27.7083C30.625 28.4819 30.3177 29.2237 29.7707 29.7707C29.2237 30.3177 28.4819 30.625 27.7083 30.625H26.25C25.4765 30.625 24.7346 30.3177 24.1876 29.7707C23.6406 29.2237 23.3333 28.4819 23.3333 27.7083V23.3333C23.3333 22.5598 23.6406 21.8179 24.1876 21.2709C24.7346 20.7239 25.4765 20.4167 26.25 20.4167H30.625V27.7083ZM4.375 27.7083C4.375 28.4819 4.68229 29.2237 5.22927 29.7707C5.77625 30.3177 6.51812 30.625 7.29167 30.625H8.75C9.52355 30.625 10.2654 30.3177 10.8124 29.7707C11.3594 29.2237 11.6667 28.4819 11.6667 27.7083V23.3333C11.6667 22.5598 11.3594 21.8179 10.8124 21.2709C10.2654 20.7239 9.52355 20.4167 8.75 20.4167H4.375V27.7083Z"
+                stroke="#040404"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </section>
+          <section>Talk to Sales</section>
+        </div>
+        <div
+          class="action_item green_section"
+          [ngClass]="{
+            action_item: true,
+            green_section: true,
+            disabl_card: currentCredits == 0
+          }"
+          (click)="openDownloadModel(true)"
+        >
+          <section class="action_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+              <path
+                d="M30.625 21.875V27.7083C30.625 28.4819 30.3177 29.2237 29.7707 29.7707C29.2237 30.3177 28.4819 30.625 27.7083 30.625H7.29167C6.51812 30.625 5.77625 30.3177 5.22927 29.7707C4.68229 29.2237 4.375 28.4819 4.375 27.7083V21.875"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10.2083 14.5833L17.5 21.875L24.7916 14.5833"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M17.5 21.875V4.375"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </section>
+          <section>
+            <span *ngIf="disableDownload"><span>Upgrade</span> to </span>{{ ' ' }}Download
+            <p>{{ currentCredits }} credits available</p>
+          </section>
+        </div>
+      </section>
+      <section class="list-container">
+        <app-npi-list
+          heading="SPECIALTY"
+          [itemData]="specialityList"
+          keyname="speciality"
+          [selectedFilter]="specialityFilter"
+          (onFilterChange)="onFilterChange($event, 'speciality')"
+          [loading]="specialityLoading"
+        ></app-npi-list>
+        <app-npi-list
+          heading="STATE"
+          [itemData]="stateList"
+          keyname="state"
+          [selectedFilter]="stateFilter"
+          (onFilterChange)="onFilterChange($event, 'state')"
+          [loading]="stateListLoading"
+        ></app-npi-list>
+        <app-npi-list
+          heading="CITY"
+          [itemData]="cityList"
+          keyname="city"
+          [selectedFilter]="cityFilter"
+          (onFilterChange)="onFilterChange($event, 'city')"
+          [loading]="cityListLoading"
+        ></app-npi-list>
+      </section>
+    </div>
+  </div>
+</div>

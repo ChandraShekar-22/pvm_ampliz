@@ -1,0 +1,177 @@
+.npi-container {
+    padding: calc(23px + 77px) 51px 0 51px;
+    color: #000000 !important;
+    min-height: 100vh;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  
+  .page-heading {
+    font-family: roboto, sans-sarif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 40px;
+    color: #000000;
+    margin-bottom: 33px;
+  }
+  
+  .card-container {
+    background: #ffffff;
+    box-shadow: 0px 4px 15px rgba(146, 146, 146, 0.25);
+    border-radius: 8px;
+    padding: 18px 35px;
+    width: 451px;
+    padding-bottom: 10px;
+  }
+  
+  .card-heading {
+    font-family: roboto, sans-sarif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: #040404;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 9px !important;
+    cursor: pointer;
+  }
+  .card-selected svg path {
+    stroke: #0071eb;
+  }
+  .card-selected svg {
+    color: #0071eb;
+  }
+  
+  .card-selected > .card-heading {
+    color: #0071eb;
+  }
+  .card-selected {
+    padding: 16px 35px;
+    margin-bottom: 0px !important;
+  }
+  
+  .card-content {
+    font-family: roboto, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #777676;
+  }
+  
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .content-container {
+    display: flex;
+    gap: 90px;
+    width: 100%;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  
+  .upload-container {
+    background: #ffffff;
+    border: 1px solid #e4e2e2;
+    box-shadow: 0px 4px 26px rgba(186, 186, 186, 0.25);
+    border-radius: 7px;
+    padding: 35px;
+    width: 100%;
+    margin-top: 45px;
+    max-height: 375px;
+  }
+  
+  .upload-area {
+    background: #f9f9f9;
+    border: 1.5px dashed #bbb9b9;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+  }
+  .upload-area > input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .upload-area > p {
+    font-family: roboto, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: #615f5f;
+    margin-top: 20px;
+  }
+  .upload-area > p > span {
+    color: #0071eb;
+  }
+  .upload-area > span {
+    font-family: roboto, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 28px;
+    letter-spacing: 0.09em;
+    color: #bbb9b9;
+  }
+  
+  .table-wrapper {
+    border: 0px solid #f1f1f1;
+    border-radius: 3px;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .paginationInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #838486;
+  }
+  .paginationWrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .paginationWrapper > .pagination {
+    padding-top: 0;
+  }
+  .header_container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .table_heading {
+    font-family: roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+  }
+  .search_container {
+    display: flex;
+    gap: 53px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  

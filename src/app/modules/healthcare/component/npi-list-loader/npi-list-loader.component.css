@@ -1,0 +1,121 @@
+.npi-list {
+  background: #ffffff;
+  border: 0.5px solid #e4e4e4;
+  box-shadow: 0px 1px 1px rgba(165, 162, 162, 0.25);
+  border-radius: 8px;
+  min-width: 390px;
+}
+.npi-list > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  color: #0071eb;
+  margin: 0;
+  padding: 0;
+  padding: 21px 25px;
+  border-bottom: 0.5px solid #dcdcdc;
+}
+
+.npi-list > header {
+}
+.noData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d09c9c;
+  font-size: 16px;
+  min-height: 415px;
+  text-transform: uppercase;
+}
+
+.card-item {
+  padding: 20px 27px 16px;
+  border-bottom: 0.5px solid #eceaea;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.item-container {
+  max-height: 350px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.item-container::-webkit-scrollbar {
+  width: 4px !important;
+}
+
+/* Track */
+
+/* Handle */
+.item-container::-webkit-scrollbar-thumb {
+  background: #bdbdbd !important;
+  border-radius: 50px !important;
+}
+
+/* Handle on hover */
+.item-container::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd !important;
+  border-radius: 50px !important;
+}
+.item-container::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+
+.name {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #040404;
+}
+.count {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #807c7c;
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+.card-item ::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -150px;
+  top: 0;
+  height: 100%;
+  width: 50px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #e8e8e8 50%,
+    transparent 100%
+  );
+  animation: load 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.text-placeholder {
+  border-radius: 30px;
+  background-color: #eee;
+  width: 75%;
+  height: 10px;
+  display: block;
+  overflow: hidden;
+  margin-bottom: 10px;
+  max-width: 100px;
+}

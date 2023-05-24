@@ -52,6 +52,7 @@
     "ng2-search-filter": "^0.5.1",
     "ngx-chips": "2.1.0",
     "ngx-cookie-service": "^3.1.2",
+    "ngx-papaparse": "^7.0.0",
     "ngx-take-until-destroy": "^5.4.0",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",

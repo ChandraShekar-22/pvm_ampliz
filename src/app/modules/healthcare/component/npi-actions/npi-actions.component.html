@@ -1,0 +1,19 @@
+<div
+  class="action-container"
+  #menuTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="menu"
+  *ngIf="matchStatus === 'Matching completed'; else disbleButton"
+>
+  <span><i class="fa fa-ellipsis-h"></i></span>
+</div>
+<ng-template #disbleButton>
+  <div class="action-container disbledButton">
+    <span><i class="fa fa-ellipsis-h"></i></span>
+  </div>
+</ng-template>
+
+<mat-menu class="dropdown" #menu="matMenu" xPosition="after">
+  <button mat-menu-item (click)="downloadData()">Download Report</button>
+  <button mat-menu-item (click)="navigateToReport()">View Report</button>
+  <button mat-menu-item (click)="bookDemo()">Talk to Sales</button>
+</mat-menu>

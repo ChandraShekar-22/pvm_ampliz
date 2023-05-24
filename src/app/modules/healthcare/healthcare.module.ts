@@ -3,6 +3,7 @@ import { BasicModule } from '../basic/basic.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { RouterModule } from '@angular/router';
 import { AgGridModule } from 'ag-grid-angular';
+import { MatRadioModule } from '@angular/material/radio';
 import { ButtoncellrendererComponent } from '../basic/component/ag-grid/buttoncellrenderer/buttoncellrenderer.component';
 import { PhysicanPageComponent } from './containers/physican/physican.component';
 import { PhysicanImageComponent } from './component/cards/physican-image/physican-image.component';
@@ -41,74 +42,95 @@ import { PhysicianGuard } from './services/physician.guard';
 import { DomainsearchComponent } from './containers/domainsearch/domainsearch.component';
 import { CommonComponentsModule } from '../common-components/common-components.module';
 import { ConfidenceLevelComponent } from './component/confidence-level/confidence-level.component';
+import { NpiLookupComponent } from './containers/npi-lookup/npi-lookup.component';
+import { NpiDataCardComponent } from './containers/npi-data-card/npi-data-card.component';
+import { NpiActionsComponent } from './component/npi-actions/npi-actions.component';
+import { NpiListComponent } from './component/npi-list/npi-list.component';
+import { NpiFilterDropDownComponent } from './component/npi-filter-drop-down/npi-filter-drop-down.component';
+import { NpiFileUploadComponent } from './component/npi-file-upload/npi-file-upload.component';
+import { NpiDowloadListComponent } from './component/npi-dowload-list/npi-dowload-list.component';
+import { NpiCriteriaComponent } from './component/npi-criteria/npi-criteria.component';
+import { NpiDownloadAgainComponent } from './component/npi-download-again/npi-download-again.component';
+import { NpiCustomDataComponent } from './component/npi-custom-data/npi-custom-data.component';
+
+import { NpiListLoaderComponent } from './component/npi-list-loader/npi-list-loader.component';
+import { NpiTableStatusComponent } from './component/npi-table-status/npi-table-status.component';
+import { NpiDataProgressModalComponent } from './component/npi-data-progress-modal/npi-data-progress-modal.component';
 // component/confidence-level/confidence-level.component
 const appRoutes = [
   {
-    path: "hconboard",
+    path: 'hconboard',
     component: HealthcareonboardComponent,
     canActivate: [PhysicianGuard],
   },
   {
-    path: "hcdashboard",
+    path: 'hcdashboard',
     component: HcdashboardComponent,
   },
   {
-    path: "company_search",
+    path: 'company_search',
     component: DomainsearchComponent,
   },
   {
-    path: "physician",
+    path: 'physician',
     component: PhysicanPageComponent,
     canActivate: [PhysicianGuard],
-    
   },
   {
-    path: "mytab",
+    path: 'mytab',
     component: MyTabComponent,
   },
   {
-    path: "physicianOverview/:physicianId",
+    path: 'physicianOverview/:physicianId',
     component: PhysicianOverviewComponent,
   },
   {
-    path: "executiveOverview/:executiveId",
+    path: 'executiveOverview/:executiveId',
     component: ExecutiveOverviewComponent,
   },
   {
-    path: "executive",
+    path: 'executive',
     component: ExecutivePageComponent,
   },
   {
-    path: "hospital",
+    path: 'hospital',
     component: HospitalComponent,
   },
   {
-    path: "lists",
+    path: 'lists',
     component: ListsComponent,
   },
   {
-    path: "lists/:listId",
+    path: 'lists/:listId',
     component: ListdetailsComponent,
   },
   {
-    path: "hospitalOverView/:hospitalId",
+    path: 'hospitalOverView/:hospitalId',
     component: HospitalOverviewComponent,
   },
   {
-    path: "hcpayment",
+    path: 'hcpayment',
     component: HcPaymentComponent,
   },
   {
-    path: "hcupgrade",
+    path: 'hcupgrade',
     component: HcpricingComponent,
   },
   {
-    path: "apis",
+    path: 'apis',
     component: ApisComponent,
   },
   {
-    path: "geneateapi",
+    path: 'geneateapi',
     component: ApisComponent,
+  },
+  {
+    path: 'npi-lookup',
+    component: NpiLookupComponent,
+  },
+  {
+    path: 'npi-data-card/:bulkNpiId',
+    component: NpiDataCardComponent,
   },
 ];
 @NgModule({
@@ -147,13 +169,26 @@ const appRoutes = [
     FilterMytabComponent,
     DomainsearchComponent,
     ConfidenceLevelComponent,
+    NpiLookupComponent,
+    NpiDataCardComponent,
+    NpiListComponent,
+    NpiActionsComponent,
+    NpiFilterDropDownComponent,
+    NpiFileUploadComponent,
+    NpiDowloadListComponent,
+    NpiCriteriaComponent,
+    NpiDownloadAgainComponent,
+    NpiCustomDataComponent,
+    NpiListLoaderComponent,
+    NpiTableStatusComponent,
+    NpiDataProgressModalComponent,
   ],
   imports: [
     CommonComponentsModule,
     BasicModule,
+    MatRadioModule,
     NgMultiSelectDropDownModule.forRoot(),
     AgGridModule,
-    // AgGridModule.withComponents([ButtoncellrendererComponent]),
     RouterModule.forChild(appRoutes),
   ],
   exports: [
@@ -189,6 +224,8 @@ const appRoutes = [
     PhysicianFilterComponent,
     MyTabComponent,
     FilterMytabComponent,
+    NpiLookupComponent,
+    NpiDataCardComponent,
   ],
 })
 export class HealthcareModule {}

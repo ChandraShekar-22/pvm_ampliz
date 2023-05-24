@@ -1,0 +1,52 @@
+<div class="npi-list">
+  <div (click)="showPanel()">
+    <header>
+      <span>Total Number of Contacts Matched : {{ totalCount }} </span>
+      <span>
+        <i
+          *ngIf="isCollapse; else showArrow"
+          class="fa fa-close pull-right panel-icon"
+        ></i
+      ></span>
+      <ng-template #showArrow>
+        <svg
+          _ngcontent-lof-c18=""
+          fill="none"
+          height="12"
+          viewBox="0 0 9 5"
+          width="9"
+          color="#0071eb"
+          cursor="pointer"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            _ngcontent-lof-c18=""
+            d="M1.25 0.875L4.5 4.125L7.75 0.875"
+            stroke="black"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+          ></path>
+        </svg>
+      </ng-template>
+    </header>
+  </div>
+  <div class="item-container" *ngIf="isCollapse">
+    <section class="card-item">
+      <p class="name">File Name</p>
+      <span class="count">{{ reportInfo.fileName }}</span>
+    </section>
+    <section class="card-item">
+      <p class="name">Total No Of Contacts</p>
+      <span class="count">{{ reportInfo.noOfContactUploaded }}</span>
+    </section>
+    <section class="card-item">
+      <p class="name">Total Accepted Values</p>
+      <span class="count">{{ reportInfo.noOfContactAccepted }}</span>
+    </section>
+    <section class="card-item">
+      <p class="name">Rejected Values</p>
+      <span class="count">{{ reportInfo.noOfContactRejected }}</span>
+    </section>
+  </div>
+</div>
