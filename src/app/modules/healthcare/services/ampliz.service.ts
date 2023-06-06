@@ -1089,13 +1089,13 @@ export class AmplizService {
     });
     return response;
   }
-  downloadPhysicianData(bulkNpiId: string, withFilter: string, fileName: string): Observable<any> {
+  downloadPhysicianData(bulkNpiId: string, withFilter: string, fileName: string, recordCount: string): Observable<any> {
     const url = environment.prodNPIApi + '/amplizhcreadapi/npi/download-bulk-npi-physician-data';
     const response = this.http.get(
       url,
 
       {
-        params: { bulkNpiId, withFilter, fileName },
+        params: { bulkNpiId, withFilter, fileName, recordCount },
         responseType: 'text',
       }
     );

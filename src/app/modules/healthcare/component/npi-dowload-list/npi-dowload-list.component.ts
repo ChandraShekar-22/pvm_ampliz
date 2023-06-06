@@ -1,21 +1,14 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  NgZone,
-  OnInit,
-  Output,
-} from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MessageService } from "src/app/modules/B2B/services/message.service";
-import { AmplizService } from "../../services/ampliz.service";
-import { Papa } from "ngx-papaparse";
+import { Component, EventEmitter, Input, NgZone, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { AmplizService } from '../../services/ampliz.service';
+import { Papa } from 'ngx-papaparse';
 
 @Component({
-  selector: "app-npi-dowload-list",
-  templateUrl: "./npi-dowload-list.component.html",
-  styleUrls: ["./npi-dowload-list.component.css"],
+  selector: 'app-npi-dowload-list',
+  templateUrl: './npi-dowload-list.component.html',
+  styleUrls: ['./npi-dowload-list.component.css'],
 })
 export class NpiDowloadListComponent implements OnInit {
   @Input() saveListDiv: boolean = true;
@@ -26,23 +19,30 @@ export class NpiDowloadListComponent implements OnInit {
   loading: boolean = false;
   refreshedData: EventEmitter<boolean> = new EventEmitter<boolean>();
   savedList: any = [
-    { name: "Show all", value: "all" },
-    { name: "With emails", value: "withemail" },
-    { name: "Without email", value: "withoutemail" },
-    { name: "With phone", value: "withphone" },
-    { name: "Without phone", value: "withoutphone" },
+    { name: 'Show all', value: 'all' },
+    { name: 'With emails', value: 'withemail' },
+    { name: 'Without email', value: 'withoutemail' },
+    { name: 'With phone', value: 'withphone' },
+    { name: 'Without phone', value: 'withoutphone' },
   ];
   sideNav: boolean = false;
   selectListForm: FormGroup;
   formSubmitAttempt: boolean;
   bulkNpiId: string;
-  updatedCredits: any = localStorage.getItem("credits");
+  updatedCredits: any = localStorage.getItem('credits');
   downloadNumber: any = {
     allcount: 0,
     withEmailCount: 0,
     withoutEmailCount: 0,
     withPhoneCount: 0,
     withoutPhone: 0,
+  };
+  countKeys = {
+    all: 'allcount',
+    withEmail: 'withEmailCount',
+    withoutEmail: 'withoutEmailCount',
+    withPhone: 'withPhoneCount',
+    withoutPhone: 'withoutPhoneCount',
   };
 
   constructor(
@@ -55,8 +55,8 @@ export class NpiDowloadListComponent implements OnInit {
     private papa: Papa
   ) {
     this.selectListForm = fb.group({
-      filter: ["", [Validators.required]],
-      fileName: ["", [Validators.required]],
+      filter: ['', [Validators.required]],
+      fileName: ['', [Validators.required]],
     });
   }
 
@@ -75,6 +75,9 @@ export class NpiDowloadListComponent implements OnInit {
       this.downloadNumber = res;
     });
   }
+  get currentCredits() {
+    return localStorage.getItem('credits') || 0;
+  }
   cancelSaveDiv() {
     this.sideNav = true;
     this.saveListDiv = false;
@@ -88,7 +91,7 @@ export class NpiDowloadListComponent implements OnInit {
 
   updateCreditScore() {
     this.amplizService.getDashboardDetails().subscribe((res) => {
-      localStorage.setItem("credits", res.CurrentCredits);
+      localStorage.setItem('credits', res.CurrentCredits);
       this.updatedCredits = res.CurrentCredits;
     });
   }
@@ -98,27 +101,27 @@ export class NpiDowloadListComponent implements OnInit {
       this.loading = true;
       const filter = this.selectListForm.value.filter;
       const fileName = this.selectListForm.value.fileName;
-      this.amplizService
-        .downloadPhysicianData(this.bulkNpiId, filter, fileName)
-        .subscribe(
-          (res: string) => {
-            const csvdata = "data:text/csv;charset=utf-8," + res;
-            var encodedUri = encodeURI(csvdata);
+      const key = this.countKeys[filter];
+      const recordCount = this.downloadNumber[key];
+      this.amplizService.downloadPhysicianData(this.bulkNpiId, filter, fileName, recordCount).subscribe(
+        (res: string) => {
+          const csvdata = 'data:text/csv;charset=utf-8,' + res;
+          var encodedUri = encodeURI(csvdata);
 
-            const anchor = document.createElement("a");
-            anchor.href = encodedUri;
-            anchor.download = `${fileName}`;
-            anchor.click();
-            anchor.remove();
-            this.formSubmitAttempt = false;
-            this.cancelSaveDiv();
-            this.loading = false;
-          },
-          (error) => {
-            console.error(error);
-            this.loading = false;
-          }
-        );
+          const anchor = document.createElement('a');
+          anchor.href = encodedUri;
+          anchor.download = `${fileName}`;
+          anchor.click();
+          anchor.remove();
+          this.formSubmitAttempt = false;
+          this.cancelSaveDiv();
+          this.loading = false;
+        },
+        (error) => {
+          console.error(error);
+          this.loading = false;
+        }
+      );
     } else {
     }
   }

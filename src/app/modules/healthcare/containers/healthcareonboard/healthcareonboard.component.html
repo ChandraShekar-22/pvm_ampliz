@@ -12,17 +12,12 @@
     <div class="container-fluid" style="height: 100vh">
       <div class="row h-100">
         <div class="col-lg-7">
-          <img
-            class="img-fluid mt-4 mb-4 img-logo"
-            src="assets/images/Ampliz-logo-black.png" />
+          <img class="img-fluid mt-4 mb-4 img-logo" src="assets/images/Ampliz-logo-black.png" />
           <div
             class="sec_title mb_70 wow fadeInUp pb-5 pt-5"
             data-wow-delay="0.3s"
-            style="
-              visibility: visible;
-              animation-delay: 0.3s;
-              animation-name: fadeInUp;
-            ">
+            style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp"
+          >
             <div class="row padleft-screen">
               <!-- <div class="col-md-2">
                                 <img src="assets/images/hey.png" style="height: 62px;" class=" img-thumbnail" alt="hey">
@@ -34,24 +29,21 @@
                     >, What would you like to do?</span
                   >
                 </h3>
-                <p class="subTitle mb-0 prt-p">
-                  This is just to get you started.You can always do more later.
-                </p>
+                <p class="subTitle mb-0 prt-p">This is just to get you started.You can always do more later.</p>
               </div>
             </div>
           </div>
+
           <div class="row d-flex justify-content-center pt-4">
             <div class="cat-box" style="margin-right: 80px">
               <div
                 class="text-center card-boxs"
                 style="box-shadow: -6px 6px 0px 2px #000; cursor: pointer"
-                routerLink="/physician">
+                routerLink="/physician"
+              >
                 <div class="member-card">
                   <div class="thumb-xl member-thumb m-b-10 center-page">
-                    <img
-                      src="assets/images/doctor1.png"
-                      class="img-thumbnail"
-                      alt="physician" />
+                    <img src="assets/images/doctor1.png" class="img-thumbnail" alt="physician" />
                   </div>
                   <div class="">
                     <span class="m-b-5 mt-2 cat-heading">HCP's</span>
@@ -68,13 +60,11 @@
               <div
                 class="text-center card-boxs"
                 style="box-shadow: -6px 6px 0px 2px #000; cursor: pointer"
-                routerLink="/hospital">
+                routerLink="/hospital"
+              >
                 <div class="member-card">
                   <div class="thumb-xl member-thumb m-b-10 center-page">
-                    <img
-                      src="assets/images/hospital1.png"
-                      class="img-thumbnail"
-                      alt="hosptial" />
+                    <img src="assets/images/hospital1.png" class="img-thumbnail" alt="hosptial" />
                   </div>
                   <div class="">
                     <span class="m-b-5 mt-2 cat-heading">Hospital</span>
@@ -86,18 +76,18 @@
               </div>
             </div>
           </div>
+
+          <!-- second row -->
           <div class="row d-flex justify-content-center">
-            <div class="cat-box" style="margin-top: 50px">
+            <div class="cat-box" style="margin-top: 50px; margin-right: 80px">
               <div
                 class="text-center card-boxs"
                 style="box-shadow: -6px 6px 0px 2px #000; cursor: pointer"
-                routerLink="/executive">
+                routerLink="/executive"
+              >
                 <div class="member-card">
                   <div class="thumb-xl member-thumb m-b-10 center-page">
-                    <img
-                      src="assets/images/executive1.png"
-                      class="img-thumbnail"
-                      alt="executive" />
+                    <img src="assets/images/executive1.png" class="img-thumbnail" alt="executive" />
                   </div>
                   <div class="">
                     <span class="m-b-5 mt-2 cat-heading">Executive</span>
@@ -108,7 +98,26 @@
                 </div>
               </div>
             </div>
+            <div class="cat-box" style="margin-top: 50px">
+              <div
+                class="text-center card-boxs"
+                style="box-shadow: -6px 6px 0px 2px #000; cursor: pointer"
+                routerLink="/npi-lookup"
+              >
+                <div class="member-card">
+                  <div class="thumb-xl member-thumb m-b-10 center-page">
+                    <img src="assets/images/png/enrich-npi.png" class="img-thumbnail" alt="enrich" />
+                  </div>
+                  <div class="">
+                    <span class="m-b-5 mt-2 cat-heading">Enrich</span>
+                    <p class="pt-2 font-weight-normal">Upload NPI Numbers</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- end col -->
         </div>
         <!-- <div class="col-lg-6 right-side yellowbg">
                     <div class="tab-content h-100">
@@ -129,49 +138,39 @@
               class="img-fluid tab_img"
               style="height: 100%"
               src="assets/images/onBoardingDots.png"
-              alt="Health Care" />
+              alt="Health Care"
+            />
           </div>
 
           <div class="mainContainer flex-c">
             <div style="flex: 1">
               <mat-tab-group [selectedIndex]="selectedTab">
                 <mat-tab *ngFor="let newUpdate of newLaunchUpdates" label="">
-                  <div
-                    class="flex-c mx-3"
-                    style="justify-content: space-around">
-                    <div
-                      class="mx-4 my-5 flex-r justify-center align-center tab-content-header">
+                  <div class="flex-c mx-3" style="justify-content: space-around">
+                    <div class="mx-4 my-5 flex-r justify-center align-center tab-content-header">
                       <img
                         class="img-fluid tab_img"
                         style="width: 10%; height: 5%"
                         src="assets/images/newUpdateIcon.png"
-                        alt="Health Care" />
+                        alt="Health Care"
+                      />
                       <h4 class="ml-2">
-                        <span
-                          style="
-                            border-bottom: 3px solid #f7ce62;
-                            padding-bottom: 5px;
-                          "
-                          >New</span
-                        >
+                        <span style="border-bottom: 3px solid #f7ce62; padding-bottom: 5px">New</span>
                         launch update
                       </h4>
                     </div>
 
-                    <div
-                      class="flex-r mx-3 my-3 tab-content-body"
-                      style="justify-content: start">
+                    <div class="flex-r mx-3 my-3 tab-content-body" style="justify-content: start">
                       <img
                         class="img-fluid tab_img mr-2"
                         style="width: 10%; height: 5%"
                         [src]="newUpdate.icon"
-                        alt="Health Care" />
+                        alt="Health Care"
+                      />
                       <div class="flex-c mx-1">
                         <h5>{{ newUpdate.title }}</h5>
                         <div class="flex-r optionContainer">
-                          <div
-                            *ngFor="let option of newUpdate.options"
-                            class="option">
+                          <div *ngFor="let option of newUpdate.options" class="option">
                             {{ option }}
                           </div>
                         </div>
@@ -181,9 +180,7 @@
                       {{ newUpdate.description }}
                     </p>
                     <div class="flex-r justify-center my-3">
-                      <button
-                        (click)="openPaymentPage(newUpdate.navigate)"
-                        class="unlockButton">
+                      <button (click)="openPaymentPage(newUpdate.navigate)" class="unlockButton">
                         <!-- <i class="fa fas fa-lock mr-1" style="color: #fff;"></i> -->
                         Get Started
                       </button>
@@ -197,11 +194,9 @@
                 (click)="selectedTab = i"
                 *ngFor="let newUpdate of newLaunchUpdates; index as i"
                 class="tab mx-2"
-                [ngClass]="selectedTab == i ? 'activeTab' : ''"></div>
-              <i
-                class="fa fas fa-arrow-right mr-1"
-                style="color: #fff; cursor: pointer"
-                (click)="changeTab()"></i>
+                [ngClass]="selectedTab == i ? 'activeTab' : ''"
+              ></div>
+              <i class="fa fas fa-arrow-right mr-1" style="color: #fff; cursor: pointer" (click)="changeTab()"></i>
             </div>
           </div>
         </div>

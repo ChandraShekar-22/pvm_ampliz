@@ -91,6 +91,16 @@ export class NpiLookupComponent implements OnInit {
         resizable: true,
       },
       {
+        headerName: 'Status',
+        field: 'bulkNpiId',
+        sortingOrder: ['desc', 'asc'],
+        filter: false,
+        sortable: false,
+        autoHeight: true,
+        cellRenderer: 'statusRender',
+        resizable: true,
+      },
+      {
         headerName: 'Uploaded On',
         field: 'uploadedOn',
         sortingOrder: ['desc', 'asc'],
@@ -124,16 +134,6 @@ export class NpiLookupComponent implements OnInit {
         cellRenderer: 'actionRender',
         resizable: true,
         width: 60,
-      },
-      {
-        headerName: 'Status',
-        field: 'bulkNpiId',
-        sortingOrder: ['desc', 'asc'],
-        filter: false,
-        sortable: false,
-        autoHeight: true,
-        cellRenderer: 'statusRender',
-        resizable: true,
       },
     ];
     this.paginationPageSize = 10;
