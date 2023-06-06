@@ -1,0 +1,36 @@
+.btn_conatiner_status {
+  background: #ffffff;
+  border: 1px solid #f38417;
+  border-radius: 50px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  padding: 9px 17px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  gap: 7px;
+}
+.progress {
+  color: #f68219;
+  border: 1px solid #f38417;
+}
+
+.completed {
+  border: 1px solid #07c026;
+  color: #07c026;
+}
+
+.loader {
+  animation: spinner 2s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

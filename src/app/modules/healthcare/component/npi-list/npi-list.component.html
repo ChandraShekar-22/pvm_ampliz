@@ -1,0 +1,24 @@
+<div class="npi-list">
+  <header>
+    {{ heading }}
+    <app-npi-filter-drop-down
+      [selected]="selectedFilter"
+      (onFilterChange)="filterChange($event)"
+    ></app-npi-filter-drop-down>
+  </header>
+  <app-npi-list-loader *ngIf="loading; else data"></app-npi-list-loader>
+
+  <ng-template #data>
+    <div class="item-container" *ngIf="noDataDisplay; else noData">
+      <section class="card-item" *ngFor="let data of itemData">
+        <p class="name">{{ data[keyname] }}</p>
+        <span class="count">{{ data.count }}</span>
+      </section>
+    </div>
+    <ng-template #noData>
+      <div class="item-container noData">
+        <p>No data to display</p>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

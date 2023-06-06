@@ -6,7 +6,7 @@ import { AppSaveImagingModalComponent } from './component/modals/app-save-imagin
 import { ImagingNotCorrectComponent } from './component/modals/imaging-not-correct/imaging-not-correct.component';
 import { BulkSaveImagingCardComponent } from './component/cards/bulk-save-imaging-card/bulk-save-imaging-card.component';
 import { OverviewComponent as ImagingOverview } from './container/imaging-center/overview/overview.component';
-import {OverviewComponent as ImagingExecutveOverview} from './container/imaging-center-executive/overview/overview.component';
+import { OverviewComponent as ImagingExecutveOverview } from './container/imaging-center-executive/overview/overview.component';
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { RouterModule } from '@angular/router';
@@ -23,15 +23,15 @@ import { ImagingCenterExecutiveComponent } from './container/imaging-center-exec
 
 const appRoutes = [
   {
-    path: "imaging",
+    path: 'imaging',
     component: IcContainerComponent,
   },
   {
-    path: "imaging/:icExecutiveId",
+    path: 'imaging/:ImagingCenterId',
     component: ImagingOverview,
   },
   {
-    path: "imagingOverview/:ImagingCenterId",
+    path: 'imagingOverview/:ImagingCenterId',
     component: ImagingExecutveOverview,
   },
 ];
@@ -48,8 +48,7 @@ const appRoutes = [
     ImagingCenterCardComponent,
     FilterImagingCenterExecutivesComponent,
     IcContainerComponent,
-    ImagingCenterExecutiveComponent
-    
+    ImagingCenterExecutiveComponent,
   ],
   imports: [
     CommonComponentsModule,
@@ -68,10 +67,8 @@ const appRoutes = [
     ImagingNotCorrectComponent,
     BulkSaveImagingCardComponent,
     ImagingOverview,
-    ImagingExecutveOverview
+    ImagingExecutveOverview,
   ],
-  providers: [
-    ImagingDataService,
-  ]
+  providers: [ImagingDataService],
 })
-export class ImagingCenterModule { }
+export class ImagingCenterModule {}

@@ -1,0 +1,86 @@
+.npi-list {
+  background: #ffffff;
+  border: 0.5px solid #e4e4e4;
+  box-shadow: 0px 1px 1px rgba(165, 162, 162, 0.25);
+  border-radius: 8px;
+  min-width: 390px;
+}
+.npi-list > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  color: #0071eb;
+  margin: 0;
+  padding: 0;
+  padding: 21px 25px;
+  border-bottom: 0.5px solid #dcdcdc;
+}
+
+.npi-list > header {
+}
+.noData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d09c9c;
+  font-size: 16px;
+  min-height: 350px;
+  text-transform: uppercase;
+}
+
+.card-item {
+  padding: 20px 27px 16px;
+  border-bottom: 0.5px solid #eceaea;
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-container {
+  height: 350px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.item-container::-webkit-scrollbar {
+  width: 4px !important;
+}
+
+/* Track */
+
+/* Handle */
+.item-container::-webkit-scrollbar-thumb {
+  background: #bdbdbd !important;
+  border-radius: 50px !important;
+}
+
+/* Handle on hover */
+.item-container::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd !important;
+  border-radius: 50px !important;
+}
+.item-container::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+
+.name {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #040404;
+}
+.count {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #807c7c;
+}
+
+.item-container {
+}

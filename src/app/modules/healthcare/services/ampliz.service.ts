@@ -1,16 +1,11 @@
-import { Injectable } from "@angular/core";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpResponse,
-  HttpParams,
-} from "@angular/common/http";
-import { Observable, throwError, of } from "rxjs";
-import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
-import { tap, map } from "rxjs/operators";
-import { environment } from "../../../../environments/environment";
-import { SearchPhysicianModel } from "../models/searchPhysicianModel";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
+import { Observable, throwError, of } from 'rxjs';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { tap, map } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { SearchPhysicianModel } from '../models/searchPhysicianModel';
 //import {catchError,retry} from 'rxjs/operators';
 
 @Injectable({
@@ -1049,6 +1044,102 @@ export class AmplizService {
     console.log(JSON.stringify(body));
     const url = environment.prodAdbApi + '/ADB/api/regenerate-verification-code';
     const response = this.http.post(url, body);
+    return response;
+  }
+  getEmailCountForNPI(bulkNpiId: any, withFilter: any): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-email-record-counts';
+    const params = { bulkNpiId, withFilter };
+    const response = this.http.get(url, { params });
+    return response;
+  }
+  getPhoneCountForNPI(bulkNpiId: any, withFilter: any): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-phone-record-counts';
+    const params = { bulkNpiId, withFilter };
+    const response = this.http.get(url, { params });
+    return response;
+  }
+  getSpecialityListNPI(bulkNpiId: any, withFilter: any): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-speciality-record-counts';
+    const params = { bulkNpiId, withFilter };
+    const response = this.http.get(url, { params });
+    return response;
+  }
+  getStateListNPI(bulkNpiId: any, withFilter: any): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-state-record-counts';
+    const params = { bulkNpiId, withFilter };
+    const response = this.http.get(url, { params });
+    return response;
+  }
+  getCityListNPI(bulkNpiId: any, withFilter: any): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-city-record-counts';
+    const params = { bulkNpiId, withFilter };
+    const response = this.http.get(url, { params });
+    return response;
+  }
+  uploadNpiFile(formData: FormData): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcwriteapi/npi/upload-npi-numbers';
+    const response = this.http.post(url, formData);
+    return response;
+  }
+
+  getUploadFileListNpi(offset, count): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-npi-file-upload-list';
+    const response = this.http.get(url, {
+      params: { offset, count },
+    });
+    return response;
+  }
+  downloadPhysicianData(bulkNpiId: string, withFilter: string, fileName: string, recordCount: string): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/download-bulk-npi-physician-data';
+    const response = this.http.get(
+      url,
+
+      {
+        params: { bulkNpiId, withFilter, fileName, recordCount },
+        responseType: 'text',
+      }
+    );
+    return response;
+  }
+  downloadPhysicianDataPDF(bulkNpiId: string): Observable<any> {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/download-bulk-npi-report';
+    const response = this.http.get(
+      url,
+
+      {
+        params: { bulkNpiId },
+      }
+    );
+    return response;
+  }
+  npiReportSummary(bulkNpiId: string) {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-npi-report-summary';
+    const response = this.http.get(url, { params: { bulkNpiId } });
+    return response;
+  }
+  npiDownloadNumbers(bulkNpiId: string) {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-all-filter-count';
+    const response = this.http.get(url, { params: { bulkNpiId } });
+    return response;
+  }
+  npiDownloadAgainList(bulkNpiId: string) {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-bulk-npi-download-again-list';
+    const response = this.http.get(url, { params: { bulkNpiId } });
+    return response;
+  }
+  npiDownloadAgain(bulkNpiId: string, withFilter: string, fileName: string) {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/download-bulk-npi-physician-data-again';
+    const response = this.http.get(url, {
+      params: { bulkNpiId, withFilter, fileName },
+      responseType: 'text',
+    });
+    return response;
+  }
+  npiReportStatus(bulkNpiId: string) {
+    const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-bulk-npi-matching-status';
+    const response = this.http.get(url, {
+      params: { bulkNpiId },
+    });
     return response;
   }
 }

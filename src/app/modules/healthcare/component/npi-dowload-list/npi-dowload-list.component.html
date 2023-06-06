@@ -1,0 +1,105 @@
+<div>
+  <div class="backdrop" *ngIf="saveListDiv"></div>
+  <div class="createListWrapper" [ngClass]="saveListDiv === true ? 'slide-in' : 'slide-out'">
+    <form [formGroup]="selectListForm" (ngSubmit)="saveList()" novalidate class="form-horizontal">
+      <div class="topHeader">
+        <div class="row">
+          <div class="col">
+            <div class="h5 text-grey mt-2 not-crct_header">Download CSV</div>
+          </div>
+        </div>
+      </div>
+      <div class="credit-container">
+        <div>
+          <span class="icon-wrapper"><img src="assets/img/wallet-hc.png" /> </span><b>{{ updatedCredits }}</b> &nbsp;
+          Available credits
+        </div>
+        <div class="flex-justify-end">
+          <span class="link column-wrapper" (click)="openItem('hcpayment')">
+            <span class="icon-wrapper"><img src="assets/img/Add-hc.png" /></span>Add credits
+          </span>
+        </div>
+      </div>
+      <div class="bodyWrap input-group-sm">
+        <mat-radio-group
+          aria-label="Select an option"
+          class="example-radio-group mat-radio-button"
+          formControlName="filter"
+          backgrounf-color="blue"
+        >
+          <mat-radio-button value="all" [disabled]="downloadNumber.allcount === 0"
+            >Download all
+            <span class="blue_color">({{ downloadNumber.allcount }})</span>
+          </mat-radio-button>
+          <mat-radio-button value="withemail" [disabled]="downloadNumber.withEmailCount === 0">
+            Download only having email address
+            <span class="blue_color">({{ downloadNumber.withEmailCount }})</span>
+          </mat-radio-button>
+          <mat-radio-button value="withoutemail" [disabled]="downloadNumber.withoutEmailCount === 0">
+            Download only not having email address
+            <span class="blue_color">({{ downloadNumber.withoutEmailCount }})</span>
+          </mat-radio-button>
+          <mat-radio-button value="withphone" [disabled]="downloadNumber.withPhoneCount === 0">
+            Download only having phone numbers
+            <span class="blue_color">({{ downloadNumber.withPhoneCount }})</span>
+          </mat-radio-button>
+          <mat-radio-button value="withoutphone" [disabled]="downloadNumber.withoutPhone === 0"
+            >Download only not having phone numbers
+            <span class="blue_color">({{ downloadNumber.withoutPhone }})</span></mat-radio-button
+          >
+        </mat-radio-group>
+        <div class="text-danger">
+          <small *ngIf="selectListForm.get('filter').hasError('required') && formSubmitAttempt"
+            >Filter is required</small
+          >
+        </div>
+      </div>
+      <div class="bodyWrap input-group-sm">
+        <input
+          type="text"
+          formControlName="fileName"
+          class="form-control"
+          style="
+            font-weight: normal;
+            margin-bottom: 0;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 15px;
+            height: 44px;
+          "
+          placeholder="File Name"
+          name="fileName"
+        />
+        <div class="text-danger">
+          <small *ngIf="selectListForm.get('fileName').hasError('required') && formSubmitAttempt"
+            >File Name is required</small
+          >
+        </div>
+      </div>
+      <div class="col">
+        <div class="float-end">
+          <div *ngIf="loading; else showSubmit" class="disable_btn float-right">
+            Downloading
+            <div class="spinner">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
+          </div>
+          <ng-template #showSubmit>
+            <button type="submit" class="btn btn-lg btn-not-correct_save float-right">Download</button>
+          </ng-template>
+          <button
+            type="button"
+            class="btn btn-lg btn-outline-light btn-not-correct pull-right mr-3"
+            (click)="cancelSaveDiv()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div style="clear: both"></div>
+</div>
