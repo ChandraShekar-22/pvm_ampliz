@@ -1,0 +1,46 @@
+<div id="wrapper">
+  <app-header style="width: 100%"></app-header>
+  <app-sidemenu elementName="team-member"></app-sidemenu>
+  <div class="content-page enlarged">
+    <div class="content">
+      <div class="container">
+        <!-- Header starts -->
+        <div class="header row">
+          <div class="col-6 text-left">
+            <h2>Team Members</h2>
+            <p>Invite or manage your organization member</p>
+          </div>
+          <div class="col-6 text-right">
+            <button class="add-member-btn">
+              <i class="fa fa-plus"></i>
+              <span>Add Member</span>
+            </button>
+          </div>
+          <!-- Filter items -->
+        </div>
+        <div class="d-flex gap-2">
+          <ng-container *ngFor="let btn of filters; let index = index">
+            <button class="filter-btn" [class.filter-active]="btn.active" (click)="handleFilter(btn, index)">
+              {{ btn.name }}
+            </button>
+          </ng-container>
+        </div>
+        <!-- Header Ends -->
+
+        <!-- Member cards starts -->
+        <div class="scroll-div" #scrollDiv [style.height.px]="updatedHeight">
+          <div class="card-container text-center">
+            <app-member-card> </app-member-card>
+          </div>
+          <div class="loader text-center">Loader</div>
+          <div class="test-emails mt-5" id="email">
+            <input class="form-control" type="input" [(ngModel)]="emailArray" (keyup)="checkEmail()" />
+
+            <h2 *ngIf="showError" class="mt-2" style="color: red" [(ngModel)]="emailError">{{emailError}}</h2>
+          </div>
+        </div>
+        <!-- Member cards ends -->
+      </div>
+    </div>
+  </div>
+</div>

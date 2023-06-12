@@ -1,29 +1,29 @@
-/* .bg-green {
-    background: #d3ecfa;
+.bg-green {
+  background: #d3ecfa;
 }
 
 .heroContent {
-    position: absolute;
-    top: 30%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-  }
-  .chrm-info{
-    color: #717783;
-    font-size: 1.0rem;
-    font-weight: 300;
-    line-height: 2rem;
-  }
-  .img-thumbnail {
-    padding: .25rem;
-    background-color: #fff;
-    border: none!important;
-    border-radius: .25rem;
-    max-width: 72%!important;
-    height: auto;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+}
+.chrm-info {
+  color: #717783;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 2rem;
+}
+.img-thumbnail {
+  padding: 0.25rem;
+  background-color: #fff;
+  border: none !important;
+  border-radius: 0.25rem;
+  max-width: 72% !important;
+  height: auto;
 }
 .user-badge {
-  position: relative!important;
+  position: relative !important;
   top: 15px;
   left: 0;
   padding: 5px 15px;
@@ -33,25 +33,28 @@
   text-transform: uppercase;
   font-weight: bold;
 }
-.mx-top{
-  border:none!important;padding-bottom:30px !important;padding-top:0px!important;
+.mx-top {
+  border: none !important;
+  padding-bottom: 30px !important;
+  padding-top: 0px !important;
 }
 .btn-new-Pri {
-  background-color: #38c17e!important;
+  background-color: #38c17e !important;
   border: 1px solid #07c166 !important;
-  color: #ffffff!important;
+  color: #ffffff !important;
 }
 
 .btn-new-Sec {
-  background-color: #ffffff!important;
+  background-color: #ffffff !important;
   border: 1px solid #07c166 !important;
-  color: #38c17e!important;
-} */
+  color: #38c17e !important;
+}
 
-.content-page {
+/* NEW DESIGN CSS */
+/* .content-page {
   height: 100% !important;
   background-color: #f5f5f5;
 }
 .feedback-card {
   margin-left: 11px;
-}
+} */
