@@ -9,29 +9,29 @@ import {
   OnChanges,
   NgZone,
   Renderer2,
-} from '@angular/core';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { COMMA, E, ENTER } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
-import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
+} from "@angular/core";
+import { MatChipInputEvent } from "@angular/material/chips";
+import { IDropdownSettings } from "ng-multiselect-dropdown";
+import { COMMA, E, ENTER } from "@angular/cdk/keycodes";
+import { FormControl } from "@angular/forms";
+import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
 import {
   MatAutocompleteSelectedEvent,
   MatAutocompleteTrigger,
-} from '@angular/material/autocomplete';
-import { MatSelectChange } from '@angular/material/select';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { FilterStorageService } from '../../../services/filter-storage.service';
-import { AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataService } from '../../../services/data.service';
-import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
-import { MessageService } from 'src/app/modules/B2B/services/message.service';
+} from "@angular/material/autocomplete";
+import { MatSelectChange } from "@angular/material/select";
+import { Observable } from "rxjs";
+import { map, startWith } from "rxjs/operators";
+import { FilterStorageService } from "../../../services/filter-storage.service";
+import { AfterViewInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { DataService } from "../../../services/data.service";
+import { LoaderService } from "src/app/modules/healthcare/services/loader.service";
+import { MessageService } from "src/app/modules/B2B/services/message.service";
 @Component({
-  selector: 'app-filter-physician',
-  templateUrl: './filter-physician.component.html',
-  styleUrls: ['./filter-physician.component.css'],
+  selector: "app-filter-physician",
+  templateUrl: "./filter-physician.component.html",
+  styleUrls: ["./filter-physician.component.css"],
 })
 export class FilterPhysicianComponent
   implements OnInit, AfterViewInit, OnChanges
@@ -39,27 +39,31 @@ export class FilterPhysicianComponent
   @Output() onFilterChange = new EventEmitter<any>();
   @Input() isSubscribed: boolean;
   @Input() leadWithEmail: boolean = false;
+  emailTypeIsp: boolean = false;
   selectable = true;
   removable = true;
-  @ViewChild('hospitalNameInput', { static: false })
+  @ViewChild("hospitalNameInput", { static: false })
   hospitalNameInput: ElementRef<HTMLInputElement>;
-  @ViewChild('npiNumberInput', { static: false })
+  @ViewChild("npiNumberInput", { static: false })
   npiNumberInput: ElementRef<HTMLInputElement>;
-  @ViewChild('stateInput', { static: false })
+  @ViewChild("experienceInput", { static: false })
+  experienceInput: ElementRef<HTMLInputElement>;
+  @ViewChild("stateInput", { static: false })
   stateInput: ElementRef<HTMLInputElement>;
-  @ViewChild('cityInput', { static: false })
+  @ViewChild("cityInput", { static: false })
   cityInput: ElementRef<HTMLInputElement>;
-  @ViewChild('includeSpecialityInput', { static: false })
+  @ViewChild("includeSpecialityInput", { static: false })
   includeSpecialityInput: ElementRef<HTMLInputElement>;
-  @ViewChild('excludeSpecialityInput', { static: false })
+  @ViewChild("excludeSpecialityInput", { static: false })
   excludeSpecialityInput: ElementRef<HTMLInputElement>;
-  @ViewChild('emailStatusInput', { static: false })
+  @ViewChild("emailStatusInput", { static: false })
   emailStatusInput: ElementRef<HTMLInputElement>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   hospitalControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
   npiNumberControl = new FormControl();
+  experienceControl = new FormControl();
   includeSpecialityControl = new FormControl();
   excludeSpecialityControl = new FormControl();
   emailStatusControl = new FormControl();
@@ -75,13 +79,15 @@ export class FilterPhysicianComponent
   includedSpecialities: any = [];
   excludedSpecialities: any = [];
   emailStatus: number = 0;
-  physicianName: string = '';
+  physicianName: string = "";
   hospitalNames: any = [];
   selectedStates: any = [];
   selectedCities: any = [];
   searchCity: any = [];
   npiNumberList: any = [];
+  experienceList: any = [];
   npiNumbers: any = [];
+  experience: any = [];
   suggestionTerms: any = [];
   suggestionTermsEx: any = [];
   isPaid: boolean = false;
@@ -99,7 +105,7 @@ export class FilterPhysicianComponent
     private elementRef: ElementRef
   ) {}
   get localstorageHospitalName() {
-    return window.localStorage.getItem('hospitalName') || '';
+    return window.localStorage.getItem("hospitalName") || "";
   }
 
   ngOnInit() {
@@ -109,7 +115,7 @@ export class FilterPhysicianComponent
   ngAfterViewInit() {
     if (this.localstorageHospitalName) {
       this.hospitalNames.push(this.localstorageHospitalName);
-      window.localStorage.removeItem('hospitalName');
+      window.localStorage.removeItem("hospitalName");
     }
     this.getPersistData();
   }
@@ -122,35 +128,41 @@ export class FilterPhysicianComponent
   getPersistData() {
     setTimeout(() => {
       this.hospitalNames =
-        this.filterStorageService.get('physician_hospital') || [];
-      this.emailStatus = this.filterStorageService.get('email_Score') || 0;
+        this.filterStorageService.get("physician_hospital") || [];
+      this.emailStatus = this.filterStorageService.get("email_Score") || 0;
       this.includedSpecialities =
-        this.filterStorageService.get('physician_specialityIncluded') || [];
+        this.filterStorageService.get("physician_specialityIncluded") || [];
       this.excludedSpecialities =
-        this.filterStorageService.get('physician_specialityExcluded') || [];
+        this.filterStorageService.get("physician_specialityExcluded") || [];
       this.physicianName =
-        this.filterStorageService.get('physician_physicianName') || '';
+        this.filterStorageService.get("physician_physicianName") || "";
       this.selectedCities =
-        this.filterStorageService.get('physician_cityList') || [];
+        this.filterStorageService.get("physician_cityList") || [];
       this.selectedStates =
-        this.filterStorageService.get('physician_stateList') || [];
+        this.filterStorageService.get("physician_stateList") || [];
       this.npiNumbers =
-        this.filterStorageService.get('physician_npiNumber') || [];
+        this.filterStorageService.get("physician_npiNumber") || [];
+      this.experience =
+        this.filterStorageService.get("physician_experience") || [];
       this.leadWithEmail =
-        this.filterStorageService.get('physician_leadWithEmail') || false;
+        this.filterStorageService.get("physician_leadWithEmail") || false;
       this.leadWithProvider =
-        this.filterStorageService.get('physician_providerType') || false;
+        this.filterStorageService.get("physician_providerType") || false;
+      this.emailTypeIsp =
+        this.filterStorageService.get("emailTypeIsp") || false;
       if (
         this.hospitalNames.length > 0 ||
         this.includedSpecialities.length > 0 ||
         this.excludedSpecialities.length > 0 ||
-        this.physicianName !== '' ||
+        this.physicianName !== "" ||
         this.selectedCities.length > 0 ||
         this.selectedStates.length > 0 ||
         this.npiNumbers.length > 0 ||
+        this.experience.length > 0 ||
         this.leadWithEmail !== false ||
         this.leadWithProvider !== false ||
-        this.emailStatus !== undefined
+        this.emailStatus !== undefined ||
+        this.emailTypeIsp !== false
       ) {
         this.omitChange();
       }
@@ -181,7 +193,7 @@ export class FilterPhysicianComponent
       // );
     } else {
       this.selectedCities.push(city);
-      this.cityInput.nativeElement.value = '';
+      this.cityInput.nativeElement.value = "";
       this.cityControl.setValue(null);
     }
     this.omitChange();
@@ -199,12 +211,26 @@ export class FilterPhysicianComponent
     const found = this.npiNumbers.findIndex((ele) => ele === npi);
     if (found !== -1) {
       this.npiNumbers = this.npiNumbers.filter((ele) => ele !== npi);
-      this.npiNumberInput.nativeElement.value = '';
+      this.npiNumberInput.nativeElement.value = "";
       this.npiNumberControl.setValue(null);
     } else {
-      this.npiNumberInput.nativeElement.value = '';
+      this.npiNumberInput.nativeElement.value = "";
       this.npiNumberControl.setValue(null);
       this.npiNumbers.push(npi);
+    }
+    this.omitChange();
+    this.storeFilterData();
+  }
+  onExperienceSelect(npi: any) {
+    const found = this.experience.findIndex((ele) => ele === npi);
+    if (found !== -1) {
+      this.experience = this.experience.filter((ele) => ele !== npi);
+      this.experienceInput.nativeElement.value = "";
+      this.experienceControl.setValue(null);
+    } else {
+      this.experienceInput.nativeElement.value = "";
+      this.experienceControl.setValue(null);
+      this.experience.push(npi);
     }
     this.omitChange();
     this.storeFilterData();
@@ -221,15 +247,21 @@ export class FilterPhysicianComponent
     this.omitChange();
     this.storeFilterData();
   }
+  removeExperience(content): void {
+    this.npiNumbers = this.experience.filter((ele) => ele !== content);
+    this.experienceList = [];
+    this.omitChange();
+    this.storeFilterData();
+  }
   addHospitalName(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
     const found = this.hospitalNames.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.hospitalNames.push(value);
     }
     // Clear the input value
-    event.input.value = '';
+    event.input.value = "";
     // event.input.value = "";
     // event.chipInput!.clear();
 
@@ -239,31 +271,33 @@ export class FilterPhysicianComponent
   }
 
   storeFilterData() {
-    this.filterStorageService.set('physician_hospital', this.hospitalNames);
+    this.filterStorageService.set("physician_hospital", this.hospitalNames);
+    this.filterStorageService.set("physician_experience", this.experience);
     this.filterStorageService.set(
-      'physician_specialityIncluded',
+      "physician_specialityIncluded",
       this.includedSpecialities
     );
     this.filterStorageService.set(
-      'physician_specialityExcluded',
+      "physician_specialityExcluded",
       this.excludedSpecialities
     );
     this.filterStorageService.set(
-      'physician_physicianName',
+      "physician_physicianName",
       this.physicianName
     );
-    this.filterStorageService.set('physician_cityList', this.selectedCities);
-    this.filterStorageService.set('physician_stateList', this.selectedStates);
-    this.filterStorageService.set('physician_npiNumber', this.npiNumbers);
+    this.filterStorageService.set("physician_cityList", this.selectedCities);
+    this.filterStorageService.set("physician_stateList", this.selectedStates);
+    this.filterStorageService.set("physician_npiNumber", this.npiNumbers);
     this.filterStorageService.set(
-      'physician_leadWithEmail',
+      "physician_leadWithEmail",
       this.leadWithEmail
     );
     this.filterStorageService.set(
-      'physician_providerType',
+      "physician_providerType",
       this.leadWithProvider
     );
-    this.filterStorageService.set('email_Score', this.emailStatus);
+    this.filterStorageService.set("email_Score", this.emailStatus);
+    this.filterStorageService.set("emailTypeIsp", this.emailTypeIsp);
   }
   omitChange() {
     this.onFilterChange.emit({
@@ -277,6 +311,8 @@ export class FilterPhysicianComponent
       leadWithEmail: this.leadWithEmail,
       provider_Type: this.leadWithProvider,
       email_Score: this.emailStatus,
+      emailTypeIsp: this.emailTypeIsp,
+      experience: this.experience,
     });
     this.changeSearchData();
   }
@@ -294,6 +330,8 @@ export class FilterPhysicianComponent
       provider_Type: this.leadWithProvider,
       leadWithPhone: false,
       email_Score: this.emailStatus,
+      emailTypeIsp: this.emailTypeIsp,
+      experience: this.experience,
     });
   }
   removeHospital(val: any): void {
@@ -304,26 +342,26 @@ export class FilterPhysicianComponent
     this.storeFilterData();
   }
   addIncludeSpeciality(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
     const found = this.includedSpecialities.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.includedSpecialities.push(value);
       // Clear the input value
-      event.input.value = '';
+      event.input.value = "";
     }
     this.omitChange();
     this.storeFilterData();
     this.getSpecialitySimilarTerms(event.value);
   }
   addExcludeSpeciality(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
     const found = this.excludedSpecialities.indexOf(value);
     // Add our fruit
     if (value && found === -1) {
       this.excludedSpecialities.push(value);
       // Clear the input value
-      event.input.value = '';
+      event.input.value = "";
     }
     this.omitChange();
     this.storeFilterData();
@@ -331,7 +369,7 @@ export class FilterPhysicianComponent
   }
   selectedIncludeSpeciality(event: MatAutocompleteSelectedEvent): void {
     this.includedSpecialities.push(event.option.viewValue);
-    this.includeSpecialityInput.nativeElement.value = '';
+    this.includeSpecialityInput.nativeElement.value = "";
     this.includeSpecialityControl.setValue(null);
     this.suggestionTerms = this.suggestionTerms.filter(
       (st) => st !== event.option.viewValue
@@ -345,7 +383,7 @@ export class FilterPhysicianComponent
   }
   selectedExcludeSpeciality(event: MatAutocompleteSelectedEvent): void {
     this.excludedSpecialities.push(event.option.viewValue);
-    this.excludeSpecialityInput.nativeElement.value = '';
+    this.excludeSpecialityInput.nativeElement.value = "";
     this.excludeSpecialityControl.setValue(null);
     this.suggestionTerms = this.suggestionTerms.filter(
       (st) => st !== event.option.viewValue
@@ -361,7 +399,7 @@ export class FilterPhysicianComponent
     this.suggestionTerms = this.suggestionTerms.filter((st) => st !== val);
     this.suggestionTermsEx = this.suggestionTermsEx.filter((st) => st !== val);
     this.includedSpecialities.push(val);
-    this.includeSpecialityInput.nativeElement.value = '';
+    this.includeSpecialityInput.nativeElement.value = "";
     this.includeSpecialityControl.setValue(null);
     this.getSpecialitySimilarTerms(val, true);
     this.omitChange();
@@ -371,7 +409,7 @@ export class FilterPhysicianComponent
     this.suggestionTerms = this.suggestionTerms.filter((st) => st !== val);
     this.suggestionTermsEx = this.suggestionTermsEx.filter((st) => st !== val);
     this.excludedSpecialities.push(val);
-    this.excludeSpecialityInput.nativeElement.value = '';
+    this.excludeSpecialityInput.nativeElement.value = "";
     this.excludeSpecialityControl.setValue(null);
     // this.getSpecialitySimilarTerms(val, false);
     this.omitChange();
@@ -462,12 +500,12 @@ export class FilterPhysicianComponent
   //   this.storeFilterData();
   // }
   addEmailStatus(event): void {
-    if (typeof event.value === 'string') {
+    if (typeof event.value === "string") {
       event.value = parseInt(event.value);
     }
     if (event.value !== 0) {
       this.emailStatus = event.value;
-      this.emailStatusInput.nativeElement.value = '';
+      this.emailStatusInput.nativeElement.value = "";
     }
     this.omitChange();
     this.storeFilterData();
@@ -485,7 +523,7 @@ export class FilterPhysicianComponent
       ) === -1
     ) {
       this.hospitalNames.push(event.option.viewValue);
-      this.hospitalNameInput.nativeElement.value = '';
+      this.hospitalNameInput.nativeElement.value = "";
       this.hospitalControl.setValue(null);
       const temp: any = [];
       this.filteredHospitals = temp;
@@ -500,7 +538,7 @@ export class FilterPhysicianComponent
     );
     if (found === -1) {
       this.selectedStates.push(receivedState);
-      this.stateInput.nativeElement.value = '';
+      this.stateInput.nativeElement.value = "";
       this.stateControl.setValue(null);
 
       this.omitChange();
@@ -549,26 +587,28 @@ export class FilterPhysicianComponent
   // }
   clearAll() {
     this.includeSpecialityControl.setValue(null);
-    this.includeSpecialityInput.nativeElement.value = '';
+    this.includeSpecialityInput.nativeElement.value = "";
     this.excludeSpecialityControl.setValue(null);
-    this.excludeSpecialityInput.nativeElement.value = '';
+    this.excludeSpecialityInput.nativeElement.value = "";
     this.emailStatusControl.setValue(null);
-    this.emailStatusInput.nativeElement.value = '';
+    this.emailStatusInput.nativeElement.value = "";
     this.emailStatusControl.setValue(null);
-    this.npiNumberInput.nativeElement.value = '';
+    this.npiNumberInput.nativeElement.value = "";
+    this.experienceInput.nativeElement.value = "";
     this.stateControl.setValue(null);
-    this.stateInput.nativeElement.value = '';
+    this.stateInput.nativeElement.value = "";
     this.stateControl.setValue(null);
-    this.stateInput.nativeElement.value = '';
+    this.stateInput.nativeElement.value = "";
     this.cityControl.setValue(null);
-    this.cityInput.nativeElement.value = '';
+    this.cityInput.nativeElement.value = "";
     this.hospitalNames = [];
     this.includedSpecialities = [];
     this.excludedSpecialities = [];
-    this.physicianName = '';
+    this.physicianName = "";
     this.selectedCities = [];
     this.selectedStates = [];
     this.npiNumbers = [];
+    this.experience = [];
     this.suggestionTerms = [];
     this.suggestionTermsEx = [];
     this.searchCity = [];
@@ -578,6 +618,7 @@ export class FilterPhysicianComponent
     this.filteredSpecialityEx = [];
     this.cityControl.setValue(null);
     this.npiNumberList = [];
+    this.experienceList = [];
     this.leadWithProvider = false;
     this.leadWithEmail = false;
     this.emailStatus = 0;
@@ -591,7 +632,7 @@ export class FilterPhysicianComponent
   getAllListData() {
     // change control for hospital name
     this.hospitalControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : '';
+      let hv = value !== null ? value : "";
       if (hv.length >= 3) {
         this.amplizService
           .getHospitalList({ searchPhase: value })
@@ -606,7 +647,7 @@ export class FilterPhysicianComponent
     });
     // change control for states
     this.stateControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : '';
+      let hv = value !== null ? value : "";
       if (hv.length >= 2) {
         this.amplizService
           .getStateList({ searchPhase: value })
@@ -620,7 +661,7 @@ export class FilterPhysicianComponent
     });
     // change control of NPI
     this.npiNumberControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : '';
+      let hv = value !== null ? value : "";
       if (hv.length >= 1) {
         this.amplizService
           .getNPINumberList({ searchPhase: value })
@@ -632,9 +673,22 @@ export class FilterPhysicianComponent
         this.npiNumberList = temp;
       }
     });
+    this.experienceControl.valueChanges.subscribe((value) => {
+      let hv = value !== null ? value : "";
+      if (hv.length >= 1) {
+        this.amplizService
+          .getExperienceList({ searchPhase: value })
+          .subscribe((response) => {
+            this.experienceList = response.experienceList;
+          });
+      } else {
+        const temp: any = [];
+        this.experienceList = temp;
+      }
+    });
     // change control of Include Speciality
     this.includeSpecialityControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : '';
+      let hv = value !== null ? value : "";
       if (hv.length >= 3) {
         var preSpeciality = this.includedSpecialities.concat(
           this.excludedSpecialities
@@ -654,7 +708,7 @@ export class FilterPhysicianComponent
     });
     // change control of Speciality
     this.excludeSpecialityControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : '';
+      let hv = value !== null ? value : "";
       if (hv.length >= 3) {
         var preSpeciality = this.includedSpecialities.concat(
           this.excludedSpecialities
@@ -674,7 +728,7 @@ export class FilterPhysicianComponent
     });
     // city input change
     this.cityControl.valueChanges.subscribe((value) => {
-      let hv = value !== null ? value : '';
+      let hv = value !== null ? value : "";
       if (hv.length >= 3) {
         // event.cityList.map((city) => city.city);
         var tStates = this.selectedStates.map((state) => state.stateId);
@@ -709,10 +763,10 @@ export class FilterPhysicianComponent
   }
 
   handleChange(value, model) {
-    if (model === 'leadWithEmail') {
-      this.leadWithEmail = value;
-    } else if (model === 'leadWithPhone') {
-    } else if (model === 'Independent') {
+    if (model === "emailTypeIsp") {
+      this.emailTypeIsp = value;
+    } else if (model === "leadWithPhone") {
+    } else if (model === "Independent") {
       this.provider_Type = value;
     }
     this.omitChange();
@@ -732,23 +786,23 @@ export class FilterPhysicianComponent
   // }
 
   async requestPricing() {
-    const emailId = await localStorage.getItem('email_id');
+    const emailId = await localStorage.getItem("email_id");
     this.loaderService.display(true);
-    const body = { package: 'Enterprise', email: emailId };
+    const body = { package: "Enterprise", email: emailId };
     this.amplizService.getPrice(body).subscribe(
       (res) => {
         this.loaderService.display(false);
 
         this.messageService.display(
           true,
-          'Thanks for asking, will get back to you in 24 hrs'
+          "Thanks for asking, will get back to you in 24 hrs"
         );
       },
       (error) => {
         this.loaderService.display(false);
         this.messageService.displayError(
           true,
-          error.error.msg ? error.error.msg : 'Server Error !!!'
+          error.error.msg ? error.error.msg : "Server Error !!!"
         );
       }
     );

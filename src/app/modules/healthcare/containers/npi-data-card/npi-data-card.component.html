@@ -38,7 +38,10 @@
             </svg>
           </section>
           <section>
-            <span> {{ emailCount }}</span>
+            <span *ngIf="!emailLoading; else showLoading"> {{ emailCount }}</span>
+            <ng-template #showLoading>
+              <span class="count text-placeholder"></span>
+            </ng-template>
             <app-npi-filter-drop-down
               [selected]="emailFilter"
               (onFilterChange)="onFilterChange($event, 'emailCount')"
@@ -59,7 +62,10 @@
             </svg>
           </section>
           <section>
-            <span>{{ phoneCount }}</span>
+            <span *ngIf="!phoneLoading; else showLoading">{{ phoneCount }}</span>
+            <ng-template #showLoading>
+              <span class="count text-placeholder"></span>
+            </ng-template>
             <app-npi-filter-drop-down
               [selected]="phoneFilter"
               (onFilterChange)="onFilterChange($event, 'phoneCount')"

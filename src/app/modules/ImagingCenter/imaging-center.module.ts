@@ -31,7 +31,7 @@ const appRoutes = [
     component: ImagingOverview,
   },
   {
-    path: 'imagingOverview/:ImagingCenterId',
+    path: 'imagingOverview/:icExecutiveId',
     component: ImagingExecutveOverview,
   },
 ];

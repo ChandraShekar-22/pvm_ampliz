@@ -229,7 +229,7 @@ export class OverviewComponent implements OnInit {
   executiveNamePressed(event: any = {}) {
     const icExecutiveId = event.value.icExecutiveId;
     this.router.navigate([]).then((result) => {
-      window.open(`imaging/${icExecutiveId}`, '_blank');
+      window.open(`imagingOverview/${icExecutiveId}`, '_blank');
     });
   }
 }

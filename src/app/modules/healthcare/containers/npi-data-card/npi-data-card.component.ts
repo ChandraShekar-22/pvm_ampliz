@@ -34,6 +34,8 @@ export class NpiDataCardComponent implements OnInit {
   stateFilter: string = 'all';
   cityFilter: string = 'all';
   downloadModal: boolean = false;
+  emailLoading: boolean = false;
+  phoneLoading: boolean = false;
   reportInfo: any = {
     fileName: '',
     noOfContactAccepted: 0,
@@ -50,7 +52,6 @@ export class NpiDataCardComponent implements OnInit {
   }
   bulkIdStatus() {
     this.amplizService.npiReportStatus(this.bulkNpiId).subscribe((res: any) => {
-      console.log(res);
       if (res.matchingStatus === 'Matching completed') {
         this.getDashboardDetails();
         this.getEmailCount();
@@ -65,6 +66,8 @@ export class NpiDataCardComponent implements OnInit {
         this.specialityLoading = true;
         this.stateListLoading = true;
         this.cityListLoading = true;
+        this.phoneLoading = true;
+        this.emailLoading = true;
         this.getReportSummary();
       }
     });
@@ -79,9 +82,16 @@ export class NpiDataCardComponent implements OnInit {
   }
 
   getEmailCount() {
-    this.amplizService.getEmailCountForNPI(this.bulkNpiId, this.emailFilter).subscribe((res) => {
-      this.emailCount = res.count;
-    });
+    this.emailLoading = true;
+    this.amplizService.getEmailCountForNPI(this.bulkNpiId, this.emailFilter).subscribe(
+      (res) => {
+        this.emailLoading = false;
+        this.emailCount = res.count;
+      },
+      (error) => {
+        this.emailLoading = false;
+      }
+    );
   }
   bookDemo() {
     window.open(
@@ -93,9 +103,16 @@ export class NpiDataCardComponent implements OnInit {
     return this.currentCredits === 0;
   }
   getPhoneCount() {
-    this.amplizService.getPhoneCountForNPI(this.bulkNpiId, this.phoneFilter).subscribe((res) => {
-      this.phoneCount = res.count;
-    });
+    this.phoneLoading = true;
+    this.amplizService.getPhoneCountForNPI(this.bulkNpiId, this.phoneFilter).subscribe(
+      (res) => {
+        this.phoneLoading = false;
+        this.phoneCount = res.count;
+      },
+      (error) => {
+        this.phoneLoading = false;
+      }
+    );
   }
   openDownloadModel(event) {
     if (!this.disableDownload) {

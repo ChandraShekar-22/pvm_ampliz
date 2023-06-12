@@ -39,10 +39,10 @@ export class NpiDowloadListComponent implements OnInit {
   };
   countKeys = {
     all: 'allcount',
-    withEmail: 'withEmailCount',
-    withoutEmail: 'withoutEmailCount',
-    withPhone: 'withPhoneCount',
-    withoutPhone: 'withoutPhoneCount',
+    withemail: 'withEmailCount',
+    withoutemail: 'withoutEmailCount',
+    withphone: 'withPhoneCount',
+    withoutphone: 'withoutPhone',
   };
 
   constructor(
@@ -73,6 +73,7 @@ export class NpiDowloadListComponent implements OnInit {
   getDownloadNumbers() {
     this.amplizService.npiDownloadNumbers(this.bulkNpiId).subscribe((res) => {
       this.downloadNumber = res;
+      console.log(this.downloadNumber);
     });
   }
   get currentCredits() {
@@ -103,6 +104,7 @@ export class NpiDowloadListComponent implements OnInit {
       const fileName = this.selectListForm.value.fileName;
       const key = this.countKeys[filter];
       const recordCount = this.downloadNumber[key];
+      console.log(this.downloadNumber[key], this.downloadNumber, filter);
       this.amplizService.downloadPhysicianData(this.bulkNpiId, filter, fileName, recordCount).subscribe(
         (res: string) => {
           const csvdata = 'data:text/csv;charset=utf-8,' + res;
@@ -119,6 +121,7 @@ export class NpiDowloadListComponent implements OnInit {
         },
         (error) => {
           console.error(error);
+          this.cancelSaveDiv();
           this.loading = false;
         }
       );

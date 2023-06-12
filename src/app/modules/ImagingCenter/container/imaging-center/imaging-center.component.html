@@ -1,77 +1,83 @@
 <div class="content-page">
-    <div class="row col imaging-wrapper">
-        <app-filter-imaging-center (onFilterChange)="handleFilterChanged($event)" [isSubscribed]="subscribed">
-        </app-filter-imaging-center>
+  <div class="row col imaging-wrapper">
+    <app-filter-imaging-center (onFilterChange)="handleFilterChanged($event)" [isSubscribed]="subscribed">
+    </app-filter-imaging-center>
 
-        <div class="b2b-content" style="position: relative">
-            <div class="b2b-content-main">
-                <div class="other-border">
-                    <app-hc-top-tab [tabItems]="tabItems" [isPrimary]="true"
-                    [showLoader]="showLoader"
-                    >
-                        <div class="flex1 flex-row">
-                            <div style="flex:1"></div>
+    <div class="b2b-content" style="position: relative">
+      <div class="b2b-content-main">
+        <div class="other-border">
+          <app-hc-top-tab [tabItems]="tabItems" [isPrimary]="true" [showLoader]="showLoader">
+            <div class="flex1 flex-row">
+              <div style="flex: 1"></div>
 
-                            <div class="opt selectVal">
-                                <mat-form-field style="max-width: 50px;border: none;padding-top: 10px;">
-                                    <mat-select [disabled]="!subscribed" [(ngModel)]="selectedFilter.limit"
-                                        (selectionChange)="handleRecordsChange()">
-                                        <mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{opt}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <div *ngIf="!isSubscribed" class="my-1 selectDisabled">
-                                    </div>
-                                </mat-form-field>
-                            </div>
+              <div class="opt selectVal">
+                <mat-form-field style="max-width: 50px; border: none; padding-top: 10px">
+                  <mat-select
+                    [disabled]="!subscribed"
+                    [(ngModel)]="selectedFilter.limit"
+                    (selectionChange)="handleRecordsChange()"
+                  >
+                    <mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{ opt }} </mat-option>
+                  </mat-select>
+                  <div *ngIf="!isSubscribed" class="my-1 selectDisabled"></div>
+                </mat-form-field>
+              </div>
 
-                            <!-- pagination part start -->
-                            <div class="paginationText">
-                                {{ selectedFilter.offset + 1 }}
-                                -
-                                {{
-                                selectedFilter.offset + selectedFilter.limit < totalItemCount ? selectedFilter.offset +
-                                    selectedFilter.limit : totalItemCount }} of {{ totalItemCount | numberWithCommas }} center </div>
-                                    <mat-icon (click)="decrementPage()" class="leftIcon" aria-hidden="false"
-                                        aria-label="Example home icon" [ngClass]="decrementEnabled?'':'disabled'">
-                                        keyboard_arrow_left</mat-icon>
-                                    <mat-icon (click)="incrementPage()" class="rightIcon" aria-hidden="false"
-                                        aria-label="Example home icon" [ngClass]="incrementEnabled?'':'disabled'">
-                                        keyboard_arrow_right</mat-icon>
-                            </div>
-                    </app-hc-top-tab>
-
-                    <div class="h-100" *ngIf="showUpgradeCard">
-                        <app-upgrade></app-upgrade>
-                    </div>
-
-                    <div *ngIf="!showUpgradeCard&&!showLoader">
-
-
-                        <app-imaging-center-card *ngFor="let imaging of imagingList.imagingCenterInfoList;index as i"
-                            [imagingInfo]="imaging"
-                            [isSubscribed]="subscribed"></app-imaging-center-card>
-                    </div>
-
-                    <div class="layout h-100" *ngIf="noResult&&!showLoader">
-                        <div class="
-                        d-flex
-                        justify-content-center
-                        align-items-center align-self-center
-                        h-100
-                        flex-column
-                      ">
-                            <div class="text-center">
-                                <img src="assets/img/Physician.png" width="30%" />
-                            </div>
-                            <h5 class="text-center pa-4">
-                                No results found, Try to search again
-                            </h5>
-                        </div>
-                    </div>
-                    <app-b2b-loader *ngIf="showLoader" [loopCount]="5"></app-b2b-loader>
-                </div>
-
+              <!-- pagination part start -->
+              <div class="paginationText">
+                {{ selectedFilter.offset + 1 }}
+                -
+                {{
+                  selectedFilter.offset + selectedFilter.limit < totalItemCount
+                    ? selectedFilter.offset + selectedFilter.limit
+                    : totalItemCount
+                }}
+                of {{ totalItemCount | numberWithCommas }} center
+              </div>
+              <mat-icon
+                (click)="decrementPage()"
+                class="leftIcon"
+                aria-hidden="false"
+                aria-label="Example home icon"
+                [ngClass]="decrementEnabled ? '' : 'disabled'"
+              >
+                keyboard_arrow_left</mat-icon
+              >
+              <mat-icon
+                (click)="incrementPage()"
+                class="rightIcon"
+                aria-hidden="false"
+                aria-label="Example home icon"
+                [ngClass]="incrementEnabled ? '' : 'disabled'"
+              >
+                keyboard_arrow_right</mat-icon
+              >
             </div>
+          </app-hc-top-tab>
+
+          <div class="h-100" *ngIf="showUpgradeCard">
+            <app-upgrade></app-upgrade>
+          </div>
+
+          <div *ngIf="!showUpgradeCard && !showLoader">
+            <app-imaging-center-card
+              *ngFor="let imaging of imagingList.imagingCenterInfoList; index as i"
+              [imagingInfo]="imaging"
+              [isSubscribed]="subscribed"
+            ></app-imaging-center-card>
+          </div>
+
+          <div class="layout h-100" *ngIf="noResult && !showLoader">
+            <div class="d-flex justify-content-center align-items-center align-self-center h-100 flex-column">
+              <div class="text-center">
+                <img src="assets/img/Physician.png" width="30%" />
+              </div>
+              <h5 class="text-center pa-4">No results found, Try to search again</h5>
+            </div>
+          </div>
+          <app-b2b-loader *ngIf="showLoader" [loopCount]="5"></app-b2b-loader>
         </div>
+      </div>
     </div>
+  </div>
 </div>

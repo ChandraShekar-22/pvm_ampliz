@@ -154,3 +154,32 @@
   cursor: pointer;
   font-size: 12px;
 }
+
+.text-placeholder {
+  border-radius: 30px;
+  background-color: #eee;
+  width: 75%;
+  height: 10px;
+  display: block;
+  overflow: hidden;
+  margin-bottom: 10px;
+  max-width: 100px;
+}
+
+.count {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #807c7c;
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
+}
