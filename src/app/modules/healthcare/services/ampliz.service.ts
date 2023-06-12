@@ -1142,4 +1142,10 @@ export class AmplizService {
     });
     return response;
   }
+  getExperienceList(params: any): Observable<any> {
+    const url = environment.prodHcApi + '/amplizhcreadapi/general/get-physician-experience-suggestion-list';
+    // const body = { searchPhase: searchPhase };
+    const response = this.http.get(url, { params: params });
+    return response;
+  }
 }

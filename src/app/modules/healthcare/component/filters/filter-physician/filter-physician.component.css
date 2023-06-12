@@ -10,7 +10,6 @@
   /* background-color: rgba(165, 163, 163, 0); */
 }
 
-
 @media screen and (max-width: 1100px) {
   .card {
     /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2); */
@@ -291,7 +290,6 @@ p.sub-header {
   color: #354054;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .filter-component .mat-expansion-panel-header-description {
@@ -405,7 +403,7 @@ p.sub-header {
 /* Addon css start */
 
 .filter-component.material-icons {
-  font-family: "Material Icons";
+  font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
   font-size: 18px;
@@ -416,7 +414,7 @@ p.sub-header {
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -webkit-font-feature-settings: "liga";
+  -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
 
@@ -472,7 +470,7 @@ p.sub-header {
 .filter-component .mat-basic-chip.suggested:hover .chip-remove {
   background-color: #dcedf9;
   /* border: 1px solid #2e8cff; */
-  border-left:1px solid #2e8cff;
+  border-left: 1px solid #2e8cff;
   color: #2e8cff;
   display: flex;
   justify-content: center;
@@ -555,8 +553,6 @@ p.sub-header {
   color: #ffee9a;
 }
 
-
-
 /* .filter-container{
 
 } */
@@ -584,7 +580,7 @@ p.sub-header {
 .toggle.active:after {
   position: absolute;
   width: 100%;
-  content: "";
+  content: '';
   border-bottom: 4px solid #2d8cff;
   bottom: -4px;
 }
@@ -662,14 +658,14 @@ p.sub-header {
 }
 
 .onoffswitch-inner:before {
-  content: "On";
+  content: 'On';
   padding-left: 12px;
   background-color: #2d8cff;
   color: #ffffff;
 }
 
 .onoffswitch-inner:after {
-  content: "Off";
+  content: 'Off';
   padding-right: 12px;
   background-color: #999999;
   color: #ebebeb;
@@ -678,19 +674,19 @@ p.sub-header {
 
 .onoffswitch-switch {
   display: block;
-    width: 18px;
-    height: 18px;
-    margin: 4px;
-    background: #ffffff;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 47px;
-    border: 2px solid #ffffff;
-    border-radius: 25px;
-    transition: all 0.3s ease-in 0s;
-    box-sizing: content-box;
-    box-shadow: 1px 2px 6px -2px #333;
+  width: 18px;
+  height: 18px;
+  margin: 4px;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 47px;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  transition: all 0.3s ease-in 0s;
+  box-sizing: content-box;
+  box-shadow: 1px 2px 6px -2px #333;
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
@@ -701,6 +697,6 @@ p.sub-header {
   right: 0px;
 }
 
-.text-grey  {
+.text-grey {
   color: #666;
 }

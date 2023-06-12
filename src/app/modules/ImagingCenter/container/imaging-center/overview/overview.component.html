@@ -7,24 +7,22 @@
       <div class="content">
         <div class="row">
           <div class="col-sm-12">
-            <h5 class="text-body font-weight-normal">
-              Imaging Center Overview
-            </h5>
+            <h5 class="text-body font-weight-normal">Imaging Center Overview</h5>
           </div>
         </div>
         <div class="overview">
           <div class="overview-header">
-            <div class="overview-heading ">
-            <div class="row col-center-middle">
-              <div class="col-md-2">
-                <div class="overview-avatar">
-                  <div class="physician_imgContainer shadow">
-                    <img src="assets/images/Imaging-overview.svg" class="p-2" />
+            <div class="overview-heading">
+              <div class="row col-center-middle">
+                <div class="col-md-2">
+                  <div class="overview-avatar">
+                    <div class="physician_imgContainer shadow">
+                      <img src="assets/images/Imaging-overview.svg" class="p-2" />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- <div class="col-md-2 flex justify-content-right">
+                <!-- <div class="col-md-2 flex justify-content-right">
 
 
               
@@ -43,39 +41,36 @@
               
              </div> -->
 
-              <div class="col-md-10">
-                <h4 class="heading-text">
-                  {{ imagingCenterDetails.centerName }}
-                </h4>
+                <div class="col-md-10">
+                  <h4 class="heading-text">
+                    {{ imagingCenterDetails.centerName }}
+                  </h4>
+                </div>
               </div>
-            </div>
             </div>
             <div class="row">
               <div class="col-md-2">
                 <div class="not-correct-wrapper">
-                <app-imaging-not-correct
-                [notCorrectType]="'imaging-center'"
-                [notCorrectReasons]="notCorrectReasons"
-                  [imagingId]="imagingCenterDetails.imagingCenterId"
-                ></app-imaging-not-correct>
+                  <app-imaging-not-correct
+                    [notCorrectType]="'imaging-center'"
+                    [notCorrectReasons]="notCorrectReasons"
+                    [imagingId]="imagingCenterDetails.imagingCenterId"
+                  ></app-imaging-not-correct>
                 </div>
               </div>
-              <div class="col-md-10" style="padding-top: 16px;">
+              <div class="col-md-10" style="padding-top: 16px">
                 <div class="row">
-                  <div class="col-md-4 overview-label"  *ngIf="imagingCenterDetails?.phoneNumber.length>0">
-                    <i class="mdi mdi-phone-in-talk icon"></i> {{imagingCenterDetails?.phoneNumber[0]}}
+                  <div class="col-md-4 overview-label" *ngIf="imagingCenterDetails?.phoneNumber.length > 0">
+                    <i class="mdi mdi-phone-in-talk icon"></i>
+                    {{ imagingCenterDetails?.phoneNumber[0] }}
                   </div>
-                  <div class="col-md-4 overview-label" *ngIf="location!= ''">
-                    <i class="mdi mdi-map-marker-radius icon"></i> {{location}}
+                  <div class="col-md-4 overview-label" *ngIf="location != ''">
+                    <i class="mdi mdi-map-marker-radius icon"></i>
+                    {{ location }}
                   </div>
-                  <div class="col-md-4 overview-label" *ngIf="imagingCenterDetails?.web_Address!= ''">
+                  <div class="col-md-4 overview-label" *ngIf="imagingCenterDetails?.web_Address != ''">
                     <i class="mdi mdi-link-variant icon"></i
-                            ><a
-                              href="{{ imagingCenterDetails?.web_Address }}"
-                              target="_blank"
-                            >
-                              Website
-                            </a>
+                    ><a href="{{ imagingCenterDetails?.web_Address }}" target="_blank"> Website </a>
                   </div>
                 </div>
               </div>
@@ -93,15 +88,10 @@
                       <div class="row">
                         <div
                           class="col-sm-6 text-label"
-                          *ngFor="
-                            let overview of imagingOverviewData | keyvalue;
-                            index as i
-                          "
+                          *ngFor="let overview of imagingOverviewData | keyvalue; index as i"
                         >
-                          <span class="text-bold text-capitalize"
-                            >{{ overview.key.replaceAll("_", " ") }} :
-                          </span>
-                          <span>{{ overview.value || "N/A" }}</span>
+                          <span class="text-bold text-capitalize">{{ overview.key.replaceAll('_', ' ') }} : </span>
+                          <span>{{ overview.value || 'N/A' }}</span>
                         </div>
                       </div>
                     </div>
@@ -109,72 +99,23 @@
                       class="pb-5 d-flex justify-content-center align-items-center align-self-center align-center"
                       *ngIf="!isOverviewAvailable"
                     >
-                      <button
-                        (click)="request('Request Imaging Overview')"
-                        class="btn btn-new"
-                      >
-                        Request Info
-                      </button>
+                      <button (click)="request('Request Imaging Overview')" class="btn btn-new">Request Info</button>
                     </div>
                   </mat-tab>
-                  <!-- <mat-tab label="This Prescriber's Drugs" *ngIf="DataResult && DataResult.length > 0">
-                    <div class="p-3 w-100">
-                      <button (click)="request('Request Drug Info Access')" class="btn btn-new pull-right mb-1">
-                        Request Drug Info
-                      </button>
-                      <div class="" style="clear: both"></div>
-                      <div class="tabTableWrapper">
-                        <table class="table">
-                          <thead class="thead-light">
-                            <tr>
-                              <th scope="col" class="text-muted">Drug Name</th>
-                              <th scope="col" class="text-muted">
-                                Total Claim
-                              </th>
-                              <th scope="col" class="text-muted">
-                                Total Drug Cost
-                              </th>
-                              <th scope="col" class="text-muted">
-                                Total Drug Cost For 65+
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let item of DataResult">
-                              <td class="light-muted">
-                                {{ item.prescribingDrugName }}
-                              </td>
-                              <td class="light-muted">
-                                {{ item.totalClaims }}
-                              </td>
-                              <td class="light-muted">
-                                {{ item.totalDrugCost }}
-                              </td>
-                              <td class="light-muted">
-                                {{ item.totalDrugCostFor65 }}
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </mat-tab> -->
-                  <mat-tab label="EXECUTIVES ({{imagingCenterDetails?.noOfExecutive}})">
+                  <mat-tab label="EXECUTIVES ({{ imagingCenterDetails?.noOfExecutive }})">
                     <div class="p-5">
                       <app-data-table
-                      (linkPressed)="executiveNamePressed($event)"
-                      [headers]="executiveTableHeader" [data]="executiveList" *ngIf="loadExecutive"></app-data-table>
+                        (linkPressed)="executiveNamePressed($event)"
+                        [headers]="executiveTableHeader"
+                        [data]="executiveList"
+                        *ngIf="loadExecutive"
+                      ></app-data-table>
                     </div>
                     <div
                       class="pb-5 d-flex justify-content-center align-items-center align-self-center align-center"
                       *ngIf="!isMoreInfoAvailable"
                     >
-                      <button
-                        (click)="request('Request More Info')"
-                        class="btn btn-new"
-                      >
-                        Request Info
-                      </button>
+                      <button (click)="request('Request More Info')" class="btn btn-new">Request Info</button>
                     </div>
                   </mat-tab>
                 </mat-tab-group>

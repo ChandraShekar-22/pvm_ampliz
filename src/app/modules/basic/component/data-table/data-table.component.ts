@@ -1,20 +1,12 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from "@angular/core";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: "app-data-table",
-  templateUrl: "./data-table.component.html",
-  styleUrls: ["./data-table.component.css"],
+  selector: 'app-data-table',
+  templateUrl: './data-table.component.html',
+  styleUrls: ['./data-table.component.css'],
 })
 export class DataTableComponent implements AfterViewInit, OnInit {
   @Input() hasEditButton: boolean = false;
@@ -42,31 +34,29 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     const users: any[] = [];
 
     // Assign the data to the data source for the table to render
-    
   }
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.data);
-    console.log(this.data, this.dataSource);
     if (this.hasEditButton || this.hasDeleteButton || this.hasViewButton) {
       this.headers.push({
-        key: "action",
-        name: "Action",
-        type: "action",
+        key: 'action',
+        name: 'Action',
+        type: 'action',
       });
     }
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+    }, 1000);
   }
 
-  itemClicked(header: any,value: any) {
-    
-    if(header.isLink === true) {
+  itemClicked(header: any, value: any) {
+    if (header.isLink === true) {
       const body = {
         key: header.key,
-        value
-      }
+        value,
+      };
       this.linkPressed.emit(body);
     }
   }
@@ -74,92 +64,92 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
 const headers = [
   {
-    key: "productOrderId",
-    name: "Product Order Id",
-    type: "text",
-    className: "col-2",
+    key: 'productOrderId',
+    name: 'Product Order Id',
+    type: 'text',
+    className: 'col-2',
   },
   {
-    key: "productName",
-    name: "Product Name",
-    type: "text",
+    key: 'productName',
+    name: 'Product Name',
+    type: 'text',
   },
   {
-    key: "count",
-    name: "Count",
-    type: "text",
+    key: 'count',
+    name: 'Count',
+    type: 'text',
   },
   {
-    key: "amount",
-    name: "Amount",
-    type: "text",
+    key: 'amount',
+    name: 'Amount',
+    type: 'text',
   },
   {
-    key: "nameOfCustomer",
-    name: "Name of Customer",
-    type: "text",
+    key: 'nameOfCustomer',
+    name: 'Name of Customer',
+    type: 'text',
   },
   {
-    key: "orderDate",
-    name: "Order Date",
-    type: "text",
+    key: 'orderDate',
+    name: 'Order Date',
+    type: 'text',
   },
   {
-    key: "status",
-    name: "Status",
-    type: "status",
+    key: 'status',
+    name: 'Status',
+    type: 'status',
   },
 ];
 
 const data = [
   {
-    productOrderId: "1",
-    productName: "Green Tshirt",
-    count: "100",
+    productOrderId: '1',
+    productName: 'Green Tshirt',
+    count: '100',
     amount: 5000,
-    nameOfCustomer: "Govi",
-    orderDate: "02-05-2022",
-    status: "New Order",
-    statusColor: "#70D881",
+    nameOfCustomer: 'Govi',
+    orderDate: '02-05-2022',
+    status: 'New Order',
+    statusColor: '#70D881',
   },
   {
-    productOrderId: "2",
-    productName: "Red Tshirt",
-    count: "10",
+    productOrderId: '2',
+    productName: 'Red Tshirt',
+    count: '10',
     amount: 1000,
-    nameOfCustomer: "Bhupen",
-    orderDate: "03-05-2022",
-    status: "New Order",
-    statusColor: "#70D881",
+    nameOfCustomer: 'Bhupen',
+    orderDate: '03-05-2022',
+    status: 'New Order',
+    statusColor: '#70D881',
   },
   {
-    productOrderId: "3",
-    productName: "Blue Tshirt",
-    count: "29",
+    productOrderId: '3',
+    productName: 'Blue Tshirt',
+    count: '29',
     amount: 2000,
-    nameOfCustomer: "Gani",
-    orderDate: "05-04-2022",
-    status: "New Order",
-    statusColor: "#70D881",
+    nameOfCustomer: 'Gani',
+    orderDate: '05-04-2022',
+    status: 'New Order',
+    statusColor: '#70D881',
   },
   {
-    productOrderId: "4",
-    productName: "Yellow Tshirt",
-    count: "27",
+    productOrderId: '4',
+    productName: 'Yellow Tshirt',
+    count: '27',
     amount: 4000,
-    nameOfCustomer: "Alok",
-    orderDate: "02-05-2021",
-    status: "New Order",
-    statusColor: "#70D881",
+    nameOfCustomer: 'Alok',
+    orderDate: '02-05-2021',
+    status: 'New Order',
+    statusColor: '#70D881',
   },
   {
-    productOrderId: "5",
-    productName: "Big Tshirt",
-    count: "44",
+    productOrderId: '5',
+    productName: 'Big Tshirt',
+    count: '44',
     amount: 3000,
-    nameOfCustomer: "Tony",
-    orderDate: "02-07-2021",
-    status: "New Order",
-    statusColor: "#70D881",
+    nameOfCustomer: 'Tony',
+    orderDate: '02-07-2021',
+    status: 'New Order',
+    statusColor: '#70D881',
   },
 ];
