@@ -45,27 +45,27 @@ import { SignupComponent } from "src/app/modules/basic/container/userauth/signup
 import { HcInputComponent } from "./component/hc-input/hc-input.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HcDropdownComponent } from "./component/hc-dropdown/hc-dropdown.component";
-import { HcCountryselectComponent } from "./component/hc-countryselect/hc-countryselect.component";
-import { InviteTeammemberComponent } from "./container/invite-teammember/invite-teammember.component";
-import { AddUserCardComponent } from "./component/invite-teammember/add-user-card/add-user-card.component";
-import { AmplizMenuButtonComponent } from "./component/buttons/ampliz-menu-button/ampliz-menu-button.component";
-import { PendingInvitesCardComponent } from "./component/invite-teammember/pending-invites-card/pending-invites-card.component";
-import { RemoveTeammateDrawerComponent } from "./component/invite-teammember/remove-teammate-drawer/remove-teammate-drawer.component";
-import { AddRemoveCreditDrawerComponent } from "./component/invite-teammember/add-remove-credit-drawer/add-remove-credit-drawer.component";
-import { InviteTeammateDrawerComponent } from "./component/invite-teammember/invite-teammate-drawer/invite-teammate-drawer.component";
-import { StartcasePipe } from "./pipes/startcase.pipe";
-import { FirstletterPipe } from "./pipes/firstletter.pipe";
-import { VerifyUserComponent } from "./container/userauth/verify-user/verify-user.component";
-import { OtpInputComponent } from "./component/otp-input/otp-input.component";
-import { IconsModule } from "./icons/icons.module";
-import { ExportButtonLoaderComponent } from "./component/export-button-loader/export-button-loader.component";
-import { RequestContactComponent } from "./component/request-contact/request-contact.component";
-import { DeleteIconAgGridComponent } from "./component/delete-icon-ag-grid/delete-icon-ag-grid.component";
-import { ExportCsvBtnComponent } from "./component/export-csv-btn/export-csv-btn.component";
-import { DailySearchQuotaComponent } from "./component/daily-search-quota/daily-search-quota.component";
-import { CustomTooltipComponent } from "./component/custom-tooltip/custom-tooltip.component";
-import { ContactInfoTooltipComponent } from "./component/contact-info-tooltip/contact-info-tooltip.component";
-import { ListActionButtonComponent } from "./component/list-action-button/list-action-button.component";
+import { HcCountryselectComponent } from './component/hc-countryselect/hc-countryselect.component';
+import { AmplizMenuButtonComponent } from './component/buttons/ampliz-menu-button/ampliz-menu-button.component';
+// import { InviteTeammemberComponent } from "./container/invite-teammember/invite-teammember.component";
+// import { AddUserCardComponent } from "./component/invite-teammember/add-user-card/add-user-card.component";
+// import { PendingInvitesCardComponent } from "./component/invite-teammember/pending-invites-card/pending-invites-card.component";
+// import { RemoveTeammateDrawerComponent } from "./component/invite-teammember/remove-teammate-drawer/remove-teammate-drawer.component";
+// import { AddRemoveCreditDrawerComponent } from "./component/invite-teammember/add-remove-credit-drawer/add-remove-credit-drawer.component";
+// import { InviteTeammateDrawerComponent } from "./component/invite-teammember/invite-teammate-drawer/invite-teammate-drawer.component";
+import { StartcasePipe } from './pipes/startcase.pipe';
+import { FirstletterPipe } from './pipes/firstletter.pipe';
+import { VerifyUserComponent } from './container/userauth/verify-user/verify-user.component';
+import { OtpInputComponent } from './component/otp-input/otp-input.component';
+import { IconsModule } from './icons/icons.module';
+import { ExportButtonLoaderComponent } from './component/export-button-loader/export-button-loader.component';
+import { RequestContactComponent } from './component/request-contact/request-contact.component';
+import { DeleteIconAgGridComponent } from './component/delete-icon-ag-grid/delete-icon-ag-grid.component';
+import { ExportCsvBtnComponent } from './component/export-csv-btn/export-csv-btn.component';
+import { DailySearchQuotaComponent } from './component/daily-search-quota/daily-search-quota.component';
+import { CustomTooltipComponent } from './component/custom-tooltip/custom-tooltip.component';
+import { ContactInfoTooltipComponent } from './component/contact-info-tooltip/contact-info-tooltip.component';
+import { ListActionButtonComponent } from './component/list-action-button/list-action-button.component';
 import { QuotaCardComponent } from './component/b2b-dashboard/quota-card/quota-card.component';
 import { CardSkeletonLoaderComponent } from './component/b2b-dashboard/card-skeleton-loader/card-skeleton-loader.component';
 import { LowCreditAlertCardComponent } from './component/b2b-dashboard/low-credit-alert-card/low-credit-alert-card.component';
@@ -73,17 +73,19 @@ import { DashboardChromeCardComponent } from './component/b2b-dashboard/dashboar
 import { FeedbackCardComponent } from './component/b2b-dashboard/feedback-card/feedback-card.component';
 import { RecommendCardComponent } from './component/b2b-dashboard/recommend-card/recommend-card.component';
 import { HistorySearchCardComponent } from './component/b2b-dashboard/history-search-card/history-search-card.component';
+import { TeamMemberComponent } from './container/team-member/team-member.component';
+import { MemberCardComponent } from './component/team-member/member-card/member-card.component';
 const appRoutes = [
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent,
   },
   {
-    path: "signup",
+    path: 'signup',
     component: SignupComponent,
   },
   {
-    path: "verify",
+    path: 'verify',
     component: VerifyUserComponent,
   },
   // {
@@ -91,44 +93,44 @@ const appRoutes = [
   //   component: SignupComponent
   // },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent,
   },
   {
-    path: "contacts",
+    path: 'contacts',
     component: ContactsComponent,
   },
   {
-    path: "requesthifi/:name",
+    path: 'requesthifi/:name',
     component: RequesthifiComponent,
   },
   {
-    path: "payment",
+    path: 'payment',
     component: PaymentComponent,
   },
   {
-    path: "idealprofile",
+    path: 'idealprofile',
     component: DashboardFilterComponent,
   },
   {
-    path: "pricing",
+    path: 'pricing',
     component: PricingComponent,
   },
   {
-    path: "editprofile",
+    path: 'editprofile',
     component: EditprofileComponent,
   },
   {
-    path: "freecredits",
+    path: 'freecredits',
     component: FreecreditsComponent,
   },
   {
-    path: "payment_history",
+    path: 'payment_history',
     component: PaymentHistoryComponent,
   },
   {
-    path: "invite-team-member",
-    component: InviteTeammemberComponent,
+    path: 'team-member',
+    component: TeamMemberComponent,
   },
 ];
 
@@ -176,13 +178,13 @@ const appRoutes = [
     HcInputComponent,
     HcDropdownComponent,
     HcCountryselectComponent,
-    InviteTeammemberComponent,
-    AddUserCardComponent,
     AmplizMenuButtonComponent,
-    PendingInvitesCardComponent,
-    RemoveTeammateDrawerComponent,
-    AddRemoveCreditDrawerComponent,
-    InviteTeammateDrawerComponent,
+    // InviteTeammemberComponent,
+    // AddUserCardComponent,
+    // PendingInvitesCardComponent,
+    // RemoveTeammateDrawerComponent,
+    // AddRemoveCreditDrawerComponent,
+    // InviteTeammateDrawerComponent,
     StartcasePipe,
     FirstletterPipe,
     VerifyUserComponent,
@@ -202,6 +204,8 @@ const appRoutes = [
     FeedbackCardComponent,
     RecommendCardComponent,
     HistorySearchCardComponent,
+    TeamMemberComponent,
+    MemberCardComponent,
   ],
   imports: [
     CommonComponentsModule,
@@ -244,7 +248,7 @@ const appRoutes = [
     DataTableComponent,
     StartcasePipe,
     IconsModule,
-    InviteTeammemberComponent,
+    // InviteTeammemberComponent,
     RequestContactComponent,
     ExportButtonLoaderComponent,
     DeleteIconAgGridComponent,

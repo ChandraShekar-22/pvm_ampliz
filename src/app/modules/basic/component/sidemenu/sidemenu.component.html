@@ -385,6 +385,17 @@
       <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
+          data-tooltip="Team Member"
+          [ngClass]="{ activeElement: elementName == 'team-member' }"
+        >
+          <!-- (click)="openItem('team-member')" -->
+          <i class="mdi mdi-account-multiple"></i>
+        </a>
+      </li>
+
+      <li class="d-none d-sm-block">
+        <a
+          class="link tooltip-right"
           (click)="openItem('geneateapi')"
           data-tooltip="Generate Api Key"
           [ngClass]="{ activeElement: elementName == 'apis' }"

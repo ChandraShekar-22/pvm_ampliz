@@ -84,7 +84,7 @@ export class OverviewComponent implements OnInit {
     );
   }
   getImaginCenterDetails() {
-    alert(`${JSON.stringify(this.paramsData)}`);
+    // alert(`${JSON.stringify(this.paramsData)}`);
     this.imagingService.imagingGetImagingCenterDetails(this.paramsData).subscribe(
       (res) => {
         this.loaderService.display(false);
