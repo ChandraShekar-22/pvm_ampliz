@@ -1,61 +1,10 @@
-:root {
-  --primary: #0071eb;
-  --secondary: #495365;
+.content {
+  padding: 70px 0px 0px 0px !important;
+  height: 100vh !important
 }
-.container {
-  padding: 20px;
+.side-panel {
+  border-right: 0.5px solid #e0e0e0;
 }
-
-/* Header Css */
-.header h2 {
-  font-size: 18px;
-  color: #000000;
-  font-weight: 600;
-}
-.header p {
-  color: var(--secondary);
-  font-weight: 300;
-}
-.add-member-btn {
-  border: none;
-  background-color: var(--primary);
-  padding: 10px 20px;
-  border-radius: 25px;
-  color: #ffff;
-  font-size: 13px;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-}
-.add-member-btn i {
-  font-size: 12px;
-  margin-right: 5px;
-}
-.filter-btn {
-  border: none;
-  margin-right: 10px;
-  font-size: 10px;
-  background-color: #e6ecf2;
-  color: var(--secondary);
-  border-radius: 20px;
-  padding: 5px 15px;
-  margin-top: 10px;
-  cursor: pointer;
-}
-.filter-active {
-    color: #ffff;
-    /* font-weight: 500; */
-    background-color: var(--primary);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-}
-
-
-/* Content Css */
-.scroll-div {
-    margin-top: 30px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-.scroll-div::-webkit-scrollbar {
-  display: none;
+.action-panel {
+  background-color: #f7f7f7;
 }

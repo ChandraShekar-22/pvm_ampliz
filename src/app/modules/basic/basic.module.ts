@@ -75,6 +75,8 @@ import { RecommendCardComponent } from './component/b2b-dashboard/recommend-card
 import { HistorySearchCardComponent } from './component/b2b-dashboard/history-search-card/history-search-card.component';
 import { TeamMemberComponent } from './container/team-member/team-member.component';
 import { MemberCardComponent } from './component/team-member/member-card/member-card.component';
+import { MemberSidePanelComponent } from './component/team-member/member-side-panel/member-side-panel.component';
+import { MemberActionPanelComponent } from './component/team-member/member-action-panel/member-action-panel.component';
 const appRoutes = [
   {
     path: 'login',
@@ -206,6 +208,8 @@ const appRoutes = [
     HistorySearchCardComponent,
     TeamMemberComponent,
     MemberCardComponent,
+    MemberSidePanelComponent,
+    MemberActionPanelComponent,
   ],
   imports: [
     CommonComponentsModule,
