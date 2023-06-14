@@ -1,0 +1,118 @@
+::placeholder {
+  color: #a0a0a0;
+  font-size: 12px;
+}
+.list-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Wrapper CSS */
+.content-container {
+  height: 100vh;
+  overflow: hidden;
+}
+.header-container {
+  top: 0;
+  padding: 25px;
+}
+.list-container {
+  overflow-y: auto;
+  margin-top: 15px;
+  overflow-x: hidden;
+}
+.card-container {
+  border-bottom: 0.5px solid #e0e0e0;
+}
+
+.list-container:last-child {
+  padding-bottom: 90px;
+}
+
+.divider {
+  padding: 0px !important;
+  width: 100%;
+  content: '';
+  border-bottom: 0.5px solid #e0e0e0;
+}
+
+/* Heading Css */
+.heading h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+}
+.heading p {
+  font-size: 12px;
+  color: #85898f;
+  font-weight: 300;
+}
+
+/* Search Input css */
+input {
+  width: 100%;
+  border: 1px solid #d2d0d0;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: 0.3s;
+  font-size: 12px;
+}
+
+input:focus {
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+.inputWithIcon input[type='text'] {
+  padding-left: 40px;
+}
+
+.inputWithIcon {
+  position: relative;
+}
+
+.inputWithIcon i {
+  position: absolute;
+  left: 0;
+  top: 11px;
+  padding: 9px 8px;
+  color: #a0a0a0;
+  transition: 0.3s;
+}
+
+/* Filter dropdown css */
+.filter-dropdown {
+  border: 1px solid #d2d0d0;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3ms all ease-in-out;
+}
+.filter-dropdown:focus svg {
+  stroke: var(--primary);
+}
+.filter-dropdown svg {
+  stroke: #495365;
+}
+.filter-dropdown:hover svg {
+  stroke: var(--primary) !important;
+}
+
+/* Add member css */
+.add-member-btn {
+  border: none;
+  background-color: var(--primary);
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: #ffff;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 300;
+  text-align: center;
+}
+.add-member-btn i {
+  font-size: 12px;
+  margin-right: 5px;
+}

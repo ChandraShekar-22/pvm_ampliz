@@ -1,0 +1,58 @@
+<div class="content-container d-flex flex-column">
+  <div class="header-container d-flex flex-column">
+    <div class="heading mb-2">
+      <h2>Team Members</h2>
+      <p>Invite or manage your organisation member</p>
+    </div>
+    <div class="row align-items-center">
+      <!-- Search-input  -->
+      <div class="col-7">
+        <div class="inputWithIcon">
+          <input type="text" placeholder="Search member" />
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+      </div>
+      <!-- Filter dropdown -->
+      <span class="col-1 ml-3 filter-dropdown" data-toggle="dropdown" aria-haspopup="true">
+        <svg width="16" height="16" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.9167 1.625H1.08337L5.41671 6.74917V10.2917L7.58337 11.375V6.74917L11.9167 1.625Z"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Action</a>
+        </div>
+      </span>
+      <!-- Add member button -->
+      <button class="col-3 add-member-btn ml-auto">
+        <i class="fa fa-plus"></i>
+        <span class="ml-2">Add Member</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="list-container">
+    <div class="card-container">
+      <app-member-card> </app-member-card>
+    </div>
+    <div class="card-container">
+      <app-member-card> </app-member-card>
+    </div>
+    <div class="card-container">
+      <app-member-card> </app-member-card>
+    </div>
+    <div class="card-container">
+      <app-member-card> </app-member-card>
+    </div>
+    <div class="card-container">
+      <app-member-card> </app-member-card>
+    </div>
+    <div class="card-container">
+      <app-member-card> </app-member-card>
+    </div>
+  </div>
+</div>

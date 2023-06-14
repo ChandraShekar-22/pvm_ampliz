@@ -1,0 +1,73 @@
+.content-container {
+  height: 100vh;
+}
+.header-container {
+  top: 0;
+  background-color: #fff;
+}
+.action-container {
+  overflow-y: auto;
+  margin-top: 15px;
+  overflow-x: hidden;
+  padding: 20px;
+  background-color: transparents;
+}
+
+/* Info css */
+.info-container {
+  padding: 20px;
+  padding-bottom: 10px;
+  padding-top: 24px;
+  background-color: #fff;
+}
+.info-container p {
+  font-weight: 300;
+  font-size: 13px;
+  color: #85898f;
+}
+.info-container h2 {
+  font-size: 20px;
+  color: #000000;
+}
+.deactivate-btn {
+  color: #0071eb;
+  font-weight: 400;
+  font-size: 12px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  margin-right: 10px;
+}
+
+/* Tab css */
+div.tab {
+  overflow: hidden;
+  background-color: #fff;
+  position: relative;
+}
+div.tab::before {
+  content: '';
+  background-color: #e0e0e0;
+  height: 0.5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 2;
+}
+div.tab a {
+  float: left;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  position: relative;
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 5px;
+}
+div.tab a:hover {
+  color: #0071eb;
+}
+.tab-active {
+  color: #0071eb !important;
+  border-bottom: 1px solid #0071eb;
+}

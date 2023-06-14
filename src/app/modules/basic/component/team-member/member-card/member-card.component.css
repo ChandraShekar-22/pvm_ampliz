@@ -1,129 +1,23 @@
-:root {
-  --primary: #0071eb;
-  --gray: #495365;
-}
-
-/* Container Css */
-#accordian-item {
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
-  border-radius: 7px !important;
-}
-.admin-card {
-  background-color: #f1f8ff !important;
-  border: 0.5px solid #0071eb;
-}
-.invited-card {
-  background-color: #fffcf3 !important;
-  border: 0.5px solid #fcdb87;
-}
-.invitation-expired-card {
-  background-color: #fff9f9 !important;
-  border: 0.5px solid #ff6c63;
-}
-.active-card {
-  background-color: #ffff !important;
-  border: 0.5px solid #007654;
-}
-.inactive-card {
-  background-color: #f7f7f7 !important;
-  border: 0.5px solid #b4b5b7;
-}
-
-/* Info Css */
-.info h6 {
+.member-info h6 {
   color: #040404;
-  font-weight: 500;
   font-size: 13px;
 }
-.info p {
-  color: var(--gray);
-  font-weight: 400;
-}
-
-/* Status Css */
-.status p {
-  font-weight: 300;
-  font-size: 11px;
-  color: var(--gray);
-  padding-top: 8px;
-}
-.status span {
-  font-size: 11px;
-  font-weight: 400;
-  padding: 5px 8px;
-  color: #ffff;
-  border-radius: 4px;
-  text-transform: capitalize;
-}
-
-.invitation-expired {
-  background-color: #ff6c63;
-}
-.active {
-  background-color: #befdeb;
-  color: #096f51 !important;
-}
-.invited {
-  background-color: #fabc1e;
-}
-.inactive {
-  background-color: #dbd9d9;
-  color: #040404 !important;
-}
-
-/* Role Css */
-.role span {
-  background-color: #f1f5f9;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 400;
-  padding: 5px;
-  color: var(--gray);
-}
-.admin {
-  background-color: #cfe6ff !important;
-  color: var(--primary) !important;
-}
-
-/* Credit Css */
-.credit p {
-  font-weight: 400;
-  color: var(--gray);
-}
-.credit span {
-  color: #040404 !important;
-  font-weight: 500 !important;
-}
-
-/* Icon Css */
-.icon {
-  color: #040404;
-  cursor: pointer;
+.avatar-container {
+  /* padding: 15px 5px;  */
+  aspect-ratio: 1 / 1;
+  background: red;
+  color: white;
+  border-radius: 3px;
   font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.icon i {
-  transition: all 0.25s ease-in-out;
-}
-.rotateIcon {
-  transform: rotate(-180deg);
-}
-
-/* CTA Css */
-.resend-invitation-btn {
-  cursor: pointer;
-  background-color: transparent;
-  font-size: 12px;
-  border-radius: 25px;
-  padding: 5px;
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  margin-bottom: 10px;
-  max-width: 50%;
-}
-.delete-invitation-btn {
-  color: var(--gray);
-  font-size: 12px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+.role-container {
+  font-size: 10px;
+  background: #F2F2F2;
+  padding: 5px 0px;
+  color: #495365;
+  border-radius: 5px;
+  text-align: center;
 }

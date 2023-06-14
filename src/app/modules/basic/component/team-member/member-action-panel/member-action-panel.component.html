@@ -1,0 +1,43 @@
+<div class="content-contianer">
+  <!-- Header starts -->
+  <div class="header-container">
+    <!-- Info container starts -->
+    <div class="info-container row align-items-center">
+      <div class="col">
+        <h2>
+          Tanay Patidar
+          <!-- <span class="role-tag">Sales</span> -->
+        </h2>
+        <p>tanay.p@ampliz.com</p>
+      </div>
+      <div class="deactivate-btn col text-right">
+        <span>Deactivate Tanay Patidar?</span>
+      </div>
+    </div>
+    <!-- Info container ends -->
+
+    <!-- Tab navigation starts -->
+    <div class="row">
+      <div class="tab col-12">
+        <a
+          class="tab-btns text-uppercase"
+          *ngFor="let tab of tabItems; let i = index"
+          [class.tab-active]="tab.active === true"
+          (click)="changeTab(i)"
+        >
+          {{ tab.name }}
+        </a>
+      </div>
+    </div>
+    <!-- Tab navigation starts -->
+  </div>
+  <!-- Header Ends -->
+
+  <!-- Action panel starts -->
+  <div class="action-container">
+    <h2>HEY THERE</h2>
+  </div>
+  <!-- Action panel ends -->
+
+
+</div>

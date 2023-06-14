@@ -1,39 +1,8 @@
-<!-- <div class="container"> -->
-<div class="accordian" id="accordian">
-  <div id="accordian-item" [className]="classN + '-card'">
-    <div class="accordian-header row align-items-center justify-space-evenly p-4">
-      <!-- Header content starts-->
-      <div class="info col-2 text-left">
-        <h6>Tanay Patidar</h6>
-        <p>tanay.p@ampliz.com</p>
-      </div>
-
-      <div class="status col-2">
-        <span [className]="classN">{{classN}}</span>
-        <p>1 Months ago</p>
-      </div>
-
-      <div class="role col-2">
-        <span [className]="'admin'">Admin</span>
-      </div>
-
-      <div class="credit col-2">
-        <p>Credits left <span>150</span></p>
-      </div>
-
-      <div class="action col-3 row justify-content-center">
-        <button class="resend-invitation-btn col-12">Deactivate</button>
-        <button class="delete-invitation-btn col-12">Delete</button>
-      </div>
-
-      <div class="icon col-1 text-right" data-toggle="collapse" data-target="#credit-section" (click)="rotateIcon()">
-        <i [class.rotateIcon]="isExpanded" class="fa fa-chevron-down"></i>
-      </div>
-      <div id="credit-section" class="credit-section collapse">
-        <h1>hey there</h1>
-      </div>
-    </div>
-    <!-- Header content ends-->
+<div class="d-flex flex-row align-items-start member-card-container" style="padding: 30px" [@inputAnimation]>
+  <div class="avatar-container col-1">TP</div>
+  <div class="member-info col">
+    <h6>Tanay Patidar</h6>
+    <p>tanay.p@ampliz.com</p>
   </div>
+  <div class="role-container col-2">Sales</div>
 </div>
-<!-- </div> -->
