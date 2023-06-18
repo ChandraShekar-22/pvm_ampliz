@@ -1,0 +1,62 @@
+<div class="main-container">
+	<h6>{{ edit ? 'Edit' : 'Add more' }} credits</h6>
+	<div class="card">
+		<div class="header d-flex align-items-center">
+			<div>
+				<span>Your total credit <span class="credit-value">500</span></span>
+			</div>
+			<div>
+				<span>Your mobile credit <span class="credit-value">500</span></span>
+			</div>
+		</div>
+
+		<div class="content-section d-flex flex-column">
+			<div class="input-container d-flex">
+				<div class="credit-container col-3 flex-column">
+					<div class="input-header">
+						<span>Credits</span>
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<button class="btn range-button" type="button">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+						<input type="number" min="1" class="form-control" value="1" />
+						<div class="input-group-append">
+							<button class="btn range-button" type="button">
+								<i class="fa fa-plus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="mobile-credit-container col-3 flex-column">
+					<div class="input-header">
+						<span class>Mobile credits</span>
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<button class="btn range-button" type="button">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+						<input type="number" min="1" class="form-control" value="1" />
+						<div class="input-group-append">
+							<button class="btn range-button" type="button">
+								<i class="fa fa-plus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
+				<span class="canel-btn" (click)="handleCancel($event)">Cancel</span>
+				<button class="save-btn" type="button">
+					{{ edit ? 'Update' : 'Add' }}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

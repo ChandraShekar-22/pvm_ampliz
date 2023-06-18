@@ -1,0 +1,17 @@
+<div class="container col">
+	<!-- Credit summary card starts -->
+	<div class="card-section">
+		<div class="action-card">
+			<app-credit-action-cards
+				(cancel)="cancelAction($event)"
+				[edit]="isEdit"
+				*ngIf="isAction"
+			></app-credit-action-cards>
+		</div>
+
+		<div class="credit-summary-card">
+			<app-credit-summary *ngIf="!isAction" (trigger)="handleTrigger($event)"></app-credit-summary>
+		</div>
+	</div>
+	<!-- Credit summary card ends -->
+</div>
