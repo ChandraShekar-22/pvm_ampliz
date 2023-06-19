@@ -1,25 +1,19 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-} from "@angular/core";
-import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
-import { LoaderService } from "src/app/modules/healthcare/services/loader.service";
-import * as moment from "moment";
-import { Router, ActivatedRoute } from "@angular/router";
-import { PaginationService } from "src/app/modules/healthcare/services/pagination.service";
-import { MessageService } from "src/app/modules/B2B/services/message.service";
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
+import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
+import * as moment from 'moment';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PaginationService } from 'src/app/modules/healthcare/services/pagination.service';
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
 
 @Component({
-  selector: "app-listdetails",
-  templateUrl: "./listdetails.component.html",
-  styleUrls: ["./listdetails.component.css"],
+  selector: 'app-listdetails',
+  templateUrl: './listdetails.component.html',
+  styleUrls: ['./listdetails.component.css'],
 })
 export class ListdetailsComponent implements OnInit, AfterViewInit {
-  @ViewChild("hideCancelOption") hideCancelOption;
-  @ViewChild("hideCancelMultple") hideCancelMultple;
+  @ViewChild('hideCancelOption') hideCancelOption;
+  @ViewChild('hideCancelMultple') hideCancelMultple;
   columnDefs: any;
   paginationPageSize: number;
   sortingOrders: any;
@@ -38,7 +32,7 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
   totalSize: number;
   showName: boolean = true;
   listName: string;
-  userId: string = localStorage.getItem("auth_token");
+  userId: string = localStorage.getItem('auth_token');
   selectAllCheck: boolean = false;
   clickedLeadIdList: any = [];
   singleRemoveLead: any = [];
@@ -48,7 +42,7 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
   filterSearch: boolean = false;
   filterData: any;
   subscriptions = [];
-  headerData: any = "";
+  headerData: any = '';
   subscribed: boolean;
   createDrawer: boolean = false;
   public user = null;
@@ -61,149 +55,149 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
   ) {
     this.columnDefs = [
       {
-        headerName: "",
-        field: "checkbox",
-        sortingOrder: ["desc", "asc"],
+        headerName: '',
+        field: 'checkbox',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 50,
         height: 100,
-        cellClass: "",
+        cellClass: '',
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
         suppressSizeToFit: true,
-        pinned: "left",
+        pinned: 'left',
         lockPosition: true,
       },
       {
-        headerName: "Name",
-        field: "name",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Name',
+        field: 'name',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 200,
         height: 100,
-        cellClass: "eCellfirst",
+        cellClass: 'eCellfirst',
         // headerCheckboxSelectionFilteredOnly: true,
         // checkboxSelection: true,
         suppressSizeToFit: true,
-        pinned: "left",
+        pinned: 'left',
         lockPosition: true,
       },
       {
-        headerName: "Lead Type",
-        field: "leadType",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Lead Type',
+        field: 'leadType',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 200,
         height: 100,
-        cellClass: "eCellfirst",
+        cellClass: 'eCellfirst',
         // headerCheckboxSelectionFilteredOnly: true,
         // checkboxSelection: true,
         suppressSizeToFit: true,
-        pinned: "left",
+        pinned: 'left',
         lockPosition: true,
       },
       {
-        headerName: "Hospital",
-        field: "hospitalName",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Hospital',
+        field: 'hospitalName',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 200,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
 
         suppressSizeToFit: true,
         lockPosition: true,
       },
       {
-        headerName: "Domain",
-        field: "webaddress",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Domain',
+        field: 'webaddress',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 250,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
         suppressSizeToFit: true,
         lockPosition: true,
         resizable: false,
       },
       {
-        headerName: "Email",
-        field: "email",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Email',
+        field: 'email',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 250,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
         lockPosition: true,
         suppressSizeToFit: true,
         resizable: false,
       },
       {
-        headerName: "Phone",
-        field: "phoneNumber",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Phone',
+        field: 'phoneNumber',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 200,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
         lockPosition: true,
         suppressSizeToFit: true,
       },
       {
-        headerName: "Lead Location",
-        field: "leadLocation",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Lead Location',
+        field: 'leadLocation',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 250,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
         lockPosition: true,
         suppressSizeToFit: true,
       },
       {
-        headerName: "Lead Title",
-        field: "leadTitle",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Lead Title',
+        field: 'leadTitle',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 250,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
         lockPosition: true,
         suppressSizeToFit: true,
       },
       {
-        headerName: "Hospital Phone",
-        field: "hospitalPhone",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Hospital Phone',
+        field: 'hospitalPhone',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 200,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
         lockPosition: true,
         suppressSizeToFit: true,
       },
       {
-        headerName: "Hospital Location",
-        field: "hospitalLocation",
-        sortingOrder: ["desc", "asc"],
+        headerName: 'Hospital Location',
+        field: 'hospitalLocation',
+        sortingOrder: ['desc', 'asc'],
         filter: false,
         autoHeight: true,
         sortable: true,
         width: 250,
-        cellClass: "cellClass",
+        cellClass: 'cellClass',
         lockPosition: true,
         suppressSizeToFit: true,
       },
@@ -221,10 +215,10 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
       //   },
       // },
     ];
-    this.sortingOrders = ["desc", "asc", null];
+    this.sortingOrders = ['desc', 'asc', null];
     this.paginationPageSize = 10;
     this.defaultColDef = { resizable: true };
-    this.rowSelection = "multiple";
+    this.rowSelection = 'multiple';
   }
 
   onFirstDataRendered(params) {
@@ -277,22 +271,22 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
     }
   }
   async getDashboardDetails() {
-    const authToken = await localStorage.getItem("auth_token");
+    const authToken = await localStorage.getItem('auth_token');
     // const userId = await localStorage.getItem('user_id');
-    const refreshToken = await localStorage.getItem("refresh_token");
+    const refreshToken = await localStorage.getItem('refresh_token');
     //
     if (authToken !== null && refreshToken !== null) {
       this.amplizService.getDashboardDetails().subscribe(
         (res) => {
           this.subscriptions = res.Subscriptions;
-          if (this.subscriptions[0].SubscriptionType == "Free") {
-            localStorage.setItem("SubscriptionisActive", "false");
+          if (this.subscriptions[0].SubscriptionType == 'Free') {
+            localStorage.setItem('SubscriptionisActive', 'false');
             this.subscribed = false;
 
-            this.headerData = "Request Pricing";
+            this.headerData = 'Request Pricing';
           }
-          if (this.subscriptions[0].SubscriptionType == "Paid") {
-            localStorage.setItem("SubscriptionisActive", "true");
+          if (this.subscriptions[0].SubscriptionType == 'Paid') {
+            localStorage.setItem('SubscriptionisActive', 'true');
             this.subscribed = true;
           }
         },
@@ -319,7 +313,7 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
     // this.getDashboardDetails();
   }
   onCellClicked(ev: any) {
-    if (ev.column.colId == "delete") {
+    if (ev.column.colId == 'delete') {
       this.currentRowLeadId = ev.data.id;
     }
   }
@@ -331,7 +325,7 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
     }
 
     if (event.node.selected === false) {
-      this.removeItem(event.data.id)
+      this.removeItem(event.data.id);
     }
     this.checkSelectAll();
   }
@@ -355,7 +349,7 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
           this.paramsData.api.setRowData(this.datasource);
           // this.listName = this.getAllList();
         },
-        (error) => { }
+        (error) => {}
       );
     // }
   }
@@ -374,7 +368,7 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     this.offset = this.count * (page - 1);
     if (this.filterSearch == true) {
@@ -387,20 +381,13 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
           // this.listName = this.getAllList();
 
           this.totalSize = res.totalCount;
-          this.pager = this.pagerservice.getPager(
-            this.totalSize,
-            page,
-            this.count
-          );
-          this.pagedItems = this.datasource.slice(
-            this.pager.startIndex,
-            this.pager.endIndex + 1
-          );
+          this.pager = this.pagerservice.getPager(this.totalSize, page, this.count);
+          this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1);
           this.paramsData.api.setRowData(this.datasource);
           this.clickedLeadIdList = [];
           this.selectAllCheck = false;
         },
-        (error) => { }
+        (error) => {}
       );
     } else {
       this.amplizService
@@ -415,15 +402,8 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
             // this.listName = this.getAllList();
             if (this.datasource.length != 0) {
               this.totalSize = res.totalCount;
-              this.pager = this.pagerservice.getPager(
-                this.totalSize,
-                page,
-                this.count
-              );
-              this.pagedItems = this.datasource.slice(
-                this.pager.startIndex,
-                this.pager.endIndex + 1
-              );
+              this.pager = this.pagerservice.getPager(this.totalSize, page, this.count);
+              this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1);
               if (this.paramsData.api) {
                 this.paramsData.api.setRowData(this.datasource);
               }
@@ -440,7 +420,7 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
               this.loaderService.display(false);
             }
           },
-          (error) => { }
+          (error) => {}
         );
     }
   }
@@ -451,11 +431,9 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
   }
 
   saveLeadName() {
-    this.amplizService
-      .saveLeadName(this.listId, this.listName)
-      .subscribe((res) => {
-        this.showName = true;
-      });
+    this.amplizService.saveLeadName(this.listId, this.listName).subscribe((res) => {
+      this.showName = true;
+    });
   }
 
   getAllList(): string {
@@ -487,45 +465,41 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
     this.singleRemoveLead = [];
     this.singleRemoveLead.push(this.currentRowLeadId);
 
-    this.amplizService
-      .removeDataFromList(this.listId, this.singleRemoveLead)
-      .subscribe(
-        (res) => {
-          this.hideCancelOption.nativeElement.click();
-          this.messageService.display(true, "Lead successfully deleted !");
-          this.setPage(1);
-        },
-        (error) => {
-          this.hideCancelOption.nativeElement.click();
-          this.messageService.displayError(true, "Something went wrong!");
-        }
-      );
+    this.amplizService.removeDataFromList(this.listId, this.singleRemoveLead).subscribe(
+      (res) => {
+        this.hideCancelOption.nativeElement.click();
+        this.messageService.display(true, 'Lead successfully deleted !');
+        this.setPage(1);
+      },
+      (error) => {
+        this.hideCancelOption.nativeElement.click();
+        this.messageService.displayError(true, 'Something went wrong!');
+      }
+    );
   }
 
   deleteLeadMultiple() {
-    this.amplizService
-      .removeDataFromList(this.listId, this.clickedLeadIdList)
-      .subscribe(
-        (res) => {
-          this.hideCancelMultple.nativeElement.click();
-          this.messageService.display(true, "Lead successfully deleted !");
-          this.setPage(1);
-        },
-        (error) => {
-          this.hideCancelMultple.nativeElement.click();
-          this.messageService.displayError(true, "Something went wrong!");
-        }
-      );
+    this.amplizService.removeDataFromList(this.listId, this.clickedLeadIdList).subscribe(
+      (res) => {
+        this.hideCancelMultple.nativeElement.click();
+        this.messageService.display(true, 'Lead successfully deleted !');
+        this.setPage(1);
+      },
+      (error) => {
+        this.hideCancelMultple.nativeElement.click();
+        this.messageService.displayError(true, 'Something went wrong!');
+      }
+    );
   }
 
   downloadAllCsv() {
     this.amplizService.downloadCSVAll(this.listId).subscribe((el) => {
-      const a = document.createElement("a");
-      const blob = new Blob([el.body], { type: "text/csv" });
+      const a = document.createElement('a');
+      const blob = new Blob([el.body], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
 
       a.href = url;
-      a.download = this.listId + ".csv";
+      a.download = this.listId + '.csv';
       a.click();
       window.URL.revokeObjectURL(url);
       a.remove();
@@ -533,18 +507,16 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
   }
 
   downloadCsv() {
-    this.amplizService
-      .downloadExcel(this.listId, this.clickedLeadIdList)
-      .subscribe((el) => {
-        const a = document.createElement("a");
-        const blob = new Blob([el.body], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
+    this.amplizService.downloadExcel(this.listId, this.clickedLeadIdList).subscribe((el) => {
+      const a = document.createElement('a');
+      const blob = new Blob([el.body], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
 
-        a.href = url;
-        a.download = this.listId + ".csv";
-        a.click();
-        window.URL.revokeObjectURL(url);
-        a.remove();
-      });
+      a.href = url;
+      a.download = this.listId + '.csv';
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    });
   }
 }
