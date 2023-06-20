@@ -1,73 +1,140 @@
-.content-container {
-  height: 100vh;
+.content-contianer {
+	height: 100vh !important;
 }
 .header-container {
-  top: 0;
-  background-color: #fff;
+	top: 0;
+	background-color: #fff !important;
 }
 .action-container {
-  overflow-y: auto;
-  margin-top: 15px;
-  overflow-x: hidden;
-  padding: 20px;
-  background-color: transparents;
+	overflow-y: auto;
+	margin-top: 15px;
+	overflow-x: hidden;
+	padding: 20px;
+	height: 100%;
+	background-color: transparent;
+	padding-bottom: 140px;
+}
+.action-container::-webkit-scrollbar {
+	display: none;
 }
 
 /* Info css */
 .info-container {
-  padding: 20px;
-  padding-bottom: 10px;
-  padding-top: 24px;
-  background-color: #fff;
+	padding: 20px;
+	padding-bottom: 10px;
+	padding-top: 24px;
+	background-color: #fff;
 }
 .info-container p {
-  font-weight: 300;
-  font-size: 13px;
-  color: #85898f;
+	font-weight: 300;
+	font-size: 13px;
+	color: #85898f;
 }
 .info-container h2 {
-  font-size: 20px;
-  color: #000000;
+	font-size: 20px;
+	color: #000000;
 }
 .deactivate-btn {
-  color: #0071eb;
-  font-weight: 400;
-  font-size: 12px;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  margin-right: 10px;
+	color: #0071eb;
+	font-weight: 400;
+	font-size: 12px;
+	cursor: pointer;
+	letter-spacing: 0.5px;
+	margin-right: 10px;
+}
+.tab-container {
+	background-color: #ffff;
+}
+.status-text {
+	color: #0071eb;
+	font-size: 10px;
+	font-weight: 400;
 }
 
 /* Tab css */
 div.tab {
-  overflow: hidden;
-  background-color: #fff;
-  position: relative;
-}
-div.tab::before {
-  content: '';
-  background-color: #e0e0e0;
-  height: 0.5px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 2;
+	overflow: hidden;
+	background-color: #fff;
+	position: relative;
+	margin-top: 8px;
 }
 div.tab a {
-  float: left;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  position: relative;
-  font-size: 12px;
-  font-weight: 400;
-  margin-left: 5px;
+	float: left;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	position: relative;
+	font-size: 12px;
+	font-weight: 400;
+	margin-left: 5px;
 }
 div.tab a:hover {
-  color: #0071eb;
+	color: #0071eb;
 }
 .tab-active {
-  color: #0071eb !important;
-  border-bottom: 1px solid #0071eb;
+	color: #0071eb !important;
+	border-bottom: 1.5px solid #0071eb;
+}
+
+/* loader css */
+.loader-container {
+	padding-left: 20px;
+	margin-bottom: 22px;
+}
+.loader-details span {
+	display: block;
+	background: #d9d9d9;
+	border-radius: 10px;
+	overflow: hidden;
+	position: relative;
+}
+.loader-details .name-loader {
+	height: 13px;
+	width: 100px;
+}
+.loader-details .about-loader {
+	height: 11px;
+	width: 150px;
+	margin-top: 10px;
+}
+.loader-details .status-loader {
+	height: 10px;
+	width: 150px;
+	margin-top: 12px;
+}
+.loader-details .deactivate-btn-loader {
+	margin-right: 35px;
+	height: 11px;
+	width: 150px;
+	margin-top: 16px;
+}
+.loader-btn {
+	margin-right: 35px;
+}
+.loader-details span::before {
+	position: absolute;
+	content: '';
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(
+		to right,
+		#d9d9d9 0%,
+		rgba(0, 0, 0, 0.07) 20%,
+		#d9d9d9 40%,
+		#d9d9d9 100%
+	);
+	background-repeat: no-repeat;
+	background-size: 450px 400px;
+	animation: shimmer 1s linear infinite;
+}
+.loader-details span::before {
+	animation-delay: 0.2s;
+}
+@keyframes shimmer {
+	0% {
+		background-position: -450px 0;
+	}
+	100% {
+		background-position: 450px 0;
+	}
 }

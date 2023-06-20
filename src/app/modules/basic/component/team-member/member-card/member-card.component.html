@@ -1,8 +1,24 @@
-<div class="d-flex flex-row align-items-start member-card-container" style="padding: 30px" [@inputAnimation]>
-  <div class="avatar-container col-1">TP</div>
-  <div class="member-info col">
-    <h6>Tanay Patidar</h6>
-    <p>tanay.p@ampliz.com</p>
-  </div>
-  <div class="role-container col-2">Sales</div>
+<!-- [@inputAnimation] -->
+<div class="row align-items-start member-card-container" [class.active]="active">
+	<div class="avatar-container col-1" [class]="getStatusClass">{{ initials }}</div>
+	<div class="member-info col">
+		<h6>{{ userInfo.fullName }}</h6>
+		<p>{{ userInfo.email }}</p>
+	</div>
+	<div class="col text-right">
+		<span class="status-container" [class]="getStatusClass"> {{ getStatusName }} </span>
+	</div>
+</div>
+
+<div class="d-flex flex-row align-items-start member-card-container" *ngIf="loader">
+	<div class="loader-details d-flex p-0 col-1">
+		<span class="avtar-loader"></span>
+	</div>
+	<div class="loader-details col">
+		<span class="name-loader"></span>
+		<span class="about-loader"></span>
+	</div>
+	<div class="loader-details col-2 mr-2">
+		<span class="status-loader"></span>
+	</div>
 </div>

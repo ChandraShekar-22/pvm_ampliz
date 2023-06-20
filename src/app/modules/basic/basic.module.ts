@@ -1,50 +1,50 @@
-import { NgModule } from "@angular/core";
-import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
-import { RouterModule } from "@angular/router";
-import { HeaderComponent } from "./component/header/header.component";
-import { FooterComponent } from "./component/footer/footer.component";
-import { SidemenuComponent } from "./component/sidemenu/sidemenu.component";
-import { SearchComponent } from "./component/search/search.component";
-import { LoaderComponent } from "./component/loader/loader.component";
-import { SuccessComponent } from "./component/alerts/success/success.component";
-import { ErrorComponent } from "./component/alerts/error/error.component";
-import { TexthighlightPipe } from "./pipes/texthighlight.pipe";
-import { UpgradeComponent } from "./component/upgrade/upgrade.component";
-import { AgGridModule } from "ag-grid-angular";
-import { ButtoncellrendererComponent } from "./component/ag-grid/buttoncellrenderer/buttoncellrenderer.component";
-import { CreatelistComponent } from "../healthcare/containers/lists/createlist/createlist.component";
-import { IndividualFilterComponent } from "./component/ampliz-filter/individual-filter/individual-filter.component";
-import { IndividualLocationFilterComponent } from "./component/ampliz-filter/individual-location-filter/individual-location-filter.component";
-import { AlertBoxComponent } from "../B2B/component/alert-box/alert-box.component";
-import { InlineAlertComponent } from "./component/inline-alert/inline-alert.component";
-import { UnlockComponent } from "./component/unlock/unlock.component";
-import { CircleLoaderComponent } from "./component/circle-loader/circle-loader.component";
-import { CheckboxComponent } from "./component/checkbox/checkbox.component";
-import { B2bLoaderComponent } from "../B2B/component/b2b-loader/b2b-loader.component";
-import { B2bSavelistComponent } from "../B2B/component/b2b-savelist/b2b-savelist.component";
-import { SelectBulkModalComponent } from "../B2B/component/select-bulk-modal/select-bulk-modal.component";
-import { SaveContactModalComponent } from "../B2B/component/save-contact-modal/save-contact-modal.component";
-import { NotCorrectComponent } from "../B2B/component/not-correct/not-correct.component";
-import { SkeletonLoaderComponent } from "./component/skeleton-loader/skeleton-loader.component";
-import { NumberWithCommasPipe } from "../healthcare/pipe/number-with-commas.pipe";
-import { HcTopTabComponent } from "./component/hc-top-tab/hc-top-tab.component";
-import { LoginComponent } from "./container/userauth/login/login.component";
-import { DashboardComponent } from "../healthcare/containers/dashboard/dashboard.component";
-import { ContactsComponent } from "./container/contacts/contacts.component";
-import { RequesthifiComponent } from "./container/requesthifi/requesthifi.component";
-import { PaymentComponent } from "./component/payment/payment.component";
-import { DashboardFilterComponent } from "../healthcare/component/filters/dashboard_filter/dashboardfilter.component";
-import { ShortNamePipe } from "../healthcare/component/filters/dashboard_filter/short-name.pipe";
-import { PricingComponent } from "./component/pricing/pricing.component";
-import { EditprofileComponent } from "./container/editprofile/editprofile.component";
-import { FreecreditsComponent } from "./container/freecredits/freecredits.component";
-import { PaymentHistoryComponent } from "./component/payment_history/payment_history.component";
-import { CommonComponentsModule } from "../common-components/common-components.module";
-import { DataTableComponent } from "./component/data-table/data-table.component";
-import { SignupComponent } from "src/app/modules/basic/container/userauth/signup/signup.component";
-import { HcInputComponent } from "./component/hc-input/hc-input.component";
-import { ReactiveFormsModule } from "@angular/forms";
-import { HcDropdownComponent } from "./component/hc-dropdown/hc-dropdown.component";
+import { NgModule } from '@angular/core';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './component/header/header.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { SidemenuComponent } from './component/sidemenu/sidemenu.component';
+import { SearchComponent } from './component/search/search.component';
+import { LoaderComponent } from './component/loader/loader.component';
+import { SuccessComponent } from './component/alerts/success/success.component';
+import { ErrorComponent } from './component/alerts/error/error.component';
+import { TexthighlightPipe } from './pipes/texthighlight.pipe';
+import { UpgradeComponent } from './component/upgrade/upgrade.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { ButtoncellrendererComponent } from './component/ag-grid/buttoncellrenderer/buttoncellrenderer.component';
+import { CreatelistComponent } from '../healthcare/containers/lists/createlist/createlist.component';
+import { IndividualFilterComponent } from './component/ampliz-filter/individual-filter/individual-filter.component';
+import { IndividualLocationFilterComponent } from './component/ampliz-filter/individual-location-filter/individual-location-filter.component';
+import { AlertBoxComponent } from '../B2B/component/alert-box/alert-box.component';
+import { InlineAlertComponent } from './component/inline-alert/inline-alert.component';
+import { UnlockComponent } from './component/unlock/unlock.component';
+import { CircleLoaderComponent } from './component/circle-loader/circle-loader.component';
+import { CheckboxComponent } from './component/checkbox/checkbox.component';
+import { B2bLoaderComponent } from '../B2B/component/b2b-loader/b2b-loader.component';
+import { B2bSavelistComponent } from '../B2B/component/b2b-savelist/b2b-savelist.component';
+import { SelectBulkModalComponent } from '../B2B/component/select-bulk-modal/select-bulk-modal.component';
+import { SaveContactModalComponent } from '../B2B/component/save-contact-modal/save-contact-modal.component';
+import { NotCorrectComponent } from '../B2B/component/not-correct/not-correct.component';
+import { SkeletonLoaderComponent } from './component/skeleton-loader/skeleton-loader.component';
+import { NumberWithCommasPipe } from '../healthcare/pipe/number-with-commas.pipe';
+import { HcTopTabComponent } from './component/hc-top-tab/hc-top-tab.component';
+import { LoginComponent } from './container/userauth/login/login.component';
+import { DashboardComponent } from '../healthcare/containers/dashboard/dashboard.component';
+import { ContactsComponent } from './container/contacts/contacts.component';
+import { RequesthifiComponent } from './container/requesthifi/requesthifi.component';
+import { PaymentComponent } from './component/payment/payment.component';
+import { DashboardFilterComponent } from '../healthcare/component/filters/dashboard_filter/dashboardfilter.component';
+import { ShortNamePipe } from '../healthcare/component/filters/dashboard_filter/short-name.pipe';
+import { PricingComponent } from './component/pricing/pricing.component';
+import { EditprofileComponent } from './container/editprofile/editprofile.component';
+import { FreecreditsComponent } from './container/freecredits/freecredits.component';
+import { PaymentHistoryComponent } from './component/payment_history/payment_history.component';
+import { CommonComponentsModule } from '../common-components/common-components.module';
+import { DataTableComponent } from './component/data-table/data-table.component';
+import { SignupComponent } from 'src/app/modules/basic/container/userauth/signup/signup.component';
+import { HcInputComponent } from './component/hc-input/hc-input.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HcDropdownComponent } from './component/hc-dropdown/hc-dropdown.component';
 import { HcCountryselectComponent } from './component/hc-countryselect/hc-countryselect.component';
 import { AmplizMenuButtonComponent } from './component/buttons/ampliz-menu-button/ampliz-menu-button.component';
 // import { InviteTeammemberComponent } from "./container/invite-teammember/invite-teammember.component";
@@ -77,185 +77,201 @@ import { TeamMemberComponent } from './container/team-member/team-member.compone
 import { MemberCardComponent } from './component/team-member/member-card/member-card.component';
 import { MemberSidePanelComponent } from './component/team-member/member-side-panel/member-side-panel.component';
 import { MemberActionPanelComponent } from './component/team-member/member-action-panel/member-action-panel.component';
+import { TeamCreditsComponent } from './component/team-member/team-action-cards/team-credits/team-credits.component';
+import { CreditsSummaryComponent } from './component/team-member/team-action-cards/team-credits/cards/credit-summary/credit-summary.component';
+import { CreditActionCardsComponent } from './component/team-member/team-action-cards/team-credits/cards/credit-action-cards/credit-action-cards.component';
+import { AddTeamMemberComponent } from './component/team-member/team-action-cards/add-team-member/add-team-member.component';
+import { MemberListComponent } from './component/team-member/team-action-cards/member-list/member-list.component';
+import { TeamMemberSignupComponent } from './container/team-member-signup/team-member-signup.component';
 const appRoutes = [
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
-  },
-  {
-    path: 'verify',
-    component: VerifyUserComponent,
-  },
-  // {
-  //   path: "signup/:type/:inviteId",
-  //   component: SignupComponent
-  // },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-  },
-  {
-    path: 'contacts',
-    component: ContactsComponent,
-  },
-  {
-    path: 'requesthifi/:name',
-    component: RequesthifiComponent,
-  },
-  {
-    path: 'payment',
-    component: PaymentComponent,
-  },
-  {
-    path: 'idealprofile',
-    component: DashboardFilterComponent,
-  },
-  {
-    path: 'pricing',
-    component: PricingComponent,
-  },
-  {
-    path: 'editprofile',
-    component: EditprofileComponent,
-  },
-  {
-    path: 'freecredits',
-    component: FreecreditsComponent,
-  },
-  {
-    path: 'payment_history',
-    component: PaymentHistoryComponent,
-  },
-  {
-    path: 'team-member',
-    component: TeamMemberComponent,
-  },
+	{
+		path: 'login',
+		component: LoginComponent,
+	},
+	{
+		path: 'signup',
+		component: SignupComponent,
+	},
+	{
+		path: 'verify',
+		component: VerifyUserComponent,
+	},
+	// {
+	//   path: "signup/:type/:inviteId",
+	//   component: SignupComponent
+	// },
+	{
+		path: 'dashboard',
+		component: DashboardComponent,
+	},
+	{
+		path: 'contacts',
+		component: ContactsComponent,
+	},
+	{
+		path: 'requesthifi/:name',
+		component: RequesthifiComponent,
+	},
+	{
+		path: 'payment',
+		component: PaymentComponent,
+	},
+	{
+		path: 'idealprofile',
+		component: DashboardFilterComponent,
+	},
+	{
+		path: 'pricing',
+		component: PricingComponent,
+	},
+	{
+		path: 'editprofile',
+		component: EditprofileComponent,
+	},
+	{
+		path: 'freecredits',
+		component: FreecreditsComponent,
+	},
+	{
+		path: 'payment_history',
+		component: PaymentHistoryComponent,
+	},
+	{
+		path: 'team-member',
+		component: TeamMemberComponent,
+	},
+	{
+		path: 'team-member-signup',
+		component: TeamMemberSignupComponent,
+	},
 ];
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SidemenuComponent,
-    SearchComponent,
-    LoaderComponent,
-    SuccessComponent,
-    ErrorComponent,
-    TexthighlightPipe,
-    UpgradeComponent,
-    CreatelistComponent,
-    IndividualFilterComponent,
-    IndividualLocationFilterComponent,
-    AlertBoxComponent,
-    InlineAlertComponent,
-    UnlockComponent,
-    CircleLoaderComponent,
-    CheckboxComponent,
-    B2bLoaderComponent,
-    B2bSavelistComponent,
-    SelectBulkModalComponent,
-    SaveContactModalComponent,
-    NotCorrectComponent,
-    ButtoncellrendererComponent,
-    SkeletonLoaderComponent,
-    NumberWithCommasPipe,
-    HcTopTabComponent,
-    LoginComponent,
-    DashboardComponent,
-    ContactsComponent,
-    RequesthifiComponent,
-    PaymentComponent,
-    DashboardFilterComponent,
-    ShortNamePipe,
-    PricingComponent,
-    EditprofileComponent,
-    FreecreditsComponent,
-    PaymentHistoryComponent,
-    DataTableComponent,
-    SignupComponent,
-    HcInputComponent,
-    HcDropdownComponent,
-    HcCountryselectComponent,
-    AmplizMenuButtonComponent,
-    // InviteTeammemberComponent,
-    // AddUserCardComponent,
-    // PendingInvitesCardComponent,
-    // RemoveTeammateDrawerComponent,
-    // AddRemoveCreditDrawerComponent,
-    // InviteTeammateDrawerComponent,
-    StartcasePipe,
-    FirstletterPipe,
-    VerifyUserComponent,
-    OtpInputComponent,
-    ExportButtonLoaderComponent,
-    RequestContactComponent,
-    DeleteIconAgGridComponent,
-    ExportCsvBtnComponent,
-    DailySearchQuotaComponent,
-    CustomTooltipComponent,
-    ContactInfoTooltipComponent,
-    ListActionButtonComponent,
-    QuotaCardComponent,
-    CardSkeletonLoaderComponent,
-    LowCreditAlertCardComponent,
-    DashboardChromeCardComponent,
-    FeedbackCardComponent,
-    RecommendCardComponent,
-    HistorySearchCardComponent,
-    TeamMemberComponent,
-    MemberCardComponent,
-    MemberSidePanelComponent,
-    MemberActionPanelComponent,
-  ],
-  imports: [
-    CommonComponentsModule,
-    NgMultiSelectDropDownModule.forRoot(),
-    AgGridModule,
-    RouterModule.forChild(appRoutes),
-    ReactiveFormsModule,
-    IconsModule,
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    SidemenuComponent,
-    SearchComponent,
-    LoaderComponent,
-    SuccessComponent,
-    ErrorComponent,
-    TexthighlightPipe,
-    UpgradeComponent,
-    CreatelistComponent,
-    IndividualFilterComponent,
-    IndividualLocationFilterComponent,
-    AlertBoxComponent,
-    InlineAlertComponent,
-    UnlockComponent,
-    CircleLoaderComponent,
-    CheckboxComponent,
-    B2bLoaderComponent,
-    B2bSavelistComponent,
-    SelectBulkModalComponent,
-    SaveContactModalComponent,
-    NotCorrectComponent,
-    ButtoncellrendererComponent,
-    SkeletonLoaderComponent,
-    NumberWithCommasPipe,
-    HcTopTabComponent,
-    ShortNamePipe,
-    PricingComponent,
-    EditprofileComponent,
-    DataTableComponent,
-    StartcasePipe,
-    IconsModule,
-    // InviteTeammemberComponent,
-    RequestContactComponent,
-    ExportButtonLoaderComponent,
-    DeleteIconAgGridComponent,
-  ],
+	declarations: [
+		HeaderComponent,
+		FooterComponent,
+		SidemenuComponent,
+		SearchComponent,
+		LoaderComponent,
+		SuccessComponent,
+		ErrorComponent,
+		TexthighlightPipe,
+		UpgradeComponent,
+		CreatelistComponent,
+		IndividualFilterComponent,
+		IndividualLocationFilterComponent,
+		AlertBoxComponent,
+		InlineAlertComponent,
+		UnlockComponent,
+		CircleLoaderComponent,
+		CheckboxComponent,
+		B2bLoaderComponent,
+		B2bSavelistComponent,
+		SelectBulkModalComponent,
+		SaveContactModalComponent,
+		NotCorrectComponent,
+		ButtoncellrendererComponent,
+		SkeletonLoaderComponent,
+		NumberWithCommasPipe,
+		HcTopTabComponent,
+		LoginComponent,
+		DashboardComponent,
+		ContactsComponent,
+		RequesthifiComponent,
+		PaymentComponent,
+		DashboardFilterComponent,
+		ShortNamePipe,
+		PricingComponent,
+		EditprofileComponent,
+		FreecreditsComponent,
+		PaymentHistoryComponent,
+		DataTableComponent,
+		SignupComponent,
+		HcInputComponent,
+		HcDropdownComponent,
+		HcCountryselectComponent,
+		AmplizMenuButtonComponent,
+		// InviteTeammemberComponent,
+		// AddUserCardComponent,
+		// PendingInvitesCardComponent,
+		// RemoveTeammateDrawerComponent,
+		// AddRemoveCreditDrawerComponent,
+		// InviteTeammateDrawerComponent,
+		StartcasePipe,
+		FirstletterPipe,
+		VerifyUserComponent,
+		OtpInputComponent,
+		ExportButtonLoaderComponent,
+		RequestContactComponent,
+		DeleteIconAgGridComponent,
+		ExportCsvBtnComponent,
+		DailySearchQuotaComponent,
+		CustomTooltipComponent,
+		ContactInfoTooltipComponent,
+		ListActionButtonComponent,
+		QuotaCardComponent,
+		CardSkeletonLoaderComponent,
+		LowCreditAlertCardComponent,
+		DashboardChromeCardComponent,
+		FeedbackCardComponent,
+		RecommendCardComponent,
+		HistorySearchCardComponent,
+		TeamMemberComponent,
+		MemberCardComponent,
+		MemberSidePanelComponent,
+		MemberActionPanelComponent,
+		TeamCreditsComponent,
+		CreditsSummaryComponent,
+		CreditActionCardsComponent,
+		AddTeamMemberComponent,
+		MemberListComponent,
+		TeamMemberSignupComponent,
+	],
+	imports: [
+		CommonComponentsModule,
+		NgMultiSelectDropDownModule.forRoot(),
+		AgGridModule,
+		RouterModule.forChild(appRoutes),
+		ReactiveFormsModule,
+		IconsModule,
+	],
+	exports: [
+		HeaderComponent,
+		FooterComponent,
+		SidemenuComponent,
+		SearchComponent,
+		LoaderComponent,
+		SuccessComponent,
+		ErrorComponent,
+		TexthighlightPipe,
+		UpgradeComponent,
+		CreatelistComponent,
+		IndividualFilterComponent,
+		IndividualLocationFilterComponent,
+		AlertBoxComponent,
+		InlineAlertComponent,
+		UnlockComponent,
+		CircleLoaderComponent,
+		CheckboxComponent,
+		B2bLoaderComponent,
+		B2bSavelistComponent,
+		SelectBulkModalComponent,
+		SaveContactModalComponent,
+		NotCorrectComponent,
+		ButtoncellrendererComponent,
+		SkeletonLoaderComponent,
+		NumberWithCommasPipe,
+		HcTopTabComponent,
+		ShortNamePipe,
+		PricingComponent,
+		EditprofileComponent,
+		DataTableComponent,
+		StartcasePipe,
+		IconsModule,
+		// InviteTeammemberComponent,
+		RequestContactComponent,
+		ExportButtonLoaderComponent,
+		DeleteIconAgGridComponent,
+	],
 })
 export class BasicModule {}

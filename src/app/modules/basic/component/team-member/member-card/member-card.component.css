@@ -1,23 +1,108 @@
+.member-card-container {
+	padding: 20px 30px;
+	cursor: pointer;
+	transition: 0.15s all ease-in-out;
+}
 .member-info h6 {
-  color: #040404;
-  font-size: 13px;
+	color: #040404;
+	font-size: 13px;
+	margin-bottom: 3px;
 }
 .avatar-container {
-  /* padding: 15px 5px;  */
-  aspect-ratio: 1 / 1;
-  background: red;
-  color: white;
-  border-radius: 3px;
-  font-size: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	aspect-ratio: 1 / 1;
+	color: white;
+	border-radius: 5px;
+	font-size: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.role-container {
-  font-size: 10px;
-  background: #F2F2F2;
-  padding: 5px 0px;
-  color: #495365;
-  border-radius: 5px;
-  text-align: center;
+.status-container {
+	font-size: 10px;
+	background: #f2f2f2;
+	padding: 5px 5px;
+	color: #fff;
+	border-radius: 5px;
+	text-align: center;
+}
+.invited-status {
+	background-color: #ebad10;
+}
+.active-status {
+	background-color: #c8ffde;
+	color: #08ab5d;
+}
+.invitation-expired-status {
+	background-color: #ff6c63;
+}
+.deactivated-status {
+	background-color: #f2f2f2;
+	color: #495365;
+}
+
+.loader-container {
+	padding-left: 20px;
+}
+.loader-details span {
+	display: block;
+	background: #d9d9d9;
+	border-radius: 10px;
+	overflow: hidden;
+	position: relative;
+}
+.loader-details .name-loader {
+	height: 13px;
+	width: 100px;
+}
+.loader-details .about-loader {
+	height: 11px;
+	width: 150px;
+	margin-top: 10px;
+}
+.loader-details .status-loader {
+	margin-right: 35px;
+	height: 11px;
+	width: 75px;
+}
+.loader-btn {
+	margin-right: 35px;
+}
+.loader-details span::before {
+	position: absolute;
+	content: '';
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(
+		to right,
+		#d9d9d9 0%,
+		rgba(0, 0, 0, 0.07) 20%,
+		#d9d9d9 40%,
+		#d9d9d9 100%
+	);
+	background-repeat: no-repeat;
+	background-size: 450px 400px;
+	animation: shimmer 1s linear infinite;
+}
+.loader-details span::before {
+	animation-delay: 0.2s;
+}
+.loader-details .avtar-loader {
+	height: 34px;
+	width: 50px;
+	border-radius: 5px;
+	padding: 0;
+}
+.loader-details .status-loader {
+	height: 25px;
+	width: 70px;
+	padding: 0;
+	border-radius: 5px;
+}
+@keyframes shimmer {
+	0% {
+		background-position: -450px 0;
+	}
+	100% {
+		background-position: 450px 0;
+	}
 }

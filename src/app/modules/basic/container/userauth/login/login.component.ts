@@ -301,7 +301,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
   showPassword(val) {
     this.passwordShow = val;
-    //
   }
 
   openUrl(url) {
