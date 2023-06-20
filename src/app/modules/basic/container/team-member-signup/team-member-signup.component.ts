@@ -4,6 +4,7 @@ import { BasicService } from '../../service/basic.service';
 import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { P } from '@angular/cdk/keycodes';
 @Component({
 	selector: 'app-team-member-signup',
 	templateUrl: './team-member-signup.component.html',
@@ -38,7 +39,9 @@ export class TeamMemberSignupComponent implements OnInit {
 		this.activatedRoute.queryParams.subscribe((params) => {
 			if (Object.keys(params).length !== 0) {
 				if (params.email && params.email.length > 0) {
-					this.signup.email = params.email;
+					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(params.email)) {
+						this.signup.email = params.email;
+					}
 				}
 			}
 		});

@@ -101,7 +101,16 @@
 	cursor: pointer;
 	transition: 0.25s all ease-in-out;
 }
-
+.filter-count {
+	border-radius: 50px;
+	position: absolute;
+	top: -9px;
+	right: 0;
+	background: #ff6c63;
+	width: 15px;
+	color: white;
+	font-size: 10px;
+}
 .filter-dropdown:focus svg {
 	stroke: var(--primary);
 }
@@ -114,7 +123,11 @@
 }
 .filter-dropdown:hover {
 	border-color: var(--primary);
-	background-color: #E5F2FF;
+	background-color: #e5f2ff;
+}
+.active-filter {
+	border-color: var(--primary);
+	background-color: #e5f2ff;
 }
 .form-check {
 	padding-left: 0.5rem !important;

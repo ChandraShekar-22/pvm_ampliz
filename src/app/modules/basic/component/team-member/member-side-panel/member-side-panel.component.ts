@@ -1,3 +1,5 @@
+import { E } from '@angular/cdk/keycodes';
+import { TemplateBindingParseResult } from '@angular/compiler';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 @Component({
 	selector: 'app-member-side-panel',
@@ -8,7 +10,11 @@ export class MemberSidePanelComponent implements OnInit {
 	@Output() addMember: EventEmitter<boolean> = new EventEmitter();
 	@Output() openUserInfo: EventEmitter<any> = new EventEmitter();
 	@Input() getAdmin: any;
+
 	activeCard: any = null;
+
+	filterCount: number = 0;
+
 	userList: any = [
 		{
 			userId: '0x188d21ba1ca',
@@ -92,7 +98,19 @@ export class MemberSidePanelComponent implements OnInit {
 		this.openAdmin();
 	}
 
-	handleFilter(index) {}
+	handleFilter() {
+		this.getFilterCount();
+		if (this.filterCount > 0) {
+			console.log('ITEMS');
+		}
+	}
+
+	getFilterCount() {
+		const newArray = this.filterItems.map((obj, index) => {
+			return obj.checked == true;
+		});
+		this.filterCount = newArray.filter(Boolean).length;
+	}
 
 	openAdmin() {
 		this.activeCard = 0;

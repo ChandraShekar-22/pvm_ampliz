@@ -13,7 +13,13 @@
 				</div>
 			</div>
 			<!-- Filter dropdown -->
-			<span class="col-1 filter-dropdown" data-toggle="dropdown" aria-haspopup="true">
+			<span
+				class="col-1 filter-dropdown"
+				data-toggle="dropdown"
+				aria-haspopup="true"
+				[class.active-filter]="filterCount > 0"
+			>
+				<div class="filter-count" *ngIf="filterCount > 0">{{ filterCount }}</div>
 				<svg width="14" height="14" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
 						d="M11.9167 1.625H1.08337L5.41671 6.74917V10.2917L7.58337 11.375V6.74917L11.9167 1.625Z"
@@ -28,12 +34,14 @@
 					<div class="form-check" *ngFor="let item of filterItems; let i = index">
 						<div class="form-check form-check-inline">
 							<input
-								(click)="handleFilter(i)"
+								(change)="handleFilter()"
 								class="form-check-input checkbox-input"
 								type="checkbox"
 								[id]="item.name"
-								[checked]="item.checked"
+								[(ngModel)]="item.checked"
 							/>
+							<!-- [checked]="item.checked" -->
+
 							<label class="form-check-label" [for]="item.name">{{ item.name }}</label>
 						</div>
 					</div>

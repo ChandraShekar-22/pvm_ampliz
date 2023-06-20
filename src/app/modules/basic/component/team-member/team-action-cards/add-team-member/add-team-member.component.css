@@ -32,6 +32,12 @@
 	color: #0071eb;
 	cursor: pointer;
 }
+.warning-text {
+	font-size: 11px;
+	margin-top: -10px;
+	font-weight: 300;
+	color: #495365;
+}
 
 /* email css */
 .email-container textarea {
