@@ -24,10 +24,27 @@ export class MemberActionPanelComponent implements OnInit {
 	];
 	statusList: any = [
 		{
-			key: '',
+			key: 'Invited',
+			cta: 'Resend Invitation?',
+			style: 'invited-status',
+		},
+		{
+			key: 'Active',
+			cta: 'Deactivate',
+			style: 'active-status',
+		},
+		{
+			key: 'Inactive',
+			cta: 'Activate',
+			style: 'inactive-status',
+		},
+		{
+			key: 'InvitationExpired',
+			cta: 'Resend Invitation?',
+			style: 'expired-status',
 		},
 	];
-
+	// Verified | Active | Inactive | InvitationExpired
 	constructor(private dataService: DataService) {}
 
 	get isAdmin() {

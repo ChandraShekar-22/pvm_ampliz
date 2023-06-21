@@ -2,7 +2,9 @@
 	<div class="card">
 		<!-- Header 1 starts -->
 		<div class="header">
-			<span class="header-text">Total member left <b>3</b></span>
+			<span class="header-text"
+				>Total member left <b>{{ remainingLicence }}</b></span
+			>
 		</div>
 		<!-- Header 1 ends -->
 
@@ -15,9 +17,8 @@
 				cols="30"
 				rows="5"
 				placeholder="Add multiple email address separated by commas"
-				[(ngModel)]="emailList"
+				[(ngModel)]="params.emails"
 				(keypress)="invalidEmails = []"
-				(blur)="validateEmails()"
 			></textarea>
 			<div class="col-11 text-left disclaimer-text">
 				<span *ngIf="invalidEmails.length <= 0">Users will join with non-admin permissions.</span>
@@ -32,7 +33,7 @@
 						type="button"
 						class="role-btn"
 						*ngFor="let item of roleList; let i = index"
-						(click)="activeRole = i"
+						(click)="activeRole = i; params.role = roleList[i]"
 						[class.role-active]="activeRole === i"
 					>
 						{{ item }}
@@ -43,51 +44,99 @@
 		<!-- Email Text area ends -->
 
 		<!-- Header 2 starts -->
-		<div class="header d-flex align-items-center">
-			<span class="header-text"> Your total credit <b>10</b> </span>
-			<span class="header-text m-0"> Your mobile credit <b>10</b> </span>
-			<span class="upgrade-text"> Upgrade credit </span>
+		<div
+			class="header d-flex align-items-center justify-content-start"
+			[class.header-error]="headerError"
+		>
+			<span class="header-text col-5">
+				Your total credit <b>{{ remainingCredit }}</b>
+			</span>
+			<span class="header-text col-6">
+				Your mobile credit
+				<b>
+					{{ remainingMobileCredit }}
+				</b>
+			</span>
 		</div>
 		<!-- Header 2 ends -->
 
 		<div class="content-section d-flex flex-column">
-			<div class="input-container d-flex">
-				<div class="credit-container col-3 flex-column">
+			<div class="input-container row pb-2">
+				<div class="credit-container col-6 flex-column">
 					<div class="input-header">
 						<span>Credits</span>
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<button class="btn range-button" type="button">
-								<i class="fa fa-minus"></i>
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
+								<i class="fa fa-minus" [class.icon-error]="!isCreditCorrect()"></i>
 							</button>
 						</div>
-						<input type="number" min="1" class="form-control" value="1" />
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							value="1"
+							[(ngModel)]="params.credit"
+							(keypress)="isCreditCorrect()"
+							[class.input-error]="!isCreditCorrect()"
+						/>
 						<div class="input-group-append">
-							<button class="btn range-button" type="button">
-								<i class="fa fa-plus"></i>
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
+								<i class="fa fa-plus" [class.icon-error]="!isCreditCorrect()"></i>
 							</button>
 						</div>
 					</div>
 				</div>
 
-				<div class="mobile-credit-container col-3 flex-column">
+				<div class="mobile-credit-container col-6 flex-column">
 					<div class="input-header">
 						<span class>Mobile credits</span>
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<button class="btn range-button" type="button">
-								<i class="fa fa-minus"></i>
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
+								<i class="fa fa-minus" [class.icon-error]="!isMobileCreditCorrect()"></i>
 							</button>
 						</div>
-						<input type="number" min="1" class="form-control" value="1" />
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							value="1"
+							[(ngModel)]="params.mobileCredit"
+							(keypress)="isMobileCreditCorrect()"
+							[class.input-error]="!isMobileCreditCorrect()"
+						/>
 						<div class="input-group-append">
-							<button class="btn range-button" type="button">
-								<i class="fa fa-plus"></i>
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
+								<i class="fa fa-plus" [class.icon-error]="!isMobileCreditCorrect()"></i>
 							</button>
 						</div>
 					</div>
+					<!-- <span *ngIf="!isMobileCreditCorrect()">
+						Mobile credits exceeding your total mobile credits</span
+					> -->
 				</div>
 			</div>
 

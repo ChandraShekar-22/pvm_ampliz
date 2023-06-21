@@ -10,7 +10,9 @@
 						<span *ngIf="isAdmin">(Admin)</span>
 					</h2>
 					<p>{{ userInfo.email }}</p>
-					<span class="status-text" *ngIf="!isAdmin">Last activated 4 hour ago</span>
+					<span class="status-text" *ngIf="!isAdmin">
+						<span></span>
+					</span>
 					<!-- <span class="status-text" *ngIf="!userInfo.userStatus" style="content: ''"></span> -->
 				</div>
 				<div class="deactivate-btn col text-right" *ngIf="!isAdmin">
@@ -66,7 +68,10 @@
 	<!-- Action panel starts -->
 	<div class="action-container">
 		<div class="add-new-container" *ngIf="addUser">
-			<app-add-team-member (cancelAddMember)="handleCancel($event)"></app-add-team-member>
+			<app-add-team-member
+				(cancelAddMember)="handleCancel($event)"
+				[adminDetails]="userInfo"
+			></app-add-team-member>
 		</div>
 
 		<div class="team-action-container" *ngIf="!addUser && !loader">
