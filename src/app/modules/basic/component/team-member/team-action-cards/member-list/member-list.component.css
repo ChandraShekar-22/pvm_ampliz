@@ -11,7 +11,7 @@
 	border: 0.5px solid #e0e0e0;
 	border-radius: 5px;
 	background-color: #ffff;
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .mat-tab-nav-bar,
@@ -24,4 +24,22 @@
 }
 .tab-wrapper {
 	padding-bottom: 10px;
+}
+
+.search-pagination-wrapper {
+	padding: 10px;
+}
+
+/* Drodown css */
+.dropdown-toggle {
+	background-color: transparent !important;
+	color: #495365 !important;
+	border-radius: 4px !important;
+	border-color: #9ea1a7 !important;
+}
+.dropdown-toggle:focus {
+	box-shadow: none !important;
+}
+.dropdown-item {
+	cursor: pointer;
 }

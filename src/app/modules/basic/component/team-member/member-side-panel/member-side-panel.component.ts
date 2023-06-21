@@ -1,5 +1,4 @@
-import { E } from '@angular/cdk/keycodes';
-import { TemplateBindingParseResult } from '@angular/compiler';
+import { BasicService } from '../../../service/basic.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 @Component({
 	selector: 'app-member-side-panel',
@@ -11,10 +10,18 @@ export class MemberSidePanelComponent implements OnInit {
 	@Output() openUserInfo: EventEmitter<any> = new EventEmitter();
 	@Input() getAdmin: any;
 
-	activeCard: any = null;
+	// User Var
+	adminDetails: any;
 
-	filterCount: number = 0;
-
+	membersListInput: any = [
+		{
+			organizationId: '',
+			role: [],
+			offset: 0,
+			count: 5,
+			userStatus: [],
+		},
+	];
 	userList: any = [
 		{
 			userId: '0x188d21ba1ca',
@@ -44,6 +51,11 @@ export class MemberSidePanelComponent implements OnInit {
 			invitedOn: '2023-06-18T15:46:32.235+08:00',
 		},
 	];
+
+	// General Var
+	activeCard: any = null;
+	filterCount: number = 0;
+	adminActive: boolean = true;
 
 	filterItems: any = [
 		{
@@ -87,15 +99,47 @@ export class MemberSidePanelComponent implements OnInit {
 			checked: false,
 		},
 	];
-	constructor() {}
+
+	constructor(private api: BasicService) {}
 
 	ngOnInit(): void {
+		this.getAdminDetails();
 		this.getAdmin.subscribe((v) => {
 			if (v === true) {
 				this.openAdmin();
 			}
 		});
+	}
+
+	getAdminDetails() {
+		this.adminDetails = {
+			fullName: 'Tanay Patidar',
+			email: 'tanay.p@ampliz.com',
+			teamMemberLimit: 100,
+			consumedMemberLimit: 20,
+			consumedCredit: 50,
+			totalCredit: 100,
+			totalMobileCredit: 100,
+			consumedMobileCredit: 0,
+		};
+
+		// Uncomment when API is working
+		// this.api.getAdminDetails().subscribe((res) => {
+		// 	this.adminDetails = res.adminDetails;
+		// });
+
 		this.openAdmin();
+	}
+
+	getMembersList() {
+		// Uncomment when API is working
+		// this.api.getTeamMemberList(this.membersListInput).subscribe((res) => {
+		// 	this.userList = res.userList;
+		// });
+	}
+
+	getLicenceCounter() {
+		return `<span>(${this.adminDetails.consumedMemberLimit} / ${this.adminDetails.teamMemberLimit})</span>`;
 	}
 
 	handleFilter() {
@@ -113,16 +157,19 @@ export class MemberSidePanelComponent implements OnInit {
 	}
 
 	openAdmin() {
-		this.activeCard = 0;
-		this.openUserInfo.emit(this.userList[0]);
+		this.adminActive = true;
+		this.activeCard = null;
+		this.openUserInfo.emit(this.adminDetails);
 	}
 
 	handleClick(user, index) {
+		this.adminActive = false;
 		this.activeCard = index;
 		this.openUserInfo.emit(user);
 	}
 
 	addUser() {
+		this.adminActive = false;
 		this.activeCard = null;
 		this.addMember.emit(true);
 	}

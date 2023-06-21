@@ -10,6 +10,9 @@
 .email-container {
 	padding: 20px;
 }
+.role-container {
+	margin-top: 25px;
+}
 /* header css */
 .header {
 	padding: 15px 20px !important;
@@ -32,11 +35,14 @@
 	color: #0071eb;
 	cursor: pointer;
 }
-.warning-text {
+.disclaimer-text {
 	font-size: 11px;
 	margin-top: -10px;
 	font-weight: 300;
 	color: #495365;
+}
+.error-text {
+	color: #f83428 !important;
 }
 
 /* email css */
@@ -69,7 +75,7 @@ input[type='number']:focus {
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
 	-webkit-appearance: none;
-	-moz-appearance: none;
+	-moz-appearance: none !important;
 	appearance: none;
 	margin: 0;
 }
@@ -104,6 +110,26 @@ input[type='number']::-webkit-outer-spin-button {
 .action-button-container {
 	gap: 20px;
 }
+.role-container span {
+	font-size: 12px;
+	font-weight: 500;
+	color: #000000;
+}
+.role-btn {
+	border: none;
+	cursor: pointer;
+	background-color: #e6ecf2;
+	color: #495365;
+	border-radius: 25px;
+	font-size: 10px;
+	margin-right: 10px;
+	padding: 5px 10px;
+}
+.role-active {
+	background-color: #0071eb;
+	color: #ffff;
+	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
 .save-btn {
 	border: none;
 	border-radius: 25px;
@@ -113,11 +139,16 @@ input[type='number']::-webkit-outer-spin-button {
 	font-size: 12px;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
+	pointer-events: none;
+	opacity: 0.5;
 }
 .save-btn:hover {
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
-
+.enable-btn {
+	opacity: 1;
+	pointer-events: all;
+}
 .canel-btn {
 	color: #85898f;
 	background-color: transparent;
@@ -126,4 +157,42 @@ input[type='number']::-webkit-outer-spin-button {
 	font-weight: 300;
 	cursor: pointer;
 	padding: 0;
+}
+/* Loader css */
+svg {
+	width: 2.25em;
+	transform-origin: center;
+	animation: rotate4 2s linear infinite;
+}
+
+circle {
+	fill: none;
+	stroke: #0071eb;
+	stroke-width: 2;
+	stroke-dasharray: 1, 200;
+	stroke-dashoffset: 0;
+	stroke-linecap: round;
+	animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes dash4 {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+
+	50% {
+		stroke-dasharray: 90, 200;
+		stroke-dashoffset: -35px;
+	}
+
+	100% {
+		stroke-dashoffset: -125px;
+	}
 }

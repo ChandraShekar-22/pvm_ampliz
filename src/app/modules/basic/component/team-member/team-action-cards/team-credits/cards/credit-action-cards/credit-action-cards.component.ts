@@ -8,6 +8,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class CreditActionCardsComponent implements OnInit {
 	@Input() edit: boolean;
+	@Input() adminCredits: any;
+	@Input() userCredits: any;
 	@Output()
 	cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 	constructor() {}

@@ -4,8 +4,8 @@
 	<div class="list-container">
 		<!-- Start Edit profile row -->
 		<div class="row">
-			<div class="col-12 search_pagination_wrapper">
-				<div class="col-md-8 col-sm-12 text-right">
+			<div class="col-12 search-pagination-wrapper row align-items-center">
+				<div class="col-md-8 col-sm-12 text-right" *ngIf="isAdmin">
 					<div class="dropdown">
 						<button
 							class="btn btn-secondary dropdown-toggle"
@@ -14,17 +14,22 @@
 							aria-expanded="true"
 							aria-haspopup="true"
 						>
-							Dropdown button
+							{{ selectValue }}
 						</button>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">My List</a>
-							<a class="dropdown-item" href="#">Team's List</a>
+							<a
+								class="dropdown-item"
+								*ngFor="let item of listItems; let i = index"
+								(click)="handleSelect(i)"
+								>{{ item.name }}</a
+							>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-4 col-sm-12">
+				<div class="col-md-4 col-sm-12 text-right" [class.ml-auto]="!isAdmin">
 					<div class="paginationWrapper">
+						arrow
 						<!-- <div
 										class="paginationWrapper row align-items-center justify-content-end"
 										*ngIf="totalSize > 0"

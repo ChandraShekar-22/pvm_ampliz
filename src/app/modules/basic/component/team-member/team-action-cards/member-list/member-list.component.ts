@@ -10,7 +10,22 @@ import { ButtoncellrendererComponent } from 'src/app/modules/basic/component/ag-
 })
 export class MemberListComponent implements OnInit {
 	@Input() userInfo: any;
+	@Input() isAdmin: boolean;
 
+	// Select var
+	listItems: any = [
+		{
+			name: 'My List',
+			key: 'Mylist',
+			active: true,
+		},
+		{
+			name: 'Team List',
+			key: 'TeamList',
+			active: false,
+		},
+	];
+	selectValue: string = this.listItems[0].name;
 	// Table var
 	tabItems = ['All', 'Processing', 'Completed'];
 	activeLink = this.tabItems[0];
@@ -108,6 +123,14 @@ export class MemberListComponent implements OnInit {
 			resizable: true,
 			tooltipComponent: CustomTooltipComponent,
 		};
+	}
+
+	handleSelect(index) {
+		this.listItems.map((x) => {
+			x.active = false;
+		});
+		this.listItems[index].active = true;
+		this.selectValue = this.listItems[index].name;
 	}
 
 	ngOnInit(): void {}

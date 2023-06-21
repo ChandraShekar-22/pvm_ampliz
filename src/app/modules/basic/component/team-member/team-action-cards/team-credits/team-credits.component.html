@@ -6,11 +6,17 @@
 				(cancel)="cancelAction($event)"
 				[edit]="isEdit"
 				*ngIf="isAction"
+				[userCredits]="userCredits"
 			></app-credit-action-cards>
 		</div>
 
 		<div class="credit-summary-card">
-			<app-credit-summary *ngIf="!isAction" (trigger)="handleTrigger($event)"></app-credit-summary>
+			<app-credit-summary
+				*ngIf="!isAction"
+				(trigger)="handleTrigger($event)"
+				[isAdmin]="isAdmin"
+				[userCredits]="userCredits"
+			></app-credit-summary>
 		</div>
 	</div>
 	<!-- Credit summary card ends -->

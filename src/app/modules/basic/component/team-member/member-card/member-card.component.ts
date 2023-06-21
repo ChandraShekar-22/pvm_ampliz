@@ -18,6 +18,7 @@ export class MemberCardComponent implements OnInit {
 	@Input() userInfo: any = [];
 	@Input() loader: boolean;
 	@Input() active: boolean;
+	@Input() isAdmin: boolean = false;
 
 	initials: string = '';
 
@@ -35,12 +36,16 @@ export class MemberCardComponent implements OnInit {
 	}
 
 	get getStatusClass() {
-		let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus);
-		return obj.class;
+		if (!this.isAdmin) {
+			let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus);
+			return obj.class;
+		}
 	}
 	get getStatusName() {
-		let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus);
-		return obj.name;
+		if (!this.isAdmin) {
+			let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus);
+			return obj.name;
+		}
 	}
 
 	getInititals() {

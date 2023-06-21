@@ -8,10 +8,36 @@
 
 		<!-- Email Text area start -->
 		<div class="email-container row justify-content-center">
-			<textarea class="col-11" name="" id="" cols="30" rows="5"></textarea>
-			<div class="col-11 text-left warning-text">
-				<span>Users will join with non-admin permissions.</span>
-				<span class="error-text"></span>
+			<textarea
+				class="col-11"
+				name=""
+				id=""
+				cols="30"
+				rows="5"
+				placeholder="Add multiple email address separated by commas"
+				[(ngModel)]="emailList"
+				(keypress)="invalidEmails = []"
+				(blur)="validateEmails()"
+			></textarea>
+			<div class="col-11 text-left disclaimer-text">
+				<span *ngIf="invalidEmails.length <= 0">Users will join with non-admin permissions.</span>
+				<span class="error-text" *ngIf="invalidEmails.length > 0">
+					Please check this email id: <b>{{ invalidEmails.toString() }}</b>
+				</span>
+			</div>
+			<div class="role-container col-11 d-flex flex-column">
+				<span>Role</span>
+				<div class="d-flex mt-3">
+					<button
+						type="button"
+						class="role-btn"
+						*ngFor="let item of roleList; let i = index"
+						(click)="activeRole = i"
+						[class.role-active]="activeRole === i"
+					>
+						{{ item }}
+					</button>
+				</div>
 			</div>
 		</div>
 		<!-- Email Text area ends -->
@@ -68,7 +94,18 @@
 			<!-- action button starts -->
 			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
 				<span class="canel-btn" (click)="handleCancel()">Cancel</span>
-				<button class="save-btn" type="button">Save</button>
+				<button
+					[class.enable-btn]="enableBtn"
+					class="save-btn"
+					type="button"
+					(click)="handleSubmit()"
+					*ngIf="!loader"
+				>
+					Save
+				</button>
+				<svg viewBox="25 25 50 50" *ngIf="loader">
+					<circle r="10" cy="50" cx="50"></circle>
+				</svg>
 			</div>
 			<!-- action button ends -->
 		</div>

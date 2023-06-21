@@ -1,7 +1,10 @@
 <div class="content-container d-flex flex-column">
 	<div class="header-container d-flex flex-column">
 		<div class="heading mb-2">
-			<h2>Team Members</h2>
+			<h2>
+				Team Members
+				<span>({{ adminDetails.consumedMemberLimit }}/ {{ adminDetails.teamMemberLimit }})</span>
+			</h2>
 			<p>Invite or manage your organisation member</p>
 		</div>
 		<div class="row align-items-center justify-content-between">
@@ -56,9 +59,14 @@
 	</div>
 
 	<div class="scroll-container mt-2">
-		<div class="list-container" *ngFor="let user of userList; let i = index">
+		<div class="list-container">
+			<div class="card-container" [class.active-card]="adminActive == true" (click)="openAdmin()">
+				<app-member-card [userInfo]="adminDetails" [isAdmin]="true"></app-member-card>
+			</div>
+
 			<div
 				class="card-container"
+				*ngFor="let user of userList; let i = index"
 				(click)="handleClick(user, i)"
 				[class.active-card]="i === activeCard"
 			>

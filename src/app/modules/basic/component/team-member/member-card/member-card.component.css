@@ -25,6 +25,10 @@
 	border-radius: 5px;
 	text-align: center;
 }
+.admin-avatar {
+	background-color: #dcedff;
+	color: #040404;
+}
 .invited-status {
 	background-color: #ebad10;
 }

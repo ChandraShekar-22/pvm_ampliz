@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { DataService } from 'src/app/modules/B2B/services/data.service';
 
 @Component({
@@ -22,10 +22,25 @@ export class MemberActionPanelComponent implements OnInit {
 			name: 'lists',
 		},
 	];
+	statusList: any = [
+		{
+			key: '',
+		},
+	];
 
 	constructor(private dataService: DataService) {}
+
+	get isAdmin() {
+		return !this.userInfo.hasOwnProperty('userStatus');
+	}
+
 	ngOnInit(): void {
 		this.updateTime = this.dataService.getTimeDifference(this.userInfo.invitedOn);
+	}
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.userInfo) {
+			this.activeTab = 0;
+		}
 	}
 
 	changeTab(requestedIndex: any) {
