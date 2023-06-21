@@ -130,7 +130,7 @@ export class LTCService {
 
   saveDraftLeads() {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/save-draft-leads';
-    const response = this.http.post(url, {organizationId:this.organizationId});
+    const response = this.http.post(url, { organizationId: this.organizationId });
     return response;
   }
 
@@ -153,7 +153,7 @@ export class LTCService {
   }
   getLists(offset: any, count: any, autoCreated: any = false): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcreadapi/list/get-all-list';
-    const body = { offset: offset, count: count, autoCreated: autoCreated };
+    const body = { offset: offset, count: count, autoCreated: autoCreated, listType: 'Mylist' };
     const response = this.http.get(url, { params: body });
     return response;
   }

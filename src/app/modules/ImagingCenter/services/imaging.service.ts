@@ -174,7 +174,7 @@ export class ImagingService {
   }
   getLists(offset: any, count: any, autoCreated: any = false): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcreadapi/list/get-all-list';
-    const body = { offset: offset, count: count, autoCreated: autoCreated };
+    const body = { offset: offset, count: count, autoCreated: autoCreated,listType: 'Mylist'  };
     const response = this.http.get(url, { params: body });
     return response;
   }

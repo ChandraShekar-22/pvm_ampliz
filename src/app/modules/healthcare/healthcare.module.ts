@@ -56,6 +56,7 @@ import { NpiCustomDataComponent } from './component/npi-custom-data/npi-custom-d
 import { NpiListLoaderComponent } from './component/npi-list-loader/npi-list-loader.component';
 import { NpiTableStatusComponent } from './component/npi-table-status/npi-table-status.component';
 import { NpiDataProgressModalComponent } from './component/npi-data-progress-modal/npi-data-progress-modal.component';
+import { PhysicianImageCardComponent } from './containers/physican/physician-image-card/physician-image-card.component';
 // component/confidence-level/confidence-level.component
 const appRoutes = [
   {
@@ -182,6 +183,7 @@ const appRoutes = [
     NpiListLoaderComponent,
     NpiTableStatusComponent,
     NpiDataProgressModalComponent,
+    PhysicianImageCardComponent,
   ],
   imports: [
     CommonComponentsModule,

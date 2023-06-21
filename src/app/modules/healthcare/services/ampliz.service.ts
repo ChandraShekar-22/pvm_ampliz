@@ -410,7 +410,7 @@ export class AmplizService {
 
   getAllList(offset: any, count: any, autoCreated: any = true): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcreadapi/list/get-all-list';
-    const body = { offset: offset, count: count, autoCreated: autoCreated };
+    const body = { offset: offset, count: count, autoCreated: autoCreated, listType: 'Mylist' };
     // const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
     const response = this.http.get(url, { params: body });
     return response;
@@ -1142,6 +1142,22 @@ export class AmplizService {
     const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-bulk-npi-matching-status';
     const response = this.http.get(url, {
       params: { bulkNpiId },
+    });
+    return response;
+  }
+  viewPhysicianMobileNumber(physicianId: string) {
+    const url = environment.prodNPIApi + '/amplizhcwriteapi/savedlist/add-physician-mobile-to-list';
+    const response = this.http.post(url, {
+      physicianId,
+      organizationId: this.organizationId,
+    });
+    return response;
+  }
+  viewPhysicianEmail(physicianId: string) {
+    const url = environment.prodNPIApi + '/amplizhcwriteapi/savedlist/add-physician-email-and-phone-to-list';
+    const response = this.http.post(url, {
+      physicianId,
+      organizationId: this.organizationId,
     });
     return response;
   }
