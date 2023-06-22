@@ -410,7 +410,13 @@ export class AmplizService {
 
   getAllList(offset: any, count: any, autoCreated: any = true): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcreadapi/list/get-all-list';
-    const body = { offset: offset, count: count, autoCreated: autoCreated, listType: 'Mylist' };
+    const body = {
+      offset: offset,
+      count: count,
+      autoCreated: autoCreated,
+      listType: 'Mylist',
+      organizationId: this.organizationId,
+    };
     // const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
     const response = this.http.get(url, { params: body });
     return response;

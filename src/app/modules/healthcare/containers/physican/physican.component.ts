@@ -81,10 +81,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
   }
 
   physicianCheckboxDisabled(item) {
-    return (
-      item.leadSaveStatus == 'Saved' ||
-      !(this.isPaid == true || this.isSpecialityUser == true)
-    );
+    return item.leadSaveStatus == 'Saved' || !(this.isPaid == true || this.isSpecialityUser == true);
   }
 
   ngOnInit() {
@@ -94,8 +91,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
     this.saveDraftLeads();
     this.netNewCount = 0;
     setTimeout(() => {
-      this.isSpecialityUser =
-        localStorage.getItem('is_SpecialityUser') == 'true' ? true : false;
+      this.isSpecialityUser = localStorage.getItem('is_SpecialityUser') == 'true' ? true : false;
     }, 10);
     this.unmaskSavedPhysicians();
   }
@@ -119,15 +115,19 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
       }
       res.map((savedPhysician: any) => {
         const index = this.totalSearchResult.findIndex(
-          (physicianItem) =>
-            savedPhysician.physicianId == physicianItem.physicianId
+          (physicianItem) => savedPhysician.physicianId == physicianItem.physicianId
         );
         if (index !== -1) {
-          this.totalSearchResult[index].phoneNumber =
-            savedPhysician.phoneNumber;
+          this.totalSearchResult[index].phoneNumber = savedPhysician.phoneNumber;
           this.totalSearchResult[index].email = savedPhysician.emailAddress;
-          this.totalSearchResult[index].leadSaveStatus =
-            savedPhysician.leadSaveStatus;
+          this.totalSearchResult[index].mobileNumber = savedPhysician.mobileNumber;
+          this.totalSearchResult[index].isMobile = savedPhysician.isMobile;
+          this.totalSearchResult[index].emailExists = savedPhysician.emailExists;
+          this.totalSearchResult[index].phoneExists = savedPhysician.phoneExists;
+          this.totalSearchResult[index].emailViewed = savedPhysician.emailViewed;
+          this.totalSearchResult[index].phoneViewed = savedPhysician.phoneViewed;
+          this.totalSearchResult[index].mobileViewed = savedPhysician.mobileViewed;
+          this.totalSearchResult[index].leadSaveStatus = savedPhysician.leadSaveStatus;
         }
       });
       // this.contactsList.updateContactsListFromSavedList(res);
@@ -190,16 +190,12 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
   }
   filterChanged(event: any) {
     this.filterChangeOmitted = true;
-    this.physicianSearchParameter.cityList = event.cityList.map(
-      (city) => city.city
-    );
+    this.physicianSearchParameter.cityList = event.cityList.map((city) => city.city);
     this.physicianSearchParameter.hospitalNameList = event.hospitalNameList;
     this.physicianSearchParameter.physicianName = event.physicianName;
     this.physicianSearchParameter.specialityExcluded = event.specialityExcluded;
     this.physicianSearchParameter.specialityIncluded = event.specialityIncluded;
-    this.physicianSearchParameter.stateList = event.stateList.map(
-      (state) => state.state
-    );
+    this.physicianSearchParameter.stateList = event.stateList.map((state) => state.state);
     this.physicianSearchParameter.npiNumber = event.npiNumber;
     this.physicianSearchParameter.email_Score = event.email_Score;
 
@@ -213,8 +209,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
   get showSaveAllCheckbox() {
     return (
       (this.selectedPhysicianInCurrentPage.length == 0 ||
-        this.selectedPhysicianInCurrentPage.length ==
-          this.totalSearchResult.length) &&
+        this.selectedPhysicianInCurrentPage.length == this.totalSearchResult.length) &&
       this.savedPhysicians.length < this.limit
     );
   }
@@ -250,15 +245,8 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
           this.pyTotalCount = res.totalResult;
           this.totalSize = this.tab == 1 ? res.totalResult : res.netNew;
           //
-          this.pager = this.pagerservice.getPager(
-            this.totalSize,
-            this.page,
-            this.limit
-          );
-          this.pagedItems = this.totalSearchResult.slice(
-            this.pager.startIndex,
-            this.pager.endIndex + 1
-          );
+          this.pager = this.pagerservice.getPager(this.totalSize, this.page, this.limit);
+          this.pagedItems = this.totalSearchResult.slice(this.pager.startIndex, this.pager.endIndex + 1);
         } else {
           this.noResult = true;
         }
@@ -280,68 +268,56 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
     this.loaderService.display(true);
     if (model === 'leadWithEmail') {
       this.physicianSearchParameter.leadWithEmail = value;
-      this.amplizService
-        .searchPhysician(this.physicianSearchParameter)
-        .subscribe(
-          (res) => {
-            this.loaderService.display(false);
-            this.unLockDiv = false;
-            this.totalSearchResult = res.physicianInfoList;
-            //We are adding offset to that array
+      this.amplizService.searchPhysician(this.physicianSearchParameter).subscribe(
+        (res) => {
+          this.loaderService.display(false);
+          this.unLockDiv = false;
+          this.totalSearchResult = res.physicianInfoList;
+          //We are adding offset to that array
 
-            this.previousOffsets.push(res.offset);
-            this.previousSavedOffsets.push(res.savedListOffset);
-            if (this.totalSearchResult.length !== 0) {
-              this.noResult = false;
-              this.selectedPhysicianInCurrentPage = this.totalSearchResult
-                .filter((contactItem: any) => {
-                  return this.selectedPhysician.includes(
-                    contactItem.physicianId
-                  );
-                })
-                .map((item: any) => item.physicianId);
-              this.savedPhysicians = this.totalSearchResult.filter(
-                (contactItem: any) => {
-                  return contactItem.leadSaveStatus == 'Saved';
-                }
-              );
-              this.totalCount = res.totalResult;
-              if (this.tab === 1) {
-                this.totalSize = res.totalResult;
-              }
-              if (this.tab === 2) {
-                this.totalSize = this.netNewCount;
-              }
-              this.pagedItems = this.totalSearchResult.slice(
-                this.pager.startIndex,
-                this.pager.endIndex + 1
-              );
-              this.getNetNewCount();
-            } else {
-              this.noResult = true;
+          this.previousOffsets.push(res.offset);
+          this.previousSavedOffsets.push(res.savedListOffset);
+          if (this.totalSearchResult.length !== 0) {
+            this.noResult = false;
+            this.selectedPhysicianInCurrentPage = this.totalSearchResult
+              .filter((contactItem: any) => {
+                return this.selectedPhysician.includes(contactItem.physicianId);
+              })
+              .map((item: any) => item.physicianId);
+            this.savedPhysicians = this.totalSearchResult.filter((contactItem: any) => {
+              return contactItem.leadSaveStatus == 'Saved';
+            });
+            this.totalCount = res.totalResult;
+            if (this.tab === 1) {
+              this.totalSize = res.totalResult;
             }
-          },
-          (error) => {
-            console.log('ER', error);
+            if (this.tab === 2) {
+              this.totalSize = this.netNewCount;
+            }
+            this.pagedItems = this.totalSearchResult.slice(this.pager.startIndex, this.pager.endIndex + 1);
+            this.getNetNewCount();
+          } else {
+            this.noResult = true;
           }
-        );
+        },
+        (error) => {
+          console.log('ER', error);
+        }
+      );
     }
   }
   getNetNewCount() {
     //we are taking the latest value of previous offsets array for providing the offset
     this.showCountLoader = true;
     this.setPhysicianSearchParams();
-    this.amplizService
-      .getPhysicianNetNewCount(this.physicianSearchParameter)
-      .subscribe((res) => {
-        this.showCountLoader = false;
-        this.netNewCount = res.netNew;
-      });
+    this.amplizService.getPhysicianNetNewCount(this.physicianSearchParameter).subscribe((res) => {
+      this.showCountLoader = false;
+      this.netNewCount = res.netNew;
+    });
   }
 
   setPhysicianSearchParams() {
-    this.physicianSearchParameter.offset =
-      this.previousOffsets[this.previousOffsets.length - 1] || 0;
+    this.physicianSearchParameter.offset = this.previousOffsets[this.previousOffsets.length - 1] || 0;
     this.physicianSearchParameter.savedListOffset =
       this.previousSavedOffsets[this.previousSavedOffsets.length - 1] || 0;
     this.physicianSearchParameter.limit = this.limit;
@@ -349,13 +325,10 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
     //   ? "Yes"
     //   : "";
     this.physicianSearchParameter.emailTypeIsp = '';
-    this.physicianSearchParameter.provider_Type = this.leadWithProvider
-      ? 'Independent'
-      : '';
+    this.physicianSearchParameter.provider_Type = this.leadWithProvider ? 'Independent' : '';
     this.physicianSearchParameter.leadWithEmail = this.leadWithEmail;
     this.physicianSearchParameter.leadWithPhone = this.leadWithPhone;
-    this.physicianSearchParameter.searchType =
-      this.tab === 1 ? 'TOTAL' : 'NETNEW';
+    this.physicianSearchParameter.searchType = this.tab === 1 ? 'TOTAL' : 'NETNEW';
 
     // this.physicianSearchParameter.clientIp = this.clientIp;
   }
@@ -380,57 +353,44 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
         this.previousSavedOffsets.splice(this.previousOffsets.length - 2, 2);
       }
       this.setPhysicianSearchParams();
-      this.amplizService
-        .searchPhysician(this.physicianSearchParameter)
-        .subscribe(
-          (res) => {
-            this.loaderService.display(false);
-            this.unLockDiv = false;
-            this.totalSearchResult = res.physicianInfoList;
-            //We are adding offset to that array
+      this.amplizService.searchPhysician(this.physicianSearchParameter).subscribe(
+        (res) => {
+          this.loaderService.display(false);
+          this.unLockDiv = false;
+          this.totalSearchResult = res.physicianInfoList;
+          //We are adding offset to that array
 
-            this.previousOffsets.push(res.offset);
-            this.previousSavedOffsets.push(res.savedListOffset);
-            if (this.totalSearchResult.length !== 0) {
-              this.noResult = false;
-              this.selectedPhysicianInCurrentPage = this.totalSearchResult
-                .filter((contactItem: any) => {
-                  return this.selectedPhysician.includes(
-                    contactItem.physicianId
-                  );
-                })
-                .map((item: any) => item.physicianId);
-              this.savedPhysicians = this.totalSearchResult.filter(
-                (contactItem: any) => {
-                  return contactItem.leadSaveStatus == 'Saved';
-                }
-              );
-              this.totalCount = res.totalResult;
-              if (this.tab === 1) {
-                this.totalSize = res.totalResult;
-              }
-              if (this.tab === 2) {
-                this.totalSize = this.netNewCount;
-              }
-              this.pager = this.pagerservice.getPager(
-                this.totalSize,
-                page,
-                this.limit
-              );
-              this.pagedItems = this.totalSearchResult.slice(
-                this.pager.startIndex,
-                this.pager.endIndex + 1
-              );
-              this.getNetNewCount();
-            } else {
-              this.noResult = true;
+          this.previousOffsets.push(res.offset);
+          this.previousSavedOffsets.push(res.savedListOffset);
+          if (this.totalSearchResult.length !== 0) {
+            this.noResult = false;
+            this.selectedPhysicianInCurrentPage = this.totalSearchResult
+              .filter((contactItem: any) => {
+                return this.selectedPhysician.includes(contactItem.physicianId);
+              })
+              .map((item: any) => item.physicianId);
+            this.savedPhysicians = this.totalSearchResult.filter((contactItem: any) => {
+              return contactItem.leadSaveStatus == 'Saved';
+            });
+            this.totalCount = res.totalResult;
+            if (this.tab === 1) {
+              this.totalSize = res.totalResult;
             }
-          },
-          (error) => {
+            if (this.tab === 2) {
+              this.totalSize = this.netNewCount;
+            }
+            this.pager = this.pagerservice.getPager(this.totalSize, page, this.limit);
+            this.pagedItems = this.totalSearchResult.slice(this.pager.startIndex, this.pager.endIndex + 1);
+            this.getNetNewCount();
+          } else {
             this.noResult = true;
-            this.loaderService.display(false);
           }
-        );
+        },
+        (error) => {
+          this.noResult = true;
+          this.loaderService.display(false);
+        }
+      );
     } else {
       this.loaderService.display(false);
       this.unLockDiv = true;
@@ -467,9 +427,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
   }
 
   handleCurrentCheckboxChange(contact) {
-    const currentContactsIndex = this.selectedPhysicianInCurrentPage.indexOf(
-      contact.physicianId
-    );
+    const currentContactsIndex = this.selectedPhysicianInCurrentPage.indexOf(contact.physicianId);
     if (currentContactsIndex == -1) {
       if (contact.leadSaveStatus !== 'Saved') {
         this.selectedPhysicianInCurrentPage.push(contact.physicianId);
@@ -481,9 +439,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 
   //Handling checkbox change for selection in current page
   handleCheckboxChangeForAll(contact) {
-    const contactsIndex = this.selectedPhysician.findIndex(
-      (item) => item == contact.physicianId
-    );
+    const contactsIndex = this.selectedPhysician.findIndex((item) => item == contact.physicianId);
     // console.log(contactsIndex, this.selectedPhysician,"contactsIndex")
     if (contactsIndex == -1) {
       if (contact.leadSaveStatus !== 'Saved') {
@@ -501,13 +457,9 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
     this.setPage(1);
   }
   storeFilterData() {
-    this.filterStorageService.set(
-      'physician_leadWithEmail',
-      this.leadWithEmail
-    );
+    this.filterStorageService.set('physician_leadWithEmail', this.leadWithEmail);
   }
   getPersistData() {
-    this.leadWithEmail =
-      this.filterStorageService.get('executive_leadWithEmail') || false;
+    this.leadWithEmail = this.filterStorageService.get('executive_leadWithEmail') || false;
   }
 }

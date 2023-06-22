@@ -153,7 +153,13 @@ export class LTCService {
   }
   getLists(offset: any, count: any, autoCreated: any = false): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcreadapi/list/get-all-list';
-    const body = { offset: offset, count: count, autoCreated: autoCreated, listType: 'Mylist' };
+    const body = {
+      offset: offset,
+      count: count,
+      autoCreated: autoCreated,
+      listType: 'Mylist',
+      organizationId: this.organizationId,
+    };
     const response = this.http.get(url, { params: body });
     return response;
   }

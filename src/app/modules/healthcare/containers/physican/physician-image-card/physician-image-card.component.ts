@@ -114,14 +114,14 @@ export class PhysicianImageCardComponent implements OnInit {
   }
   viewPhysicianMobileNumber() {
     this.amplizService.viewPhysicianMobileNumber(this.physicianData.physicianId).subscribe((res) => {
-      this.viewPhysicianFromList();
+      this.viewDetail();
       console.log(res);
     });
   }
   viewPhysicianEmail() {
     this.amplizService.viewPhysicianEmail(this.physicianData.physicianId).subscribe((res) => {
       console.log(res);
-      this.viewPhysicianFromList();
+      this.viewDetail();
     });
   }
 
@@ -129,16 +129,19 @@ export class PhysicianImageCardComponent implements OnInit {
     // this.loaderService.display(true);
     this.amplizService.viewPhysicianFromList(this.physicianData.physicianId, null).subscribe(
       (res) => {
-        this.amplizService.physicianOverviewDetails(this.physicianData.physicianId).subscribe(
-          (res) => {
-            this.showButtonLoader = false;
+        this.viewDetail()
+      },
+      (err) => {
+        this.showButtonLoader = false;
+      }
+    );
+  }
+  viewDetail(){
+    this.amplizService.physicianOverviewDetails(this.physicianData.physicianId).subscribe(
+      (res) => {
+        this.showButtonLoader = false;
 
-            this.dataService.addToSavedPhysician([res.physicianOverviewInfo.physicianInfoData]);
-          },
-          (err) => {
-            this.showButtonLoader = false;
-          }
-        );
+        this.dataService.addToSavedPhysician([res.physicianOverviewInfo.physicianInfoData]);
       },
       (err) => {
         this.showButtonLoader = false;
