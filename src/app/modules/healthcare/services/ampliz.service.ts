@@ -30,7 +30,7 @@ export class AmplizService {
   login(body: any): Observable<any> {
     const headers = new HttpHeaders({ ...body });
     const url = environment.prodAdbApi + '/ADB/api/login';
-    // const url = "https://stage.ampliz.com/ADB/api/login";
+    // const url = 'https://stage.ampliz.com/ADB/api/login';
 
     return this.http.post(url, {}, { headers });
   }

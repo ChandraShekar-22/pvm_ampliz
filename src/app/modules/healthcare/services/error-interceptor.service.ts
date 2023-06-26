@@ -6,29 +6,28 @@ import { CommonFunctionsService } from 'src/app/modules/basic/common/common-func
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ErrorInterceptorService {
-  constructor(private commonFunction: CommonFunctionsService,
-    private router: Router) {
-
-  }
+  constructor(private commonFunction: CommonFunctionsService, private router: Router) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          let errorMsg = 'Error occured';
-          if (error instanceof HttpErrorResponse) {
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMsg = 'Error occured';
+        console.log(error);
+        if (error instanceof HttpErrorResponse) {
           this.handleError(error);
-          }
+        } else {
           return throwError(errorMsg);
-        })
-      )
+        }
+        return throwError(error);
+      })
+    );
   }
 
   handleError(error: HttpErrorResponse) {
-    if (error.status == 412||error.status == 500||error.status==400||error.status==404) {
-    this.commonFunction.displayError(error);
+    if (error.status == 412 || error.status == 500 || error.status == 400 || error.status == 404) {
+      this.commonFunction.displayError(error);
     } else if (error.status == 401) {
       this.logout();
     }
@@ -36,6 +35,6 @@ export class ErrorInterceptorService {
 
   async logout() {
     await localStorage.clear();
-    this.router.navigate(["login"]);
+    this.router.navigate(['login']);
   }
 }

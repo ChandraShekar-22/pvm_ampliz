@@ -194,10 +194,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
           }
         },
         (error) => {
+          console.log(error.statusText);
           this.loaderService.display(false);
-          this.messageService.displayError(true, 'Invalid Credentials');
+          const message = error?.error?.msg ? error?.error?.msg : error.statusText;
+          this.messageService.displayError(true, message);
+
           // const err_msg = error.error.msg;
-          // // if(err_msg === "Email not yet verified, please verify the email"){
+          // // if(err_msg === "Email  not yet verified, please verify the email"){
           // //
           // //   this.errmsg = true;
           // //   this.domainName = window.location.hostname;

@@ -202,6 +202,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
     // this.leadWithEmail = event.leadWithEmail || false;
     this.leadWithEmail = event.leadWithEmail || false;
     this.leadWithProvider = event.provider_Type;
+    this.physicianSearchParameter.experience = event.experience;
     this.saveDraftLeads();
     this.getPhysicianSearchData();
   }

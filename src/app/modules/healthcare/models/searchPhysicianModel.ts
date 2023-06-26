@@ -1,9 +1,8 @@
-
 export class SearchPhysicianModel {
   constructor(
     public specialityIncluded: Array<string> = [],
     public specialityExcluded: Array<string> = [],
-    public physicianName: string = "",
+    public physicianName: string = '',
     public npiNumber: Array<string> = [],
     public hospitalNameList: Array<string> = [],
     public cityList: Array<string> = [],
@@ -11,13 +10,14 @@ export class SearchPhysicianModel {
     public offset: number = 0,
     public savedListOffset: number = 5,
     public limit: number = 5,
-    public emailTypeIsp: string = "",
-    public provider_Type: string = "",
+    public emailTypeIsp: string = '',
+    public provider_Type: string = '',
     public leadWithEmail: boolean = false,
     public leadWithPhone: boolean = false,
-    public searchType: string = "",
-    public clientIp: string = "",
-    public email_Score: any = []
+    public searchType: string = '',
+    public clientIp: string = '',
+    public email_Score: any = [],
+    public experience: string[] = []
   ) {}
 
   public toJson(): object {
@@ -39,6 +39,7 @@ export class SearchPhysicianModel {
       searchType: this.searchType,
       clientIp: this.clientIp,
       email_Score: this.email_Score,
+      experience: this.experience,
     };
   }
 
@@ -60,7 +61,8 @@ export class SearchPhysicianModel {
       obj.leadWithPhone,
       obj.searchType,
       obj.clientIp,
-      obj.email_Score
+      obj.email_Score,
+      obj.experience
     );
   }
 }
