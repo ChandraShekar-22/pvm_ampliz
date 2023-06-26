@@ -328,8 +328,8 @@
           (optionSelected)="onExperienceSelect($event)"
           class="app-autocomplete"
         >
-          <mat-option *ngFor="let hospital of experienceList" [value]="hospital.hospitalName">
-            {{ hospital.hospitalName }}
+          <mat-option *ngFor="let experience of getExperienceList" [value]="experience">
+            {{ experience }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

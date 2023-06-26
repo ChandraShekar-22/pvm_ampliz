@@ -168,6 +168,9 @@ export class FilterPhysicianComponent
       }
     });
   }
+  get getExperienceList() {
+    return this.experienceList;
+  }
   // addNPI(event: MatChipInputEvent): void {
   //   const value = (event.value || "").trim();
   //   let found = this.npiNumbers.filter((ele) => ele.name === value);
@@ -221,19 +224,20 @@ export class FilterPhysicianComponent
     this.omitChange();
     this.storeFilterData();
   }
-  onExperienceSelect(npi: any) {
-    const found = this.experience.findIndex((ele) => ele === npi);
-    if (found !== -1) {
-      this.experience = this.experience.filter((ele) => ele !== npi);
-      this.experienceInput.nativeElement.value = "";
+  onExperienceSelect(event: MatAutocompleteSelectedEvent) {
+    if (
+      this.experience.findIndex(
+        (hospital) => hospital === event.option.viewValue
+      ) === -1
+    ) {
+      this.experience.push(event.option.viewValue);
+      this.experienceInput.nativeElement.value = '';
       this.experienceControl.setValue(null);
-    } else {
-      this.experienceInput.nativeElement.value = "";
-      this.experienceControl.setValue(null);
-      this.experience.push(npi);
+      const temp: any = [];
+      this.experienceList = temp;
+      this.omitChange();
+      this.storeFilterData();
     }
-    this.omitChange();
-    this.storeFilterData();
   }
   // selectNPI(event: MatAutocompleteSelectedEvent): void {
   //   this.npiNumbers.push(event.option.viewValue);
@@ -248,7 +252,7 @@ export class FilterPhysicianComponent
     this.storeFilterData();
   }
   removeExperience(content): void {
-    this.npiNumbers = this.experience.filter((ele) => ele !== content);
+    this.experience = this.experience.filter((ele) => ele !== content);
     this.experienceList = [];
     this.omitChange();
     this.storeFilterData();
