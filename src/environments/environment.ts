@@ -17,8 +17,9 @@ export const environment = {
 
   // to test prod at local
   prodAdbApi: 'https://go.ampliz.com',
-  prodHcApi: 'https://hcapi.ampliz.com',
-  prodNPIApi: 'https://hcapi.ampliz.com',
+  prodHcApi: 'https://stageapi.ampliz.com',
+  prodNPIApi: 'https://stageapi.ampliz.com',
+  stageAdbApi: 'https://stage.ampliz.com',
 
   // prodB2BApi: "http://119.8.182.178:9000",
 

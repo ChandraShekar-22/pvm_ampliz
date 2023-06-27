@@ -149,7 +149,7 @@
             <!-- <app-skeleton-loader *ngIf="showLoader" [loopCount]="5"></app-skeleton-loader> -->
             <div *ngIf="totalSize > 0">
               <div *ngFor="let item of totalSearchResult; let i = index">
-                <app-physican-image
+                <app-physician-image-card
                   [isPaid]="isPaid"
                   [checkboxDisabled]="physicianCheckboxDisabled(item)"
                   [checkboxValue]="
@@ -163,7 +163,7 @@
                   [physicianData]="item"
                   (DataRefreshed)="getPhysicianSearchData()"
                   [currentCredit]="currentCredit"
-                  [dataIndex]="i"></app-physican-image>
+                  [dataIndex]="i"></app-physician-image-card>
               </div>
             </div>
           </div>

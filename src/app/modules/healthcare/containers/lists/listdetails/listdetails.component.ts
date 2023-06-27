@@ -154,6 +154,18 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
         suppressSizeToFit: true,
       },
       {
+        headerName: 'Mobile Number',
+        field: 'mobileNumber',
+        sortingOrder: ['desc', 'asc'],
+        filter: false,
+        autoHeight: true,
+        sortable: true,
+        width: 200,
+        cellClass: 'cellClass',
+        lockPosition: true,
+        suppressSizeToFit: true,
+      },
+      {
         headerName: 'Lead Location',
         field: 'leadLocation',
         sortingOrder: ['desc', 'asc'],
