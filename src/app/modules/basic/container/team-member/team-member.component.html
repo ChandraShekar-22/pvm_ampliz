@@ -9,6 +9,7 @@
 					(addMember)="handleAddMember($event)"
 					(openUserInfo)="openUserInfo($event)"
 					[getAdmin]="openAdmin"
+					(adminCredits)="handleAdminDetail($event)"
 				></app-member-side-panel>
 			</div>
 			<div class="action-panel col">
@@ -16,7 +17,7 @@
 					[addUser]="addMember"
 					[userInfo]="userInfo"
 					[loader]="loader"
-					(cancelAddMember)="cancelAddMember($event)"
+					(cancelAddMember)="cancelAddMember()"
 				></app-member-action-panel>
 			</div>
 		</div>

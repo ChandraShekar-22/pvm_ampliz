@@ -39,7 +39,11 @@ export class TeamMemberComponent implements OnInit {
 		}, 500);
 	}
 
-	cancelAddMember(val) {
+	cancelAddMember() {
 		this.openAdmin.next(true);
+	}
+
+	handleAdminDetail(detail: any) {
+		this.userInfo = detail;
 	}
 }

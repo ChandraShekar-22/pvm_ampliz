@@ -8,6 +8,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 export class MemberSidePanelComponent implements OnInit {
 	@Output() addMember: EventEmitter<boolean> = new EventEmitter();
 	@Output() openUserInfo: EventEmitter<any> = new EventEmitter();
+	@Output() adminCredits: EventEmitter<any> = new EventEmitter();
 	@Input() getAdmin: any;
 
 	// User Var
@@ -172,5 +173,6 @@ export class MemberSidePanelComponent implements OnInit {
 		this.adminActive = false;
 		this.activeCard = null;
 		this.addMember.emit(true);
+		this.adminCredits.emit(this.adminDetails);
 	}
 }
