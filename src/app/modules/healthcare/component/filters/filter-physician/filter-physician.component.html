@@ -144,6 +144,75 @@
       </mat-chip-list> -->
     </mat-expansion-panel>
     <!-- Speciality component end -->
+
+    <!-- Experience panel start-->
+    <mat-expansion-panel
+      #panelExperience
+      hideToggle="true"
+      [disabled]="isPaid"
+      (opened)="triggerAutoFocus('#experienceInput')"
+    >
+      <mat-expansion-panel-header
+        [ngClass]="panelExperience.expanded ? 'expanded' : ''"
+        [collapsedHeight]="'70px'"
+        [expandedHeight]="'70px'"
+      >
+        <mat-panel-title>
+          <div><mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Experience</div>
+          <div class="header-info" *ngIf="experience.length == 0">Enter Experience</div>
+          <div class="selected" *ngIf="experience.length > 0">
+            <mat-chip-list #addedHospitals aria-label="Hospital name">
+              <mat-basic-chip *ngIf="experience?.length > 0" [ngClass]="'selected'">
+                {{ experience[0] }}
+              </mat-basic-chip>
+              <span *ngIf="experience?.length > 1" class="additional-selection">
+                + {{ experience.length - 1 }} more
+              </span>
+            </mat-chip-list>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon class="matrl-plus">{{ panelExperience.expanded ? 'remove' : 'add' }} </mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-form-field>
+        <mat-chip-list #experienceList aria-label="Experience input">
+          <mat-basic-chip
+            *ngFor="let name of experience"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="removeExperience(name)"
+          >
+            {{ name }}
+            <mat-icon matChipRemove>close</mat-icon>
+          </mat-basic-chip>
+          <input
+            #experienceInput
+            id="experienceInput"
+            placeholder=""
+            aria-label="Experience Input"
+            matInput
+            [formControl]="experienceControl"
+            [matAutocomplete]="ExperienceAuto"
+            floatPlaceholder="never"
+            [matChipInputFor]="experienceList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          />
+        </mat-chip-list>
+
+        <mat-autocomplete
+          #ExperienceAuto="matAutocomplete"
+          (optionSelected)="onExperienceSelect($event)"
+          class="app-autocomplete"
+        >
+          <mat-option *ngFor="let experience of getExperienceList" [value]="experience">
+            {{ experience }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-expansion-panel>
+    <!-- Experience panel End-->
+
     <!-- Email Status component starts -->
     <mat-expansion-panel
       #panelEmailStatus
@@ -223,6 +292,7 @@
       </div>
     </mat-expansion-panel>
     <!-- Email Status component ends -->
+
     <!-- Name component -->
     <!-- <mat-expansion-panel
       #panelName
@@ -268,73 +338,7 @@
     </mat-expansion-panel> -->
     <!-- Name component End-->
     <!-- Hospital Name component -->
-    <!-- Executive start-->
-    <mat-expansion-panel
-      #panelExperience
-      hideToggle="true"
-      [disabled]="isPaid"
-      (opened)="triggerAutoFocus('#experienceInput')"
-    >
-      <mat-expansion-panel-header
-        [ngClass]="panelExperience.expanded ? 'expanded' : ''"
-        [collapsedHeight]="'70px'"
-        [expandedHeight]="'70px'"
-      >
-        <mat-panel-title>
-          <div><mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Experience</div>
-          <div class="header-info" *ngIf="experience.length == 0">Enter Experience</div>
-          <div class="selected" *ngIf="experience.length > 0">
-            <mat-chip-list #addedHospitals aria-label="Hospital name">
-              <mat-basic-chip *ngIf="experience?.length > 0" [ngClass]="'selected'">
-                {{ experience[0] }}
-              </mat-basic-chip>
-              <span *ngIf="experience?.length > 1" class="additional-selection">
-                + {{ experience.length - 1 }} more
-              </span>
-            </mat-chip-list>
-          </div>
-        </mat-panel-title>
-        <mat-panel-description>
-          <mat-icon class="matrl-plus">{{ panelExperience.expanded ? 'remove' : 'add' }} </mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-form-field>
-        <mat-chip-list #experienceList aria-label="Experience input">
-          <mat-basic-chip
-            *ngFor="let name of experience"
-            [selectable]="selectable"
-            [removable]="removable"
-            (removed)="removeExperience(name)"
-          >
-            {{ name }}
-            <mat-icon matChipRemove>close</mat-icon>
-          </mat-basic-chip>
-          <input
-            #experienceInput
-            id="experienceInput"
-            placeholder=""
-            aria-label="Experience Input"
-            matInput
-            [formControl]="experienceControl"
-            [matAutocomplete]="ExperienceAuto"
-            floatPlaceholder="never"
-            [matChipInputFor]="experienceList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          />
-        </mat-chip-list>
 
-        <mat-autocomplete
-          #ExperienceAuto="matAutocomplete"
-          (optionSelected)="onExperienceSelect($event)"
-          class="app-autocomplete"
-        >
-          <mat-option *ngFor="let experience of getExperienceList" [value]="experience">
-            {{ experience }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </mat-expansion-panel>
-    <!-- Executive End-->
     <mat-expansion-panel
       #panelHospitalName
       hideToggle="true"

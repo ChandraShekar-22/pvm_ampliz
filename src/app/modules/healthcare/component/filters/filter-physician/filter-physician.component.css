@@ -248,6 +248,7 @@ p.sub-header {
 
 .mat-panel-title {
   white-space: nowrap;
+  align-items: flex-start !important;
 }
 
 .text-container {
@@ -699,4 +700,9 @@ p.sub-header {
 
 .text-grey {
   color: #666;
+}
+
+::ng-deep .filter-component .mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
+  align-items: flex-start !important;
 }
