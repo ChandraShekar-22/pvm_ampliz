@@ -89,7 +89,7 @@ export class HealthcareonboardComponent implements OnInit {
         (res) => {
           this.subscriptions = res.Subscriptions;
           //
-          localStorage.setItem('organizationId', res[0].orgId);
+          localStorage.setItem('organizationId', res.orgId);
           this.creditsremaining = res.Subscriptions[0].SubscriptionCredits;
           //
           if (res.Subscriptions[0].SubscriptionName == 'Subscription1') {
@@ -155,7 +155,6 @@ export class HealthcareonboardComponent implements OnInit {
     const myDate = new Date();
     myDate.setMonth(myDate.getMonth() + 12);
     this.domainName = this.domainName.substring(this.domainName.indexOf('.') + 1);
-    document.cookie =
-      'organizationId = ' + res[0].orgId + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
+    document.cookie = 'organizationId = ' + res.orgId + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
   }
 }
