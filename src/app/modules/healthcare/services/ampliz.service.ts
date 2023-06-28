@@ -21,13 +21,17 @@ export class AmplizService {
   public authToken = localStorage.getItem('auth_token');
   public cook = document.cookie;
   domainName = '';
+  get organizationId() {
+    return localStorage.getItem('organizationId');
+  }
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
   hospitals: any = [];
   login(body: any): Observable<any> {
     const headers = new HttpHeaders({ ...body });
     const url = environment.prodAdbApi + '/ADB/api/login';
-    // const url = "https://stage.ampliz.com/ADB/api/login";
+    // const url = 'https://stage.ampliz.com/ADB/api/login';
+
     return this.http.post(url, {}, { headers });
   }
 
@@ -399,7 +403,7 @@ export class AmplizService {
 
   createList(listName: string): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/create-list';
-    const body = { listName: listName, autoCreated: false };
+    const body = { listName: listName, autoCreated: false, organizationId: this.organizationId };
     //const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
     const response = this.http.post(url, body);
     return response;
@@ -407,7 +411,13 @@ export class AmplizService {
 
   getAllList(offset: any, count: any, autoCreated: any = true): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcreadapi/list/get-all-list';
-    const body = { offset: offset, count: count, autoCreated: autoCreated };
+    const body = {
+      offset: offset,
+      count: count,
+      autoCreated: autoCreated,
+      listType: 'Mylist',
+      organizationId: this.organizationId,
+    };
     // const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
     const response = this.http.get(url, { params: body });
     return response;
@@ -633,7 +643,7 @@ export class AmplizService {
 
   viewPhysicianFromList(physicianId: any, listId: any): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/add-physician-to-list';
-    const body = { physicianId: physicianId, listId: listId };
+    const body = { physicianId: physicianId, listId: listId, organizationId: this.organizationId };
     //const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
     const response = this.http.post(url, body);
     return response;
@@ -641,7 +651,7 @@ export class AmplizService {
 
   viewExecutiveFromList(executiveId: any, listId: any): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/add-health-executive-to-list';
-    const body = { healthExecutiveId: executiveId, listId: listId };
+    const body = { healthExecutiveId: executiveId, listId: listId, organizationId: this.organizationId };
     //const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
     const response = this.http.post(url, body);
     return response;
@@ -686,7 +696,7 @@ export class AmplizService {
 
   saveLeadName(listId: string, listName: string) {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/edit-list-name';
-    const body = { listId: listId, listName: listName };
+    const body = { listId: listId, listName: listName, organizationId: this.organizationId };
     const response = this.http.post(url, body);
     return response;
   }
@@ -928,19 +938,19 @@ export class AmplizService {
 
   addLeadsToList(data: any) {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/add-leads-to-list';
-    const response = this.http.post(url, data);
+    const response = this.http.post(url, { ...data, organizationId: this.organizationId });
     return response;
   }
 
   savePhysicianAsPerCount(data: any): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/save-physician-records-as-per-count';
-    const response = this.http.post(url, data);
+    const response = this.http.post(url, { ...data, organizationId: this.organizationId });
     return response;
   }
 
   saveExecutiveAsPerCount(data: any): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/save-executive-records-as-per-count';
-    const response = this.http.post(url, data);
+    const response = this.http.post(url, { ...data, organizationId: this.organizationId });
     return response;
   }
   isInvitationActive(code: any): Observable<any> {
@@ -962,13 +972,13 @@ export class AmplizService {
 
   saveDraftLeads(): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/save-draft-leads';
-    const response = this.http.post(url, {});
+    const response = this.http.post(url, { organizationId: this.organizationId });
     return response;
   }
 
   saveViewedLeads(physicianId: any, listId: any): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/savedlist/save-viewed-lead';
-    const body = { leadId: physicianId, listId: listId };
+    const body = { leadId: physicianId, listId: listId, organizationId: this.organizationId };
     //const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
     const response = this.http.post(url, body);
     return response;
@@ -1095,7 +1105,7 @@ export class AmplizService {
       url,
 
       {
-        params: { bulkNpiId, withFilter, fileName, recordCount },
+        params: { bulkNpiId, withFilter, fileName, recordCount, organizationId: this.organizationId },
         responseType: 'text',
       }
     );
@@ -1130,7 +1140,7 @@ export class AmplizService {
   npiDownloadAgain(bulkNpiId: string, withFilter: string, fileName: string) {
     const url = environment.prodNPIApi + '/amplizhcreadapi/npi/download-bulk-npi-physician-data-again';
     const response = this.http.get(url, {
-      params: { bulkNpiId, withFilter, fileName },
+      params: { bulkNpiId, withFilter, fileName, organizationId: this.organizationId },
       responseType: 'text',
     });
     return response;
@@ -1139,6 +1149,22 @@ export class AmplizService {
     const url = environment.prodNPIApi + '/amplizhcreadapi/npi/get-bulk-npi-matching-status';
     const response = this.http.get(url, {
       params: { bulkNpiId },
+    });
+    return response;
+  }
+  viewPhysicianMobileNumber(physicianId: string) {
+    const url = environment.prodNPIApi + '/amplizhcwriteapi/savedlist/add-physician-mobile-to-list';
+    const response = this.http.post(url, {
+      physicianId,
+      organizationId: this.organizationId,
+    });
+    return response;
+  }
+  viewPhysicianEmail(physicianId: string) {
+    const url = environment.prodNPIApi + '/amplizhcwriteapi/savedlist/add-physician-email-and-phone-to-list';
+    const response = this.http.post(url, {
+      physicianId,
+      organizationId: this.organizationId,
     });
     return response;
   }

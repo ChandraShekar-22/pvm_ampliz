@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AmplizService } from '../../../services/ampliz.service';
 import { DataService } from '../../../services/data.service';
-import { LoaderService } from '../../../services/loader.service';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { AmplizService } from '../../../services/ampliz.service';
+import { LoaderService } from '../../../services/loader.service';
+
 @Component({
-  selector: 'app-physican-image',
-  templateUrl: './physican-image.component.html',
-  styleUrls: ['./physican-image.component.css'],
+  selector: 'app-physician-image-card',
+  templateUrl: './physician-image-card.component.html',
+  styleUrls: ['./physician-image-card.component.css'],
 })
-export class PhysicanImageComponent implements OnInit, AfterViewInit {
+export class PhysicianImageCardComponent implements OnInit {
   @Input() physicianData: any;
   @Input() currentCredit: any;
   @Input() dataIndex: any;
@@ -111,21 +112,36 @@ export class PhysicanImageComponent implements OnInit, AfterViewInit {
       this.saveDrawer = true;
     }
   }
+  viewPhysicianMobileNumber() {
+    this.amplizService.viewPhysicianMobileNumber(this.physicianData.physicianId).subscribe((res) => {
+      this.viewDetail();
+      console.log(res);
+    });
+  }
+  viewPhysicianEmail() {
+    this.amplizService.viewPhysicianEmail(this.physicianData.physicianId).subscribe((res) => {
+      console.log(res);
+      this.viewDetail();
+    });
+  }
 
   viewPhysicianFromList() {
     // this.loaderService.display(true);
     this.amplizService.viewPhysicianFromList(this.physicianData.physicianId, null).subscribe(
       (res) => {
-        this.amplizService.physicianOverviewDetails(this.physicianData.physicianId).subscribe(
-          (res) => {
-            this.showButtonLoader = false;
+        this.viewDetail()
+      },
+      (err) => {
+        this.showButtonLoader = false;
+      }
+    );
+  }
+  viewDetail(){
+    this.amplizService.physicianOverviewDetails(this.physicianData.physicianId).subscribe(
+      (res) => {
+        this.showButtonLoader = false;
 
-            this.dataService.addToSavedPhysician([res.physicianOverviewInfo.physicianInfoData]);
-          },
-          (err) => {
-            this.showButtonLoader = false;
-          }
-        );
+        this.dataService.addToSavedPhysician([res.physicianOverviewInfo.physicianInfoData]);
       },
       (err) => {
         this.showButtonLoader = false;
