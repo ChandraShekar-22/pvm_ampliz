@@ -1,129 +1,112 @@
-:root {
-  --primary: #0071eb;
-  --gray: #495365;
+.member-card-container {
+	padding: 20px 30px;
+	cursor: pointer;
+	transition: 0.15s all ease-in-out;
+}
+.member-info h6 {
+	color: #040404;
+	font-size: 13px;
+	margin-bottom: 3px;
+}
+.avatar-container {
+	aspect-ratio: 1 / 1;
+	color: white;
+	border-radius: 5px;
+	font-size: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.status-container {
+	font-size: 10px;
+	background: #f2f2f2;
+	padding: 5px 5px;
+	color: #fff;
+	border-radius: 5px;
+	text-align: center;
+}
+.admin-avatar {
+	background-color: #dcedff;
+	color: #040404;
+}
+.invited-status {
+	background-color: #ebad10;
+}
+.active-status {
+	background-color: #c8ffde;
+	color: #08ab5d;
+}
+.invitation-expired-status {
+	background-color: #ff6c63;
+}
+.deactivated-status {
+	background-color: #f2f2f2;
+	color: #495365;
 }
 
-/* Container Css */
-#accordian-item {
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
-  border-radius: 7px !important;
+.loader-container {
+	padding-left: 20px;
 }
-.admin-card {
-  background-color: #f1f8ff !important;
-  border: 0.5px solid #0071eb;
+.loader-details span {
+	display: block;
+	background: #d9d9d9;
+	border-radius: 10px;
+	overflow: hidden;
+	position: relative;
 }
-.invited-card {
-  background-color: #fffcf3 !important;
-  border: 0.5px solid #fcdb87;
+.loader-details .name-loader {
+	height: 13px;
+	width: 100px;
 }
-.invitation-expired-card {
-  background-color: #fff9f9 !important;
-  border: 0.5px solid #ff6c63;
+.loader-details .about-loader {
+	height: 11px;
+	width: 150px;
+	margin-top: 10px;
 }
-.active-card {
-  background-color: #ffff !important;
-  border: 0.5px solid #007654;
+.loader-details .status-loader {
+	margin-right: 35px;
+	height: 11px;
+	width: 75px;
 }
-.inactive-card {
-  background-color: #f7f7f7 !important;
-  border: 0.5px solid #b4b5b7;
+.loader-btn {
+	margin-right: 35px;
 }
-
-/* Info Css */
-.info h6 {
-  color: #040404;
-  font-weight: 500;
-  font-size: 13px;
+.loader-details span::before {
+	position: absolute;
+	content: '';
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(
+		to right,
+		#d9d9d9 0%,
+		rgba(0, 0, 0, 0.07) 20%,
+		#d9d9d9 40%,
+		#d9d9d9 100%
+	);
+	background-repeat: no-repeat;
+	background-size: 450px 400px;
+	animation: shimmer 1s linear infinite;
 }
-.info p {
-  color: var(--gray);
-  font-weight: 400;
+.loader-details span::before {
+	animation-delay: 0.2s;
 }
-
-/* Status Css */
-.status p {
-  font-weight: 300;
-  font-size: 11px;
-  color: var(--gray);
-  padding-top: 8px;
+.loader-details .avtar-loader {
+	height: 34px;
+	width: 50px;
+	border-radius: 5px;
+	padding: 0;
 }
-.status span {
-  font-size: 11px;
-  font-weight: 400;
-  padding: 5px 8px;
-  color: #ffff;
-  border-radius: 4px;
-  text-transform: capitalize;
+.loader-details .status-loader {
+	height: 25px;
+	width: 70px;
+	padding: 0;
+	border-radius: 5px;
 }
-
-.invitation-expired {
-  background-color: #ff6c63;
-}
-.active {
-  background-color: #befdeb;
-  color: #096f51 !important;
-}
-.invited {
-  background-color: #fabc1e;
-}
-.inactive {
-  background-color: #dbd9d9;
-  color: #040404 !important;
-}
-
-/* Role Css */
-.role span {
-  background-color: #f1f5f9;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 400;
-  padding: 5px;
-  color: var(--gray);
-}
-.admin {
-  background-color: #cfe6ff !important;
-  color: var(--primary) !important;
-}
-
-/* Credit Css */
-.credit p {
-  font-weight: 400;
-  color: var(--gray);
-}
-.credit span {
-  color: #040404 !important;
-  font-weight: 500 !important;
-}
-
-/* Icon Css */
-.icon {
-  color: #040404;
-  cursor: pointer;
-  font-size: 10px;
-}
-.icon i {
-  transition: all 0.25s ease-in-out;
-}
-.rotateIcon {
-  transform: rotate(-180deg);
-}
-
-/* CTA Css */
-.resend-invitation-btn {
-  cursor: pointer;
-  background-color: transparent;
-  font-size: 12px;
-  border-radius: 25px;
-  padding: 5px;
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  margin-bottom: 10px;
-  max-width: 50%;
-}
-.delete-invitation-btn {
-  color: var(--gray);
-  font-size: 12px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+@keyframes shimmer {
+	0% {
+		background-position: -450px 0;
+	}
+	100% {
+		background-position: 450px 0;
+	}
 }

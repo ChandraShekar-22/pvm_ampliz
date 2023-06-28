@@ -115,7 +115,6 @@ export class HistorySearchCardComponent implements OnInit {
     if (item.searchType == 'Contact') {
       const contactObj = this.searchContactInput.fromJson(item.contactSearchParams);
       this.dataService.passSearchContactInput(contactObj);
-      console.log('CONT', contactObj);
       this.dataService.changeSelectedTab(0);
     } else {
       const companyObj = this.searchCompanyInput.fromJson(item.companySearchParams);

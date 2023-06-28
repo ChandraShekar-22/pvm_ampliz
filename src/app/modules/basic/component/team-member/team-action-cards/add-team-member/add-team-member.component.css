@@ -1,0 +1,211 @@
+.header {
+	padding: 20px;
+}
+.content-section {
+	padding: 30px 45px;
+}
+.input-container {
+}
+.email-container {
+	padding: 20px;
+}
+.role-container {
+	margin-top: 25px;
+}
+/* header css */
+.header {
+	padding: 15px 20px !important;
+	background-color: #e5f2ff;
+	border-bottom: 0.5px solid #e0e0e0;
+	justify-content: space-between;
+}
+.header-text {
+	font-weight: 300;
+	font-size: 13px;
+	color: #495365;
+	margin-left: 28px;
+}
+.header-text b {
+	color: #000000 !important;
+}
+.header-error {
+	background-color: #ffeae9;
+}
+
+.upgrade-text {
+	font-weight: 400;
+	font-size: 13px;
+	color: #0071eb;
+	cursor: pointer;
+}
+.disclaimer-text {
+	font-size: 11px;
+	margin-top: -10px;
+	font-weight: 300;
+	color: #495365;
+}
+.error-text {
+	color: #f83428 !important;
+}
+
+/* email css */
+.email-container textarea {
+	border: 1px solid #b6b6b6;
+	border-radius: 6px;
+	resize: none;
+	transition: all 0.4ms ease-in-out;
+	padding: 10px;
+	font-weight: 400;
+	font-size: 12px;
+	margin: 20px 0px;
+}
+textarea:focus {
+	outline: none;
+	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+/* credit css starts */
+/* Input css */
+input[type='number'] {
+	border: 1px solid #beddfe;
+	padding: 0;
+	text-align: center;
+	max-width: 40%;
+}
+input[type='number']:focus {
+	border: 1px solid #beddfe;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	-moz-appearance: none !important;
+	appearance: none;
+	margin: 0;
+}
+.input-container div {
+	border-radius: 20px;
+}
+.input-container span {
+	font-weight: 300;
+	font-size: 13px;
+}
+.input-header {
+	margin-bottom: 15px;
+}
+.input-error {
+	border: 1px solid #f83428 !important;
+}
+.range-button {
+	border: 1px solid #beddfe;
+	background: #beddfe;
+	border-radius: 5px;
+	transition: all 0.2s ease-in-out;
+}
+.range-error {
+	border: 1px solid #f83428 !important;
+	background: #ffeae9 !important;
+}
+.icon-error {
+	color: #f83428 !important;
+}
+.range-button:focus {
+	box-shadow: none;
+}
+.range-button:hover {
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.range-button i {
+	font-size: 10px;
+	color: #0071eb;
+}
+
+/* Action button css */
+.action-button-container {
+	gap: 20px;
+}
+.role-container span {
+	font-size: 12px;
+	font-weight: 500;
+	color: #000000;
+}
+.role-btn {
+	border: none;
+	cursor: pointer;
+	background-color: #e6ecf2;
+	color: #495365;
+	border-radius: 25px;
+	font-size: 10px;
+	margin-right: 10px;
+	padding: 5px 10px;
+}
+.role-active {
+	background-color: #0071eb;
+	color: #ffff;
+	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+.save-btn {
+	border: none;
+	border-radius: 25px;
+	color: #fff;
+	background-color: #0071eb;
+	padding: 8px 20px;
+	font-size: 12px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	pointer-events: none;
+	opacity: 0.5;
+}
+.save-btn:hover {
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.enable-btn {
+	opacity: 1;
+	pointer-events: all;
+}
+.canel-btn {
+	color: #85898f;
+	background-color: transparent;
+	border: none;
+	font-size: 12px;
+	font-weight: 300;
+	cursor: pointer;
+	padding: 0;
+}
+/* Loader css */
+svg {
+	width: 2.25em;
+	transform-origin: center;
+	animation: rotate4 2s linear infinite;
+}
+
+circle {
+	fill: none;
+	stroke: #0071eb;
+	stroke-width: 2;
+	stroke-dasharray: 1, 200;
+	stroke-dashoffset: 0;
+	stroke-linecap: round;
+	animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes dash4 {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+
+	50% {
+		stroke-dasharray: 90, 200;
+		stroke-dashoffset: -35px;
+	}
+
+	100% {
+		stroke-dashoffset: -125px;
+	}
+}
