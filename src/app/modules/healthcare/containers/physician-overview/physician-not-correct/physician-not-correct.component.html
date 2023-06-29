@@ -1,0 +1,50 @@
+<div class="notCorrectWrapper">
+  <div
+    mat-button
+    [matMenuTriggerFor]="menu"
+    #menuTrigger="matMenuTrigger"
+    class="searchButton"
+    (click)="matMenuOpened()">
+    Not Correct
+
+    <mat-icon
+      class="downArrow"
+      aria-hidden="false"
+      aria-label="Example home icon"
+      >keyboard_arrow_down</mat-icon
+    >
+  </div>
+
+  <mat-menu #menu="matMenu" xPosition="before">
+    <div class="menuWrapper" (click)="$event.stopPropagation()">
+      <div mat-menu-item>Select reason for 'Not Correct'</div>
+      <button
+        mat-menu-item
+        (click)="selectReason(reason)"
+        *ngFor="let reason of notCorrectReasons">
+        <b>{{ reason }} </b> not correct
+      </button>
+      <button
+        (click)="otherClicked($event)"
+        *ngIf="!showOtherTextField"
+        mat-menu-item>
+        Other
+      </button>
+      <mat-form-field [@enterAnimation] *ngIf="showOtherTextField">
+        <input
+          [(ngModel)]="selectedReason"
+          matInput
+          placeholder="Enter Other Feedback"
+          #searchInput
+          (blur)="searchInput.focus()" />
+        <mat-icon
+          style="cursor: pointer"
+          (click)="selectReason(selectedReason)"
+          class="text-primary"
+          matSuffix
+          >check_circle</mat-icon
+        >
+      </mat-form-field>
+    </div>
+  </mat-menu>
+</div>

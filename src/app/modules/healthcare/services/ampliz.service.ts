@@ -657,7 +657,7 @@ export class AmplizService {
     return response;
   }
 
-  reportIncorrectPhysicianData(physicianId: any, incorrectDataList: []): Observable<any> {
+  reportIncorrectPhysicianData(physicianId: any, incorrectDataList: string[]): Observable<any> {
     const url = environment.prodHcApi + '/amplizhcwriteapi/customervoice/report-incorrect-physician-data';
     const body = {
       physicianId: physicianId,
