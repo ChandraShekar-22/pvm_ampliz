@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-// import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs-compat';
 @Injectable({
 	providedIn: 'root',
@@ -12,7 +12,7 @@ export class BasicService {
 	// Teams
 	// POST API
 	setTeamMemberPassword(params: any): Observable<any> {
-		const url = this.teams_api + '/teams/amplizteamswriteapi/admin/set-password';
+		const url = environment.prodAdbApi + '/ADB/api/setpwd';
 		const response = this.http.post(url, params);
 		return response;
 	}

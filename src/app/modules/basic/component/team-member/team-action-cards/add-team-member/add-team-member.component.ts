@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BasicService } from 'src/app/modules/basic/service/basic.service';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { DataServiceService } from 'src/app/modules/basic/service/data-service.service';
 @Component({
 	selector: 'app-add-team-member',
 	templateUrl: './add-team-member.component.html',
@@ -35,7 +36,11 @@ export class AddTeamMemberComponent implements OnInit {
 	creditError: boolean = false;
 	mobileCreditError: boolean = false;
 
-	constructor(private api: BasicService, private messageService: MessageService) {}
+	constructor(
+		private api: BasicService,
+		private messageService: MessageService,
+		private service: DataServiceService
+	) {}
 
 	ngOnInit(): void {}
 	get enableBtn() {
@@ -55,7 +60,7 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 
 	handleCancel() {
-		this.cancelAddMember.emit(true);
+		this.service.cancelAddMember.next(true);
 	}
 
 	handleSubmit() {
@@ -65,9 +70,13 @@ export class AddTeamMemberComponent implements OnInit {
 			this.api.inviteTeamMember(this.params).subscribe(
 				(res) => {
 					this.messageService.display(true, 'The invitation has been sent.');
+					this.service.memberInvited.next(true);
 				},
-				(err) => {
-					this.messageService.displayError(true, err);
+				(error) => {
+					if (error.error[0]) {
+						const msg: any = error.error[0].message ? error.error[0].message : 'Error';
+						this.messageService.displayError(true, msg);
+					}
 				}
 			);
 		}

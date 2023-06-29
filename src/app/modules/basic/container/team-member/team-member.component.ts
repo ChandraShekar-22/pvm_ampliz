@@ -23,24 +23,12 @@ export class TeamMemberComponent implements OnInit {
 	ngOnInit(): void {}
 
 	handleAddMember(val: boolean) {
-		this.loader = true;
 		this.addMember = true;
-		setTimeout(() => {
-			this.loader = false;
-		}, 500);
 	}
 
 	openUserInfo(user) {
-		this.loader = true;
 		this.addMember = false;
 		this.userInfo = user;
-		setTimeout(() => {
-			this.loader = false;
-		}, 500);
-	}
-
-	cancelAddMember() {
-		this.openAdmin.next(true);
 	}
 
 	handleAdminDetail(detail: any) {
