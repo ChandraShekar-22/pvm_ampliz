@@ -183,6 +183,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
           // let is_SpecialityUser = "true";
           await this.setLocal(res);
+          localStorage.setItem('organizationId', '6490060c2c504b70a48b48e3');
 
           this.loaderService.display(false);
           // console.log(res.Dataset);

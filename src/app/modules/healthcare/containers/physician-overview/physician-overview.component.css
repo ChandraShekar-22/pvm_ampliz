@@ -10,17 +10,76 @@
 }
 
 .card {
-  width: auto;
-  top: 30px;
-  height: 100px;
-  border: #ebebeb;
-  background-color: dodgerblue;
-  border-width: 0.5px;
-  border-style: solid;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-  flex: 1;
-  flex-direction: column;
+  border: 0.5px solid #d2d0d0;
+  background: #fff;
+  width: 100%;
+  padding: 2.625rem 5.22rem 0 4.125rem;
+}
+.physician_name {
+  color: #000;
+  font-size: 30px;
+  font-family: Roboto;
+  font-weight: 700;
+}
+.icon_contact_info {
+  gap: 13px;
+  padding-bottom: 18px;
+  display: flex;
+  align-items: center;
+  color: #0071eb;
+  font-size: 15px;
+  font-family: Roboto;
+  font-weight: 500;
+  letter-spacing: 0.45px;
+  cursor: pointer;
+}
+.physician_speciality {
+  color: #777676;
+  font-size: 14px;
+  font-family: Roboto;
+  font-weight: normal;
+}
+.physician_hospital {
+  color: #000;
+  font-size: 15px;
+  font-family: Roboto;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  margin-top: 40px;
+  font-weight: normal;
+}
+.physician_general {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  margin-top: 28px;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.rounded {
+  border-radius: 50px !important;
+}
+.icon_container {
+  margin-top: 65px;
+}
+.physician_general > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+  font-weight: normal;
+}
+.dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff6c63;
 }
 
 .onboarding__home__guide-assistant__speech-bubble__right {
@@ -154,7 +213,7 @@
 .toggle.active:after {
   position: absolute;
   width: 100%;
-  content: "";
+  content: '';
   border-bottom: 4px solid #2d8cff;
   bottom: -4px;
 }
@@ -184,16 +243,6 @@
   justify-content: center;
   align-items: center;
   background-color: #fff;
-}
-
-.physician_hospital {
-  color: #8f8f8f;
-  display: flex;
-  justify-content: space-between;
-  align-content: space-between;
-  padding-bottom: 17px;
-  font-weight: 400;
-  height: 100%;
 }
 
 .icon {
@@ -275,4 +324,121 @@
   margin-left: 70px;
   overflow: hidden;
   background-color: #f4f7f6 !important;
+}
+
+.tab_container {
+  display: flex;
+  gap: 50px;
+  margin-top: 69px;
+}
+.tab_container p {
+  font-size: 14px;
+  font-family: Roboto;
+  font-weight: 500;
+  letter-spacing: 0.42px;
+  padding-bottom: 14px;
+  margin: 0 !important;
+  cursor: pointer;
+}
+.tab_container p.selected {
+  color: #ff6c63;
+  border-bottom: 2px solid #ff6c63;
+}
+
+.marginTop {
+  margin-top: 11px;
+}
+
+.bio_content {
+  color: #777676;
+  font-size: 15px;
+  line-height: 27px;
+  font-weight: normal;
+}
+
+.npi_content,
+.hospital_content {
+  display: flex;
+  align-items: center;
+  margin-top: 22px;
+  row-gap: 32px;
+  column-gap: 76px;
+  flex-wrap: wrap;
+}
+.hospital_content > p {
+  min-width: 250px;
+  flex-grow: 250px;
+}
+.npi_content > p,
+.hospital_content > p,
+.npi_content > p > span,
+.hospital_content > p > span {
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+}
+.hospital_content > p > span > a {
+  color: #0071eb;
+}
+.npi_content > p > span,
+.hospital_content > p > span {
+  color: #777676;
+  font-weight: 400;
+}
+.physician_speciality,
+.physician_speciality > p {
+  display: flex;
+  gap: 19px;
+  align-items: center;
+}
+.physician_speciality > p {
+  gap: 5px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.heading {
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.75px;
+  margin-top: 50px;
+}
+.physician_experience {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.experience_container {
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid #ff6c63;
+  padding: 5px 14px;
+}
+.viewed_style_email {
+  color: #0071eb !important;
+}
+
+.viewed_style,
+.viewed_style_email {
+  font-size: 15px;
+  font-family: Roboto;
+  letter-spacing: 0.45px;
+  font-weight: 400;
+}
+
+.viewed_style {
+  color: #777676;
+}
+.location {
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 21px;
+}
+.margin-zero {
+  margin: 0;
 }

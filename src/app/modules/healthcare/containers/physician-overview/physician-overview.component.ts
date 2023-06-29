@@ -1,14 +1,15 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
-import * as moment from "moment";
-import { AmplizService } from "src/app/modules/healthcare/services/ampliz.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { param } from "jquery";
-import { MessageService } from "../../../B2B/services/message.service";
-import { DataService } from "../../services/data.service";
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import * as moment from 'moment';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { param } from 'jquery';
+import { MessageService } from '../../../B2B/services/message.service';
+import { DataService } from '../../services/data.service';
+import { T } from '@angular/cdk/keycodes';
 @Component({
-  selector: "app-physician-overview",
-  templateUrl: "./physician-overview.component.html",
-  styleUrls: ["./physician-overview.component.css"],
+  selector: 'app-physician-overview',
+  templateUrl: './physician-overview.component.html',
+  styleUrls: ['./physician-overview.component.css'],
 })
 export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   columnDefs: any;
@@ -18,12 +19,13 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   paramsData: any;
   DataResult: any;
   subscriptions = [];
-  headerData: any = "";
+  headerData: any = '';
   subscribed: boolean;
   currentCredit: any;
   saveDrawer: boolean = false;
   notCorrectDrawer: boolean = false;
   showButtonLoader: boolean = false;
+  selectedTab = 1;
   constructor(
     private activatedRoute: ActivatedRoute,
     public amplizService: AmplizService,
@@ -32,16 +34,16 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   ) {
     this.columnDefs = [
       {
-        headerName: "Drug Name",
+        headerName: 'Drug Name',
       },
       {
-        headerName: "Total claim",
+        headerName: 'Total claim',
       },
       {
-        headerName: "Total Drug Cost",
+        headerName: 'Total Drug Cost',
       },
       {
-        headerName: "Total Drug Cost 65+",
+        headerName: 'Total Drug Cost 65+',
       },
     ];
   }
@@ -53,7 +55,27 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   get phyDrugInfo() {
     return this.DataResult;
   }
+  get languages() {
+    return this.physicianOverviewResult.physicianInfoData.languages.join(', ');
+  }
+  viewPhysicianMobileNumber() {
+    this.amplizService
+      .viewPhysicianMobileNumber(this.physicianOverviewResult.physicianInfoData.physicianId)
+      .subscribe((res) => {
+        this.viewDetail();
+      });
+  }
+  viewPhysicianEmail() {
+    this.amplizService
+      .viewPhysicianEmail(this.physicianOverviewResult.physicianInfoData.physicianId)
+      .subscribe((res) => {
+        this.viewDetail();
+      });
+  }
 
+  get gender() {
+    return this.physicianOverviewResult.physicianInfoData.gender === 'M' ? 'Male' : 'Female';
+  }
   get isBlankHospitalInfo() {
     if (
       !this.phyHosInfo.webAddress &&
@@ -78,13 +100,21 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   // }
 
   get showSaveButton() {
-    return this.physicianOverviewResult.physicianInfoData.leadSaveStatus !== 'Saved'
+    return this.physicianOverviewResult.physicianInfoData.leadSaveStatus !== 'Saved';
   }
   get saveButtonText() {
-    return this.physicianOverviewResult.physicianInfoData.leadSaveStatus == 'NotSaved' ? 'View' : 'Save'
+    return this.physicianOverviewResult.physicianInfoData.leadSaveStatus == 'NotSaved' ? 'View' : 'Save';
+  }
+  get islocationAvailable() {
+    return (
+      this.physicianOverviewResult.physicianInfoData.address1 ||
+      this.physicianOverviewResult.physicianInfoData.address2 ||
+      this.physicianOverviewResult.physicianInfoData.city ||
+      this.physicianOverviewResult.physicianInfoData.country
+    );
   }
   ngOnInit() {
-    this.paramsData = this.activatedRoute.snapshot.params["physicianId"];
+    this.paramsData = this.activatedRoute.snapshot.params['physicianId'];
     this.getPhysicianOverviewData();
     this.getPrescriberDrug();
   }
@@ -99,46 +129,47 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
     this.notCorrectDrawer = value;
   }
   getPhysicianOverviewData() {
-    this.amplizService
-      .physicianOverviewDetails(this.paramsData)
-      .subscribe((res) => {
-        this.overviewResult = res;
+    this.amplizService.physicianOverviewDetails(this.paramsData).subscribe((res) => {
+      this.overviewResult = res;
 
-        this.physicianOverviewResult = res.physicianOverviewInfo;
-      });
+      this.physicianOverviewResult = res.physicianOverviewInfo;
+    });
   }
   refreshedData(ev: any) {
     if (ev === true) {
       this.getPhysicianOverviewData();
     }
   }
+  tabselected(tab: number) {
+    this.selectedTab = tab;
+  }
 
   tabClick(ev: any) {
     var tabLabel = ev.tab.textLabel;
-    if (tabLabel === "Hospital Information") {
+    if (tabLabel === 'Hospital Information') {
       this.getPhysicianOverviewData();
     } else if (tabLabel === "This Prescriber's Drugs") {
       this.getPrescriberDrug();
     }
   }
   async getDashboardDetails() {
-    const authToken = await localStorage.getItem("auth_token");
+    const authToken = await localStorage.getItem('auth_token');
     // const userId = await localStorage.getItem('user_id');
-    const refreshToken = await localStorage.getItem("refresh_token");
+    const refreshToken = await localStorage.getItem('refresh_token');
     //
     if (authToken !== null && refreshToken !== null) {
       this.amplizService.getDashboardDetails().subscribe(
         (res) => {
           this.subscriptions = res.Subscriptions;
           this.currentCredit = res.CurrentCredits;
-          if (this.subscriptions[0].SubscriptionType == "Free") {
-            localStorage.setItem("SubscriptionisActive", "false");
+          if (this.subscriptions[0].SubscriptionType == 'Free') {
+            localStorage.setItem('SubscriptionisActive', 'false');
             this.subscribed = false;
 
-            this.headerData = "Request Pricing";
+            this.headerData = 'Request Pricing';
           }
-          if (this.subscriptions[0].SubscriptionType == "Paid") {
-            localStorage.setItem("SubscriptionisActive", "true");
+          if (this.subscriptions[0].SubscriptionType == 'Paid') {
+            localStorage.setItem('SubscriptionisActive', 'true');
             this.subscribed = true;
           }
         },
@@ -155,16 +186,14 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   }
 
   getPrescriberDrug() {
-    this.amplizService
-      .getPhysicianPrescriberDrugDetail(this.paramsData)
-      .subscribe((el: any) => {
-        this.DataResult = el.physicianDrugInfo;
-      });
+    this.amplizService.getPhysicianPrescriberDrugDetail(this.paramsData).subscribe((el: any) => {
+      this.DataResult = el.physicianDrugInfo;
+    });
   }
 
   request(request: any) {
     const body = {
-      comid: "0",
+      comid: '0',
       url: window.location.href,
       intentrequest: request,
     };
@@ -176,19 +205,26 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   viewPhysicianFromList() {
     const physicianId = this.physicianOverviewResult.physicianInfoData.physicianId;
     this.showButtonLoader = true;
-    this.amplizService
-      .viewPhysicianFromList(physicianId, null).subscribe(res => {
-        this.amplizService.physicianOverviewDetails(physicianId).subscribe(res => {
-          this.showButtonLoader = false;
-          this.overviewResult = res;
-          this.physicianOverviewResult = res.physicianOverviewInfo;
-        },
-          err => {
-            this.showButtonLoader = false;
-          });
-      }, err => {
+    this.amplizService.viewPhysicianFromList(physicianId, null).subscribe(
+      (res) => {
+        this.viewDetail();
+      },
+      (err) => {
         this.showButtonLoader = false;
-      });
+      }
+    );
+  }
+  viewDetail() {
+    this.amplizService.physicianOverviewDetails(this.physicianOverviewResult.physicianInfoData.physicianId).subscribe(
+      (res) => {
+        this.showButtonLoader = false;
+        this.overviewResult = res;
+        this.physicianOverviewResult = res.physicianOverviewInfo;
+      },
+      (err) => {
+        this.showButtonLoader = false;
+      }
+    );
   }
 
   handleSaveButtonPress() {
@@ -198,7 +234,5 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
     } else {
       this.saveDrawer = true;
     }
-
   }
-
 }
