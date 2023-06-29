@@ -18,6 +18,10 @@ export class CreditsSummaryComponent implements OnInit {
 	ngOnInit(): void {}
 
 	handleTrigger(action) {
-		this.trigger.emit(action);
+		if (action === 'buy') {
+			window.open('https://www.ampliz.com/book-your-demo', '_blank');
+		} else {
+			this.trigger.emit(action);
+		}
 	}
 }

@@ -17,7 +17,7 @@ export class AddTeamMemberComponent implements OnInit {
 	params: any = {
 		emails: [],
 		role: this.roleList[0],
-		orgId: '5dc05c68df5693b4610fbf3d',
+		organizationId: '5dc05c68df5693b4610fbf3d',
 		credit: 0,
 		mobileCredit: 0,
 		dataset: 'healthcare',
@@ -47,13 +47,22 @@ export class AddTeamMemberComponent implements OnInit {
 		return this.params.emails.length > 0 && this.validateCredits();
 	}
 	get remainingCredit() {
-		return this.adminDetails.totalCredit - this.adminDetails.consumedCredit;
+		return (
+			this.adminDetails.consumedCredit.totalCredit - this.adminDetails.consumedCredit.consumedCredit
+		);
 	}
 	get remainingMobileCredit() {
-		return this.adminDetails.totalMobileCredit - this.adminDetails.consumedMobileCredit;
+		return (
+			this.adminDetails.consumedCredit.totalMobileCredit -
+			this.adminDetails.consumedCredit.consumedMobileCredit
+		);
 	}
 	get remainingLicence() {
-		return this.adminDetails.teamMemberLimit - this.adminDetails.consumedMemberLimit;
+		// return (
+		// 	this.adminDetails.consumedCredit.teamMemberLimit -
+		// 	this.adminDetails.consumedCredit.consumedMemberLimit
+		// );
+		return 2;
 	}
 	get headerError() {
 		return this.remainingCredit <= 0 || this.remainingMobileCredit <= 0;
@@ -66,7 +75,8 @@ export class AddTeamMemberComponent implements OnInit {
 	handleSubmit() {
 		this.validateEmails();
 
-		if (this.invalidEmails.length == 0 && this.validateCredits()) {
+		if (this.invalidEmails.length == 0 && this.validateCredits() && this.remainingLicence > 0) {
+			this.params.emails = [this.params.emails];
 			this.api.inviteTeamMember(this.params).subscribe(
 				(res) => {
 					this.messageService.display(true, 'The invitation has been sent.');

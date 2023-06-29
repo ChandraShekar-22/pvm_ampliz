@@ -105,7 +105,6 @@ export class MemberSidePanelComponent implements OnInit {
 	constructor(private api: BasicService, private service: DataServiceService) {}
 
 	ngOnInit(): void {
-		this.getAdminDetails();
 		this.service.memberInvited.subscribe((event) => {
 			if (event) {
 				this.getMembersList();
@@ -118,27 +117,15 @@ export class MemberSidePanelComponent implements OnInit {
 			}
 		});
 
+		this.getAdminDetails();
 		this.getMembersList();
 	}
 
 	getAdminDetails() {
-		// this.adminDetails = {
-		// 	fullName: 'Tanay Patidar',
-		// 	email: 'tanay.p@ampliz.com',
-		// 	teamMemberLimit: 100,
-		// 	consumedMemberLimit: 20,
-		// 	consumedCredit: 50,
-		// 	totalCredit: 100,
-		// 	totalMobileCredit: 100,
-		// 	consumedMobileCredit: 0,
-		// };
-
 		this.api.getAdminDetails().subscribe((res) => {
 			this.adminDetails = res.adminDetails;
-			console.log('Res', res);
+			this.openAdmin();
 		});
-
-		this.openAdmin();
 	}
 
 	getMembersList() {
@@ -190,7 +177,6 @@ export class MemberSidePanelComponent implements OnInit {
 	openAdmin() {
 		this.adminActive = true;
 		this.activeCard = null;
-		console.log('ADMIN DETAILS', this.adminDetails);
 		this.openUserInfo.emit(this.adminDetails);
 	}
 
