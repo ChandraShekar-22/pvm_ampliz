@@ -62,7 +62,7 @@ export class AddTeamMemberComponent implements OnInit {
 		// 	this.adminDetails.consumedCredit.teamMemberLimit -
 		// 	this.adminDetails.consumedCredit.consumedMemberLimit
 		// );
-		return 2;
+		return 2; //Uncommnet when correct value comes
 	}
 	get headerError() {
 		return this.remainingCredit <= 0 || this.remainingMobileCredit <= 0;
