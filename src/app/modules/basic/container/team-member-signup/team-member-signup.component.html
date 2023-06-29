@@ -1,0 +1,107 @@
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+	<div class="logo-container mt-5 text-center">
+		<img src="assets/images/brand-logo.png" width="150" alt="brand-logo" />
+	</div>
+
+	<div class="d-inline-flex flex-column text-center heading-container">
+		<h6>Activate Your Account</h6>
+		<span class="text-wrap"
+			>Almost there! Now let's set up your new Ampliz password. <br />
+			Make sure it is at least 10 characters long and includes at least one number.</span
+		>
+	</div>
+
+	<div class="form-container">
+		<form name="invitedForm" class="invitedForm">
+			<div class="form-group wrap-input">
+				<input
+					type="name"
+					class="form-control"
+					placeholder="Full Name"
+					name="invited-username"
+					[(ngModel)]="signup.fullName"
+					[ngModelOptions]="{ standalone: true }"
+					[disabled]="loader"
+					autocomplete="off"
+				/>
+				<span class="focus-border"></span>
+			</div>
+
+			<div class="form-group wrap-input">
+				<div class="pwdMask">
+					<input
+						[type]="signup.show_set_password == true ? 'text' : 'password'"
+						class="form-control"
+						placeholder="Set password"
+						name="invited-set-password"
+						[(ngModel)]="signup.set_password"
+						[ngModelOptions]="{ standalone: true }"
+						(keyup)="passwordError = false"
+						[disabled]="loader"
+						autocomplete="off"
+					/>
+					<span class="focus-border"></span>
+					<span
+						(mouseenter)="signup.show_set_password = true"
+						(mouseleave)="signup.show_set_password = false"
+						class="fa pwd-toggle"
+						[class.fa-eye]="signup.show_set_password"
+						[class.fa-eye-slash]="!signup.show_set_password"
+					></span>
+				</div>
+			</div>
+			<div class="form-group wrap-input">
+				<div class="pwdMask">
+					<input
+						[type]="signup.show_confirm_password == true ? 'text' : 'password'"
+						class="form-control"
+						placeholder="Confirm password"
+						name="invited-confirm-password"
+						[(ngModel)]="signup.confirm_password"
+						[ngModelOptions]="{ standalone: true }"
+						(keyup)="passwordError = false"
+						[disabled]="loader"
+						autocomplete="off"
+					/>
+					<span class="focus-border"></span>
+					<span
+						(mouseenter)="signup.show_confirm_password = true"
+						(mouseleave)="signup.show_confirm_password = false"
+						class="fa pwd-toggle"
+						[class.fa-eye]="signup.show_confirm_password"
+						[class.fa-eye-slash]="!signup.show_confirm_password"
+					></span>
+				</div>
+			</div>
+			<p class="error-message" *ngIf="passwordError">Passwords did not match</p>
+			<div class="form-group">
+				<div class="confirm-policy">
+					<span>
+						<input
+							type="checkbox"
+							class="policy-checkbox"
+							[(ngModel)]="signup.policy"
+							[ngModelOptions]="{ standalone: true }"
+							[ngStyle]="{ 'pointer-events': loader ? 'none' : 'auto' }"
+						/>
+						I have read and agree with the
+						<a href="https://www.ampliz.com/terms-conditions"> Terms and Conditions </a> and our
+						<a href="https://www.ampliz.com/privacy-policy">Privacy Policy</a>
+					</span>
+				</div>
+				<button
+					class="btn btn-lg btn-primary btn-block"
+					type="submit"
+					[disabled]="emptyForm"
+					(click)="handleSubmit()"
+					[ngStyle]="{ 'pointer-events': loader ? 'none' : 'auto' }"
+				>
+					<span *ngIf="!loader" style="line-height: 2.3">Active</span>
+					<svg *ngIf="loader" viewBox="25 25 50 50">
+						<circle r="10" cy="50" cx="50"></circle>
+					</svg>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

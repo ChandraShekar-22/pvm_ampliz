@@ -1,0 +1,162 @@
+<div class="container">
+	<div class="card">
+		<!-- Header 1 starts -->
+		<div class="header">
+			<span class="header-text"
+				>Total member left <b>{{ remainingLicence }}</b></span
+			>
+		</div>
+		<!-- Header 1 ends -->
+
+		<!-- Email Text area start -->
+		<div class="email-container row justify-content-center">
+			<textarea
+				class="col-11"
+				name=""
+				id=""
+				cols="30"
+				rows="5"
+				placeholder="Add multiple email address separated by commas"
+				[(ngModel)]="params.emails"
+				(keypress)="invalidEmails = []"
+			></textarea>
+			<div class="col-11 text-left disclaimer-text">
+				<span *ngIf="invalidEmails.length <= 0">Users will join with non-admin permissions.</span>
+				<span class="error-text" *ngIf="invalidEmails.length > 0">
+					Please check this email id: <b>{{ invalidEmails.toString() }}</b>
+				</span>
+			</div>
+			<div class="role-container col-11 d-flex flex-column">
+				<span>Role</span>
+				<div class="d-flex mt-3">
+					<button
+						type="button"
+						class="role-btn"
+						*ngFor="let item of roleList; let i = index"
+						(click)="activeRole = i; params.role = roleList[i]"
+						[class.role-active]="activeRole === i"
+					>
+						{{ item }}
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- Email Text area ends -->
+
+		<!-- Header 2 starts -->
+		<div
+			class="header d-flex align-items-center justify-content-start"
+			[class.header-error]="headerError"
+		>
+			<span class="header-text col-5">
+				Your total credit <b>{{ remainingCredit }}</b>
+			</span>
+			<span class="header-text col-6">
+				Your mobile credit
+				<b>
+					{{ remainingMobileCredit }}
+				</b>
+			</span>
+		</div>
+		<!-- Header 2 ends -->
+
+		<div class="content-section d-flex flex-column">
+			<div class="input-container row pb-2">
+				<div class="credit-container col-6 flex-column">
+					<div class="input-header">
+						<span>Credits</span>
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
+								<i class="fa fa-minus" [class.icon-error]="!isCreditCorrect()"></i>
+							</button>
+						</div>
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							value="1"
+							[(ngModel)]="params.credit"
+							(keypress)="isCreditCorrect()"
+							[class.input-error]="!isCreditCorrect()"
+						/>
+						<div class="input-group-append">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
+								<i class="fa fa-plus" [class.icon-error]="!isCreditCorrect()"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="mobile-credit-container col-6 flex-column">
+					<div class="input-header">
+						<span class>Mobile credits</span>
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
+								<i class="fa fa-minus" [class.icon-error]="!isMobileCreditCorrect()"></i>
+							</button>
+						</div>
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							value="1"
+							[(ngModel)]="params.mobileCredit"
+							(keypress)="isMobileCreditCorrect()"
+							[class.input-error]="!isMobileCreditCorrect()"
+						/>
+						<div class="input-group-append">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
+								<i class="fa fa-plus" [class.icon-error]="!isMobileCreditCorrect()"></i>
+							</button>
+						</div>
+					</div>
+					<!-- <span *ngIf="!isMobileCreditCorrect()">
+						Mobile credits exceeding your total mobile credits</span
+					> -->
+				</div>
+			</div>
+
+			<!-- action button starts -->
+			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
+				<span class="canel-btn" (click)="handleCancel()">Cancel</span>
+				<button
+					[class.enable-btn]="enableBtn"
+					class="save-btn"
+					type="button"
+					(click)="handleSubmit()"
+					*ngIf="!loader"
+				>
+					Save
+				</button>
+				<svg viewBox="25 25 50 50" *ngIf="loader">
+					<circle r="10" cy="50" cx="50"></circle>
+				</svg>
+			</div>
+			<!-- action button ends -->
+		</div>
+	</div>
+</div>

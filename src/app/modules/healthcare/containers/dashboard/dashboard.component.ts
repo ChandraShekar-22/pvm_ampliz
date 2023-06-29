@@ -167,7 +167,5 @@ export class DashboardComponent implements OnInit {
     const subscriptionType = res.Subscriptions[0].SubscriptionType;
     myDate.setMonth(myDate.getMonth() + 12);
     this.domainName = this.domainName.substring(this.domainName.indexOf('.') + 1);
-    document.cookie =
-      'SubscriptionType = ' + subscriptionType + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
   }
 }

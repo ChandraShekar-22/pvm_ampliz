@@ -1,0 +1,213 @@
+.container {
+	padding: 40px;
+}
+
+.heading-container {
+	margin-top: 70px;
+}
+.heading-container h6 {
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 23px;
+	color: #000000;
+	margin-bottom: 20px;
+}
+.heading-container span {
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 19px;
+	color: #616161;
+}
+
+.form-container {
+	margin-top: 35px;
+}
+
+.btn-primary {
+	background-color: #0071eb !important;
+	border-color: #0071eb !important;
+	color: #fff !important;
+	box-shadow: none;
+	padding: 0 !important;
+}
+
+.btn-primary.active,
+.btn-primary:active,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary:focus,
+.btn-primary:hover {
+	background-color: #0071eb !important;
+	border-color: #0071eb !important;
+}
+.pwdMask {
+	position: relative;
+}
+
+.pwdMask .pwd-toggle {
+	color: #ccc;
+	position: absolute;
+	z-index: 2;
+}
+.pwdMask .pwd-toggle {
+	top: 15px;
+	right: 15px;
+}
+.pwdMask .pwd-toggle:focus,
+.pwdMask .pwd-toggle:hover {
+	cursor: pointer;
+}
+
+.pwdMask .pwd-toggle.fa-eye,
+.pwdMask .pwd-toggle:focus,
+.pwdMask .pwd-toggle:hover {
+	color: #0071eb;
+}
+
+.panel-signup .term-policy a {
+	text-decoration: underline;
+}
+
+.checkbox input[type='checkbox'] {
+	position: absolute;
+	right: 9000px;
+	opacity: 0;
+	z-index: 1;
+	cursor: pointer;
+	color: #0071eb !important;
+}
+
+.checkbox input[type='checkbox'] + .label-text:after,
+.checkbox input[type='checkbox'] + .label-text:before {
+	font-size: 11px;
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	padding: 2px;
+	margin-left: 0;
+	position: absolute;
+	top: 2px;
+	left: 0;
+}
+
+.checkbox input[type='checkbox'] + .label-text:before {
+	content: '';
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.checkbox input[type='checkbox'] + .label-text:after {
+	background-color: #0071eb;
+	color: #fff;
+	border-radius: 2px;
+	border-color: #0071eb;
+	line-height: 1.4;
+}
+
+.checkbox input[type='checkbox']:focus + .label-text:before {
+	outline: dotted thin;
+	outline: -webkit-focus-ring-color auto 5px;
+	outline-offset: -2px;
+}
+
+.checkbox input[type='checkbox']:checked + .label-text:after {
+	font-family: FontAwesome;
+	content: '\f00c';
+}
+input[type='checkbox']:checked:after {
+	border-color: #0071eb !important;
+}
+input[type='checkbox']:checked:before {
+	border-color: #0071eb !important;
+}
+.wrap-input {
+	width: 100%;
+	position: relative;
+	margin-bottom: 8px;
+	border-bottom: 0.5px solid #9e9b9b;
+}
+
+.form-group .confirm-policy {
+	font-size: 12px;
+	font-weight: 200;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+.form-group .confirm-policy a {
+	color: #0071eb;
+}
+
+.form-control {
+	display: block;
+	width: 100%;
+	font-size: 13px;
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: none;
+	padding: 25px 0px;
+}
+
+.focus-border {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 1px;
+	width: 0;
+	background-color: #0071eb !important;
+	transition: all 0.3s ease;
+}
+
+.form-control:focus + .focus-border {
+	width: 100%;
+}
+.form-control:focus + .wrap-input {
+	border-bottom-color: #0071eb !important;
+}
+.error-message {
+	text-align: left;
+	color: #ec7966;
+	margin: 0;
+	padding: 0;
+}
+/* Loader css */
+svg {
+	width: 2.25em;
+	transform-origin: center;
+	animation: rotate4 2s linear infinite;
+}
+
+circle {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 2;
+	stroke-dasharray: 1, 200;
+	stroke-dashoffset: 0;
+	stroke-linecap: round;
+	animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes dash4 {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+
+	50% {
+		stroke-dasharray: 90, 200;
+		stroke-dashoffset: -35px;
+	}
+
+	100% {
+		stroke-dashoffset: -125px;
+	}
+}
