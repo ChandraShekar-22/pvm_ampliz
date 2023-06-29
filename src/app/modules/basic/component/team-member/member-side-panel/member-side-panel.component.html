@@ -39,11 +39,11 @@
 					<div class="form-check" *ngFor="let item of filterItems; let i = index">
 						<div class="form-check form-check-inline">
 							<input
-								(change)="handleFilter()"
 								class="form-check-input checkbox-input"
 								type="checkbox"
 								[id]="item.name"
 								[(ngModel)]="item.checked"
+								(change)="handleFilter(item)"
 							/>
 							<!-- [checked]="item.checked" -->
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { DataService } from 'src/app/modules/B2B/services/data.service';
+import { DataService as b2bService } from 'src/app/modules/B2B/services/data.service';
+import { DataServiceService } from '../../../service/data-service.service';
 
 @Component({
 	selector: 'app-member-action-panel',
@@ -17,7 +18,6 @@ export class MemberActionPanelComponent implements OnInit {
 		{
 			name: 'credits',
 		},
-
 		{
 			name: 'lists',
 		},
@@ -45,14 +45,16 @@ export class MemberActionPanelComponent implements OnInit {
 		},
 	];
 	// Verified | Active | Inactive | InvitationExpired
-	constructor(private dataService: DataService) {}
+	constructor(private dataService: b2bService, private service: DataServiceService) {}
 
 	get isAdmin() {
 		return !this.userInfo.hasOwnProperty('userStatus');
 	}
 
 	ngOnInit(): void {
-		this.updateTime = this.dataService.getTimeDifference(this.userInfo.invitedOn);
+		if (this.userInfo.hasOwnProperty('invitedOn')) {
+			this.updateTime = this.dataService.getTimeDifference(this.userInfo.invitedOn);
+		}
 	}
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.userInfo) {
@@ -62,9 +64,5 @@ export class MemberActionPanelComponent implements OnInit {
 
 	changeTab(requestedIndex: any) {
 		this.activeTab = requestedIndex;
-	}
-
-	handleCancel(val: any) {
-		this.cancelAddMember.emit(true);
 	}
 }

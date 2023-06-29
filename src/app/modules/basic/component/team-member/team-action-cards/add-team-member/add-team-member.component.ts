@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BasicService } from 'src/app/modules/basic/service/basic.service';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { DataServiceService } from 'src/app/modules/basic/service/data-service.service';
 @Component({
 	selector: 'app-add-team-member',
 	templateUrl: './add-team-member.component.html',
@@ -16,7 +17,7 @@ export class AddTeamMemberComponent implements OnInit {
 	params: any = {
 		emails: [],
 		role: this.roleList[0],
-		orgId: '5dc05c68df5693b4610fbf3d',
+		organizationId: '5dc05c68df5693b4610fbf3d',
 		credit: 0,
 		mobileCredit: 0,
 		dataset: 'healthcare',
@@ -35,39 +36,57 @@ export class AddTeamMemberComponent implements OnInit {
 	creditError: boolean = false;
 	mobileCreditError: boolean = false;
 
-	constructor(private api: BasicService, private messageService: MessageService) {}
+	constructor(
+		private api: BasicService,
+		private messageService: MessageService,
+		private service: DataServiceService
+	) {}
 
 	ngOnInit(): void {}
 	get enableBtn() {
 		return this.params.emails.length > 0 && this.validateCredits();
 	}
 	get remainingCredit() {
-		return this.adminDetails.totalCredit - this.adminDetails.consumedCredit;
+		return (
+			this.adminDetails.consumedCredit.totalCredit - this.adminDetails.consumedCredit.consumedCredit
+		);
 	}
 	get remainingMobileCredit() {
-		return this.adminDetails.totalMobileCredit - this.adminDetails.consumedMobileCredit;
+		return (
+			this.adminDetails.consumedCredit.totalMobileCredit -
+			this.adminDetails.consumedCredit.consumedMobileCredit
+		);
 	}
 	get remainingLicence() {
-		return this.adminDetails.teamMemberLimit - this.adminDetails.consumedMemberLimit;
+		// return (
+		// 	this.adminDetails.consumedCredit.teamMemberLimit -
+		// 	this.adminDetails.consumedCredit.consumedMemberLimit
+		// );
+		return 2; //Uncommnet when correct value comes
 	}
 	get headerError() {
 		return this.remainingCredit <= 0 || this.remainingMobileCredit <= 0;
 	}
 
 	handleCancel() {
-		this.cancelAddMember.emit(true);
+		this.service.cancelAddMember.next(true);
 	}
 
 	handleSubmit() {
 		this.validateEmails();
 
-		if (this.invalidEmails.length == 0 && this.validateCredits()) {
+		if (this.invalidEmails.length == 0 && this.validateCredits() && this.remainingLicence > 0) {
+			this.params.emails = [this.params.emails];
 			this.api.inviteTeamMember(this.params).subscribe(
 				(res) => {
 					this.messageService.display(true, 'The invitation has been sent.');
+					this.service.memberInvited.next(true);
 				},
-				(err) => {
-					this.messageService.displayError(true, err);
+				(error) => {
+					if (error.error[0]) {
+						const msg: any = error.error[0].message ? error.error[0].message : 'Error';
+						this.messageService.displayError(true, msg);
+					}
 				}
 			);
 		}
