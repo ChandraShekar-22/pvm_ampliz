@@ -382,13 +382,13 @@
         </a>
       </li>
 
-      <li class="d-none d-sm-block">
+      <li class="d-none d-sm-block" *ngIf="isAdmin">
         <a
           class="link tooltip-right"
           data-tooltip="Team Member"
           [ngClass]="{ activeElement: elementName == 'team-member' }"
+          (click)="openItem('team-member')"
         >
-          <!-- (click)="openItem('team-member')" -->
           <i class="mdi mdi-account-multiple"></i>
         </a>
       </li>

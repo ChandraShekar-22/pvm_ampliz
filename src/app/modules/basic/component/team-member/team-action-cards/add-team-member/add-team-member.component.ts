@@ -58,11 +58,11 @@ export class AddTeamMemberComponent implements OnInit {
 		);
 	}
 	get remainingLicence() {
-		// return (
-		// 	this.adminDetails.consumedCredit.teamMemberLimit -
-		// 	this.adminDetails.consumedCredit.consumedMemberLimit
-		// );
-		return 2; //Uncommnet when correct value comes
+		return (
+			this.adminDetails.consumedCredit.teamMemberLimit -
+			this.adminDetails.consumedCredit.consumedMemberLimit
+		);
+		// return 2; //Uncommnet when correct value comes
 	}
 	get headerError() {
 		return this.remainingCredit <= 0 || this.remainingMobileCredit <= 0;

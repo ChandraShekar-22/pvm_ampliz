@@ -5,7 +5,7 @@
 		<!-- Start Edit profile row -->
 		<div class="row">
 			<div class="col-12 search-pagination-wrapper row align-items-center">
-				<div class="col-md-8 col-sm-12 text-right" *ngIf="isAdmin">
+				<div class="col-md-8 col-sm-12 text-right" *ngIf="isAdmin" [class.col-md-12]="totalSize == 0">
 					<div class="dropdown">
 						<button
 							class="btn btn-secondary dropdown-toggle"
@@ -29,46 +29,45 @@
 
 				<div class="col-md-4 col-sm-12 text-right" [class.ml-auto]="!isAdmin">
 					<div class="paginationWrapper">
-						arrow
-						<!-- <div
-										class="paginationWrapper row align-items-center justify-content-end"
-										*ngIf="totalSize > 0"
-									>
-										<div class="paginationInfo">
-											{{ offset + 1 }}-{{ offset + count > totalSize ? totalSize : count + offset }} of
-											{{ totalSize }}
-										</div>
-										<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-											<li [ngClass]="{ disabled: pager.currentPage === 1 }">
-												<a *ngIf="pager.currentPage === 1" style="border-radius: 5px 0 0 5px !important"
-													><i class="fa fa-chevron-left" aria-hidden="true"></i
-												></a>
-												<a
-													*ngIf="pager.currentPage !== 1"
-													(click)="setPage(pager.currentPage - 1)"
-													style="border-radius: 5px 0 0 5px !important"
-													><i class="fa fa fa-chevron-left" aria-hidden="true"></i
-												></a>
-											</li>
-											<li
-												[ngClass]="{
-													disabled: pager.currentPage === pager.totalPages
-												}"
-											>
-												<a
-													*ngIf="pager.currentPage === pager.totalPages"
-													style="border-radius: 0 5px 5px 0 !important"
-													><i class="fa fa-chevron-right" aria-hidden="true"></i
-												></a>
-												<a
-													*ngIf="pager.currentPage !== pager.totalPages"
-													(click)="setPage(pager.currentPage + 1)"
-													style="border-radius: 0 5px 5px 0 !important"
-													><i class="fa fa-chevron-right" aria-hidden="true"></i
-												></a>
-											</li>
-										</ul>
-									</div> -->
+						<div
+							class="paginationWrapper row align-items-center justify-content-end"
+							*ngIf="totalSize > 0"
+						>
+							<div class="paginationInfo">
+								{{ offset + 1 }}-{{ offset + count > totalSize ? totalSize : count + offset }} of
+								{{ totalSize }}
+							</div>
+							<ul class="pagination" *ngIf="pager.pages && pager.pages.length">
+								<li [ngClass]="{ disabled: pager.currentPage === 1 }">
+									<a *ngIf="pager.currentPage === 1" style="border-radius: 5px 0 0 5px !important"
+										><i class="fa fa-chevron-left" aria-hidden="true"></i
+									></a>
+									<a
+										*ngIf="pager.currentPage !== 1"
+										(click)="setPage(pager.currentPage - 1)"
+										style="border-radius: 5px 0 0 5px !important"
+										><i class="fa fa fa-chevron-left" aria-hidden="true"></i
+									></a>
+								</li>
+								<li
+									[ngClass]="{
+										disabled: pager.currentPage === pager.totalPages
+									}"
+								>
+									<a
+										*ngIf="pager.currentPage === pager.totalPages"
+										style="border-radius: 0 5px 5px 0 !important"
+										><i class="fa fa-chevron-right" aria-hidden="true"></i
+									></a>
+									<a
+										*ngIf="pager.currentPage !== pager.totalPages"
+										(click)="setPage(pager.currentPage + 1)"
+										style="border-radius: 0 5px 5px 0 !important"
+										><i class="fa fa-chevron-right" aria-hidden="true"></i
+									></a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -86,26 +85,14 @@
 						[headerHeight]="45"
 						[domLayout]="domLayout"
 						[rowHeight]="55"
+						(firstDataRendered)="onFirstDataRendered($event)"
+						(gridReady)="onGridReady($event)"
+						[sortingOrder]="sortingOrders"
+						[paginationPageSize]="paginationPageSize"
 					>
 					</ag-grid-angular>
 				</div>
 			</div>
 		</div>
-
-		<!-- (gridReady)="onGridReady($event)"
-								
-								
-								
-								(cellClicked)="onCellClicked($event)"
-								[sortingOrder]="sortingOrders"
-								(firstDataRendered)="onFirstDataRendered($event)"
-								[paginationPageSize]="paginationPageSize"
-								
-								
-								
-								
-								
-								[overlayNoRowsTemplate]="noRowsTemplate"
-								(cellValueChanged)="onCellValueChanged($event)" -->
 	</div>
 </div>

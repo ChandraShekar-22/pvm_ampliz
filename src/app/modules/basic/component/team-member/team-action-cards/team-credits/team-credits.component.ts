@@ -30,10 +30,10 @@ export class TeamCreditsComponent implements OnInit {
 	}
 
 	getAdminCredits() {
-		this.userCredits.totalCredit = this.userInfo.totalCredit;
-		this.userCredits.consumedCredit = this.userInfo.consumedCredit;
-		this.userCredits.totalMobileCredit = this.userInfo.totalMobileCredit;
-		this.userCredits.consumedMobileCredit = this.userInfo.consumedMobileCredit;
+		this.userCredits.totalCredit = this.userInfo.consumedCredit.totalCredit;
+		this.userCredits.consumedCredit = this.userInfo.consumedCredit.consumedCredit;
+		this.userCredits.totalMobileCredit = this.userInfo.consumedCredit.totalMobileCredit;
+		this.userCredits.consumedMobileCredit = this.userInfo.consumedCredit.consumedMobileCredit;
 	}
 
 	getUserCredits() {
