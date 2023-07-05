@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
-
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core'
+import { animate, style, transition, trigger } from '@angular/animations'
+import { DataService } from '../../../service/data.service'
 @Component({
 	selector: 'app-member-card',
 	templateUrl: './member-card.component.html',
@@ -15,53 +15,61 @@ import { animate, style, transition, trigger } from '@angular/animations';
 	],
 })
 export class MemberCardComponent implements OnInit {
-	@Input() userInfo: any = [];
-	@Input() loader: boolean;
-	@Input() active: boolean;
-	@Input() isAdmin: boolean = false;
+	@Input() userInfo: any
+	@Input() active: boolean
+	@Input() isAdmin: boolean = false
 
-	initials: string = '';
+	loader: boolean = true
+
+	initials: string = ''
 
 	statusClass: any = [
 		{ key: 'Active', class: 'active-status', name: 'Active' },
 		{ key: 'Inactive', class: 'deactivated-status', name: 'Deactivated' },
 		{ key: 'InvitationExpired', class: 'invitation-expired-status', name: 'Invitation Expired' },
-		{ key: 'Verified', class: 'invited-status', name: 'Invited' },
-	];
+		{ key: 'Invited', class: 'invited-status', name: 'Invited' },
+	]
 	// Verified | Active | Inactive | InvitationExpired
-	constructor() {}
-
-	ngOnInit(): void {
-		this.getInititals();
+	constructor(private service: DataService) {
+		this.service.loader.subscribe((loader) => {
+			this.loader = loader
+		})
 	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (this.userInfo) {
+			this.getInititals()
+		}
+	}
+	ngOnInit(): void {}
 
 	get getStatusClass() {
 		if (!this.isAdmin) {
-			let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus);
-			return obj.class;
+			let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus)
+			return obj.class
 		}
 	}
 	get getStatusName() {
 		if (!this.isAdmin) {
-			let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus);
-			return obj.name;
+			let obj = this.statusClass.find((o) => o.key === this.userInfo.userStatus)
+			return obj.name
 		}
 	}
 
 	getInititals() {
-		this.initials = '';
-		const name = this.userInfo.fullName;
+		this.initials = ''
+		const name = this.userInfo.fullName
 
 		for (let i = 0; i < name.length; i++) {
 			if (name.charAt(i) === ' ') {
-				continue;
+				continue
 			}
 
 			if (name.charAt(i) === name.charAt(i).toUpperCase()) {
-				this.initials += name.charAt(i);
+				this.initials += name.charAt(i)
 
 				if (this.initials.length == 2) {
-					break;
+					break
 				}
 			}
 		}

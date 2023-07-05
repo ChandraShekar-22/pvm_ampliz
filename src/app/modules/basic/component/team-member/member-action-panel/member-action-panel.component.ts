@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { DataService as b2bService } from 'src/app/modules/B2B/services/data.service';
-import { DataServiceService } from '../../../service/data-service.service';
+import { DataService } from '../../../service/data.service';
 
 @Component({
 	selector: 'app-member-action-panel',
@@ -10,8 +10,10 @@ import { DataServiceService } from '../../../service/data-service.service';
 export class MemberActionPanelComponent implements OnInit {
 	@Input() userInfo: any;
 	@Input() addUser: boolean = false;
-	@Input() loader: boolean;
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter();
+
+	loader: boolean;
+
 	updateTime: any;
 	activeTab: any = 0;
 	tabItems: any = [
@@ -45,13 +47,21 @@ export class MemberActionPanelComponent implements OnInit {
 		},
 	];
 	// Verified | Active | Inactive | InvitationExpired
-	constructor(private dataService: b2bService, private service: DataServiceService) {}
+	constructor(private dataService: b2bService, private service: DataService) {
+		this.service.loader.subscribe((loader) => (this.loader = loader));
+	}
 
 	get isAdmin() {
 		return !this.userInfo.hasOwnProperty('userStatus');
 	}
 
-	ngOnInit(): void {
+	ngOnInit(): void {}
+
+	ngAfterViewInit() {
+		this.getTimeDifference();
+	}
+
+	getTimeDifference() {
 		if (this.userInfo.hasOwnProperty('invitedOn')) {
 			this.updateTime = this.dataService.getTimeDifference(this.userInfo.invitedOn);
 		}

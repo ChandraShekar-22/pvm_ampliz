@@ -93,11 +93,18 @@ input[type='number']:focus {
 	background-color: #0071eb;
 	padding: 8px 20px;
 	font-size: 12px;
-	cursor: pointer;
 	transition: all 0.2s ease-in-out;
+	opacity: 0.5;
+	pointer-events: none;
 }
 .save-btn:hover {
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.enable-btn {
+	opacity: 1;
+	cursor: pointer;
+	pointer-events: all;
 }
 
 .canel-btn {

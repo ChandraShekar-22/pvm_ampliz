@@ -2,9 +2,6 @@
 	color: #a0a0a0;
 	font-size: 12px;
 }
-.list-container::-webkit-scrollbar {
-	display: none;
-}
 
 /* Wrapper CSS */
 .content-container {
@@ -17,9 +14,12 @@
 	padding-bottom: 0px;
 	margin-bottom: 20px;
 }
-.list-container {
+.scroll-container {
+	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+.list-container {
 }
 .card-container {
 	border-bottom: 0.5px solid #e0e0e0;
@@ -193,4 +193,66 @@
 .add-member-btn i {
 	font-size: 12px;
 	margin-right: 5px;
+}
+
+/* Scrollbar css */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: #85898f transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 11px;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #000000;
+	border-radius: 10px;
+	max-height: 50px;
+	border: 1px solid #ffffff;
+}
+
+/* List Loader */
+/* Loader css */
+.loader-container svg {
+	width: 2.25em;
+	transform-origin: center;
+	animation: rotate4 2s linear infinite;
+}
+
+circle {
+	fill: none;
+	stroke: #0071eb;
+	stroke-width: 2;
+	stroke-dasharray: 1, 200;
+	stroke-dashoffset: 0;
+	stroke-linecap: round;
+	animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes dash4 {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+
+	50% {
+		stroke-dasharray: 90, 200;
+		stroke-dashoffset: -35px;
+	}
+
+	100% {
+		stroke-dashoffset: -125px;
+	}
 }

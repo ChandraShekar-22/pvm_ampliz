@@ -24,6 +24,8 @@ export class TeamMemberSignupComponent implements OnInit {
 	emailError: boolean = false;
 	passwordError: boolean = false;
 
+	emailVerified: boolean = false;
+
 	loader: boolean = false;
 
 	domainName: any;
@@ -61,10 +63,9 @@ export class TeamMemberSignupComponent implements OnInit {
 		this.passwordError = false;
 		if (!this.emptyForm) {
 			this.loader = true;
-			const passwordVerified: boolean = this.validatePasswords();
-			const emailVerified: any = this.validateEmail();
-			if (passwordVerified && emailVerified) {
-				this.setPassword();
+			var passwordVerified: boolean = this.validatePasswords();
+			if (passwordVerified) {
+				this.validateEmail();
 			} else {
 				this.loader = false;
 			}
@@ -89,11 +90,11 @@ export class TeamMemberSignupComponent implements OnInit {
 		if (params.email.length > 0) {
 			this.api.verifyTeamEmail(params).subscribe(
 				(res) => {
-					return true;
+					this.setPassword();
 				},
 				(err) => {
 					this.messageService.displayError(true, 'Email not verified');
-					return false;
+					this.loader = false;
 				}
 			);
 		}
