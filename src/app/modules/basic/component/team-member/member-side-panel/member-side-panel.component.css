@@ -219,7 +219,7 @@
 
 /* List Loader */
 /* Loader css */
-svg {
+.loader-container svg {
 	width: 2.25em;
 	transform-origin: center;
 	animation: rotate4 2s linear infinite;
