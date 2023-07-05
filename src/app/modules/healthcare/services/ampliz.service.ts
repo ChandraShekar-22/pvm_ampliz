@@ -423,7 +423,6 @@ export class AmplizService {
 			listType: listType ? listType : 'Mylist',
 			organizationId: this.organizationId,
 		};
-		console.log('LIST TYPE', body);
 		// const headers = { headers: new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem('auth_token') }) };
 		const response = this.http.get(url, { params: body });
 		return response;

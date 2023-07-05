@@ -165,6 +165,7 @@ export class MemberListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.setRowData();
+		this.setPage(1);
 	}
 	async setRowData() {
 		await this.hcApi.getAllList(this.offset, this.count, true).subscribe(

@@ -68,11 +68,8 @@
 	<!-- Action panel starts -->
 	<div class="action-container">
 		<div class="add-new-container" *ngIf="addUser">
-			<app-add-team-member
-				[adminDetails]="userInfo"
-			></app-add-team-member>
+			<app-add-team-member [adminDetails]="userInfo"></app-add-team-member>
 		</div>
-
 		<div class="team-action-container" *ngIf="!addUser && !loader">
 			<app-team-credits
 				*ngIf="activeTab === 0"

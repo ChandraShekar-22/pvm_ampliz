@@ -20,7 +20,6 @@ export class ExportCsvBtnComponent implements OnInit {
 			listId: this.params.data.listId,
 			listName: this.params.data.listName,
 		};
-		console.log('BODY', body);
 		this.componentParent.downloadAllCsv(body);
 	}
 

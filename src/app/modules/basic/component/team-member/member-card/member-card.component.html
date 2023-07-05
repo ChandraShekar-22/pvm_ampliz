@@ -1,5 +1,5 @@
 <!-- [@inputAnimation] -->
-<div class="row align-items-start member-card-container" [class.active]="active">
+<div class="row align-items-start member-card-container" [class.active]="active" *ngIf="!loader">
 	<div class="avatar-container col-1" [class]="getStatusClass" *ngIf="!isAdmin">{{ initials }}</div>
 	<div class="avatar-container col-1 admin-avatar" *ngIf="isAdmin">{{ initials }}</div>
 	<div class="member-info col">

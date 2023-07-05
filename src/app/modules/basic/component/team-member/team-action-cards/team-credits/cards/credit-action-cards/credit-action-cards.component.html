@@ -3,10 +3,14 @@
 	<div class="card">
 		<div class="header d-flex align-items-center">
 			<div>
-				<span>Your total credit <span class="credit-value">500</span></span>
+				<span
+					>Your total credit <span class="credit-value">{{ remainingCrdits }}</span></span
+				>
 			</div>
 			<div>
-				<span>Your mobile credit <span class="credit-value">500</span></span>
+				<span
+					>Your mobile credit <span class="credit-value">{{ remainingMobileCredits }}</span></span
+				>
 			</div>
 		</div>
 
@@ -18,13 +22,13 @@
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<button class="btn range-button" type="button">
+							<button class="btn range-button" type="button" (click)="decrement(true)">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
-						<input type="number" min="1" class="form-control" value="1" />
+						<input type="number" min="1" class="form-control" [(ngModel)]="params.credit" />
 						<div class="input-group-append">
-							<button class="btn range-button" type="button">
+							<button class="btn range-button" type="button" (click)="increment(true)">
 								<i class="fa fa-plus"></i>
 							</button>
 						</div>
@@ -37,13 +41,13 @@
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<button class="btn range-button" type="button">
+							<button class="btn range-button" type="button" (click)="decrement()">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
-						<input type="number" min="1" class="form-control" value="1" />
+						<input type="number" min="1" class="form-control" [(ngModel)]="params.mobileCredit" />
 						<div class="input-group-append">
-							<button class="btn range-button" type="button">
+							<button class="btn range-button" type="button" (click)="increment()">
 								<i class="fa fa-plus"></i>
 							</button>
 						</div>
@@ -53,7 +57,12 @@
 
 			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
 				<span class="canel-btn" (click)="handleCancel($event)">Cancel</span>
-				<button class="save-btn" type="button">
+				<button
+					class="save-btn"
+					type="button"
+					(click)="updateCredits()"
+					[class.enable-btn]="validateInput"
+				>
 					{{ edit ? 'Update' : 'Add' }}
 				</button>
 			</div>

@@ -53,16 +53,17 @@ export class BasicService {
 		return response;
 	}
 
-	// GET API
-
-	getTeamMemberList(params): Observable<any> {
-		const url = this.teams_api + '/teams/amplizteamsreadapi/admin/get-users-list';
-		const response = this.http.get(url, { params: params });
+	getTeamMemberList(body: any): Observable<any> {
+		const url = this.teams_api + '/teams/amplizteamsreadapi/admin/get-member-list';
+		const response = this.http.post(url, body);
 		return response;
 	}
-	getMemberCreditDetails(params): Observable<any> {
+
+	// GET API
+
+	getMemberCreditDetails(body: any): Observable<any> {
 		const url = this.teams_api + '/teams/amplizteamsreadapi/admin/get-user-credit-details';
-		const response = this.http.get(url, { params: params });
+		const response = this.http.get(url, { params: body });
 		return response;
 	}
 	getAdminDetails(): Observable<any> {

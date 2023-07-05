@@ -1,6 +1,6 @@
 import { BasicService } from '../../../service/basic.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { DataServiceService } from '../../../service/data-service.service';
+import { DataService } from '../../../service/data.service';
 @Component({
 	selector: 'app-member-side-panel',
 	templateUrl: './member-side-panel.component.html',
@@ -12,52 +12,23 @@ export class MemberSidePanelComponent implements OnInit {
 	@Output() adminCredits: EventEmitter<any> = new EventEmitter();
 	@Input() getAdmin: any;
 
-	orgId: any = localStorage.getItem('organizationId');
-
 	// User Var
 	adminDetails: any;
 
 	membersListInput: any = {
-		organizationId: this.orgId,
+		organizationId: localStorage.getItem('organizationId'),
 		role: [],
 		offset: 0,
-		count: 5,
+		count: 7,
 		userStatus: [],
 	};
-	userList: any = [
-		// {
-		// 	userId: '0x188d21ba1ca',
-		// 	fullName: 'Subbu V',
-		// 	email: 'subbu@ampliz.com',
-		// 	userStatus: 'Active',
-		// 	role: 'admin',
-		// 	credit: 100,
-		// 	invitedOn: '2023-06-19T15:46:32.235+08:00',
-		// },
-		// {
-		// 	userId: '0x188d21ba1cb',
-		// 	fullName: 'Mosahid Gani',
-		// 	email: 'mosahid.g@ampliz.com',
-		// 	userStatus: 'Active',
-		// 	role: 'sales',
-		// 	credit: 100,
-		// 	invitedOn: '2023-06-19T15:46:32.235+08:00',
-		// },
-		// {
-		// 	userId: '0x188d21ba1cc',
-		// 	fullName: 'Tanay Patidar',
-		// 	email: 'tanay.p@ampliz.com',
-		// 	userStatus: 'InvitationExpired',
-		// 	role: 'marketing',
-		// 	credit: 100,
-		// 	invitedOn: '2023-06-18T15:46:32.235+08:00',
-		// },
-	];
+	userList: any = [];
 
 	// General Var
 	activeCard: any = null;
 	filterCount: number = 0;
 	adminActive: boolean = true;
+	listLoader: boolean = false;
 
 	filterItems: any = [
 		{
@@ -102,35 +73,83 @@ export class MemberSidePanelComponent implements OnInit {
 		},
 	];
 
-	constructor(private api: BasicService, private service: DataServiceService) {}
+	// Scroll Var
+	listScroll: any;
 
+	constructor(private api: BasicService, private service: DataService) {}
 	ngOnInit(): void {
-		this.service.memberInvited.subscribe((event) => {
-			if (event) {
-				this.getMembersList();
-			}
-		});
-
+		this.getAdminDetails();
+		this.getMembersList();
 		this.service.cancelAddMember.subscribe((event) => {
 			if (event) {
 				this.openAdmin();
 			}
 		});
 
-		this.getAdminDetails();
-		this.getMembersList();
+		this.service.memberInvited.subscribe((event) => {
+			if (event) {
+				this.getMembersList();
+			}
+		});
+		this.scrollHandler();
 	}
 
+	ngOnDestroy() {
+		this.listScroll.removeEventListener('scroll', () => {});
+	}
+
+	scrollHandler() {
+		this.listScroll = document.getElementById('scrollContainer');
+		this.listScroll.scrollTop = 0;
+		const that = this;
+		this.listScroll.addEventListener('scroll', function (e) {
+			that.onScroll(e);
+		});
+	}
+
+	onScroll(event) {
+		if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
+			this.listLoader = true;
+			this.membersListInput.offset = this.membersListInput.offset + 7;
+			this.getFreshList();
+		}
+	}
+	ngAfterViewInit(): void {}
+
 	getAdminDetails() {
-		this.api.getAdminDetails().subscribe((res) => {
-			this.adminDetails = res.adminDetails;
+		this.service.loader.next(true);
+		this.service.getAdminInfo().subscribe((admin) => {
+			this.adminDetails = admin;
 			this.openAdmin();
+			this.handleLoader();
 		});
 	}
 
 	getMembersList() {
-		this.api.getTeamMemberList(this.membersListInput).subscribe((res) => {
-			this.userList = res.userList;
+		this.service.loader.next(true);
+		this.api.getTeamMemberList(this.membersListInput).subscribe(
+			(res) => {
+				this.userList = res.userList;
+				this.handleLoader();
+			},
+			(err) => {
+				this.handleLoader();
+			}
+		);
+	}
+
+	async getFreshList() {
+		await this.api.getTeamMemberList(this.membersListInput).subscribe((res) => {
+			res.userList.map((item) => {
+				if (this.userList.findIndex((existing) => existing.userId == item.userId) == -1) {
+					setTimeout(() => {
+						this.userList.push(item);
+					}, 500);
+				}
+			});
+			setTimeout(() => {
+				this.listLoader = false;
+			}, 600);
 		});
 	}
 
@@ -186,10 +205,20 @@ export class MemberSidePanelComponent implements OnInit {
 		this.openUserInfo.emit(user);
 	}
 
+	openInvitedUser() {
+		this.openUserInfo.emit(this.userList[0]);
+	}
+
 	addUser() {
 		this.adminActive = false;
 		this.activeCard = null;
 		this.addMember.emit(true);
 		this.adminCredits.emit(this.adminDetails);
+	}
+
+	handleLoader() {
+		setTimeout(() => {
+			this.service.loader.next(false);
+		}, 600);
 	}
 }

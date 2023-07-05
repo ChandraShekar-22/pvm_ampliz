@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { BasicService } from 'src/app/modules/basic/service/basic.service';
+import { DataService } from 'src/app/modules/basic/service/data.service';
 @Component({
 	selector: 'app-team-credits',
 	templateUrl: './team-credits.component.html',
@@ -19,9 +20,24 @@ export class TeamCreditsComponent implements OnInit {
 		consumedMobileCredit: 0,
 	};
 
-	constructor(private api: BasicService) {}
+	constructor(private api: BasicService, private service: DataService) {}
 
 	ngOnInit(): void {
+		if (this.isAdmin) {
+			setTimeout(() => {
+				this.getAdminCredits();
+			}, 100);
+		} else {
+			this.getUserCredits();
+		}
+		this.service.creditUpdated.subscribe((event) => {
+			if (event) {
+				this.getUserCredits();
+			}
+		});
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
 		if (this.isAdmin) {
 			this.getAdminCredits();
 		} else {
@@ -34,17 +50,17 @@ export class TeamCreditsComponent implements OnInit {
 		this.userCredits.consumedCredit = this.userInfo.consumedCredit.consumedCredit;
 		this.userCredits.totalMobileCredit = this.userInfo.consumedCredit.totalMobileCredit;
 		this.userCredits.consumedMobileCredit = this.userInfo.consumedCredit.consumedMobileCredit;
+
+		this.adminCredits = this.userCredits;
 	}
 
 	getUserCredits() {
-		this.userCredits.totalCredit = 100;
-		this.userCredits.consumedCredit = 50;
-		this.userCredits.totalMobileCredit = 50;
-		this.userCredits.consumedMobileCredit = 25;
-
-		// this.api.getMemberCreditDetails(this.userInfo.userId).subscribe((res) => {
-		// 	this.userCredits = res.creditDetails;
-		// });
+		const body = {
+			userId: this.userInfo.userId,
+		};
+		this.api.getMemberCreditDetails(body).subscribe((res) => {
+			this.userCredits = res.consumedCredit;
+		});
 	}
 
 	handleTrigger(action) {
