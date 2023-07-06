@@ -16,7 +16,11 @@
 					<!-- <span class="status-text" *ngIf="!userInfo.userStatus" style="content: ''"></span> -->
 				</div>
 				<div class="deactivate-btn col text-right" *ngIf="!isAdmin">
-					<span>Deactivate {{ userInfo.fullName }}?</span>
+					<span (click)="handleAction()">{{ getStatusCta }}
+						<span *ngIf="getStatusCta == 'Resend Invitation?' ? false : true"
+							>{{ userInfo.fullName }}?</span
+						></span
+					>
 				</div>
 			</div>
 

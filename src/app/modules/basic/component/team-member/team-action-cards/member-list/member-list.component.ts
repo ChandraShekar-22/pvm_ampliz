@@ -5,6 +5,7 @@ import { ButtoncellrendererComponent } from 'src/app/modules/basic/component/ag-
 import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 import { PaginationService } from 'src/app/modules/healthcare/services/pagination.service';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { BasicService } from 'src/app/modules/basic/service/basic.service';
 @Component({
 	selector: 'app-member-list',
 	templateUrl: './member-list.component.html',
@@ -12,7 +13,7 @@ import { MessageService } from 'src/app/modules/B2B/services/message.service';
 })
 export class MemberListComponent implements OnInit {
 	@Input() userInfo: any;
-	@Input() isAdmin: boolean;
+	@Input() isAdmin: boolean = undefined;
 
 	gridApi: any;
 	gridColumnApi: any;
@@ -43,6 +44,8 @@ export class MemberListComponent implements OnInit {
 	frameworkComponents: any;
 	context: any;
 	sortingOrders: any;
+	loadingTemplate: any;
+	noRowsTemplate: any;
 	// Pagination Var
 	paginationPageSize: number;
 	pager: any = {};
@@ -54,8 +57,11 @@ export class MemberListComponent implements OnInit {
 	constructor(
 		private hcApi: AmplizService,
 		private pagerservice: PaginationService,
-		private messageService: MessageService
+		private messageService: MessageService,
+		private api: BasicService
 	) {
+		this.loadingTemplate = `<span class="ag-overlay-loading-center">data is loading...</span>`;
+		this.noRowsTemplate = `"<span">no rows to show</span>"`;
 		this.frameworkComponents = {
 			buttonRenderer: ButtoncellrendererComponent,
 		};
@@ -163,10 +169,15 @@ export class MemberListComponent implements OnInit {
 		this.setColumnToFitPage();
 	}
 
-	ngOnInit(): void {
-		this.setRowData();
-		this.setPage(1);
+	ngOnInit(): void {}
+	ngAfterViewInit() {}
+	ngOnChanges() {
+		if (this.isAdmin !== undefined) {
+			// this.setRowData();
+			this.setPage(1);
+		}
 	}
+
 	async setRowData() {
 		await this.hcApi.getAllList(this.offset, this.count, true).subscribe(
 			(res) => {
@@ -200,10 +211,40 @@ export class MemberListComponent implements OnInit {
 			left: 0,
 			behavior: 'smooth',
 		});
-		this.hcApi.getAllList(this.offset, this.count, true, listType).subscribe(
-			(res) => {
+		if (this.isAdmin) {
+			this.hcApi.getAllList(this.offset, this.count, true, listType).subscribe(
+				(res) => {
+					this.datasource = res.savedlistInfoList;
+					this.paramsData.api.setRowData(this.datasource);
+					if (this.gridApi.getDisplayedRowCount() === 0) {
+						this.gridApi.showNoRowsOverlay();
+					} else {
+						this.gridApi.hideOverlay();
+					}
+					if (this.datasource.length != 0) {
+						this.totalSize = res.totalCount;
+						//
+						this.pager = this.pagerservice.getPager(this.totalSize, page, this.count);
+						this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1);
+						//
+						this.paramsData.api.setRowData(this.datasource);
+						// this.loaderService.display(false);
+					} else {
+						this.paramsData.api.setRowData(this.datasource);
+						this.showLoading(false);
+					}
+				},
+				(error) => {}
+			);
+		} else {
+			this.api.getUserList(this.offset, this.count, this.userInfo.userId).subscribe((res) => {
 				this.datasource = res.savedlistInfoList;
 				this.paramsData.api.setRowData(this.datasource);
+				if (this.gridApi.getDisplayedRowCount() === 0) {
+					this.gridApi.showNoRowsOverlay();
+				} else {
+					this.gridApi.hideOverlay();
+				}
 				if (this.datasource.length != 0) {
 					this.totalSize = res.totalCount;
 					//
@@ -216,9 +257,8 @@ export class MemberListComponent implements OnInit {
 					this.paramsData.api.setRowData(this.datasource);
 					this.showLoading(false);
 				}
-			},
-			(error) => {}
-		);
+			});
+		}
 	}
 
 	downloadAllCsv(body: any) {
