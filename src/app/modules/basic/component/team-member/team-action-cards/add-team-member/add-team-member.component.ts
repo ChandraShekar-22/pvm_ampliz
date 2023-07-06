@@ -80,7 +80,7 @@ export class AddTeamMemberComponent implements OnInit {
 			this.api.inviteTeamMember(this.params).subscribe(
 				(res) => {
 					this.messageService.display(true, 'The invitation has been sent.')
-					this.service.memberInvited.next(true)
+					this.service.getMemberList.next(true);
 					this.clearInputs()
 				},
 				(error) => {

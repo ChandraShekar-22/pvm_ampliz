@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 	providedIn: 'root',
 })
 export class DataService {
-	public memberInvited: BehaviorSubject<boolean> = new BehaviorSubject(false);
+	public getMemberList: BehaviorSubject<boolean> = new BehaviorSubject(false);
 	public cancelAddMember: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	public adminInfo: BehaviorSubject<any> = new BehaviorSubject([]);
@@ -53,7 +53,7 @@ export class DataService {
 	}
 
 	// Open user
-	userClicked(value) {
+	setUserInfo(value) {
 		this.userInfo.next(value);
 	}
 	getUserInfo() {

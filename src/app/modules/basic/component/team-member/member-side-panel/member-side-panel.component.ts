@@ -33,21 +33,25 @@ export class MemberSidePanelComponent implements OnInit {
 	filterItems: any = [
 		{
 			name: 'Active',
+			key: 'Active',
 			category: 'status',
 			checked: false,
 		},
 		{
 			name: 'Invited',
+			key: 'Active',
 			category: 'status',
 			checked: false,
 		},
 		{
 			name: 'Deactivated',
+			key: 'Inactive',
 			category: 'status',
 			checked: false,
 		},
 		{
 			name: 'Invitation Expired',
+			key: 'InvitationExpired',
 			category: 'status',
 			checked: false,
 		},
@@ -86,7 +90,7 @@ export class MemberSidePanelComponent implements OnInit {
 			}
 		});
 
-		this.service.memberInvited.subscribe((event) => {
+		this.service.getMemberList.subscribe((event) => {
 			if (event) {
 				this.getMembersList();
 			}
@@ -130,6 +134,9 @@ export class MemberSidePanelComponent implements OnInit {
 		this.api.getTeamMemberList(this.membersListInput).subscribe(
 			(res) => {
 				this.userList = res.userList;
+				if (this.activeCard !== null) {
+					this.service.setUserInfo(this.userList[this.activeCard]);
+				}
 				this.handleLoader();
 			},
 			(err) => {
@@ -137,6 +144,8 @@ export class MemberSidePanelComponent implements OnInit {
 			}
 		);
 	}
+
+	getFreshMemberList() {}
 
 	async getFreshList() {
 		await this.api.getTeamMemberList(this.membersListInput).subscribe((res) => {
@@ -162,8 +171,14 @@ export class MemberSidePanelComponent implements OnInit {
 		if (item.category === 'role') {
 			this.handleRole(item);
 		} else {
-			this.handleStatus(item);
+			const key = this.getFilterKey(item);
+			this.handleStatus(key);
 		}
+	}
+
+	getFilterKey(item: any) {
+		let obj = this.filterItems.find((o) => o.name === item.name);
+		return obj.key;
 	}
 
 	handleRole(item: any) {
@@ -177,9 +192,9 @@ export class MemberSidePanelComponent implements OnInit {
 	}
 
 	handleStatus(item: any) {
-		const itemIndex = this.membersListInput.userStatus.findIndex((ele) => ele === item.name);
+		const itemIndex = this.membersListInput.userStatus.findIndex((ele) => ele === item);
 		if (itemIndex === -1) {
-			this.membersListInput.userStatus.push(item.name);
+			this.membersListInput.userStatus.push(item);
 		} else {
 			this.membersListInput.userStatus.splice(itemIndex, 1);
 		}
@@ -196,17 +211,20 @@ export class MemberSidePanelComponent implements OnInit {
 	openAdmin() {
 		this.adminActive = true;
 		this.activeCard = null;
-		this.openUserInfo.emit(this.adminDetails);
+		// this.openUserInfo.emit(this.adminDetails);
+		this.service.setUserInfo(this.adminDetails);
 	}
 
 	handleClick(user, index) {
 		this.adminActive = false;
 		this.activeCard = index;
-		this.openUserInfo.emit(user);
+		// this.openUserInfo.emit(user);
+		this.service.setUserInfo(user);
 	}
 
 	openInvitedUser() {
-		this.openUserInfo.emit(this.userList[0]);
+		// this.openUserInfo.emit(this.userList[0]);
+		this.service.setUserInfo(this.userList[0]);
 	}
 
 	addUser() {
