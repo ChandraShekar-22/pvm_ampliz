@@ -11,7 +11,8 @@ import { MessageService } from 'src/app/modules/B2B/services/message.service';
 })
 export class MemberActionPanelComponent implements OnInit {
 	// @Input() userInfo: any;
-	@Input() addUser: boolean = false;
+	// @Input() addUser: boolean = false;
+	addUser: boolean = false;
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter();
 	userInfo: any;
 	loader: boolean;
@@ -59,13 +60,16 @@ export class MemberActionPanelComponent implements OnInit {
 	}
 
 	get isAdmin() {
-		return !this.userInfo.hasOwnProperty('userStatus');
+		return this.service.isAdmin(this.userInfo);
 	}
 
 	ngOnInit(): void {
 		this.service.getUserInfo().subscribe((info) => {
 			this.userInfo = info;
 			this.activeTab = 0;
+		});
+		this.service.addUser.subscribe((res) => {
+			this.addUser = res;
 		});
 	}
 

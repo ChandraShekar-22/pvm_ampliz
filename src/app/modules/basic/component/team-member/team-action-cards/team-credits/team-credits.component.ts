@@ -1,14 +1,17 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { BasicService } from 'src/app/modules/basic/service/basic.service';
 import { DataService } from 'src/app/modules/basic/service/data.service';
+import { HistorySearchCardComponent } from '../../../b2b-dashboard/history-search-card/history-search-card.component';
 @Component({
 	selector: 'app-team-credits',
 	templateUrl: './team-credits.component.html',
 	styleUrls: ['./team-credits.component.css'],
 })
 export class TeamCreditsComponent implements OnInit {
-	@Input() isAdmin: boolean = true;
-	@Input() userInfo: any;
+	// @Input() isAdmin: boolean = true;
+	// @Input() userInfo: any;
+	// isAdmin: boolean = true;
+	userInfo: any;
 	isEdit: boolean;
 	isAction: boolean;
 
@@ -22,45 +25,50 @@ export class TeamCreditsComponent implements OnInit {
 
 	constructor(private api: BasicService, private service: DataService) {}
 
-	ngOnInit(): void {
-		if (this.isAdmin) {
-			setTimeout(() => {
+	async ngOnInit() {
+		await this.service.getUserInfo().subscribe((res) => {
+			this.userInfo = res;
+			if (this.isAdmin) {
 				this.getAdminCredits();
-			}, 100);
-		} else {
-			this.getUserCredits();
-		}
-		this.service.creditUpdated.subscribe((event) => {
-			if (event) {
+			} else {
+				this.isAction = false;
+				this.getUserCredits();
+			}
+		});
+		await this.service.creditUpdated.subscribe((event) => {
+			if (event && this.userInfo) {
+				setTimeout(() => {
+					// wait for backend to set the admin credis
+					this.getAdminCredits();
+				}, 500);
 				this.getUserCredits();
 			}
 		});
 	}
 
-	ngOnChanges(changes: SimpleChanges) {
-		if (this.isAdmin) {
-			this.getAdminCredits();
-		} else {
-			this.getUserCredits();
-		}
+	get isAdmin() {
+		return this.service.isAdmin(this.userInfo);
 	}
 
 	getAdminCredits() {
-		this.userCredits.totalCredit = this.userInfo.consumedCredit.totalCredit;
-		this.userCredits.consumedCredit = this.userInfo.consumedCredit.consumedCredit;
-		this.userCredits.totalMobileCredit = this.userInfo.consumedCredit.totalMobileCredit;
-		this.userCredits.consumedMobileCredit = this.userInfo.consumedCredit.consumedMobileCredit;
-
-		this.adminCredits = this.userCredits;
+		this.api.getAdminDetails().subscribe((res) => {
+			this.adminCredits = res.adminDetails.consumedCredit;
+			if (this.isAdmin) {
+				this.userCredits = this.adminCredits; // For summary card
+			}
+			this.service.setAdminCredits(this.adminCredits);
+		});
 	}
 
 	getUserCredits() {
 		const body = {
 			userId: this.userInfo.userId,
 		};
-		this.api.getMemberCreditDetails(body).subscribe((res) => {
-			this.userCredits = res.consumedCredit;
-		});
+		if (body.userId.length > 0) {
+			this.api.getMemberCreditDetails(body).subscribe((res) => {
+				this.userCredits = res.consumedCredit;
+			});
+		}
 	}
 
 	handleTrigger(action) {

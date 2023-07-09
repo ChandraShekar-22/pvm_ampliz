@@ -1,17 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core'
-import { BasicService } from 'src/app/modules/basic/service/basic.service'
-import { MessageService } from 'src/app/modules/B2B/services/message.service'
-import { DataService } from 'src/app/modules/basic/service/data.service'
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { BasicService } from 'src/app/modules/basic/service/basic.service';
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { DataService } from 'src/app/modules/basic/service/data.service';
 @Component({
 	selector: 'app-add-team-member',
 	templateUrl: './add-team-member.component.html',
 	styleUrls: ['./add-team-member.component.css'],
 })
 export class AddTeamMemberComponent implements OnInit {
-	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter()
-	@Input() adminDetails: any
+	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter();
+	// @Input() adminDetails: any;
+	adminDetails: any;
 	// Role var
-	roleList = ['Sales', 'Marketing', 'Operations', 'Customer']
+	roleList = ['Sales', 'Marketing', 'Operations', 'Customer'];
 
 	// API var
 	params: any = {
@@ -21,20 +22,20 @@ export class AddTeamMemberComponent implements OnInit {
 		credit: 0,
 		mobileCredit: 0,
 		dataset: 'healthcare',
-	}
+	};
 
 	// Email var
-	emailList: string = ''
-	invalidEmails: any = []
+	emailList: string = '';
+	invalidEmails: any = [];
 	regex = new RegExp(
 		"([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])"
-	)
+	);
 
 	// General Var
-	activeRole = 0
-	loader: boolean = false
-	creditError: boolean = false
-	mobileCreditError: boolean = false
+	activeRole = 0;
+	loader: boolean = false;
+	creditError: boolean = false;
+	mobileCreditError: boolean = false;
 
 	constructor(
 		private api: BasicService,
@@ -42,101 +43,105 @@ export class AddTeamMemberComponent implements OnInit {
 		private service: DataService
 	) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.service.getAdminInfo().subscribe((admin) => {
+			this.adminDetails = admin;
+		});
+	}
 	get enableBtn() {
-		return this.params.emails.length > 0 && this.validateCredits()
+		return this.params.emails.length > 0 && this.validateCredits();
 	}
 	get remainingCredit() {
 		return (
 			this.adminDetails.consumedCredit.totalCredit - this.adminDetails.consumedCredit.consumedCredit
-		)
+		);
 	}
 	get remainingMobileCredit() {
 		return (
 			this.adminDetails.consumedCredit.totalMobileCredit -
 			this.adminDetails.consumedCredit.consumedMobileCredit
-		)
+		);
 	}
 	get remainingLicence() {
-		return this.adminDetails.teamMemberLimit - this.adminDetails.consumedMemberLimit
+		return this.adminDetails.teamMemberLimit - this.adminDetails.consumedMemberLimit;
 		// return 2; //Uncommnet when correct value comes
 	}
 	get headerError() {
-		return this.remainingCredit <= 0 || this.remainingMobileCredit <= 0
+		return this.remainingCredit <= 0 || this.remainingMobileCredit <= 0;
 	}
 
 	handleCancel() {
-		this.service.cancelAddMember.next(true)
+		this.service.cancelAddMember.next(true);
 	}
 
 	handleSubmit() {
-		this.validateEmails()
+		this.validateEmails();
 
 		if (this.invalidEmails.length == 0 && this.validateCredits() && this.remainingLicence > 0) {
-			
-			let emailArray = this.params.emails.split(', ')
-			this.params.emails = emailArray
+			let emailArray = this.params.emails.split(', ');
+			this.params.emails = emailArray;
 
 			this.api.inviteTeamMember(this.params).subscribe(
 				(res) => {
-					this.messageService.display(true, 'The invitation has been sent.')
+					this.messageService.display(true, 'The invitation has been sent.');
 					this.service.getMemberList.next(true);
-					this.clearInputs()
+					// this.service.newMemberInvited.next(true);
+					this.clearInputs();
 				},
 				(error) => {
-					this.messageService.displayError(true, error.message)
+					this.messageService.displayError(true, error.message);
 				}
-			)
+			);
 		}
 	}
 
 	validateEmails() {
-		var emailArray = this.params.emails.split(',')
-		this.invalidEmails = []
+		var emailArray = this.params.emails.split(',');
+		this.invalidEmails = [];
 		for (var i = 0; i < emailArray.length; i++) {
 			if (!this.regex.test(emailArray[i])) {
-				this.invalidEmails.push(emailArray[i])
+				this.invalidEmails.push(emailArray[i]);
 			}
 		}
 	}
 	validateCredits() {
-		return this.isCreditCorrect() && this.isMobileCreditCorrect()
+		return this.isCreditCorrect() && this.isMobileCreditCorrect();
 	}
 
 	isCreditCorrect() {
 		if (this.remainingCredit >= this.params.credit) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
 	}
 	isMobileCreditCorrect() {
 		if (this.remainingMobileCredit >= this.params.mobileCredit) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
 	}
 
 	increment(credit?) {
 		if (credit) {
 			if (this.isCreditCorrect()) {
-				this.params.credit++
+				this.params.credit++;
 			}
 		} else {
 			if (this.isMobileCreditCorrect()) {
-				this.params.mobileCredit++
+				this.params.mobileCredit++;
 			}
 		}
 	}
 	decrement(credit?) {
 		if (credit) {
 			if (this.params.credit > 0) {
-				this.params.credit--
+				this.params.credit--;
 			}
 		} else {
 			if (this.params.mobileCredit > 0) {
-				this.params.mobileCredit--
+				this.params.mobileCredit--;
 			}
 		}
 	}
@@ -148,6 +153,6 @@ export class AddTeamMemberComponent implements OnInit {
 			credit: 0,
 			mobileCredit: 0,
 			dataset: 'healthcare',
-		}
+		};
 	}
 }

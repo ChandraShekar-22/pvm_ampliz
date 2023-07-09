@@ -1,10 +1,10 @@
 <div class="main-container">
 	<!-- Start content -->
+	<span class="user-text col-md-3 text-center">{{ userInfo.fullName }}'s Lists</span>
 	<div class="list-container">
 		<!-- Start Edit profile row -->
 		<div class="row">
 			<div class="col-12 search-pagination-wrapper row align-items-center">
-				<span class="user-text col-md-3 text-center">{{ userInfo.fullName }}'s Lists</span>
 				<div class="col-md-5 col-sm-12 text-right" *ngIf="isAdmin" [class.col-md-12]="totalSize == 0">
 					<div class="dropdown">
 						<button

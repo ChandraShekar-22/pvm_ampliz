@@ -39,7 +39,7 @@ export class MemberSidePanelComponent implements OnInit {
 		},
 		{
 			name: 'Invited',
-			key: 'Active',
+			key: 'Invited',
 			category: 'status',
 			checked: false,
 		},
@@ -95,6 +95,7 @@ export class MemberSidePanelComponent implements OnInit {
 				this.getMembersList();
 			}
 		});
+
 		this.scrollHandler();
 	}
 
@@ -124,19 +125,22 @@ export class MemberSidePanelComponent implements OnInit {
 		this.service.loader.next(true);
 		this.service.getAdminInfo().subscribe((admin) => {
 			this.adminDetails = admin;
+			// this.setAdminCredits(admin.consumedCredit);
 			this.openAdmin();
 			this.handleLoader();
 		});
 	}
 
-	getMembersList() {
+	async getMembersList() {
 		this.service.loader.next(true);
-		this.api.getTeamMemberList(this.membersListInput).subscribe(
+		await this.api.getTeamMemberList(this.membersListInput).subscribe(
 			(res) => {
 				this.userList = res.userList;
 				if (this.activeCard !== null) {
 					this.service.setUserInfo(this.userList[this.activeCard]);
+					this.adminCredits.emit(this.adminDetails);
 				}
+
 				this.handleLoader();
 			},
 			(err) => {
@@ -145,14 +149,15 @@ export class MemberSidePanelComponent implements OnInit {
 		);
 	}
 
-	getFreshMemberList() {}
-
 	async getFreshList() {
 		await this.api.getTeamMemberList(this.membersListInput).subscribe((res) => {
 			res.userList.map((item) => {
 				if (this.userList.findIndex((existing) => existing.userId == item.userId) == -1) {
 					setTimeout(() => {
 						this.userList.push(item);
+						if (this.userList.length <= 0) {
+							this.openAdmin();
+						}
 					}, 500);
 				}
 			});
@@ -220,6 +225,7 @@ export class MemberSidePanelComponent implements OnInit {
 		this.activeCard = index;
 		// this.openUserInfo.emit(user);
 		this.service.setUserInfo(user);
+		this.service.addUser.next(false);
 	}
 
 	openInvitedUser() {
@@ -230,10 +236,12 @@ export class MemberSidePanelComponent implements OnInit {
 	addUser() {
 		this.adminActive = false;
 		this.activeCard = null;
-		this.addMember.emit(true);
-		this.adminCredits.emit(this.adminDetails);
+		this.service.addUser.next(true);
+		// this.adminCredits.emit(this.adminDetails);
 	}
-
+	setAdminCredits(credits: any) {
+		this.service.setAdminCredits(credits);
+	}
 	handleLoader() {
 		setTimeout(() => {
 			this.service.loader.next(false);

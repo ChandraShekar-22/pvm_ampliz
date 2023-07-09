@@ -13,7 +13,8 @@ export class BasicService {
 	// POST API
 	setTeamMemberPassword(params: any): Observable<any> {
 		const url = environment.prodAdbApi + '/ADB/api/setpwd';
-		const response = this.http.post(url, params);
+		const headers = new HttpHeaders({ ...params });
+		const response = this.http.post(url, {}, { headers });
 		return response;
 	}
 
