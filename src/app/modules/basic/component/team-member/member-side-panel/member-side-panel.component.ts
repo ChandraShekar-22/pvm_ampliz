@@ -135,7 +135,7 @@ export class MemberSidePanelComponent implements OnInit {
 		this.service.loader.next(true);
 		await this.api.getTeamMemberList(this.membersListInput).subscribe(
 			(res) => {
-				this.userList = res.userList;
+				this.userList = res?.userList;
 				if (this.activeCard !== null) {
 					this.service.setUserInfo(this.userList[this.activeCard]);
 					this.adminCredits.emit(this.adminDetails);
@@ -173,6 +173,7 @@ export class MemberSidePanelComponent implements OnInit {
 
 	handleFilter(item: any) {
 		this.getFilterCount();
+		this.membersListInput.offset = 0;
 		if (item.category === 'role') {
 			this.handleRole(item);
 		} else {
