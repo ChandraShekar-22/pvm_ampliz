@@ -36,7 +36,7 @@ export class CreditActionCardsComponent implements OnInit {
 		}
 	}
 
-	get remainingCrdits() {
+	get remainingCredits() {
 		return this.adminCredits.totalCredit - this.adminCredits.consumedCredit;
 	}
 	get remainingMobileCredits() {
@@ -50,12 +50,44 @@ export class CreditActionCardsComponent implements OnInit {
 		return this.params.mobileCredit - this.userCredits.totalMobileCredit;
 	}
 
+	// isCreditCorrect() {
+	// 	if (this.remainingCredits > this.params.credit) {
+	// 		return true;
+	// 	} else {
+	// 		return false;
+	// 	}
+	// }
+	// isMobileCreditCorrect() {
+	// 	if (this.remainingMobileCredits > this.params.mobileCredit) {
+	// 		return true;
+	// 	} else {
+	// 		return false;
+	// 	}
+	// }
+
+	isCreditCorrect() {
+		if (this.remainingCredits > this.differenceInCredit) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	isMobileCreditCorrect() {
+		if (this.remainingMobileCredits > this.differenceInMobileCredit) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	get validateInput() {
 		return (
 			this.params.credit >= 0 &&
 			this.params.mobileCredit >= 0 &&
 			this.params.credit !== null &&
-			this.params.mobileCredit !== null
+			this.params.mobileCredit !== null &&
+			this.isCreditCorrect() &&
+			this.isMobileCreditCorrect()
 		);
 	}
 
@@ -79,11 +111,11 @@ export class CreditActionCardsComponent implements OnInit {
 
 	increment(credit?) {
 		if (credit) {
-			if (this.params.credit >= 0) {
+			if (this.isCreditCorrect()) {
 				this.params.credit++;
 			}
 		} else {
-			if (this.params.mobileCredit >= 0) {
+			if (this.isMobileCreditCorrect()) {
 				this.params.mobileCredit++;
 			}
 		}
@@ -100,7 +132,7 @@ export class CreditActionCardsComponent implements OnInit {
 		}
 	}
 
-	handleCancel(event) {
+	handleCancel() {
 		this.cancel.emit(true);
 	}
 }

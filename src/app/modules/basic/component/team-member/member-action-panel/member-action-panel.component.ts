@@ -71,6 +71,11 @@ export class MemberActionPanelComponent implements OnInit {
 		this.service.addUser.subscribe((res) => {
 			this.addUser = res;
 		});
+		this.service.cancelAddMember.subscribe((event) => {
+			if (event) {
+				this.addUser = false;
+			}
+		});
 	}
 
 	ngAfterViewInit() {

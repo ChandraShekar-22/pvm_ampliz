@@ -65,11 +65,18 @@ input[type='number']:focus {
 .input-header {
 	margin-bottom: 15px;
 }
+.input-error {
+	border: 1px solid #f83428 !important;
+}
 .range-button {
 	border: 1px solid #beddfe;
 	background: #beddfe;
 	border-radius: 5px;
 	transition: all 0.2s ease-in-out;
+}
+.range-error {
+	border: 1px solid #f83428 !important;
+	background: #ffeae9 !important;
 }
 .range-button:focus {
 	box-shadow: none;

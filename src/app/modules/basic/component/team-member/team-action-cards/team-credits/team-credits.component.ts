@@ -37,10 +37,7 @@ export class TeamCreditsComponent implements OnInit {
 		});
 		await this.service.creditUpdated.subscribe((event) => {
 			if (event && this.userInfo) {
-				setTimeout(() => {
-					// wait for backend to set the admin credis
-					this.getAdminCredits();
-				}, 500);
+				this.getAdminCredits();
 				this.getUserCredits();
 			}
 		});

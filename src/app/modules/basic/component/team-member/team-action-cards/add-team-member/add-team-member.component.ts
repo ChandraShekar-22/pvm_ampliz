@@ -109,14 +109,14 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 
 	isCreditCorrect() {
-		if (this.remainingCredit >= this.params.credit) {
+		if (this.remainingCredit > this.params.credit) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	isMobileCreditCorrect() {
-		if (this.remainingMobileCredit >= this.params.mobileCredit) {
+		if (this.remainingMobileCredit > this.params.mobileCredit) {
 			return true;
 		} else {
 			return false;

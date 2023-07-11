@@ -26,8 +26,7 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="col-md-4 col-sm-12 text-right" [class.ml-auto]="!isAdmin">
+				<div class="col-md-4 col-sm-12 text-right" [ngClass]="isAdmin ? 'col-md-7' : 'col-md-12'">
 					<div class="paginationWrapper">
 						<div
 							class="paginationWrapper row align-items-center justify-content-end"
