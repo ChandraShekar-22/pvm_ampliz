@@ -68,7 +68,12 @@
 
 	<div class="scroll-container mt-2 pb-3" id="scrollContainer">
 		<div class="list-container">
-			<div class="card-container" [class.active-card]="adminActive == true" (click)="openAdmin()">
+			<div
+				class="card-container"
+				[class.active-card]="adminActive == true"
+				(click)="openAdmin()"
+				*ngIf="filterCount <= 0"
+			>
 				<app-member-card
 					[userInfo]="adminDetails"
 					[isAdmin]="true"
