@@ -232,6 +232,7 @@ export class MemberSidePanelComponent implements OnInit {
 	openAdmin() {
 		this.adminActive = true;
 		this.activeCard = null;
+		this.service.addUser.next(false);
 		// this.openUserInfo.emit(this.adminDetails);
 		this.service.setUserInfo(this.adminDetails);
 	}

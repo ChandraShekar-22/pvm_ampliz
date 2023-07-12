@@ -21,6 +21,7 @@ export class MemberListComponent implements OnInit {
 	datasource: any;
 	offset: any = 0;
 	count: any = 5;
+
 	// Select var
 	listItems: any = [
 		{
@@ -29,11 +30,14 @@ export class MemberListComponent implements OnInit {
 			active: true,
 		},
 		{
-			name: 'Team List',
+			name: "My Team's List",
 			key: 'TeamList',
 			active: false,
 		},
 	];
+
+	// Filter var
+
 	selectValue: string = this.listItems[0].name;
 	// Table var
 	tabItems = ['All', 'Processing', 'Completed'];
@@ -157,6 +161,16 @@ export class MemberListComponent implements OnInit {
 		const key = this.listItems[index].key;
 		this.setPage(0, key);
 	}
+
+	handleFilter(index) {
+		this.listItems.map((x) => {
+			x.active = false;
+		});
+		this.listItems[index].active = true;
+		// this.selectValue = this.listItems[index].name;
+		const key = this.listItems[index].key;
+		this.setPage(0, key);
+	}
 	onFirstDataRendered(params) {
 		params.api.sizeColumnsToFit();
 	}
@@ -216,6 +230,9 @@ export class MemberListComponent implements OnInit {
 				(res) => {
 					this.datasource = res.savedlistInfoList;
 					this.paramsData.api.setRowData(this.datasource);
+					this.listItems.map((item) => {
+						// this.listItems.findIndex(())
+					});
 					if (this.gridApi.getDisplayedRowCount() === 0) {
 						this.gridApi.showNoRowsOverlay();
 					} else {

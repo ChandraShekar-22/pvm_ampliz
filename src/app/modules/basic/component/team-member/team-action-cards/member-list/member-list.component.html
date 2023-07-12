@@ -1,32 +1,20 @@
 <div class="main-container">
 	<!-- Start content -->
-	<span class="user-text col-md-3 text-center">{{ userInfo.fullName }}'s Lists</span>
+	<!-- <span class="user-text col-md-3 text-center">{{ userInfo.fullName }}'s Lists</span> -->
+	<div class="filter-container d-flex">
+		<div class="filter-group" *ngFor="let item of listItems; let i = index">
+			<button class="filter-btn mr-2" (click)="handleSelect(i)" [class.filter-active]="item.active">
+				{{ item.name }}
+			</button>
+			<!-- <button class="filter-btn">My Team's List</button> -->
+		</div>
+	</div>
+
 	<div class="list-container">
 		<!-- Start Edit profile row -->
 		<div class="row">
 			<div class="col-12 search-pagination-wrapper row align-items-center">
-				<div class="col-md-5 col-sm-12 text-right" *ngIf="isAdmin" [class.col-md-12]="totalSize == 0">
-					<div class="dropdown">
-						<button
-							class="btn btn-secondary dropdown-toggle"
-							type="button"
-							data-toggle="dropdown"
-							aria-expanded="true"
-							aria-haspopup="true"
-						>
-							{{ selectValue }}
-						</button>
-						<div class="dropdown-menu">
-							<a
-								class="dropdown-item"
-								*ngFor="let item of listItems; let i = index"
-								(click)="handleSelect(i)"
-								>{{ item.name }}</a
-							>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-12 text-right" [ngClass]="isAdmin ? 'col-md-7' : 'col-md-12'">
+				<div class="col-12 text-right">
 					<div class="paginationWrapper">
 						<div
 							class="paginationWrapper row align-items-center justify-content-end"
