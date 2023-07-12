@@ -3,6 +3,6 @@
 	"singleQuote": true,
 	"useTabs": true,
 	"tabWidth": 1,
-	"semi": true,
+	"semi": false,
 	"bracketSpacing": true
 }

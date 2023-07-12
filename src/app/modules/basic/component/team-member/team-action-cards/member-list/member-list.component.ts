@@ -1,26 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CustomTooltipComponent } from 'src/app/modules/basic/component/custom-tooltip/custom-tooltip.component';
-import { ExportCsvBtnComponent } from 'src/app/modules/basic/component/export-csv-btn/export-csv-btn.component';
-import { ButtoncellrendererComponent } from 'src/app/modules/basic/component/ag-grid/buttoncellrenderer/buttoncellrenderer.component';
-import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
-import { PaginationService } from 'src/app/modules/healthcare/services/pagination.service';
-import { MessageService } from 'src/app/modules/B2B/services/message.service';
-import { BasicService } from 'src/app/modules/basic/service/basic.service';
+import { Component, Input, OnInit } from '@angular/core'
+import { CustomTooltipComponent } from 'src/app/modules/basic/component/custom-tooltip/custom-tooltip.component'
+import { ExportCsvBtnComponent } from 'src/app/modules/basic/component/export-csv-btn/export-csv-btn.component'
+import { ButtoncellrendererComponent } from 'src/app/modules/basic/component/ag-grid/buttoncellrenderer/buttoncellrenderer.component'
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service'
+import { PaginationService } from 'src/app/modules/healthcare/services/pagination.service'
+import { MessageService } from 'src/app/modules/B2B/services/message.service'
+import { BasicService } from 'src/app/modules/basic/service/basic.service'
+import { animate, style, transition, trigger } from '@angular/animations'
+
 @Component({
 	selector: 'app-member-list',
 	templateUrl: './member-list.component.html',
 	styleUrls: ['./member-list.component.css'],
+	animations: [
+		trigger('enterAnimation', [
+			transition(':enter', [
+				style({ transform: 'translateY(10%)', opacity: 0.5 }),
+				animate('300ms', style({ transform: 'translateY(0)', opacity: 1 })),
+			]),
+		]),
+	],
 })
 export class MemberListComponent implements OnInit {
-	@Input() userInfo: any;
-	@Input() isAdmin: boolean = undefined;
+	@Input() userInfo: any
+	@Input() isAdmin: boolean = undefined
 
-	gridApi: any;
-	gridColumnApi: any;
-	paramsData: any = {};
-	datasource: any;
-	offset: any = 0;
-	count: any = 5;
+	// General var
+	loader: boolean = false
+	isListEmpty: boolean = false
 
 	// Select var
 	listItems: any = [
@@ -34,29 +41,35 @@ export class MemberListComponent implements OnInit {
 			key: 'TeamList',
 			active: false,
 		},
-	];
+	]
 
 	// Filter var
+	selectValue: string = this.listItems[0].name
 
-	selectValue: string = this.listItems[0].name;
 	// Table var
-	tabItems = ['All', 'Processing', 'Completed'];
-	activeLink = this.tabItems[0];
-	searchString: string = '';
-	columnDefs: any;
-	defaultColDef: any;
-	frameworkComponents: any;
-	context: any;
-	sortingOrders: any;
-	loadingTemplate: any;
-	noRowsTemplate: any;
+	gridApi: any
+	gridColumnApi: any
+	paramsData: any = {}
+	datasource: any
+	offset: any = 0
+	count: any = 5
+	tabItems = ['All', 'Processing', 'Completed']
+	activeLink = this.tabItems[0]
+	searchString: string = ''
+	columnDefs: any
+	defaultColDef: any
+	frameworkComponents: any
+	context: any
+	sortingOrders: any
+	loadingTemplate: any
+	noRowsTemplate: any
 	// Pagination Var
-	paginationPageSize: number;
-	pager: any = {};
-	pagedItems: any[];
-	totalSize: number = 0;
+	paginationPageSize: number
+	pager: any = {}
+	pagedItems: any[]
+	totalSize: number = 0
 
-	public domLayout = 'autoHeight';
+	public domLayout = 'autoHeight'
 
 	constructor(
 		private hcApi: AmplizService,
@@ -64,14 +77,14 @@ export class MemberListComponent implements OnInit {
 		private messageService: MessageService,
 		private api: BasicService
 	) {
-		this.loadingTemplate = `<span class="ag-overlay-loading-center">data is loading...</span>`;
-		this.noRowsTemplate = `"<span">no rows to show</span>"`;
+		this.loadingTemplate = `<span class="ag-overlay-loading-center">data is loading...</span>`
+		this.noRowsTemplate = `"<span">no rows to show</span>"`
 		this.frameworkComponents = {
 			buttonRenderer: ButtoncellrendererComponent,
-		};
+		}
 		this.context = {
 			componentParent: this,
-		};
+		}
 		this.columnDefs = [
 			{ tooltipField: 'col1' },
 			{
@@ -89,19 +102,19 @@ export class MemberListComponent implements OnInit {
 					if (params.value.length > 20) {
 						return {
 							value: params.value,
-						};
+						}
 					}
 				},
 				cellRenderer: function (params) {
-					let listName = params.value;
+					let listName = params.value
 					if (params.value.length > 20) {
-						let trimmedStr = listName;
-						trimmedStr = params.value.substring(0, 20);
-						const shortStr = trimmedStr + '...';
-						listName = shortStr;
+						let trimmedStr = listName
+						trimmedStr = params.value.substring(0, 20)
+						const shortStr = trimmedStr + '...'
+						listName = shortStr
 						// return "<span>" + shortStr + "</span>";
 					}
-					return '<span style="color: #0071eb">' + listName + '<br/></span>';
+					return '<span style="color: #0071eb">' + listName + '<br/></span>'
 				},
 			},
 			{
@@ -140,83 +153,41 @@ export class MemberListComponent implements OnInit {
 				cellRendererSelector: (params) => {
 					const exportCsv = {
 						component: ExportCsvBtnComponent,
-					};
-					return exportCsv;
+					}
+					return exportCsv
 				},
 			},
-		];
+		]
 		this.defaultColDef = {
 			tooltipComponent: CustomTooltipComponent,
-		};
-		this.paginationPageSize = 10;
-		this.sortingOrders = ['desc', 'asc', null];
+		}
+		this.paginationPageSize = 10
+		this.sortingOrders = ['desc', 'asc', null]
 	}
 
-	handleSelect(index) {
-		this.listItems.map((x) => {
-			x.active = false;
-		});
-		this.listItems[index].active = true;
-		this.selectValue = this.listItems[index].name;
-		const key = this.listItems[index].key;
-		this.setPage(0, key);
-	}
-
-	handleFilter(index) {
-		this.listItems.map((x) => {
-			x.active = false;
-		});
-		this.listItems[index].active = true;
-		// this.selectValue = this.listItems[index].name;
-		const key = this.listItems[index].key;
-		this.setPage(0, key);
-	}
 	onFirstDataRendered(params) {
-		params.api.sizeColumnsToFit();
+		params.api.sizeColumnsToFit()
 	}
 	onGridReady(params, dataSource?: any) {
-		this.paramsData = params;
-		this.gridApi = params.api;
-		this.gridApi.setRowData(10);
-		this.gridColumnApi = params.columnApi;
-		this.paramsData.api.setRowData(dataSource);
-		this.setColumnToFitPage();
+		this.paramsData = params
+		this.gridApi = params.api
+		this.gridApi.sizeColumnsToFit()
+		this.paramsData.api.setRowData(dataSource)
+		this.gridColumnApi = params.columnApi
 	}
 
 	ngOnInit(): void {}
 	ngAfterViewInit() {}
 	ngOnChanges() {
 		if (this.isAdmin !== undefined) {
-			// this.setRowData();
-			this.setPage(1);
+			this.setLoader(true)
+			this.setPage(1)
 		}
 	}
 
-	async setRowData() {
-		await this.hcApi.getAllList(this.offset, this.count, true).subscribe(
-			(res) => {
-				this.datasource = res.savedlistInfoList;
-				this.paramsData.api.setRowData(this.datasource);
-			},
-			(error) => {}
-		);
-	}
-	setColumnToFitPage() {
-		var allColumnIds = [];
-		this.gridColumnApi.getAllColumns().forEach(function (column) {
-			allColumnIds.push(column.colId);
-		});
-		this.gridColumnApi.autoSizeColumns(allColumnIds);
-	}
-
-	showLoading(show) {
-		if (this.gridApi) {
-			if (show) {
-				this.gridApi.showLoadingOverlay();
-			} else {
-				this.gridApi.hideOverlay();
-			}
-		}
+	handleFilter(index) {
+		const key = this.listItems[index].key
+		this.setPage(0, key)
 	}
 
 	setPage(page: any, listType?: any) {
@@ -224,83 +195,87 @@ export class MemberListComponent implements OnInit {
 			top: 0,
 			left: 0,
 			behavior: 'smooth',
-		});
+		})
 		if (this.isAdmin) {
 			this.hcApi.getAllList(this.offset, this.count, true, listType).subscribe(
 				(res) => {
-					this.datasource = res.savedlistInfoList;
-					this.paramsData.api.setRowData(this.datasource);
-					this.listItems.map((item) => {
-						// this.listItems.findIndex(())
-					});
-					if (this.gridApi.getDisplayedRowCount() === 0) {
-						this.gridApi.showNoRowsOverlay();
-					} else {
-						this.gridApi.hideOverlay();
-					}
+					this.datasource = res.savedlistInfoList
 					if (this.datasource.length != 0) {
-						this.totalSize = res.totalCount;
+						this.isListEmpty = false
+						if (listType !== undefined) {
+							this.listItems.map((x) => {
+								x.active = false
+							})
+							const index = this.listItems.findIndex((item) => item.key === listType)
+							this.listItems[index].active = true
+						}
 						//
-						this.pager = this.pagerservice.getPager(this.totalSize, page, this.count);
-						this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1);
+						this.totalSize = res.totalCount
 						//
-						this.paramsData.api.setRowData(this.datasource);
-						// this.loaderService.display(false);
+						this.pager = this.pagerservice.getPager(this.totalSize, page, this.count)
+						this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1)
+						this.setLoader(false)
+						setTimeout(() => {
+							this.paramsData.api.setRowData(this.datasource)
+						}, 400)
+						//
 					} else {
-						this.paramsData.api.setRowData(this.datasource);
-						this.showLoading(false);
+						this.isListEmpty = true
+						this.setLoader(false)
 					}
 				},
-				(error) => {}
-			);
+				(error) => {
+					this.setLoader(false)
+				}
+			)
 		} else {
-			this.api.getUserList(this.offset, this.count, this.userInfo.userId).subscribe((res) => {
-				this.datasource = res.savedlistInfoList;
-				this.paramsData.api.setRowData(this.datasource);
-				if (this.gridApi.getDisplayedRowCount() === 0) {
-					this.gridApi.showNoRowsOverlay();
-				} else {
-					this.gridApi.hideOverlay();
+			this.api.getUserList(this.offset, this.count, this.userInfo.userId).subscribe(
+				(res) => {
+					this.datasource = res.savedlistInfoList
+					if (this.datasource.length != 0) {
+						this.isListEmpty = false
+						this.totalSize = res.totalCount
+						//
+						this.pager = this.pagerservice.getPager(this.totalSize, page, this.count)
+						this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1)
+						//
+						this.setLoader(false)
+						setTimeout(() => {
+							this.paramsData.api.setRowData(this.datasource)
+						}, 400)
+					} else {
+						this.isListEmpty = true
+						this.setLoader(false)
+					}
+				},
+				(error) => {
+					this.setLoader(false)
 				}
-				if (this.datasource.length != 0) {
-					this.totalSize = res.totalCount;
-					//
-					this.pager = this.pagerservice.getPager(this.totalSize, page, this.count);
-					this.pagedItems = this.datasource.slice(this.pager.startIndex, this.pager.endIndex + 1);
-					//
-					this.paramsData.api.setRowData(this.datasource);
-					// this.loaderService.display(false);
-				} else {
-					this.paramsData.api.setRowData(this.datasource);
-					this.showLoading(false);
-				}
-			});
+			)
 		}
 	}
 
 	downloadAllCsv(body: any) {
 		this.hcApi.downloadCSVAll(body.listId).subscribe((el) => {
-			const a = document.createElement('a');
-			const blob = new Blob([el.body], { type: 'text/csv' });
-			const url = window.URL.createObjectURL(blob);
+			const a = document.createElement('a')
+			const blob = new Blob([el.body], { type: 'text/csv' })
+			const url = window.URL.createObjectURL(blob)
 
-			a.href = url;
-			a.download = body.listName + '.csv';
-			a.click();
-			window.URL.revokeObjectURL(url);
-			a.remove();
-		});
+			a.href = url
+			a.download = body.listName + '.csv'
+			a.click()
+			window.URL.revokeObjectURL(url)
+			a.remove()
+		})
 	}
-	deleteList(listId: any) {
-		this.hcApi.deleteList(listId).subscribe(
-			(res) => {
-				this.messageService.display(true, 'Selected list successfully deleted');
-				this.setRowData();
-				this.setPage(1);
-			},
-			(error) => {
-				this.messageService.displayError(true, error.error[0].message);
-			}
-		);
+
+	setLoader(loader: boolean) {
+		if (loader == true) {
+			this.loader = loader
+		} else {
+			setTimeout(() => {
+				this.loader = loader
+			}, 300)
+		}
 	}
 }
