@@ -78,6 +78,12 @@ export class BasicService {
 		return response;
 	}
 
+	searchMember(body: any): Observable<any> {
+		const url = this.teams_api + '/teams/amplizteamsreadapi/admin/search-member-name';
+		const response = this.http.post(url, body);
+		return response;
+	}
+
 	// GET API
 
 	getMemberCreditDetails(body: any): Observable<any> {

@@ -3,7 +3,7 @@
 		<div class="heading mb-2">
 			<h2>
 				Team Members
-				<span style="font-weight: 400"
+				<span *ngIf="adminDetails" style="font-weight: 400"
 					>({{ adminDetails.consumedMemberLimit }}/{{ adminDetails.teamMemberLimit }})</span
 				>
 			</h2>
@@ -13,7 +13,13 @@
 			<!-- Search-input  -->
 			<div class="col-6">
 				<div class="inputWithIcon">
-					<input type="text" placeholder="Search member" class="search-input" />
+					<input
+						type="text"
+						placeholder="Search member"
+						class="search-input"
+						[(ngModel)]="searchMember.searchName"
+						(ngModelChange)="handleSearch($event)"
+					/>
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</div>
 			</div>

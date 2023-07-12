@@ -71,7 +71,6 @@ export class DataService {
 	}
 
 	// Is Admin card logic
-
 	isAdmin(value: any) {
 		return !value.hasOwnProperty('userStatus');
 	}

@@ -22,7 +22,14 @@ export class MemberSidePanelComponent implements OnInit {
 		count: 7,
 		userStatus: [],
 	};
+
 	userList: any = [];
+
+	searchMember: any = {
+		offset: 0,
+		count: 5,
+		searchName: '',
+	};
 
 	// General Var
 	activeCard: any = null;
@@ -165,6 +172,14 @@ export class MemberSidePanelComponent implements OnInit {
 				this.listLoader = false;
 			}, 600);
 		});
+	}
+
+	async handleSearch(value: any) {
+		if (value !== '') {
+			await this.api.searchMember(this.searchMember).subscribe((res) => {
+				console.log('RES', res);
+			});
+		}
 	}
 
 	getLicenceCounter() {

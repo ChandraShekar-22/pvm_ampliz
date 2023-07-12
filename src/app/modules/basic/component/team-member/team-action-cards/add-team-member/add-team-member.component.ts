@@ -13,6 +13,8 @@ export class AddTeamMemberComponent implements OnInit {
 	adminDetails: any;
 	// Role var
 	roleList = ['Sales', 'Marketing', 'Operations', 'Customer'];
+	//OrgId
+	orgId: any;
 
 	// API var
 	params: any = {
@@ -89,6 +91,7 @@ export class AddTeamMemberComponent implements OnInit {
 					this.clearInputs();
 				},
 				(error) => {
+					console.log('ERR', error);
 					this.messageService.displayError(true, error.message);
 				}
 			);
