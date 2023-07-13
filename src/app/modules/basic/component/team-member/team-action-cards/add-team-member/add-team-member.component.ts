@@ -9,18 +9,23 @@ import { DataService } from 'src/app/modules/basic/service/data.service'
 })
 export class AddTeamMemberComponent implements OnInit {
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter()
-	@Input() adminDetails: any
+	// @Input() adminDetails: any;
+	adminDetails: any
 	// Role var
 	roleList = ['Sales', 'Marketing', 'Operations', 'Customer']
+	//OrgId
+	orgId: any
 
 	// API var
 	params: any = {
 		emails: [],
 		role: this.roleList[0],
 		organizationId: '5dc05c68df5693b4610fbf3d',
-		credit: 0,
+		dailyCredit: 0,
 		mobileCredit: 0,
 		dataset: 'healthcare',
+		verifiedemails: [],
+		notVerifiedemails: [],
 	}
 
 	// Email var
@@ -42,19 +47,20 @@ export class AddTeamMemberComponent implements OnInit {
 		private service: DataService
 	) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.service.getAdminInfo().subscribe((admin) => {
+			this.adminDetails = admin
+		})
+	}
 	get enableBtn() {
 		return this.params.emails.length > 0 && this.validateCredits()
 	}
 	get remainingCredit() {
-		return (
-			this.adminDetails.consumedCredit.totalCredit - this.adminDetails.consumedCredit.consumedCredit
-		)
+		return this.adminDetails.consumedCredit.totalCredit - this.adminDetails.consumedCredit.consumedCredit
 	}
 	get remainingMobileCredit() {
 		return (
-			this.adminDetails.consumedCredit.totalMobileCredit -
-			this.adminDetails.consumedCredit.consumedMobileCredit
+			this.adminDetails.consumedCredit.totalMobileCredit - this.adminDetails.consumedCredit.consumedMobileCredit
 		)
 	}
 	get remainingLicence() {
@@ -73,17 +79,18 @@ export class AddTeamMemberComponent implements OnInit {
 		this.validateEmails()
 
 		if (this.invalidEmails.length == 0 && this.validateCredits() && this.remainingLicence > 0) {
-			
 			let emailArray = this.params.emails.split(', ')
 			this.params.emails = emailArray
 
 			this.api.inviteTeamMember(this.params).subscribe(
 				(res) => {
 					this.messageService.display(true, 'The invitation has been sent.')
-					this.service.getMemberList.next(true);
+					this.service.getMemberList.next(true)
+					// this.service.newMemberInvited.next(true);
 					this.clearInputs()
 				},
 				(error) => {
+					console.log('ERR', error)
 					this.messageService.displayError(true, error.message)
 				}
 			)
@@ -104,14 +111,14 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 
 	isCreditCorrect() {
-		if (this.remainingCredit >= this.params.credit) {
+		if (this.remainingCredit > this.params.credit) {
 			return true
 		} else {
 			return false
 		}
 	}
 	isMobileCreditCorrect() {
-		if (this.remainingMobileCredit >= this.params.mobileCredit) {
+		if (this.remainingMobileCredit > this.params.mobileCredit) {
 			return true
 		} else {
 			return false

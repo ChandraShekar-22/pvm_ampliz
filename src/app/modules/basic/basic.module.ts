@@ -83,6 +83,7 @@ import { CreditActionCardsComponent } from './component/team-member/team-action-
 import { AddTeamMemberComponent } from './component/team-member/team-action-cards/add-team-member/add-team-member.component';
 import { MemberListComponent } from './component/team-member/team-action-cards/member-list/member-list.component';
 import { TeamMemberSignupComponent } from './container/team-member-signup/team-member-signup.component';
+import { NoMemberLimitComponent } from './component/team-member/team-action-cards/no-member-limit/no-member-limit.component';
 const appRoutes = [
 	{
 		path: 'login',
@@ -226,6 +227,7 @@ const appRoutes = [
 		AddTeamMemberComponent,
 		MemberListComponent,
 		TeamMemberSignupComponent,
+  NoMemberLimitComponent,
 	],
 	imports: [
 		CommonComponentsModule,

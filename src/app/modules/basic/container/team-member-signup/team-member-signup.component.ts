@@ -43,6 +43,8 @@ export class TeamMemberSignupComponent implements OnInit {
 				if (params.email && params.email.length > 0) {
 					if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(params.email)) {
 						this.signup.email = params.email;
+					} else {
+						this.messageService.displayError(true, 'The URL entered is invalid.');
 					}
 				}
 			}
@@ -97,6 +99,8 @@ export class TeamMemberSignupComponent implements OnInit {
 					this.loader = false;
 				}
 			);
+		} else {
+			this.loader = false;
 		}
 	}
 

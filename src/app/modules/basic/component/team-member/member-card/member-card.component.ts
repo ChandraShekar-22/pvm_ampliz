@@ -37,7 +37,7 @@ export class MemberCardComponent implements OnInit {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (this.userInfo) {
+		if (this.userInfo !== undefined) {
 			this.getInititals()
 		}
 	}
@@ -57,20 +57,13 @@ export class MemberCardComponent implements OnInit {
 	}
 
 	getInititals() {
-		this.initials = ''
-		const name = this.userInfo.fullName
+		if (this.userInfo.fullName !== undefined) {
+			const words = this.userInfo.fullName.split(' ')
 
-		for (let i = 0; i < name.length; i++) {
-			if (name.charAt(i) === ' ') {
-				continue
-			}
+			this.initials = ''
 
-			if (name.charAt(i) === name.charAt(i).toUpperCase()) {
-				this.initials += name.charAt(i)
-
-				if (this.initials.length == 2) {
-					break
-				}
+			for (const word of words) {
+				this.initials += word[0]
 			}
 		}
 	}

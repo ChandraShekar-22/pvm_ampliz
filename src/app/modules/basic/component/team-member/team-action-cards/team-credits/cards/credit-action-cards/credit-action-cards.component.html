@@ -4,7 +4,7 @@
 		<div class="header d-flex align-items-center">
 			<div>
 				<span
-					>Your total credit <span class="credit-value">{{ remainingCrdits }}</span></span
+					>Your total credit <span class="credit-value">{{ remainingCredits }}</span></span
 				>
 			</div>
 			<div>
@@ -22,13 +22,29 @@
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<button class="btn range-button" type="button" (click)="decrement(true)">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
-						<input type="number" min="1" class="form-control" [(ngModel)]="params.credit" />
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							[(ngModel)]="params.credit"
+							[class.input-error]="!isCreditCorrect()"
+						/>
 						<div class="input-group-append">
-							<button class="btn range-button" type="button" (click)="increment(true)">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
 								<i class="fa fa-plus"></i>
 							</button>
 						</div>
@@ -41,13 +57,29 @@
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<button class="btn range-button" type="button" (click)="decrement()">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
-						<input type="number" min="1" class="form-control" [(ngModel)]="params.mobileCredit" />
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							[(ngModel)]="params.mobileCredit"
+							[class.input-error]="!isMobileCreditCorrect()"
+						/>
 						<div class="input-group-append">
-							<button class="btn range-button" type="button" (click)="increment()">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
 								<i class="fa fa-plus"></i>
 							</button>
 						</div>
@@ -56,7 +88,7 @@
 			</div>
 
 			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
-				<span class="canel-btn" (click)="handleCancel($event)">Cancel</span>
+				<span class="canel-btn" (click)="handleCancel()">Cancel</span>
 				<button
 					class="save-btn"
 					type="button"

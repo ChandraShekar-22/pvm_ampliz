@@ -203,18 +203,17 @@
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-	width: 11px;
+	width: 5px;
 }
 
 *::-webkit-scrollbar-track {
-	background: transparent;
+	background: #fff;
+	display: none;
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: #000000;
 	border-radius: 10px;
 	max-height: 50px;
-	border: 1px solid #ffffff;
 }
 
 /* List Loader */

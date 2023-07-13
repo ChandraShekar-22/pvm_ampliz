@@ -7,11 +7,28 @@
 	letter-spacing: 0.5px;
 	font-weight: 500;
 }
+
 .list-container {
 	border: 0.5px solid #e0e0e0;
 	border-radius: 5px;
 	background-color: #ffff;
 	margin-top: 20px;
+}
+
+.no-data-container span {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 100px 50px;
+	background: #fff;
+	border: 0.5px solid #e0e0e0;
+	border-radius: 5px;
+	color: #85898F;
+	font-size: 16px;
+	font-weight: 400;
+}
+.no-data-container span svg {
+	margin-right: 30px;
 }
 
 .mat-tab-nav-bar,
@@ -28,6 +45,24 @@
 
 .search-pagination-wrapper {
 	padding: 10px;
+}
+
+/* Filter css */
+.filter-btn {
+	background-color: #e6ecf2;
+	border: none;
+	color: #495365;
+	border-radius: 25px;
+	padding: 7px 14px;
+	font-size: 10px;
+	font-weight: 400;
+	cursor: pointer;
+	transition: 50ms all ease-in;
+}
+.filter-active {
+	color: #fff;
+	background-color: #0071eb;
+	font-weight: 500;
 }
 
 /* Drodown css */
@@ -62,4 +97,46 @@
 /* Table Css */
 ::ng-deep .ag-cell-value {
 	font-size: 12px !important;
+}
+
+/* Loader css */
+.loader-container {
+	height: 50vh;
+}
+.spinner-svg {
+	width: 5.25em;
+	transform-origin: center;
+	animation: rotate4 2s linear infinite;
+}
+
+circle {
+	fill: none;
+	stroke: #0071eb;
+	stroke-width: 2;
+	stroke-dasharray: 1, 200;
+	stroke-dashoffset: 0;
+	stroke-linecap: round;
+	animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes dash4 {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+
+	50% {
+		stroke-dasharray: 90, 200;
+		stroke-dashoffset: -35px;
+	}
+
+	100% {
+		stroke-dashoffset: -125px;
+	}
 }

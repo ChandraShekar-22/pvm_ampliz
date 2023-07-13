@@ -5,13 +5,12 @@
 			<app-credit-action-cards
 				(cancel)="cancelAction($event)"
 				[edit]="isEdit"
-				*ngIf="isAction"
+				*ngIf="isAction && !isAdmin"
 				[userCredits]="userCredits"
 				[adminCredits]="adminCredits"
 				[userId]="userInfo.userId"
 			></app-credit-action-cards>
 		</div>
-
 		<div class="credit-summary-card">
 			<app-credit-summary
 				*ngIf="!isAction"
