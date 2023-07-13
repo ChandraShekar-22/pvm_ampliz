@@ -11,6 +11,7 @@ export class AddTeamMemberComponent implements OnInit {
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter()
 	// @Input() adminDetails: any;
 	adminDetails: any
+	domain: any
 	// Role var
 	roleList = ['Sales', 'Marketing', 'Operations', 'Customer']
 	//OrgId
@@ -51,6 +52,7 @@ export class AddTeamMemberComponent implements OnInit {
 		this.service.getAdminInfo().subscribe((admin) => {
 			this.adminDetails = admin
 		})
+		this.setDomain()
 	}
 	get enableBtn() {
 		return this.params.emails.length > 0 && this.validateCredits()
@@ -90,7 +92,6 @@ export class AddTeamMemberComponent implements OnInit {
 					this.clearInputs()
 				},
 				(error) => {
-					console.log('ERR', error)
 					this.messageService.displayError(true, error.message)
 				}
 			)
@@ -106,12 +107,18 @@ export class AddTeamMemberComponent implements OnInit {
 			}
 		}
 	}
+
+	setDomain() {
+		const email = this.adminDetails.email
+		this.domain = email.split('@').pop()
+	}
+
 	validateCredits() {
 		return this.isCreditCorrect() && this.isMobileCreditCorrect()
 	}
 
 	isCreditCorrect() {
-		if (this.remainingCredit > this.params.credit) {
+		if (this.remainingCredit > this.params.dailyCredit) {
 			return true
 		} else {
 			return false
@@ -128,7 +135,7 @@ export class AddTeamMemberComponent implements OnInit {
 	increment(credit?) {
 		if (credit) {
 			if (this.isCreditCorrect()) {
-				this.params.credit++
+				this.params.dailyCredit++
 			}
 		} else {
 			if (this.isMobileCreditCorrect()) {
@@ -138,8 +145,8 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 	decrement(credit?) {
 		if (credit) {
-			if (this.params.credit > 0) {
-				this.params.credit--
+			if (this.params.dailyCredit > 0) {
+				this.params.dailyCredit--
 			}
 		} else {
 			if (this.params.mobileCredit > 0) {
@@ -152,7 +159,7 @@ export class AddTeamMemberComponent implements OnInit {
 			emails: [],
 			role: this.roleList[0],
 			organizationId: '5dc05c68df5693b4610fbf3d',
-			credit: 0,
+			dailyCredit: 0,
 			mobileCredit: 0,
 			dataset: 'healthcare',
 		}
