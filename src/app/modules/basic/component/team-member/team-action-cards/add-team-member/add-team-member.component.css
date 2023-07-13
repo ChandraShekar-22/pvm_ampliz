@@ -4,8 +4,7 @@
 .content-section {
 	padding: 30px 45px;
 }
-.input-container {
-}
+
 .email-container {
 	padding: 20px;
 }
@@ -152,15 +151,20 @@ input[type='number']::-webkit-outer-spin-button {
 	font-size: 12px;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
-	pointer-events: none;
-	opacity: 0.5;
+	/* pointer-events: none;
+	opacity: 0.5; */
+	opacity: 1;
+	pointer-events: all;
 }
 .save-btn:hover {
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+.disable-btn {
+	opacity: 0.5;
+	pointer-events: none;
+}
 .enable-btn {
-	opacity: 1;
-	pointer-events: all;
+	
 }
 .canel-btn {
 	color: #85898f;
@@ -171,6 +175,14 @@ input[type='number']::-webkit-outer-spin-button {
 	cursor: pointer;
 	padding: 0;
 }
+
+/* Confirm Message css */
+.confirm-text {
+	color: #040404;
+	font-size: 12px;
+}
+
+
 /* Loader css */
 svg {
 	width: 2.25em;
