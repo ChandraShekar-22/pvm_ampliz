@@ -9,7 +9,6 @@ export class CreditsSummaryComponent implements OnInit {
 	@Output() trigger: EventEmitter<any> = new EventEmitter();
 	@Input() isAdmin: boolean;
 	@Input() userCredits: any;
-	@Input() adminCredits: any;
 
 	creditDetails: any;
 

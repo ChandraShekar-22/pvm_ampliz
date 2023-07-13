@@ -6,9 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
 	public getMemberList: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
 	public cancelAddMember: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	public adminInfo: BehaviorSubject<any> = new BehaviorSubject([]);
+	public adminCredit: BehaviorSubject<any> = new BehaviorSubject([]);
+
+	public addUser: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	public userList: BehaviorSubject<any> = new BehaviorSubject([]);
 
@@ -35,6 +39,12 @@ export class DataService {
 	getAdminInfo() {
 		return this.adminInfo.asObservable();
 	}
+	setAdminCredits(value: any): void {
+		this.adminCredit.next(value);
+	}
+	getAdminCredits() {
+		return this.adminInfo.asObservable();
+	}
 
 	// User
 	setUserList(value: any): void {
@@ -58,5 +68,10 @@ export class DataService {
 	}
 	getUserInfo() {
 		return this.userInfo.asObservable();
+	}
+
+	// Is Admin card logic
+	isAdmin(value: any) {
+		return !value.hasOwnProperty('userStatus');
 	}
 }

@@ -1,5 +1,7 @@
 <div class="container">
-	<div class="card">
+	<app-no-member-limit *ngIf="remainingLicence <= 0"> </app-no-member-limit>
+
+	<div class="card" *ngIf="remainingLicence > 0">
 		<!-- Header 1 starts -->
 		<div class="header">
 			<span class="header-text"
@@ -142,6 +144,7 @@
 
 			<!-- action button starts -->
 			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
+				<!-- <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. </span> -->
 				<span class="canel-btn" (click)="handleCancel()">Cancel</span>
 				<button
 					[class.enable-btn]="enableBtn"

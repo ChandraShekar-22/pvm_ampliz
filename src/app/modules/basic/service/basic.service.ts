@@ -13,7 +13,8 @@ export class BasicService {
 	// POST API
 	setTeamMemberPassword(params: any): Observable<any> {
 		const url = environment.prodAdbApi + '/ADB/api/setpwd';
-		const response = this.http.post(url, params);
+		const headers = new HttpHeaders({ ...params });
+		const response = this.http.post(url, {}, { headers });
 		return response;
 	}
 
@@ -73,6 +74,12 @@ export class BasicService {
 
 	deactivateUser(body: any): Observable<any> {
 		const url = this.teams_api + '/teams/amplizteamswriteapi/admin/deactivate-user';
+		const response = this.http.post(url, body);
+		return response;
+	}
+
+	searchMember(body: any): Observable<any> {
+		const url = this.teams_api + '/teams/amplizteamsreadapi/admin/search-member-name';
 		const response = this.http.post(url, body);
 		return response;
 	}

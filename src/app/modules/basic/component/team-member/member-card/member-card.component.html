@@ -1,7 +1,14 @@
 <!-- [@inputAnimation] -->
 <div class="row align-items-start member-card-container" [class.active]="active" *ngIf="!loader">
-	<div class="avatar-container col-1" [class]="getStatusClass" *ngIf="!isAdmin">{{ initials }}</div>
-	<div class="avatar-container col-1 admin-avatar" *ngIf="isAdmin">{{ initials }}</div>
+	<!-- <div class="avatar-container col-1" >{{ initials }}</div> -->
+	<div class="avatar-container col-1" [class]="getStatusClass" *ngIf="!isAdmin">
+		<div>{{ initials.toUpperCase() }}</div>
+	</div>
+	<div class="avatar-container col-1 admin-avatar" *ngIf="isAdmin">
+		<div>{{ initials.toUpperCase() }}</div>
+	</div>
+
+	<!-- <div class="avatar-container col-1 admin-avatar" *ngIf="isAdmin">{{ initials }}</div> -->
 	<div class="member-info col">
 		<h6>{{ userInfo.fullName }}</h6>
 		<p>{{ userInfo.email }}</p>
