@@ -19,6 +19,7 @@
 						class="search-input"
 						[(ngModel)]="searchMember.searchName"
 						(ngModelChange)="handleSearch($event)"
+						[ngModelOptions]="{ updateOn: 'blur' }"
 					/>
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</div>
