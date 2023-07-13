@@ -58,6 +58,8 @@ import { NpiTableStatusComponent } from './component/npi-table-status/npi-table-
 import { NpiDataProgressModalComponent } from './component/npi-data-progress-modal/npi-data-progress-modal.component';
 import { PhysicianImageCardComponent } from './containers/physican/physician-image-card/physician-image-card.component';
 import { PhysicianNotCorrectComponent } from './containers/physician-overview/physician-not-correct/physician-not-correct.component';
+import { RxDataComponent } from './containers/physician-overview/rx-data/rx-data.component';
+import { SimilarPhysicianComponent } from './containers/physician-overview/similar-physician/similar-physician.component';
 // component/confidence-level/confidence-level.component
 const appRoutes = [
   {
@@ -186,6 +188,8 @@ const appRoutes = [
     NpiDataProgressModalComponent,
     PhysicianImageCardComponent,
     PhysicianNotCorrectComponent,
+    RxDataComponent,
+    SimilarPhysicianComponent,
   ],
   imports: [
     CommonComponentsModule,

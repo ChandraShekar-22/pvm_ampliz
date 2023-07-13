@@ -56,25 +56,34 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
     return this.DataResult;
   }
   get languages() {
-    return this.physicianOverviewResult.physicianInfoData.languages.join(', ');
+    return (
+      this.physicianOverviewResult?.physicianInfoData?.languages?.join(', ') ||
+      ''
+    );
   }
   viewPhysicianMobileNumber() {
     this.amplizService
-      .viewPhysicianMobileNumber(this.physicianOverviewResult.physicianInfoData.physicianId)
+      .viewPhysicianMobileNumber(
+        this.physicianOverviewResult.physicianInfoData.physicianId
+      )
       .subscribe((res) => {
         this.viewDetail();
       });
   }
   viewPhysicianEmail() {
     this.amplizService
-      .viewPhysicianEmail(this.physicianOverviewResult.physicianInfoData.physicianId)
+      .viewPhysicianEmail(
+        this.physicianOverviewResult.physicianInfoData.physicianId
+      )
       .subscribe((res) => {
         this.viewDetail();
       });
   }
 
   get gender() {
-    return this.physicianOverviewResult.physicianInfoData.gender === 'M' ? 'Male' : 'Female';
+    return this.physicianOverviewResult.physicianInfoData.gender === 'M'
+      ? 'Male'
+      : 'Female';
   }
   get isBlankHospitalInfo() {
     if (
@@ -100,10 +109,15 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   // }
 
   get showSaveButton() {
-    return this.physicianOverviewResult.physicianInfoData.leadSaveStatus !== 'Saved';
+    return (
+      this.physicianOverviewResult.physicianInfoData.leadSaveStatus !== 'Saved'
+    );
   }
   get saveButtonText() {
-    return this.physicianOverviewResult.physicianInfoData.leadSaveStatus == 'NotSaved' ? 'View' : 'Save';
+    return this.physicianOverviewResult.physicianInfoData.leadSaveStatus ==
+      'NotSaved'
+      ? 'View'
+      : 'Save';
   }
   get islocationAvailable() {
     return (
@@ -129,11 +143,13 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
     this.notCorrectDrawer = value;
   }
   getPhysicianOverviewData() {
-    this.amplizService.physicianOverviewDetails(this.paramsData).subscribe((res) => {
-      this.overviewResult = res;
+    this.amplizService
+      .physicianOverviewDetails(this.paramsData)
+      .subscribe((res) => {
+        this.overviewResult = res;
 
-      this.physicianOverviewResult = res.physicianOverviewInfo;
-    });
+        this.physicianOverviewResult = res.physicianOverviewInfo;
+      });
   }
   refreshedData(ev: any) {
     if (ev === true) {
@@ -186,9 +202,11 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   }
 
   getPrescriberDrug() {
-    this.amplizService.getPhysicianPrescriberDrugDetail(this.paramsData).subscribe((el: any) => {
-      this.DataResult = el.physicianDrugInfo;
-    });
+    this.amplizService
+      .getPhysicianPrescriberDrugDetail(this.paramsData)
+      .subscribe((el: any) => {
+        this.DataResult = el.physicianDrugInfo;
+      });
   }
 
   request(request: any) {
@@ -203,7 +221,8 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
   }
 
   viewPhysicianFromList() {
-    const physicianId = this.physicianOverviewResult.physicianInfoData.physicianId;
+    const physicianId =
+      this.physicianOverviewResult.physicianInfoData.physicianId;
     this.showButtonLoader = true;
     this.amplizService.viewPhysicianFromList(physicianId, null).subscribe(
       (res) => {
@@ -215,20 +234,25 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
     );
   }
   viewDetail() {
-    this.amplizService.physicianOverviewDetails(this.physicianOverviewResult.physicianInfoData.physicianId).subscribe(
-      (res) => {
-        this.showButtonLoader = false;
-        this.overviewResult = res;
-        this.physicianOverviewResult = res.physicianOverviewInfo;
-      },
-      (err) => {
-        this.showButtonLoader = false;
-      }
-    );
+    this.amplizService
+      .physicianOverviewDetails(
+        this.physicianOverviewResult.physicianInfoData.physicianId
+      )
+      .subscribe(
+        (res) => {
+          this.showButtonLoader = false;
+          this.overviewResult = res;
+          this.physicianOverviewResult = res.physicianOverviewInfo;
+        },
+        (err) => {
+          this.showButtonLoader = false;
+        }
+      );
   }
 
   handleSaveButtonPress() {
-    const leadSaveStatus = this.physicianOverviewResult.physicianInfoData.leadSaveStatus;
+    const leadSaveStatus =
+      this.physicianOverviewResult.physicianInfoData.leadSaveStatus;
     if (leadSaveStatus == 'NotSaved') {
       this.viewPhysicianFromList();
     } else {

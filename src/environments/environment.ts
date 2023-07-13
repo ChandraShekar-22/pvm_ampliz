@@ -3,23 +3,23 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+	production: false,
 
-  // Stage
-  prodAdbApi: 'https://stage.ampliz.com',
-  prodHcApi: 'https://stageapi.ampliz.com',
-  prodNPIApi: 'https://stageapi.ampliz.com',
+	// Stage
+	prodAdbApi: 'https://stage.ampliz.com',
+	prodHcApi: 'https://hcapi.ampliz.com',
+	prodNPIApi: 'https://hcapi.ampliz.com',
 
-  prodB2BApi: 'http://159.138.102.73:9000',
-  prodGlobalB2BApi: 'https://test.ampliz.com',
+	prodB2BApi: 'http://159.138.102.73:9000',
+	prodGlobalB2BApi: 'https://test.ampliz.com',
 
-  // Prod
-  // prodAdbApi: 'https://go.ampliz.com',
-  // prodHcApi: 'https://stageapi.ampliz.com',
-  // prodNPIApi: 'https://stageapi.ampliz.com',
+	// Prod
+	// prodAdbApi: 'https://go.ampliz.com',
+	// prodHcApi: 'https://stageapi.ampliz.com',
+	// prodNPIApi: 'https://stageapi.ampliz.com',
 
-  // prodB2BApi: 'http://159.138.102.73:9000',
-  // prodGlobalB2BApi: 'https://test.ampliz.com',
+	// prodB2BApi: 'http://159.138.102.73:9000',
+	// prodGlobalB2BApi: 'https://test.ampliz.com',
 };
 
 /*
