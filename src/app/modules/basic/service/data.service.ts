@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root',

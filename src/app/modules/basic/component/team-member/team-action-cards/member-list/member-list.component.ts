@@ -220,6 +220,11 @@ export class MemberListComponent implements OnInit {
 						}, 400)
 						//
 					} else {
+						this.listItems.map((x) => {
+							x.active = false
+						})
+						const index = this.listItems.findIndex((item) => item.key === listType)
+						this.listItems[index].active = true
 						this.isListEmpty = true
 						this.setLoader(false)
 					}

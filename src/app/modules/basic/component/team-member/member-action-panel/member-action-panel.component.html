@@ -17,9 +17,7 @@
 				<div class="deactivate-btn col text-right" *ngIf="!isAdmin">
 					<span (click)="handleAction()"
 						>{{ getStatusCta }}
-						<span *ngIf="getStatusCta == 'Resend Invitation?' ? false : true"
-							>{{ userInfo.fullName }}?</span
-						></span
+						<span *ngIf="getStatusCta == 'Resend Invitation?' ? false : true">{{ userInfo.fullName }}?</span></span
 					>
 				</div>
 			</div>
@@ -49,11 +47,7 @@
 		<!-- Info container ends -->
 
 		<!-- Tab navigation starts -->
-		<div
-			class="tab-container row"
-			*ngIf="!addUser"
-			[style.padding-top]="isAdmin && !loader ? '22px' : ''"
-		>
+		<div class="tab-container row" *ngIf="!addUser" [style.padding-top]="isAdmin && !loader ? '22px' : ''">
 			<div class="tab col-12">
 				<a
 					class="tab-btns text-uppercase"
@@ -76,11 +70,7 @@
 		</div>
 		<div class="team-action-container" *ngIf="!addUser && !loader">
 			<app-team-credits *ngIf="activeTab === 0"></app-team-credits>
-			<app-member-list
-				*ngIf="activeTab === 1"
-				[userInfo]="userInfo"
-				[isAdmin]="isAdmin"
-			></app-member-list>
+			<app-member-list *ngIf="activeTab === 1" [userInfo]="userInfo" [isAdmin]="isAdmin"></app-member-list>
 		</div>
 
 		<!-- <div class="team-action-container" *ngIf="!addUser && !loader">

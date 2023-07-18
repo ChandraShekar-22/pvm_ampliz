@@ -87,7 +87,7 @@
 							min="1"
 							class="form-control"
 							value="1"
-							[(ngModel)]="params.daliyCredit"
+							[(ngModel)]="params.dailyCredit"
 							(keypress)="isCreditCorrect()"
 							[class.input-error]="!isCreditCorrect()"
 						/>
@@ -148,7 +148,7 @@
 			<!-- action button starts -->
 			<div
 				class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3"
-				*ngIf="!showConfirmMessage"
+				*ngIf="showConfirmEmails.length == ''"
 			>
 				<!-- <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. </span> -->
 				<span class="canel-btn" (click)="handleCancel()">Cancel</span>
@@ -161,20 +161,43 @@
 				>
 					Save
 				</button>
-				<svg viewBox="25 25 50 50" *ngIf="loader">
+				<svg class="loader-svg" viewBox="25 25 50 50" *ngIf="loader">
 					<circle r="10" cy="50" cx="50"></circle>
 				</svg>
 			</div>
 
 			<!-- action button ends -->
 			<!-- action button starts -->
-			<div
-				class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3"
-				*ngIf="showConfirmMessage"
-			>
-				<span class="confirm-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. </span>
-				<span class="canel-btn" (click)="handleConfirmation(false)">No</span>
-				<button class="save-btn" type="button" (click)="handleConfirmation(true)">Yes</button>
+			<div class="action-button-container mt-3 gap-3 message-container" *ngIf="showConfirmEmails !== ''">
+				<div>
+					<svg
+						viewBox="0 0 24 24"
+						width="24"
+						height="24"
+						stroke="currentColor"
+						stroke-width="2"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="css-i6dzq1 align-self-start"
+					>
+						<circle cx="12" cy="12" r="10"></circle>
+						<line x1="12" y1="16" x2="12" y2="12"></line>
+						<line x1="12" y1="8" x2="12.01" y2="8"></line>
+					</svg>
+				</div>
+				<div style="flex: 1">
+					<span class="confirm-text">
+						We've noticed that this email address is already associated with an Ampliz account. <br />
+						Would you like to continue to add this account to your organization's account? <br />
+						<b style="text-decoration: underline">{{ showConfirmEmails }}</b>
+					</span>
+				</div>
+
+				<div>
+					<span class="canel-btn mr-4" (click)="handleConfirmation(false)">No</span>
+					<button class="save-btn" type="button" (click)="handleConfirmation(true)">Yes</button>
+				</div>
 			</div>
 			<!-- action button ends -->
 		</div>

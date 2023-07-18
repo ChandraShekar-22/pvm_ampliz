@@ -18,8 +18,7 @@
 						placeholder="Search member"
 						class="search-input"
 						[(ngModel)]="searchMember.searchName"
-						(ngModelChange)="handleSearch($event)"
-						[ngModelOptions]="{ updateOn: 'blur' }"
+						(keyup)="handleSearch()"
 					/>
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</div>
@@ -73,13 +72,9 @@
 				class="card-container"
 				[class.active-card]="adminActive == true"
 				(click)="openAdmin()"
-				*ngIf="filterCount <= 0"
+				*ngIf="showAdmin"
 			>
-				<app-member-card
-					[userInfo]="adminDetails"
-					[isAdmin]="true"
-					*ngIf="adminDetails"
-				></app-member-card>
+				<app-member-card [userInfo]="adminDetails" [isAdmin]="true" *ngIf="adminDetails"></app-member-card>
 			</div>
 
 			<div

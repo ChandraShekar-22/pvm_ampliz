@@ -1,14 +1,14 @@
+<div class="filter-container d-flex" *ngIf="isAdmin && !loader">
+	<div class="filter-group" *ngFor="let item of listItems; let i = index">
+		<button class="filter-btn mr-2" (click)="handleFilter(i)" [class.filter-active]="item.active">
+			{{ item.name }}
+		</button>
+		<!-- <button class="filter-btn">My Team's List</button> -->
+	</div>
+</div>
+
 <div class="main-container" *ngIf="!isListEmpty && !loader" [@enterAnimation]>
 	<!-- Start content -->
-	<!-- <span class="user-text col-md-3 text-center">{{ userInfo.fullName }}'s Lists</span> -->
-	<div class="filter-container d-flex" *ngIf="isAdmin">
-		<div class="filter-group" *ngFor="let item of listItems; let i = index">
-			<button class="filter-btn mr-2" (click)="handleFilter(i)" [class.filter-active]="item.active">
-				{{ item.name }}
-			</button>
-			<!-- <button class="filter-btn">My Team's List</button> -->
-		</div>
-	</div>
 
 	<div class="list-container">
 		<!-- Start Edit profile row -->
@@ -16,10 +16,7 @@
 			<div class="col-12 search-pagination-wrapper row align-items-center">
 				<div class="col-12 text-right">
 					<div class="paginationWrapper">
-						<div
-							class="paginationWrapper row align-items-center justify-content-end"
-							*ngIf="totalSize > 0"
-						>
+						<div class="paginationWrapper row align-items-center justify-content-end" *ngIf="totalSize > 0">
 							<div class="paginationInfo">
 								{{ offset + 1 }}-{{ offset + count > totalSize ? totalSize : count + offset }} of
 								{{ totalSize }}
@@ -41,9 +38,7 @@
 										disabled: pager.currentPage === pager.totalPages
 									}"
 								>
-									<a
-										*ngIf="pager.currentPage === pager.totalPages"
-										style="border-radius: 0 5px 5px 0 !important"
+									<a *ngIf="pager.currentPage === pager.totalPages" style="border-radius: 0 5px 5px 0 !important"
 										><i class="fa fa-chevron-right" aria-hidden="true"></i
 									></a>
 									<a
@@ -176,7 +171,7 @@
 				</clipPath>
 			</defs>
 		</svg>
-		Sorry, we couldn't find any results.</span
+		Sorry, we couldn't find any lists.</span
 	>
 </div>
 

@@ -1,8 +1,8 @@
-import { BasicService } from '../../../service/basic.service'
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core'
-import { DataService } from '../../../service/data.service'
-import { interval, Subject } from 'rxjs'
-import { debounce, debounceTime } from 'rxjs/operators'
+import { BasicService } from '../../../service/basic.service';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { DataService } from '../../../service/data.service';
+import { interval, Subject } from 'rxjs';
+import { debounce, debounceTime } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-member-side-panel',
@@ -10,14 +10,14 @@ import { debounce, debounceTime } from 'rxjs/operators'
 	styleUrls: ['./member-side-panel.component.css'],
 })
 export class MemberSidePanelComponent implements OnInit {
-	@Output() addMember: EventEmitter<boolean> = new EventEmitter()
-	@Output() openUserInfo: EventEmitter<any> = new EventEmitter()
-	@Output() adminCredits: EventEmitter<any> = new EventEmitter()
+	@Output() addMember: EventEmitter<boolean> = new EventEmitter();
+	@Output() openUserInfo: EventEmitter<any> = new EventEmitter();
+	@Output() adminCredits: EventEmitter<any> = new EventEmitter();
 
-	searchTextChanged = new Subject<any>()
+	searchTextChanged = new Subject<any>();
 
 	// User Var
-	adminDetails: any
+	adminDetails: any;
 
 	membersListInput: any = {
 		organizationId: localStorage.getItem('organizationId'),
@@ -25,21 +25,23 @@ export class MemberSidePanelComponent implements OnInit {
 		offset: 0,
 		count: 7,
 		userStatus: [],
-	}
+	};
 
-	userList: any = []
+	userList: any = [];
 
 	searchMember: any = {
 		offset: 0,
 		count: 5,
 		searchName: '',
-	}
+	};
 
 	// General Var
-	activeCard: any = null
-	filterCount: number = 0
-	adminActive: boolean = true
-	listLoader: boolean = false
+	activeCard: any = null;
+	filterCount: number = 0;
+	adminActive: boolean = true;
+	listLoader: boolean = false;
+
+	showAdmin: boolean = true;
 
 	filterItems: any = [
 		{
@@ -86,85 +88,95 @@ export class MemberSidePanelComponent implements OnInit {
 			category: 'role',
 			checked: false,
 		},
-	]
+	];
 
 	// Scroll Var
-	listScroll: any
+	listScroll: any;
 
 	constructor(private api: BasicService, private service: DataService) {
 		// Search Member Logic with debounce
-		this.searchTextChanged.pipe(debounce(() => interval(300))).subscribe(() => {
-			if (this.searchMember.searchName !== '') {
-				this.api.searchMember(this.searchMember).subscribe((res) => {})
-			}
-		})
 	}
 	ngOnInit(): void {
-		this.getAdminDetails()
-		this.getMembersList()
+		this.getAdminDetails();
+		this.getMembersList();
+
+		// Debounce for search
+		this.searchTextChanged.pipe(debounce(() => interval(300))).subscribe(() => {
+			this.api.searchMember(this.searchMember).subscribe((res) => {
+				this.userList = res.userList;
+				if (this.userList.length > 0) {
+					this.service.setUserInfo(this.userList[0]);
+					this.activeCard = 0;
+				}
+				this.service.loader.next(false);
+			});
+		});
+
 		this.service.cancelAddMember.subscribe((event) => {
 			if (event) {
-				this.openAdmin()
+				this.openAdmin();
 			}
-		})
+		});
 
 		this.service.getMemberList.subscribe((event) => {
 			if (event) {
-				this.getMembersList()
+				this.getMembersList(true);
 			}
-		})
+		});
 
-		this.scrollHandler()
+		this.scrollHandler();
 	}
 
 	ngOnDestroy() {
-		this.listScroll.removeEventListener('scroll', () => {})
+		this.listScroll.removeEventListener('scroll', () => {});
 	}
 
 	scrollHandler() {
-		this.listScroll = document.getElementById('scrollContainer')
-		this.listScroll.scrollTop = 0
-		const that = this
+		this.listScroll = document.getElementById('scrollContainer');
+		this.listScroll.scrollTop = 0;
+		const that = this;
 		this.listScroll.addEventListener('scroll', function (e) {
-			that.onScroll(e)
-		})
+			that.onScroll(e);
+		});
 	}
 
 	onScroll(event) {
 		if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
-			this.listLoader = true
-			this.membersListInput.offset = this.membersListInput.offset + 7
-			this.getFreshList()
+			this.listLoader = true;
+			this.membersListInput.offset = this.membersListInput.offset + 7;
+			this.getFreshList();
 		}
 	}
 	ngAfterViewInit(): void {}
 
 	getAdminDetails() {
-		this.service.loader.next(true)
+		this.service.loader.next(true);
 		this.service.getAdminInfo().subscribe((admin) => {
-			this.adminDetails = admin
+			this.adminDetails = admin;
 			// this.setAdminCredits(admin.consumedCredit);
-			this.openAdmin()
-			this.handleLoader()
-		})
+			this.openAdmin();
+			this.handleLoader();
+		});
 	}
 
-	async getMembersList() {
-		this.service.loader.next(true)
+	async getMembersList(reset?: any) {
+		if (reset) {
+			this.membersListInput.offset = 0;
+		}
+		this.service.loader.next(true);
 		await this.api.getTeamMemberList(this.membersListInput).subscribe(
 			(res) => {
-				this.userList = res?.userList
+				this.userList = res?.userList;
 				if (this.activeCard !== null) {
-					this.service.setUserInfo(this.userList[this.activeCard])
-					this.adminCredits.emit(this.adminDetails)
+					this.service.setUserInfo(this.userList[this.activeCard]);
+					this.adminCredits.emit(this.adminDetails);
 				}
-
-				this.handleLoader()
+				this.handleLoader();
 			},
 			(err) => {
-				this.handleLoader()
+				this.handleLoader();
 			}
-		)
+		);
 	}
 
 	async getFreshList() {
@@ -172,110 +184,127 @@ export class MemberSidePanelComponent implements OnInit {
 			res.userList.map((item) => {
 				if (this.userList.findIndex((existing) => existing.userId == item.userId) == -1) {
 					setTimeout(() => {
-						this.userList.push(item)
+						this.userList.push(item);
 						if (this.userList.length <= 0) {
-							this.openAdmin()
+							this.openAdmin();
 						}
-					}, 500)
+					}, 500);
 				}
-			})
+			});
 			setTimeout(() => {
-				this.listLoader = false
-			}, 600)
-		})
+				this.listLoader = false;
+			}, 600);
+		});
 	}
 
-	async handleSearch(value: any) {
-		this.searchTextChanged.next()
-		await this.api.searchMember(this.searchMember).subscribe((res) => {})
+	handleSearch() {
+		if (this.searchMember.searchName !== '') {
+			this.searchTextChanged.next(this.searchMember.searchName);
+			this.service.loader.next(true);
+			this.showAdmin = false;
+		} else {
+			this.openAdmin();
+			this.getMembersList(true);
+		}
+
+		// await this.api.searchMember(this.searchMember).subscribe((res) => {})
 		// value.pipe(debounceTime(30)).subscribe((res) => {
 		// 	console.loog
 		// })
-		// if (value !== '') {
-		// 	await this.api.searchMember(this.searchMember).subscribe((res) => {})
+		// console.log('SEARCH NAME', this.searchMember);
+		// if (this.searchMember.searchName !== '') {
+		// 	this.api.searchMember(this.searchMember).subscribe((res) => {
+		// 		this.userList = res.userList;
+		// 	});
+		// } else {
+		// 	this.getMembersList(true);
 		// }
 	}
 
 	getLicenceCounter() {
-		return `<span>(${this.adminDetails.consumedMemberLimit} / ${this.adminDetails.teamMemberLimit})</span>`
+		return `<span>(${this.adminDetails.consumedMemberLimit} / ${this.adminDetails.teamMemberLimit})</span>`;
 	}
 
 	handleFilter(item: any) {
-		this.getFilterCount()
-		this.membersListInput.offset = 0
+		this.getFilterCount();
+		this.membersListInput.offset = 0;
 		if (item.category === 'role') {
-			this.handleRole(item)
+			this.handleRole(item);
 		} else {
-			const key = this.getFilterKey(item)
-			this.handleStatus(key)
+			const key = this.getFilterKey(item);
+			this.handleStatus(key);
 		}
 	}
 
 	getFilterKey(item: any) {
-		let obj = this.filterItems.find((o) => o.name === item.name)
-		return obj.key
+		let obj = this.filterItems.find((o) => o.name === item.name);
+		return obj.key;
 	}
 
 	handleRole(item: any) {
-		const itemIndex = this.membersListInput.role.findIndex((ele) => ele === item.name)
+		const itemIndex = this.membersListInput.role.findIndex((ele) => ele === item.name);
 		if (itemIndex === -1) {
-			this.membersListInput.role.push(item.name)
+			this.membersListInput.role.push(item.name);
 		} else {
-			this.membersListInput.role.splice(itemIndex, 1)
+			this.membersListInput.role.splice(itemIndex, 1);
 		}
-		this.getMembersList()
+		this.getMembersList();
 	}
 
 	handleStatus(item: any) {
-		const itemIndex = this.membersListInput.userStatus.findIndex((ele) => ele === item)
+		const itemIndex = this.membersListInput.userStatus.findIndex((ele) => ele === item);
 		if (itemIndex === -1) {
-			this.membersListInput.userStatus.push(item)
+			this.membersListInput.userStatus.push(item);
 		} else {
-			this.membersListInput.userStatus.splice(itemIndex, 1)
+			this.membersListInput.userStatus.splice(itemIndex, 1);
 		}
-		this.getMembersList()
+		this.getMembersList();
 	}
 
 	getFilterCount() {
 		const newArray = this.filterItems.map((obj, index) => {
-			return obj.checked == true
-		})
-		this.filterCount = newArray.filter(Boolean).length
+			return obj.checked == true;
+		});
+		this.filterCount = newArray.filter(Boolean).length;
+		if (this.filterCount > 0) {
+			this.showAdmin = false;
+		} else this.showAdmin = true;
 	}
 
 	openAdmin() {
-		this.adminActive = true
-		this.activeCard = null
-		this.service.addUser.next(false)
+		this.adminActive = true;
+		this.activeCard = null;
+		this.showAdmin = true;
+		this.service.addUser.next(false);
 		// this.openUserInfo.emit(this.adminDetails);
-		this.service.setUserInfo(this.adminDetails)
+		this.service.setUserInfo(this.adminDetails);
 	}
 
 	handleClick(user, index) {
-		this.adminActive = false
-		this.activeCard = index
+		this.adminActive = false;
+		this.activeCard = index;
 		// this.openUserInfo.emit(user);
-		this.service.setUserInfo(user)
-		this.service.addUser.next(false)
+		this.service.setUserInfo(user);
+		this.service.addUser.next(false);
 	}
 
 	openInvitedUser() {
 		// this.openUserInfo.emit(this.userList[0]);
-		this.service.setUserInfo(this.userList[0])
+		this.service.setUserInfo(this.userList[0]);
 	}
 
 	addUser() {
-		this.adminActive = false
-		this.activeCard = null
-		this.service.addUser.next(true)
+		this.adminActive = false;
+		this.activeCard = null;
+		this.service.addUser.next(true);
 		// this.adminCredits.emit(this.adminDetails);
 	}
 	setAdminCredits(credits: any) {
-		this.service.setAdminCredits(credits)
+		this.service.setAdminCredits(credits);
 	}
 	handleLoader() {
 		setTimeout(() => {
-			this.service.loader.next(false)
-		}, 600)
+			this.service.loader.next(false);
+		}, 600);
 	}
 }

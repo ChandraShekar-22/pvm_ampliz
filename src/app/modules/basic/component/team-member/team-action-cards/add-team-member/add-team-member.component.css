@@ -164,10 +164,9 @@ input[type='number']::-webkit-outer-spin-button {
 	pointer-events: none;
 }
 .enable-btn {
-	
 }
 .canel-btn {
-	color: #85898f;
+	color: #495365;
 	background-color: transparent;
 	border: none;
 	font-size: 12px;
@@ -179,18 +178,28 @@ input[type='number']::-webkit-outer-spin-button {
 /* Confirm Message css */
 .confirm-text {
 	color: #040404;
-	font-size: 12px;
+	font-size: 13px;
+	font-weight: 400;
+}
+.message-container {
+	background: #fff3d6;
+	padding: 10px;
+	border-radius: 5px;
+	border: 0.5px solid #f3d68b;
+	color: #040404;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
-
 /* Loader css */
-svg {
+.loader-svg {
 	width: 2.25em;
 	transform-origin: center;
 	animation: rotate4 2s linear infinite;
 }
 
-circle {
+.loader-svg circle {
 	fill: none;
 	stroke: #0071eb;
 	stroke-width: 2;
