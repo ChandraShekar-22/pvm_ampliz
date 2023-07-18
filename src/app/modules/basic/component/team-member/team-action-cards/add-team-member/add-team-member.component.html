@@ -20,12 +20,18 @@
 				rows="5"
 				placeholder="Add multiple email address separated by commas"
 				[(ngModel)]="params.emails"
-				(keypress)="invalidEmails = []"
+				(keypress)="invalidEmails = [] && (invalidDomains = [])"
 			></textarea>
 			<div class="col-11 text-left disclaimer-text">
-				<span *ngIf="invalidEmails.length <= 0">Users will join with non-admin permissions.</span>
+				<span *ngIf="invalidEmails.length <= 0 && invalidDomains.length <= 0"
+					>Users will join with non-admin permissions.</span
+				>
 				<span class="error-text" *ngIf="invalidEmails.length > 0">
-					Please check this email id: <b>{{ invalidEmails.toString() }}</b>
+					&#8226; Please check this email id: <b>{{ invalidEmails.toString() }}</b>
+				</span>
+
+				<span class="error-text" *ngIf="invalidDomains.length > 0">
+					&#8226; This email's domain doesn't match with your domain: <b>{{ invalidDomains.toString() }}</b>
 				</span>
 			</div>
 			<div class="role-container col-11 d-flex flex-column">
@@ -46,10 +52,7 @@
 		<!-- Email Text area ends -->
 
 		<!-- Header 2 starts -->
-		<div
-			class="header d-flex align-items-center justify-content-start"
-			[class.header-error]="headerError"
-		>
+		<div class="header d-flex align-items-center justify-content-start" [class.header-error]="headerError">
 			<span class="header-text col-5">
 				Your total credit <b>{{ remainingCredit }}</b>
 			</span>
@@ -84,7 +87,7 @@
 							min="1"
 							class="form-control"
 							value="1"
-							[(ngModel)]="params.credit"
+							[(ngModel)]="params.daliyCredit"
 							(keypress)="isCreditCorrect()"
 							[class.input-error]="!isCreditCorrect()"
 						/>
@@ -143,11 +146,14 @@
 			</div>
 
 			<!-- action button starts -->
-			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
+			<div
+				class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3"
+				*ngIf="!showConfirmMessage"
+			>
 				<!-- <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. </span> -->
 				<span class="canel-btn" (click)="handleCancel()">Cancel</span>
 				<button
-					[class.enable-btn]="enableBtn"
+					[class.disable-btn]="!enableBtn"
 					class="save-btn"
 					type="button"
 					(click)="handleSubmit()"
@@ -158,6 +164,17 @@
 				<svg viewBox="25 25 50 50" *ngIf="loader">
 					<circle r="10" cy="50" cx="50"></circle>
 				</svg>
+			</div>
+
+			<!-- action button ends -->
+			<!-- action button starts -->
+			<div
+				class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3"
+				*ngIf="showConfirmMessage"
+			>
+				<span class="confirm-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. </span>
+				<span class="canel-btn" (click)="handleConfirmation(false)">No</span>
+				<button class="save-btn" type="button" (click)="handleConfirmation(true)">Yes</button>
 			</div>
 			<!-- action button ends -->
 		</div>

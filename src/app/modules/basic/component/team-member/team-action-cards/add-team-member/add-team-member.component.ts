@@ -11,6 +11,7 @@ export class AddTeamMemberComponent implements OnInit {
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter()
 	// @Input() adminDetails: any;
 	adminDetails: any
+	domain: any
 	// Role var
 	roleList = ['Sales', 'Marketing', 'Operations', 'Customer']
 	//OrgId
@@ -31,6 +32,7 @@ export class AddTeamMemberComponent implements OnInit {
 	// Email var
 	emailList: string = ''
 	invalidEmails: any = []
+	invalidDomains: any = []
 	regex = new RegExp(
 		"([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])"
 	)
@@ -40,6 +42,7 @@ export class AddTeamMemberComponent implements OnInit {
 	loader: boolean = false
 	creditError: boolean = false
 	mobileCreditError: boolean = false
+	showConfirmMessage: boolean = false
 
 	constructor(
 		private api: BasicService,
@@ -51,6 +54,11 @@ export class AddTeamMemberComponent implements OnInit {
 		this.service.getAdminInfo().subscribe((admin) => {
 			this.adminDetails = admin
 		})
+		this.setDomain()
+	}
+	setDomain() {
+		const email = this.adminDetails.email
+		this.domain = email.split('@').pop()
 	}
 	get enableBtn() {
 		return this.params.emails.length > 0 && this.validateCredits()
@@ -70,31 +78,30 @@ export class AddTeamMemberComponent implements OnInit {
 	get headerError() {
 		return this.remainingCredit <= 0 || this.remainingMobileCredit <= 0
 	}
-
-	handleCancel() {
-		this.service.cancelAddMember.next(true)
+	validateDomain() {
+		const emailArrays = this.params.emails.split(',')
+		this.invalidDomains = []
+		emailArrays.map((email) => {
+			const domain = email.split('@').pop()
+			if (domain !== this.domain) {
+				this.invalidDomains.push(email)
+			}
+		})
+		if (this.invalidDomains.length > 0) {
+			return false
+		} else {
+			return true
+		}
 	}
 
-	handleSubmit() {
-		this.validateEmails()
+	validateCredits() {
+		return this.isCreditCorrect() && this.isMobileCreditCorrect()
+	}
 
-		if (this.invalidEmails.length == 0 && this.validateCredits() && this.remainingLicence > 0) {
-			let emailArray = this.params.emails.split(', ')
-			this.params.emails = emailArray
-
-			this.api.inviteTeamMember(this.params).subscribe(
-				(res) => {
-					this.messageService.display(true, 'The invitation has been sent.')
-					this.service.getMemberList.next(true)
-					// this.service.newMemberInvited.next(true);
-					this.clearInputs()
-				},
-				(error) => {
-					console.log('ERR', error)
-					this.messageService.displayError(true, error.message)
-				}
-			)
-		}
+	validateAllConditions() {
+		if (this.validateEmails() && this.validateDomain() && this.validateCredits() && this.remainingLicence > 0) {
+			return true
+		} else return false
 	}
 
 	validateEmails() {
@@ -105,13 +112,15 @@ export class AddTeamMemberComponent implements OnInit {
 				this.invalidEmails.push(emailArray[i])
 			}
 		}
-	}
-	validateCredits() {
-		return this.isCreditCorrect() && this.isMobileCreditCorrect()
+		if (this.invalidEmails.length > 0) {
+			return false
+		} else {
+			return true
+		}
 	}
 
 	isCreditCorrect() {
-		if (this.remainingCredit > this.params.credit) {
+		if (this.remainingCredit > this.params.dailyCredit) {
 			return true
 		} else {
 			return false
@@ -125,10 +134,70 @@ export class AddTeamMemberComponent implements OnInit {
 		}
 	}
 
+	handleSubmit() {
+		if (this.validateAllConditions()) {
+			this.loader = true
+			const body = {
+				email: this.params.emails.split(', '),
+				organizationId: this.params.organizationId,
+			}
+			this.api.checkEmailExist(body).subscribe(
+				(res) => {
+					if (res.verifiedList.length > 0 || res.notVerifiedList.length > 0) {
+						this.showConfirmMessage = true
+						this.params.verifiedemails = res.verifiedList.length > 0 ? res.verifiedList : []
+						this.params.notVerifiedemails = res.notVerifiedList.length > 0 ? res.notVerifiedList : []
+						this.params.emails = res.emailNotExist.length > 0 ? res.emailNotExist : []
+					} else {
+						this.inviteTeamMember()
+					}
+				},
+				(error) => {
+					this.loader = false
+					this.messageService.displayError(true, error.message)
+				}
+			)
+		}
+	}
+
+	handleConfirmation(confirmation: boolean) {
+		if (confirmation == true) {
+			this.inviteTeamMember()
+		} else {
+			this.params.verifiedemails = []
+			this.params.notVerifiedemails = []
+			this.inviteTeamMember()
+		}
+	}
+
+	inviteTeamMember() {
+		if (typeof this.params.emails === 'string') {
+			this.params.emails = this.params.emails.split(', ')
+		}
+
+		this.api.inviteTeamMember(this.params).subscribe(
+			(res) => {
+				this.messageService.display(true, 'The invitation has been sent.')
+				this.service.getMemberList.next(true)
+				// this.service.newMemberInvited.next(true);
+				this.loader = false
+				this.clearInputs()
+			},
+			(error) => {
+				this.messageService.displayError(true, error[0].message)
+				this.loader = false
+			}
+		)
+	}
+
+	handleCancel() {
+		this.service.cancelAddMember.next(true)
+	}
+
 	increment(credit?) {
 		if (credit) {
 			if (this.isCreditCorrect()) {
-				this.params.credit++
+				this.params.dailyCredit++
 			}
 		} else {
 			if (this.isMobileCreditCorrect()) {
@@ -138,8 +207,8 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 	decrement(credit?) {
 		if (credit) {
-			if (this.params.credit > 0) {
-				this.params.credit--
+			if (this.params.dailyCredit > 0) {
+				this.params.dailyCredit--
 			}
 		} else {
 			if (this.params.mobileCredit > 0) {
@@ -152,9 +221,11 @@ export class AddTeamMemberComponent implements OnInit {
 			emails: [],
 			role: this.roleList[0],
 			organizationId: '5dc05c68df5693b4610fbf3d',
-			credit: 0,
+			dailyCredit: 0,
 			mobileCredit: 0,
 			dataset: 'healthcare',
+			verifiedemails: [],
+			notVerifiedemails: [],
 		}
 	}
 }
