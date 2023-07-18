@@ -187,6 +187,7 @@ export class MemberSidePanelComponent implements OnInit {
 
 	async handleSearch(value: any) {
 		this.searchTextChanged.next()
+		await this.api.searchMember(this.searchMember).subscribe((res) => {})
 		// value.pipe(debounceTime(30)).subscribe((res) => {
 		// 	console.loog
 		// })
