@@ -5,7 +5,7 @@ import { DataService } from 'src/app/modules/basic/service/data.service';
 @Component({
 	selector: 'app-add-team-member',
 	templateUrl: './add-team-member.component.html',
-	styleUrls: ['./add-team-member.component.css'],
+	styleUrls: ['./add-team-member.component.css']
 })
 export class AddTeamMemberComponent implements OnInit {
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter();
@@ -15,24 +15,26 @@ export class AddTeamMemberComponent implements OnInit {
 	// Role var
 	roleList = ['Sales', 'Marketing', 'Operations', 'Customer'];
 	//OrgId
-	orgId: any;
+	orgId: any = localStorage.getItem('organizationId');
 
 	// API var
 	params: any = {
 		emails: [],
 		role: this.roleList[0],
-		organizationId: '5dc05c68df5693b4610fbf3d',
+		organizationId: this.orgId,
 		dailyCredit: 0,
 		mobileCredit: 0,
 		dataset: 'healthcare',
 		verifiedemails: [],
-		notVerifiedemails: [],
+		notVerifiedemails: []
 	};
 
 	// Email var
 	emailList: string = '';
 	invalidEmails: any = [];
 	invalidDomains: any = [];
+	alreadyExistEmails: any = [];
+
 	regex = new RegExp(
 		"([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])"
 	);
@@ -110,6 +112,7 @@ export class AddTeamMemberComponent implements OnInit {
 		for (var i = 0; i < emailArray.length; i++) {
 			if (!this.regex.test(emailArray[i])) {
 				this.invalidEmails.push(emailArray[i]);
+				console.log('VALIDE', this.invalidEmails, emailArray[i]);
 			}
 		}
 		if (this.invalidEmails.length > 0) {
@@ -139,18 +142,23 @@ export class AddTeamMemberComponent implements OnInit {
 			this.loader = true;
 			const body = {
 				email: this.params.emails.split(', '),
-				organizationId: this.params.organizationId,
+				organizationId: this.params.organizationId
 			};
 			this.api.checkEmailExist(body).subscribe(
 				(res) => {
-					if (res.verifiedList.length > 0 || res.notVerifiedList.length > 0) {
-						this.params.verifiedemails = res.verifiedList.length > 0 ? res.verifiedList : [];
-						this.params.notVerifiedemails = res.notVerifiedList.length > 0 ? res.notVerifiedList : [];
-						const emails: any = [...this.params.verifiedemails, ...this.params.notVerifiedemails];
-						this.showConfirmEmails = emails.toString();
-						this.params.emails = res.emailNotExist.length > 0 ? res.emailNotExist : [];
+					if (res.alreadyInOrg.length > 0) {
+						this.loader = false;
+						this.alreadyExistEmails.push(res.alreadyInOrg);
 					} else {
-						this.inviteTeamMember();
+						if (res.verifiedList.length > 0 || res.notVerifiedList.length > 0) {
+							this.params.verifiedemails = res.verifiedList.length > 0 ? res.verifiedList : [];
+							this.params.notVerifiedemails = res.notVerifiedList.length > 0 ? res.notVerifiedList : [];
+							const emails: any = [...this.params.verifiedemails, ...this.params.notVerifiedemails];
+							this.showConfirmEmails = emails.toString();
+							this.params.emails = res.emailNotExist.length > 0 ? res.emailNotExist : [];
+						} else {
+							this.inviteTeamMember();
+						}
 					}
 				},
 				(error) => {
@@ -226,13 +234,16 @@ export class AddTeamMemberComponent implements OnInit {
 		this.params = {
 			emails: [],
 			role: this.roleList[0],
-			organizationId: '5dc05c68df5693b4610fbf3d',
+			organizationId: this.orgId,
 			dailyCredit: 0,
 			mobileCredit: 0,
 			dataset: 'healthcare',
 			verifiedemails: [],
-			notVerifiedemails: [],
+			notVerifiedemails: []
 		};
 		this.showConfirmEmails = '';
+		this.invalidDomains = [];
+		this.invalidEmails = [];
+		this.alreadyExistEmails = [];
 	}
 }

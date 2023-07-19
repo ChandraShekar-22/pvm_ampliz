@@ -218,10 +218,20 @@
 
 /* List Loader */
 /* Loader css */
+.loader-container {
+	padding-top: 10px;
+}
 .loader-container svg {
 	width: 2.25em;
 	transform-origin: center;
 	animation: rotate4 2s linear infinite;
+}
+
+.loader-container span {
+	color: #0071eb;
+	font-weight: 400;
+	font-size: 12px;
+	cursor: pointer;
 }
 
 circle {

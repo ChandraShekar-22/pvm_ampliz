@@ -3,11 +3,11 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { DataService } from '../../../service/data.service';
 import { interval, Subject } from 'rxjs';
 import { debounce, debounceTime } from 'rxjs/operators';
-
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
 @Component({
 	selector: 'app-member-side-panel',
 	templateUrl: './member-side-panel.component.html',
-	styleUrls: ['./member-side-panel.component.css'],
+	styleUrls: ['./member-side-panel.component.css']
 })
 export class MemberSidePanelComponent implements OnInit {
 	@Output() addMember: EventEmitter<boolean> = new EventEmitter();
@@ -24,7 +24,7 @@ export class MemberSidePanelComponent implements OnInit {
 		role: [],
 		offset: 0,
 		count: 7,
-		userStatus: [],
+		userStatus: []
 	};
 
 	userList: any = [];
@@ -32,7 +32,7 @@ export class MemberSidePanelComponent implements OnInit {
 	searchMember: any = {
 		offset: 0,
 		count: 5,
-		searchName: '',
+		searchName: ''
 	};
 
 	// General Var
@@ -41,6 +41,8 @@ export class MemberSidePanelComponent implements OnInit {
 	adminActive: boolean = true;
 	listLoader: boolean = false;
 
+	noResultFound: boolean = false;
+
 	showAdmin: boolean = true;
 
 	filterItems: any = [
@@ -48,52 +50,56 @@ export class MemberSidePanelComponent implements OnInit {
 			name: 'Active',
 			key: 'Active',
 			category: 'status',
-			checked: false,
+			checked: false
 		},
 		{
 			name: 'Invited',
 			key: 'Invited',
 			category: 'status',
-			checked: false,
+			checked: false
 		},
 		{
 			name: 'Deactivated',
 			key: 'Inactive',
 			category: 'status',
-			checked: false,
+			checked: false
 		},
 		{
 			name: 'Invitation Expired',
 			key: 'InvitationExpired',
 			category: 'status',
-			checked: false,
+			checked: false
 		},
 		{
 			name: 'Sales',
 			category: 'role',
-			checked: false,
+			checked: false
 		},
 		{
 			name: 'Marketing',
 			category: 'role',
-			checked: false,
+			checked: false
 		},
 		{
 			name: 'Operations',
 			category: 'role',
-			checked: false,
+			checked: false
 		},
 		{
 			name: 'Customer',
 			category: 'role',
-			checked: false,
-		},
+			checked: false
+		}
 	];
 
 	// Scroll Var
 	listScroll: any;
 
-	constructor(private api: BasicService, private service: DataService) {
+	constructor(
+		private api: BasicService,
+		private service: DataService,
+		private messageService: MessageService
+	) {
 		// Search Member Logic with debounce
 	}
 	ngOnInit(): void {
@@ -121,10 +127,13 @@ export class MemberSidePanelComponent implements OnInit {
 		this.service.getMemberList.subscribe((event) => {
 			if (event) {
 				this.getMembersList(true);
+				setTimeout(() => {
+					this.getAdminDetails();
+				}, 100);
 			}
 		});
 
-		this.scrollHandler();
+		// this.scrollHandler();
 	}
 
 	ngOnDestroy() {
@@ -132,32 +141,38 @@ export class MemberSidePanelComponent implements OnInit {
 		this.membersListInput.offset = 0;
 	}
 
-	scrollHandler() {
-		this.listScroll = document.getElementById('scrollContainer');
-		this.listScroll.scrollTop = 0;
-		const that = this;
-		this.listScroll.addEventListener('scroll', function (e) {
-			that.onScroll(e);
-		});
-	}
+	// scrollHandler() {
+	// 	this.listScroll = document.getElementById('scrollContainer');
+	// 	this.listScroll.scrollTop = 0;
+	// 	const that = this;
+	// 	this.listScroll.addEventListener('scroll', function (e) {
+	// 		that.onScroll(e);
+	// 	});
+	// }
 
-	onScroll(event) {
-		if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
-			this.listLoader = true;
-			this.membersListInput.offset = this.membersListInput.offset + 7;
-			this.getFreshList();
-		}
-	}
+	// onScroll(event) {
+	// 	// if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
+	// 	// 	this.listLoader = true;
+	// 	// 	this.membersListInput.offset = this.membersListInput.offset + 7;
+	// 	// 	this.getFreshList();
+	// 	// }
+	// }
 	ngAfterViewInit(): void {}
 
 	getAdminDetails() {
 		this.service.loader.next(true);
-		this.service.getAdminInfo().subscribe((admin) => {
-			this.adminDetails = admin;
-			// this.setAdminCredits(admin.consumedCredit);
-			this.openAdmin();
-			this.handleLoader();
-		});
+		this.api.getAdminDetails().subscribe(
+			(res) => {
+				const admin = res.adminDetails;
+				this.service.setAdminInfo(admin);
+				this.adminDetails = admin;
+				this.openAdmin();
+				this.handleLoader();
+			},
+			(error) => {
+				this.messageService.displayError(true, error.error.msg);
+			}
+		);
 	}
 
 	async getMembersList(reset?: any) {
@@ -172,6 +187,7 @@ export class MemberSidePanelComponent implements OnInit {
 					this.service.setUserInfo(this.userList[this.activeCard]);
 					this.adminCredits.emit(this.adminDetails);
 				}
+
 				this.handleLoader();
 			},
 			(err) => {
@@ -181,13 +197,11 @@ export class MemberSidePanelComponent implements OnInit {
 	}
 
 	handleShowMore() {
-		this.membersListInput.offset + 7;
-		if (this.membersListInput.offset < this.adminDetails.consumedMemberLimit) {
-			// this.
+		if (this.adminDetails.consumedMemberLimit >= this.membersListInput.offset) {
+			this.membersListInput.offset += 7;
+			this.listLoader = true;
+			this.getFreshList();
 		}
-		// this.listLoader = true;
-		console.log('ADMIN DETAILS', this.adminDetails);
-		console.log('OFFSET', this.membersListInput.offset);
 	}
 
 	async getFreshList() {
@@ -217,23 +231,17 @@ export class MemberSidePanelComponent implements OnInit {
 			this.openAdmin();
 			this.getMembersList(true);
 		}
-
-		// await this.api.searchMember(this.searchMember).subscribe((res) => {})
-		// value.pipe(debounceTime(30)).subscribe((res) => {
-		// 	console.loog
-		// })
-		// console.log('SEARCH NAME', this.searchMember);
-		// if (this.searchMember.searchName !== '') {
-		// 	this.api.searchMember(this.searchMember).subscribe((res) => {
-		// 		this.userList = res.userList;
-		// 	});
-		// } else {
-		// 	this.getMembersList(true);
-		// }
 	}
 
-	getLicenceCounter() {
-		return `<span>(${this.adminDetails.consumedMemberLimit} / ${this.adminDetails.teamMemberLimit})</span>`;
+	// getLicenceCounter() {
+	// 	return `<span>(${this.adminDetails.consumedMemberLimit} / ${this.adminDetails.teamMemberLimit})</span>`;
+	// }
+
+	get consumedLicence() {
+		return this.adminDetails.consumedMemberLimit;
+	}
+	get licenceLimit() {
+		return this.adminDetails.teamMemberLimit;
 	}
 
 	handleFilter(item: any) {
@@ -281,6 +289,7 @@ export class MemberSidePanelComponent implements OnInit {
 			this.activeCard = 0;
 			this.showAdmin = false;
 		} else {
+			this.activeCard = null;
 			this.showAdmin = true;
 		}
 	}

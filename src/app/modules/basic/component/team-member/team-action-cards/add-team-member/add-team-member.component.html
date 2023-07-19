@@ -20,18 +20,24 @@
 				rows="5"
 				placeholder="Add multiple email address separated by commas"
 				[(ngModel)]="params.emails"
-				(keypress)="invalidEmails = [] && (invalidDomains = [])"
+				(keypress)="invalidEmails = [] && (invalidDomains = [] && (alreadyExistEmails = []))"
 			></textarea>
 			<div class="col-11 text-left disclaimer-text">
-				<span *ngIf="invalidEmails.length <= 0 && invalidDomains.length <= 0"
+				<span *ngIf="invalidEmails.length <= 0 && invalidDomains.length <= 0 && alreadyExistEmails.length <= 0"
 					>Users will join with non-admin permissions.</span
 				>
 				<span class="error-text" *ngIf="invalidEmails.length > 0">
-					&#8226; Please check this email id: <b>{{ invalidEmails.toString() }}</b>
+					&#8226; Please check this email: <b>{{ invalidEmails.toString().replaceAll(',', ', ') }}</b>
 				</span>
 
 				<span class="error-text" *ngIf="invalidDomains.length > 0">
-					&#8226; This email's domain doesn't match with your domain: <b>{{ invalidDomains.toString() }}</b>
+					&#8226; This email's domain doesn't match with your domain ({{ this.domain }}) :
+					<b>{{ invalidDomains.toString().replaceAll(',', ', ') }}</b>
+				</span>
+
+				<span class="error-text" *ngIf="alreadyExistEmails.length > 0">
+					&#8226; This email already exists in the team:
+					<b>{{ alreadyExistEmails.toString().replaceAll(',', ', ') }}</b>
 				</span>
 			</div>
 			<div class="role-container col-11 d-flex flex-column">
