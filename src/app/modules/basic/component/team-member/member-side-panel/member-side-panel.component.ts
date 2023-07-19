@@ -98,7 +98,7 @@ export class MemberSidePanelComponent implements OnInit {
 	}
 	ngOnInit(): void {
 		this.getAdminDetails();
-		this.getMembersList();
+		this.getMembersList(false);
 
 		// Debounce for search
 		this.searchTextChanged.pipe(debounce(() => interval(300))).subscribe(() => {
@@ -129,6 +129,7 @@ export class MemberSidePanelComponent implements OnInit {
 
 	ngOnDestroy() {
 		this.listScroll.removeEventListener('scroll', () => {});
+		this.membersListInput.offset = 0;
 	}
 
 	scrollHandler() {
@@ -160,7 +161,7 @@ export class MemberSidePanelComponent implements OnInit {
 	}
 
 	async getMembersList(reset?: any) {
-		if (reset) {
+		if (reset == true) {
 			this.membersListInput.offset = 0;
 		}
 		this.service.loader.next(true);
@@ -177,6 +178,16 @@ export class MemberSidePanelComponent implements OnInit {
 				this.handleLoader();
 			}
 		);
+	}
+
+	handleShowMore() {
+		this.membersListInput.offset + 7;
+		if (this.membersListInput.offset < this.adminDetails.consumedMemberLimit) {
+			// this.
+		}
+		// this.listLoader = true;
+		console.log('ADMIN DETAILS', this.adminDetails);
+		console.log('OFFSET', this.membersListInput.offset);
 	}
 
 	async getFreshList() {
@@ -248,7 +259,7 @@ export class MemberSidePanelComponent implements OnInit {
 		} else {
 			this.membersListInput.role.splice(itemIndex, 1);
 		}
-		this.getMembersList();
+		this.getMembersList(false);
 	}
 
 	handleStatus(item: any) {
@@ -258,7 +269,7 @@ export class MemberSidePanelComponent implements OnInit {
 		} else {
 			this.membersListInput.userStatus.splice(itemIndex, 1);
 		}
-		this.getMembersList();
+		this.getMembersList(false);
 	}
 
 	getFilterCount() {
@@ -267,8 +278,11 @@ export class MemberSidePanelComponent implements OnInit {
 		});
 		this.filterCount = newArray.filter(Boolean).length;
 		if (this.filterCount > 0) {
+			this.activeCard = 0;
 			this.showAdmin = false;
-		} else this.showAdmin = true;
+		} else {
+			this.showAdmin = true;
+		}
 	}
 
 	openAdmin() {
