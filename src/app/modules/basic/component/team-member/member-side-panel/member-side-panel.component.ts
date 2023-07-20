@@ -26,6 +26,7 @@ export class MemberSidePanelComponent implements OnInit {
 		count: 7,
 		userStatus: []
 	};
+	memberTotalCount: number = 0;
 
 	userList: any = [];
 
@@ -93,7 +94,7 @@ export class MemberSidePanelComponent implements OnInit {
 	];
 
 	// Scroll Var
-	listScroll: any;
+	// listScroll: any;
 
 	constructor(
 		private api: BasicService,
@@ -137,7 +138,7 @@ export class MemberSidePanelComponent implements OnInit {
 	}
 
 	ngOnDestroy() {
-		this.listScroll.removeEventListener('scroll', () => {});
+		// this.listScroll.removeEventListener('scroll', () => {});
 		this.membersListInput.offset = 0;
 	}
 
@@ -158,6 +159,10 @@ export class MemberSidePanelComponent implements OnInit {
 	// 	// }
 	// }
 	ngAfterViewInit(): void {}
+
+	get showMore() {
+		return this.userList.length >= 7 && this.membersListInput.offset < this.memberTotalCount;
+	}
 
 	getAdminDetails() {
 		this.service.loader.next(true);
@@ -183,6 +188,7 @@ export class MemberSidePanelComponent implements OnInit {
 		await this.api.getTeamMemberList(this.membersListInput).subscribe(
 			(res) => {
 				this.userList = res?.userList;
+				this.memberTotalCount = res.totalCount;
 				if (this.activeCard !== null) {
 					this.service.setUserInfo(this.userList[this.activeCard]);
 					this.adminCredits.emit(this.adminDetails);
@@ -206,6 +212,7 @@ export class MemberSidePanelComponent implements OnInit {
 
 	async getFreshList() {
 		await this.api.getTeamMemberList(this.membersListInput).subscribe((res) => {
+			this.memberTotalCount = res.totalCount;
 			res.userList.map((item) => {
 				if (this.userList.findIndex((existing) => existing.userId == item.userId) == -1) {
 					setTimeout(() => {
@@ -231,17 +238,6 @@ export class MemberSidePanelComponent implements OnInit {
 			this.openAdmin();
 			this.getMembersList(true);
 		}
-	}
-
-	// getLicenceCounter() {
-	// 	return `<span>(${this.adminDetails.consumedMemberLimit} / ${this.adminDetails.teamMemberLimit})</span>`;
-	// }
-
-	get consumedLicence() {
-		return this.adminDetails.consumedMemberLimit;
-	}
-	get licenceLimit() {
-		return this.adminDetails.teamMemberLimit;
 	}
 
 	handleFilter(item: any) {
