@@ -1,0 +1,106 @@
+h6 {
+	font-size: 12px;
+	color: #495365;
+	letter-spacing: 0.5px;
+	margin-bottom: 25px;
+	font-weight: 500;
+}
+span {
+	color: #495365;
+	font-size: 13px;
+	font-weight: 400;
+}
+p {
+	color: #969393;
+	font-size: 11px;
+	font-weight: 300;
+}
+form {
+	display: inline-grid;
+}
+
+.card {
+	padding: 20px 50px;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.title-col {
+	flex: 1;
+}
+
+.action-col {
+	display: flex;
+	align-content: center;
+	margin-right: 1px;
+}
+
+.cta-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.save-btn {
+	cursor: pointer;
+	background-color: #0071eb;
+	border-radius: 25px;
+	color: #fff;
+	border: none;
+	margin-left: 20px;
+	font-size: 12px;
+	padding: 5px 10px;
+}
+.cancel-btn {
+	background-color: transparent;
+	border: none;
+	font-size: 12px;
+	cursor: pointer;
+	color: #495365;
+}
+
+
+/* Toggle Css */
+
+input[type='checkbox'] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 45px;
+	height: 23px;
+	background: #85898f;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+	margin-bottom: 0px;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 15px;
+	height: 15px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: #0071eb;
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}

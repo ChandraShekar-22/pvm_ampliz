@@ -230,3 +230,47 @@ input[type='number']::-webkit-outer-spin-button {
 		stroke-dashoffset: -125px;
 	}
 }
+
+/* Toggle switch */
+input[type='checkbox'] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 45px;
+	height: 23px;
+	background: #85898f;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+	margin-bottom: 0px;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 15px;
+	height: 15px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: #0071eb;
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+/* 
+label:active:after {
+	width: 130px;
+} */

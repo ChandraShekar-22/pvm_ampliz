@@ -40,7 +40,7 @@
 					<b>{{ alreadyExistEmails.toString().replaceAll(',', ', ') }}</b>
 				</span>
 			</div>
-			<div class="role-container col-11 d-flex flex-column">
+			<div class="role-container col-8 d-flex flex-column">
 				<span>Role</span>
 				<div class="d-flex mt-3">
 					<button
@@ -52,6 +52,12 @@
 					>
 						{{ item }}
 					</button>
+				</div>
+			</div>
+			<div class="role-container col-3 d-flex flex-column">
+				<span>Authorized to download list</span>
+				<div class="d-flex mt-3">
+					<input type="checkbox" id="switch" [(ngModel)]="params.isDownload" /><label for="switch">Toggle</label>
 				</div>
 			</div>
 		</div>

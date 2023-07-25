@@ -72,7 +72,7 @@
 		<!-- Consumed credits ends -->
 
 		<!-- Assigned credits starts -->
-		<div class="assigned-credits" *ngIf="!isAdmin">
+		<div class="assigned-credits">
 			<h6>Assigned credits</h6>
 			<div class="card">
 				<div class="info col-8">
@@ -131,7 +131,8 @@
 				<!-- Add more credit starts -->
 				<div class="action-container col">
 					<div class="add-more-credit">
-						<button (click)="handleTrigger('edit')">Edit credits</button>
+					<button (click)="handleTrigger('edit')" *ngIf="!isAdmin">Edit credits</button>
+						<button (click)="handleTrigger('buy')" *ngIf="isAdmin">Upgrade credits</button>
 					</div>
 				</div>
 				<!-- Add more credit ends -->

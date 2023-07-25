@@ -19,6 +19,11 @@
 				[userCredits]="userCredits"
 			></app-credit-summary>
 		</div>
+
+		<!-- TEMP PERMISSIONS -->
+		<div class="credit-summary-card" style="margin-top: 30px" *ngIf="!isAdmin && !isAction">
+			<app-permissions></app-permissions>
+		</div>
 	</div>
 	<!-- Credit summary card ends -->
 </div>

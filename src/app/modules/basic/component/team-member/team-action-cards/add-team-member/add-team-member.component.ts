@@ -25,6 +25,7 @@ export class AddTeamMemberComponent implements OnInit {
 		dailyCredit: 0,
 		mobileCredit: 0,
 		dataset: 'healthcare',
+		isDownload: false,
 		verifiedemails: [],
 		notVerifiedemails: []
 	};
@@ -239,7 +240,8 @@ export class AddTeamMemberComponent implements OnInit {
 			mobileCredit: 0,
 			dataset: 'healthcare',
 			verifiedemails: [],
-			notVerifiedemails: []
+			notVerifiedemails: [],
+			isDownload: false
 		};
 		this.showConfirmEmails = '';
 		this.invalidDomains = [];

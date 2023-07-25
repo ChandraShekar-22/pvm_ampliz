@@ -5,7 +5,7 @@ import { HistorySearchCardComponent } from '../../../b2b-dashboard/history-searc
 @Component({
 	selector: 'app-team-credits',
 	templateUrl: './team-credits.component.html',
-	styleUrls: ['./team-credits.component.css'],
+	styleUrls: ['./team-credits.component.css']
 })
 export class TeamCreditsComponent implements OnInit {
 	// @Input() isAdmin: boolean = true;
@@ -22,10 +22,18 @@ export class TeamCreditsComponent implements OnInit {
 		totalCredit: 0,
 		consumedCredit: 0,
 		totalMobileCredit: 0,
-		consumedMobileCredit: 0,
+		consumedMobileCredit: 0
 	};
 
 	constructor(private api: BasicService, private service: DataService) {}
+	ngOnDestroy() {
+		this.userCredits = {
+			totalCredit: 0,
+			consumedCredit: 0,
+			totalMobileCredit: 0,
+			consumedMobileCredit: 0
+		};
+	}
 
 	async ngOnInit() {
 		await this.service.getUserInfo().subscribe((res) => {
@@ -61,7 +69,7 @@ export class TeamCreditsComponent implements OnInit {
 
 	getUserCredits() {
 		const body = {
-			userId: this.userInfo.userId,
+			userId: this.userInfo.userId
 		};
 		if (body.userId.length > 0) {
 			this.api.getMemberCreditDetails(body).subscribe((res) => {
