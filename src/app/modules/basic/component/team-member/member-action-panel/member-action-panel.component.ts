@@ -7,7 +7,7 @@ import { MessageService } from 'src/app/modules/B2B/services/message.service';
 @Component({
 	selector: 'app-member-action-panel',
 	templateUrl: './member-action-panel.component.html',
-	styleUrls: ['./member-action-panel.component.css'],
+	styleUrls: ['./member-action-panel.component.css']
 })
 export class MemberActionPanelComponent implements OnInit {
 	// @Input() userInfo: any;
@@ -21,33 +21,33 @@ export class MemberActionPanelComponent implements OnInit {
 	activeTab: any = 0;
 	tabItems: any = [
 		{
-			name: 'credits',
+			name: 'summary'
 		},
 		{
-			name: 'lists',
-		},
+			name: 'lists'
+		}
 	];
 	statusList: any = [
 		{
 			key: 'Invited',
 			cta: 'Resend Invitation?',
-			style: 'invited-status',
+			style: 'invited-status'
 		},
 		{
 			key: 'Active',
 			cta: 'Deactivate',
-			style: 'active-status',
+			style: 'active-status'
 		},
 		{
 			key: 'Inactive',
 			cta: 'Activate',
-			style: 'inactive-status',
+			style: 'inactive-status'
 		},
 		{
 			key: 'InvitationExpired',
 			cta: 'Resend Invitation?',
-			style: 'expired-status',
-		},
+			style: 'expired-status'
+		}
 	];
 	// Verified | Active | Inactive | InvitationExpired
 	constructor(
@@ -113,7 +113,7 @@ export class MemberActionPanelComponent implements OnInit {
 
 	handleAction() {
 		const body = {
-			email: this.userInfo.email,
+			email: this.userInfo.email
 		};
 		if (this.getStatusKey == 'Active') {
 			this.deactivateUser(body);

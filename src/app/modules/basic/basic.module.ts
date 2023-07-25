@@ -84,6 +84,7 @@ import { AddTeamMemberComponent } from './component/team-member/team-action-card
 import { MemberListComponent } from './component/team-member/team-action-cards/member-list/member-list.component';
 import { TeamMemberSignupComponent } from './container/team-member-signup/team-member-signup.component';
 import { NoMemberLimitComponent } from './component/team-member/team-action-cards/no-member-limit/no-member-limit.component';
+import { PermissionsComponent } from './component/team-member/team-action-cards/permissions/permissions.component';
 const appRoutes = [
 	{
 		path: 'login',
@@ -228,6 +229,7 @@ const appRoutes = [
 		MemberListComponent,
 		TeamMemberSignupComponent,
   NoMemberLimitComponent,
+  PermissionsComponent,
 	],
 	imports: [
 		CommonComponentsModule,

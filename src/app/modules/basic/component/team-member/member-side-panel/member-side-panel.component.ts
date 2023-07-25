@@ -31,8 +31,6 @@ export class MemberSidePanelComponent implements OnInit {
 	userList: any = [];
 
 	searchMember: any = {
-		offset: 0,
-		count: 5,
 		searchName: ''
 	};
 
@@ -141,7 +139,7 @@ export class MemberSidePanelComponent implements OnInit {
 		// this.listScroll.removeEventListener('scroll', () => {});
 		this.membersListInput.offset = 0;
 	}
-
+	// Scroll Loader
 	// scrollHandler() {
 	// 	this.listScroll = document.getElementById('scrollContainer');
 	// 	this.listScroll.scrollTop = 0;
@@ -150,7 +148,6 @@ export class MemberSidePanelComponent implements OnInit {
 	// 		that.onScroll(e);
 	// 	});
 	// }
-
 	// onScroll(event) {
 	// 	// if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
 	// 	// 	this.listLoader = true;
@@ -158,6 +155,9 @@ export class MemberSidePanelComponent implements OnInit {
 	// 	// 	this.getFreshList();
 	// 	// }
 	// }
+
+	//-------
+
 	ngAfterViewInit(): void {}
 
 	get showMore() {
@@ -304,6 +304,7 @@ export class MemberSidePanelComponent implements OnInit {
 		this.activeCard = index;
 		// this.openUserInfo.emit(user);
 		this.service.setUserInfo(user);
+
 		this.service.addUser.next(false);
 	}
 

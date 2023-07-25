@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
-import { environment } from 'src/environments/environment'
-import { Observable } from 'rxjs-compat'
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs-compat';
 import { shareReplay } from 'rxjs/operators';
 @Injectable({
-	providedIn: 'root',
+	providedIn: 'root'
 })
 export class BasicService {
 	teams_api: string = 'https://test.ampliz.com';
@@ -91,6 +91,12 @@ export class BasicService {
 		return response;
 	}
 
+	setIsDownload(body: any): Observable<any> {
+		const url = this.teams_api + '/teams/amplizteamswriteapi/admin/download-permission';
+		const response = this.http.post(url, body);
+		return response;
+	}
+
 	// GET API
 
 	getMemberCreditDetails(body: any): Observable<any> {
@@ -110,7 +116,7 @@ export class BasicService {
 		const body = {
 			offset: offset,
 			count: count,
-			userId: userId,
+			userId: userId
 		};
 		const response = this.http.get(url, { params: body });
 		return response;
