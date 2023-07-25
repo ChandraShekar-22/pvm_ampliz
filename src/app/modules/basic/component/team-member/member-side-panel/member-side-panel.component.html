@@ -42,7 +42,22 @@
 					<!-- <div class="clear-all-container d-flex justify-content-end">
 						<span class="clear-all-text">Clear All</span>
 					</div> -->
-					<div class="form-check" *ngFor="let item of filterItems; let i = index">
+					<div class="form-check" *ngFor="let item of filterItems | slice : 0 : 4; let i = index">
+						<div class="form-check form-check-inline">
+							<input
+								class="form-check-input checkbox-input"
+								type="checkbox"
+								[id]="item.name"
+								[(ngModel)]="item.checked"
+								(change)="handleFilter(item)"
+							/>
+							<!-- [checked]="item.checked" -->
+
+							<label class="form-check-label" [for]="item.name">{{ item.name }}</label>
+						</div>
+					</div>
+					<hr />
+					<div class="form-check" *ngFor="let item of filterItems | slice : 4 : 8; let i = index">
 						<div class="form-check form-check-inline">
 							<input
 								class="form-check-input checkbox-input"
