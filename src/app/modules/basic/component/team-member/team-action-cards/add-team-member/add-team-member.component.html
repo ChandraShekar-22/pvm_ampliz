@@ -40,7 +40,7 @@
 					<b>{{ alreadyExistEmails.toString().replaceAll(',', ', ') }}</b>
 				</span>
 			</div>
-			<div class="role-container col-8 d-flex flex-column">
+			<div class="role-container col-11">
 				<span>Role</span>
 				<div class="d-flex mt-3">
 					<button
@@ -52,12 +52,6 @@
 					>
 						{{ item }}
 					</button>
-				</div>
-			</div>
-			<div class="role-container col-3 d-flex flex-column">
-				<span>Authorized to download list</span>
-				<div class="d-flex mt-3">
-					<input type="checkbox" id="switch" [(ngModel)]="params.isDownload" /><label for="switch">Toggle</label>
 				</div>
 			</div>
 		</div>
@@ -156,10 +150,30 @@
 					> -->
 				</div>
 			</div>
+		</div>
 
-			<!-- action button starts -->
+		<!-- Permissions  -->
+		<div class="header d-flex align-items-center justify-content-start" [class.header-error]="headerError">
+			<span class="header-text"> Permissions </span>
+		</div>
+
+		<div class="flex-container">
+			<div class="title-col">
+				<span>Download List</span>
+				<p>Has an ability to download list</p>
+			</div>
+
+			<div class="action-col row align-items-center">
+				<input type="checkbox" id="switch" [(ngModel)]="params.isDownload" /><label for="switch">Toggle</label>
+			</div>
+		</div>
+
+		<!-- Permissions end -->
+
+		<!-- action button starts -->
+		<div class="action-section">
 			<div
-				class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3"
+				class="action-button-container d-flex align-items-center justify-content-end gap-3"
 				*ngIf="showConfirmEmails.length == ''"
 			>
 				<!-- <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. </span> -->
@@ -171,7 +185,7 @@
 					(click)="handleSubmit()"
 					*ngIf="!loader"
 				>
-					Save
+					Send Invite
 				</button>
 				<svg class="loader-svg" viewBox="25 25 50 50" *ngIf="loader">
 					<circle r="10" cy="50" cx="50"></circle>
@@ -179,7 +193,8 @@
 			</div>
 
 			<!-- action button ends -->
-			<!-- action button starts -->
+
+			<!-- Confirm box starts -->
 			<div class="action-button-container mt-3 gap-3 message-container" *ngIf="showConfirmEmails !== ''">
 				<div>
 					<svg
@@ -211,7 +226,7 @@
 					<button class="save-btn" type="button" (click)="handleConfirmation(true)">Yes</button>
 				</div>
 			</div>
-			<!-- action button ends -->
+			<!-- Confirm box ends -->
 		</div>
 	</div>
 </div>

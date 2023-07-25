@@ -11,6 +11,10 @@
 .role-container {
 	margin-top: 25px;
 }
+.action-section {
+	padding: 10px 25px 20px 25px;
+}
+
 /* header css */
 .header {
 	padding: 15px 20px !important;
@@ -269,6 +273,33 @@ input:checked + label {
 input:checked + label:after {
 	left: calc(100% - 5px);
 	transform: translateX(-100%);
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+	padding: 30px 36px 30px 49px;
+}
+
+.flex-container span {
+	color: #495365;
+	font-size: 13px;
+	font-weight: 400;
+}
+.flex-container p {
+	color: #969393;
+	font-size: 11px;
+	font-weight: 300;
+}
+
+.title-col {
+	flex: 1;
+}
+
+.action-col {
+	display: flex;
+	align-content: center;
+	margin-right: 1px;
 }
 /* 
 label:active:after {
