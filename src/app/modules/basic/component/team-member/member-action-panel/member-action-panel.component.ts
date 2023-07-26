@@ -10,11 +10,14 @@ import { MessageService } from 'src/app/modules/B2B/services/message.service';
 	styleUrls: ['./member-action-panel.component.css']
 })
 export class MemberActionPanelComponent implements OnInit {
-	// @Input() userInfo: any;
-	// @Input() addUser: boolean = false;
 	addUser: boolean = false;
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter();
+
 	userInfo: any;
+	adminInfo: any;
+
+	showPanel: boolean = false;
+
 	loader: boolean;
 
 	updateTime: any;
@@ -59,15 +62,12 @@ export class MemberActionPanelComponent implements OnInit {
 		this.service.loader.subscribe((loader) => (this.loader = loader));
 	}
 
-	get isAdmin() {
-		return this.service.isAdmin(this.userInfo);
-	}
-
-	ngOnInit(): void {
+	async ngOnInit() {
 		this.service.getUserInfo().subscribe((info) => {
 			this.userInfo = info;
 			this.activeTab = 0;
 		});
+		await this.getAdmin();
 		this.service.addUser.subscribe((res) => {
 			this.addUser = res;
 		});
@@ -76,6 +76,16 @@ export class MemberActionPanelComponent implements OnInit {
 				this.addUser = false;
 			}
 		});
+	}
+
+	getAdmin() {
+		this.service.getAdminInfo().subscribe((info) => {
+			this.adminInfo = info;
+		});
+	}
+
+	get isAdmin() {
+		return this.service.isAdmin(this.userInfo);
 	}
 
 	ngAfterViewInit() {
@@ -115,10 +125,8 @@ export class MemberActionPanelComponent implements OnInit {
 		const body = {
 			email: this.userInfo.email
 		};
-		if (this.getStatusKey == 'Active') {
-			this.deactivateUser(body);
-		} else if (this.getStatusKey == 'Inactive') {
-			this.activateUser(body);
+		if (this.getStatusKey == 'Active' || this.getStatusKey == 'Inactive') {
+			this.showPanel = true;
 		} else {
 			this.resendInvitation(body);
 		}
@@ -129,34 +137,6 @@ export class MemberActionPanelComponent implements OnInit {
 			(res) => {
 				this.service.getMemberList.next(true);
 				this.messageService.display(true, 'Invitation sent');
-			},
-			(err) => {
-				this.messageService.displayError(true, err.message);
-			}
-		);
-	}
-
-	activateUser(body: any) {
-		this.api.activateUser(body).subscribe(
-			(res) => {
-				this.service.getMemberList.next(true);
-				this.userInfo.userStatus == this.statusList[2].key;
-				const message = this.userInfo.fullName + ' Activated';
-				this.messageService.display(true, message);
-			},
-			(err) => {
-				this.messageService.displayError(true, err.message);
-			}
-		);
-	}
-
-	deactivateUser(body: any) {
-		this.api.deactivateUser(body).subscribe(
-			(res) => {
-				this.service.getMemberList.next(true);
-				this.userInfo.userStatus == this.statusList[1].key;
-				const message = this.userInfo.fullName + ' Deactivated';
-				this.messageService.display(true, message);
 			},
 			(err) => {
 				this.messageService.displayError(true, err.message);

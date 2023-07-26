@@ -99,10 +99,25 @@ export class MemberSidePanelComponent implements OnInit {
 		private service: DataService,
 		private messageService: MessageService
 	) {
-		// Search Member Logic with debounce
+		this.service.getMemberList.subscribe((event) => {
+			if (event) {
+				this.getMembersList(true);
+				setTimeout(() => {
+					this.getAdminDetails();
+				}, 100);
+			}
+		});
+
+		this.service.cancelAddMember.subscribe((event) => {
+			if (event) {
+				this.openAdmin();
+			}
+		});
+
+		this.service.statusChanged.subscribe((event) => {});
 	}
-	ngOnInit(): void {
-		this.getAdminDetails();
+	async ngOnInit() {
+		await this.getAdminDetails(true);
 		this.getMembersList(false);
 
 		// Debounce for search
@@ -116,22 +131,6 @@ export class MemberSidePanelComponent implements OnInit {
 				this.service.loader.next(false);
 			});
 		});
-
-		this.service.cancelAddMember.subscribe((event) => {
-			if (event) {
-				this.openAdmin();
-			}
-		});
-
-		this.service.getMemberList.subscribe((event) => {
-			if (event) {
-				this.getMembersList(true);
-				setTimeout(() => {
-					this.getAdminDetails();
-				}, 100);
-			}
-		});
-
 		// this.scrollHandler();
 	}
 
@@ -164,18 +163,21 @@ export class MemberSidePanelComponent implements OnInit {
 		return this.userList.length >= 7 && this.membersListInput.offset < this.memberTotalCount;
 	}
 
-	getAdminDetails() {
+	getAdminDetails(openAdmin?) {
 		this.service.loader.next(true);
 		this.api.getAdminDetails().subscribe(
 			(res) => {
 				const admin = res.adminDetails;
 				this.service.setAdminInfo(admin);
 				this.adminDetails = admin;
-				this.openAdmin();
-				this.handleLoader();
+				if (openAdmin === true) {
+					this.openAdmin();
+				}
+				this.service.loader.next(false);
 			},
 			(error) => {
 				this.messageService.displayError(true, error.error.msg);
+				this.service.loader.next(false);
 			}
 		);
 	}
@@ -193,11 +195,10 @@ export class MemberSidePanelComponent implements OnInit {
 					this.service.setUserInfo(this.userList[this.activeCard]);
 					this.adminCredits.emit(this.adminDetails);
 				}
-
-				this.handleLoader();
+				this.service.loader.next(false);
 			},
 			(err) => {
-				this.handleLoader();
+				this.service.loader.next(false);
 			}
 		);
 	}
@@ -285,8 +286,7 @@ export class MemberSidePanelComponent implements OnInit {
 			this.activeCard = 0;
 			this.showAdmin = false;
 		} else {
-			this.activeCard = null;
-			this.showAdmin = true;
+			this.openAdmin();
 		}
 	}
 
@@ -318,13 +318,5 @@ export class MemberSidePanelComponent implements OnInit {
 		this.activeCard = null;
 		this.service.addUser.next(true);
 		// this.adminCredits.emit(this.adminDetails);
-	}
-	setAdminCredits(credits: any) {
-		this.service.setAdminCredits(credits);
-	}
-	handleLoader() {
-		setTimeout(() => {
-			this.service.loader.next(false);
-		}, 600);
 	}
 }

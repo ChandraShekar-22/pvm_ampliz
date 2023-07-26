@@ -72,11 +72,15 @@
 			<app-team-credits *ngIf="activeTab === 0"></app-team-credits>
 			<app-member-list *ngIf="activeTab === 1" [userInfo]="userInfo" [isAdmin]="isAdmin"></app-member-list>
 		</div>
-
-		<!-- <div class="team-action-container" *ngIf="!addUser && !loader">
-			<app-team-credits *ngIf="activeTab === 0" [isAdmin]="isAdmin"></app-team-credits>
-			<app-member-list *ngIf="activeTab === 1" [userInfo]="userInfo"></app-member-list>
-		</div> -->
 	</div>
 	<!-- Action panel ends -->
 </div>
+<!-- [show]="!isAdmin" -->
+<app-confirm-panel
+	(cancel)="showPanel = false"
+	[show]="showPanel"
+	[userInfo]="userInfo"
+	[activate]="getStatusCta === 'Activate' ? true : false"
+	*ngIf="showPanel"
+>
+</app-confirm-panel>

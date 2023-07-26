@@ -25,7 +25,23 @@ export class TeamCreditsComponent implements OnInit {
 		consumedMobileCredit: 0
 	};
 
-	constructor(private api: BasicService, private service: DataService) {}
+	constructor(private api: BasicService, private service: DataService) {
+		this.service.creditUpdated.subscribe((event) => {
+			if (event && this.userInfo) {
+				this.getAdminCredits();
+				this.getUserCredits();
+			}
+		});
+		this.service.getUserInfo().subscribe((res) => {
+			this.isAction = false;
+			this.userInfo = res;
+			if (this.isAdmin) {
+				this.setAdminCredits();
+			} else {
+				this.getUserCredits();
+			}
+		});
+	}
 	ngOnDestroy() {
 		this.userCredits = {
 			totalCredit: 0,
@@ -35,26 +51,21 @@ export class TeamCreditsComponent implements OnInit {
 		};
 	}
 
-	async ngOnInit() {
-		await this.service.getUserInfo().subscribe((res) => {
-			this.isAction = false;
-			this.userInfo = res;
-			if (this.isAdmin) {
-				this.getAdminCredits();
-			} else {
-				this.getUserCredits();
-			}
-		});
-		await this.service.creditUpdated.subscribe((event) => {
-			if (event && this.userInfo) {
-				this.getAdminCredits();
-				this.getUserCredits();
-			}
-		});
+	ngOnInit() {
+		this.setAdminCredits();
 	}
 
 	get isAdmin() {
 		return this.service.isAdmin(this.userInfo);
+	}
+
+	async setAdminCredits() {
+		await this.service.getAdminInfo().subscribe((res) => {
+			this.adminCredits = res.consumedCredit;
+			if (this.isAdmin) {
+				this.userCredits = this.adminCredits; // For summary card
+			}
+		});
 	}
 
 	getAdminCredits() {
@@ -63,7 +74,7 @@ export class TeamCreditsComponent implements OnInit {
 			if (this.isAdmin) {
 				this.userCredits = this.adminCredits; // For summary card
 			}
-			this.service.setAdminCredits(this.adminCredits);
+			this.service.setAdminInfo(res.adminDetails);
 		});
 	}
 

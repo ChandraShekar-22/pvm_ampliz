@@ -13,10 +13,11 @@
 		</div>
 		<div class="credit-summary-card">
 			<app-credit-summary
-				*ngIf="!isAction"
+				*ngIf="!isAction && userCredits !== undefined"
 				(trigger)="handleTrigger($event)"
 				[isAdmin]="isAdmin"
 				[userCredits]="userCredits"
+				[userInfo]="userInfo"
 			></app-credit-summary>
 		</div>
 

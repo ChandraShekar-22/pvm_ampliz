@@ -6,7 +6,7 @@ import { MessageService } from 'src/app/modules/B2B/services/message.service';
 @Component({
 	selector: 'app-team-member',
 	templateUrl: './team-member.component.html',
-	styleUrls: ['./team-member.component.css'],
+	styleUrls: ['./team-member.component.css']
 })
 export class TeamMemberComponent implements OnInit {
 	isAdmin: boolean = true; //TEMP solution //Check cookie after dashboard implmentation
@@ -25,7 +25,7 @@ export class TeamMemberComponent implements OnInit {
 		role: [],
 		offset: 0,
 		count: 5,
-		userStatus: [],
+		userStatus: []
 	};
 
 	constructor(
@@ -46,14 +46,14 @@ export class TeamMemberComponent implements OnInit {
 	}
 
 	adminInfo() {
-		this.api.getAdminDetails().subscribe(
-			(res) => {
-				this.service.setAdminInfo(res.adminDetails);
-			},
-			(error) => {
-				this.messageService.displayError(true, error.error.msg);
-			}
-		);
+		// this.api.getAdminDetails().subscribe(
+		// 	(res) => {
+		// 		this.service.setAdminInfo(res.adminDetails);
+		// 	},
+		// 	(error) => {
+		// 		this.messageService.displayError(true, error.error.msg);
+		// 	}
+		// );
 	}
 	getUserInfo(filter: any, counter) {
 		// this.api.getTeamMemberList(filter).subscribe((res) => {
