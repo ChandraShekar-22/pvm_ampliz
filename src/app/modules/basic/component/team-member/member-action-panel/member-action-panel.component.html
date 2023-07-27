@@ -2,7 +2,7 @@
 	<!-- Header starts -->
 	<div class="header-container">
 		<!-- Info container starts -->
-		<div class="" *ngIf="!addUser">
+		<div class="" *ngIf="!addUser && !noResultFound">
 			<div class="info-container row align-items-center" *ngIf="!loader">
 				<div class="col">
 					<h2>
@@ -47,7 +47,11 @@
 		<!-- Info container ends -->
 
 		<!-- Tab navigation starts -->
-		<div class="tab-container row" *ngIf="!addUser" [style.padding-top]="isAdmin && !loader ? '22px' : ''">
+		<div
+			class="tab-container row"
+			*ngIf="!addUser && !noResultFound"
+			[style.padding-top]="isAdmin && !loader ? '22px' : ''"
+		>
 			<div class="tab col-12">
 				<a
 					class="tab-btns text-uppercase"
@@ -64,7 +68,7 @@
 	<!-- Header Ends -->
 
 	<!-- Action panel starts -->
-	<div class="action-container">
+	<div class="action-container" *ngIf="!noResultFound">
 		<div class="add-new-container" *ngIf="addUser">
 			<app-add-team-member></app-add-team-member>
 		</div>
@@ -74,6 +78,17 @@
 		</div>
 	</div>
 	<!-- Action panel ends -->
+
+	<!-- No Result Panel Starts -->
+
+	<div class="no-result-container" *ngIf="noResultFound && !addUser">
+		<div>
+			<img src="assets/images/noresult.png" alt="no-result" />
+			<span> We couldn't find any matching records.</span>
+		</div>
+	</div>
+
+	<!-- No Result Panel ends -->
 </div>
 <!-- [show]="!isAdmin" -->
 <app-confirm-panel

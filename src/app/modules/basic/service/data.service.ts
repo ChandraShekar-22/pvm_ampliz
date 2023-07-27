@@ -23,6 +23,8 @@ export class DataService {
 
 	public creditUpdated: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+	public noResultFound: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
 	public statusChanged: BehaviorSubject<any> = new BehaviorSubject([]);
 
 	orgId: any = localStorage.getItem('organizationId');

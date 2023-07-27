@@ -52,6 +52,8 @@ export class MemberActionPanelComponent implements OnInit {
 			style: 'expired-status'
 		}
 	];
+
+	noResultFound: boolean = false;
 	// Verified | Active | Inactive | InvitationExpired
 	constructor(
 		private dataService: b2bService,
@@ -60,6 +62,13 @@ export class MemberActionPanelComponent implements OnInit {
 		private messageService: MessageService
 	) {
 		this.service.loader.subscribe((loader) => (this.loader = loader));
+		this.service.noResultFound.subscribe((event: boolean) => {
+			if (event) {
+				this.noResultFound = true;
+			} else {
+				this.noResultFound = false;
+			}
+		});
 	}
 
 	async ngOnInit() {

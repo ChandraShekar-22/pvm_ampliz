@@ -34,6 +34,8 @@ export class MemberSidePanelComponent implements OnInit {
 		searchName: ''
 	};
 
+	isAddUser: boolean = false;
+
 	// General Var
 	activeCard: any = null;
 	filterCount: number = 0;
@@ -127,6 +129,9 @@ export class MemberSidePanelComponent implements OnInit {
 				if (this.userList.length > 0) {
 					this.service.setUserInfo(this.userList[0]);
 					this.activeCard = 0;
+					this.service.noResultFound.next(false);
+				} else {
+					this.service.noResultFound.next(true);
 				}
 				this.service.loader.next(false);
 			});
@@ -195,6 +200,17 @@ export class MemberSidePanelComponent implements OnInit {
 					this.service.setUserInfo(this.userList[this.activeCard]);
 					this.adminCredits.emit(this.adminDetails);
 				}
+				if (this.filterCount > 0 && this.userList.length <= 0) {
+					this.service.noResultFound.next(true);
+				} else {
+					this.service.noResultFound.next(false);
+				}
+
+				// if (this.isAddUser === true && this.activeCard === null) {
+				// 	this.showAdmin = false;
+				// 	this.adminCredits.emit(this.adminDetails);
+				// 	console.log('IN ADD');
+				// }
 				this.service.loader.next(false);
 			},
 			(err) => {
@@ -296,6 +312,7 @@ export class MemberSidePanelComponent implements OnInit {
 		this.showAdmin = true;
 		this.service.addUser.next(false);
 		// this.openUserInfo.emit(this.adminDetails);
+		this.isAddUser = false;
 		this.service.setUserInfo(this.adminDetails);
 	}
 
@@ -304,7 +321,7 @@ export class MemberSidePanelComponent implements OnInit {
 		this.activeCard = index;
 		// this.openUserInfo.emit(user);
 		this.service.setUserInfo(user);
-
+		this.isAddUser = false;
 		this.service.addUser.next(false);
 	}
 
@@ -313,10 +330,34 @@ export class MemberSidePanelComponent implements OnInit {
 		this.service.setUserInfo(this.userList[0]);
 	}
 
-	addUser() {
+	async addUser() {
 		this.adminActive = false;
 		this.activeCard = null;
+		this.isAddUser = true;
 		this.service.addUser.next(true);
+
+		// NoResulLogic
+		this.service.noResultFound.next(false);
+		if (this.filterCount > 0) {
+			await this.filterItems.map((items) => {
+				items.checked = false;
+			});
+			await this.getFilterCount();
+			this.membersListInput = {
+				organizationId: localStorage.getItem('organizationId'),
+				role: [],
+				offset: 0,
+				count: 7,
+				userStatus: []
+			};
+			await this.getMembersList(true);
+		}
+
+		if (this.searchMember.searchName !== '') {
+			this.searchMember.searchName = '';
+			this.getMembersList(true);
+		}
+
 		// this.adminCredits.emit(this.adminDetails);
 	}
 }
