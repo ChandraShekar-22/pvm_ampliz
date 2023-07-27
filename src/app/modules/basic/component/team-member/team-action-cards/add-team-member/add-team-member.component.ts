@@ -185,16 +185,15 @@ export class AddTeamMemberComponent implements OnInit {
 		}
 	}
 
-	inviteTeamMember() {
+	async inviteTeamMember() {
 		if (typeof this.params.emails === 'string') {
 			this.params.emails = this.params.emails.split(', ');
 		}
 
-		this.api.inviteTeamMember(this.params).subscribe(
+		await this.api.inviteTeamMember(this.params).subscribe(
 			(res) => {
 				this.messageService.display(true, 'The invitation has been sent.');
 				this.service.getMemberList.next(true);
-				// this.service.newMemberInvited.next(true);
 				this.loader = false;
 				this.clearInputs();
 			},
@@ -204,7 +203,6 @@ export class AddTeamMemberComponent implements OnInit {
 			}
 		);
 	}
-
 	handleCancel() {
 		this.service.cancelAddMember.next(true);
 	}
