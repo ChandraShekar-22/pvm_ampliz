@@ -46,8 +46,8 @@ export class MessageService {
     };
     this.addToAlertMessages(body);
     setTimeout(() => {
-      this.removeFromAlertMessages();
-    }, 40000);
+					this.removeFromAlertMessages();
+				}, 4000);
   }
 
   addToAlertMessages(body) {
