@@ -38,9 +38,11 @@
 	color: #0071eb;
 	font-weight: 400;
 	font-size: 12px;
-	cursor: pointer;
 	letter-spacing: 0.5px;
 	margin-right: 10px;
+}
+.deactivate-btn span {
+	cursor: pointer;
 }
 .tab-container {
 	background-color: #ffff;

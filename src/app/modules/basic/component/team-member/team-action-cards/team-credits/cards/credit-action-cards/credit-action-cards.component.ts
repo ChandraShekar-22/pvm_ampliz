@@ -66,14 +66,16 @@ export class CreditActionCardsComponent implements OnInit {
 	// }
 
 	isCreditCorrect() {
-		if (this.remainingCredits > this.differenceInCredit) {
+		const isInteger = Number.isInteger(this.params.credit);
+		if (this.remainingCredits > this.differenceInCredit && isInteger === true) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	isMobileCreditCorrect() {
-		if (this.remainingMobileCredits > this.differenceInMobileCredit) {
+		const isInteger = Number.isInteger(this.params.mobileCredit);
+		if (this.remainingMobileCredits > this.differenceInMobileCredit && isInteger === true) {
 			return true;
 		} else {
 			return false;

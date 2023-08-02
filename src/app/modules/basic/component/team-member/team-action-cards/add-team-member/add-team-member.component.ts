@@ -124,14 +124,16 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 
 	isCreditCorrect() {
-		if (this.remainingCredit > this.params.dailyCredit) {
+		const isInteger = Number.isInteger(this.params.dailyCredit);
+		if (this.remainingCredit > this.params.dailyCredit && isInteger == true) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	isMobileCreditCorrect() {
-		if (this.remainingMobileCredit > this.params.mobileCredit) {
+		const isInteger = Number.isInteger(this.params.mobileCredit);
+		if (this.remainingMobileCredit > this.params.mobileCredit && isInteger == true) {
 			return true;
 		} else {
 			return false;
