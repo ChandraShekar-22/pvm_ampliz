@@ -1,0 +1,143 @@
+<div id="wrapper">
+  <app-header style="width: 100%"></app-header>
+  <!-- <app-header *ngIf="!subscribed" ></app-header> -->
+  <app-sidemenu elementName="payor"></app-sidemenu>
+  <div class="content-page">
+    <div class="col-md-12">
+      <div class="content">
+        <div class="row">
+          <div class="col-sm-12">
+            <h5 class="text-body font-weight-normal">Payor Company Overview</h5>
+          </div>
+        </div>
+        <div class="overview">
+          <div class="overview-header">
+            <div class="overview-heading">
+              <div class="row col-center-middle">
+                <div class="col-md-2">
+                  <div class="overview-avatar">
+                    <div class="physician_imgContainer shadow">
+                      <img
+                        src="assets/images/Imaging-overview.svg"
+                        class="p-2"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-10">
+                  <h4 class="heading-text">
+                    {{ imagingCenterDetails.centerName }}
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="not-correct-wrapper">
+                  <app-payor-not-correct
+                    [notCorrectType]="'imaging-center'"
+                    [notCorrectReasons]="notCorrectReasons"
+                    [imagingId]="imagingCenterDetails.mcoCompanyId"
+                  ></app-payor-not-correct>
+                </div>
+              </div>
+              <div class="col-md-10" style="padding-top: 16px">
+                <div class="row">
+                  <div
+                    class="col-md-4 overview-label"
+                    *ngIf="imagingCenterDetails?.phoneNumber.length > 0"
+                  >
+                    <i class="mdi mdi-phone-in-talk icon"></i>
+                    {{ imagingCenterDetails?.phoneNumber[0] }}
+                  </div>
+                  <div class="col-md-4 overview-label" *ngIf="location != ''">
+                    <i class="mdi mdi-map-marker-radius icon"></i>
+                    {{ location }}
+                  </div>
+                  <div
+                    class="col-md-4 overview-label"
+                    *ngIf="imagingCenterDetails?.web_Address != ''"
+                  >
+                    <i class="mdi mdi-link-variant icon"></i
+                    ><a
+                      href="{{ imagingCenterDetails?.web_Address }}"
+                      target="_blank"
+                    >
+                      Website
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div style="padding-top: 10px">
+              <div class="physician-content">
+                <mat-tab-group (selectedTabChange)="tabClick($event)">
+                  <mat-tab label="OVERVIEW">
+                    <div class="p-5">
+                      <div class="row">
+                        <div
+                          class="col-sm-6 text-label"
+                          *ngFor="
+                            let overview of imagingOverviewData | keyvalue;
+                            index as i
+                          "
+                        >
+                          <span class="text-bold text-capitalize"
+                            >{{ overview.key.replaceAll("_", " ") }} :
+                          </span>
+                          <span>{{ overview.value || "N/A" }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="pb-5 d-flex justify-content-center align-items-center align-self-center align-center"
+                      *ngIf="!isOverviewAvailable"
+                    >
+                      <button
+                        (click)="request('Request Imaging Overview')"
+                        class="btn btn-new"
+                      >
+                        Request Info
+                      </button>
+                    </div>
+                  </mat-tab>
+                  <mat-tab
+                    label="EXECUTIVES ({{
+                      imagingCenterDetails?.noOfExecutive
+                    }})"
+                  >
+                    <div class="p-5">
+                      <app-data-table
+                        (linkPressed)="executiveNamePressed($event)"
+                        [headers]="executiveTableHeader"
+                        [data]="executiveList"
+                        *ngIf="loadExecutive"
+                      ></app-data-table>
+                    </div>
+                    <div
+                      class="pb-5 d-flex justify-content-center align-items-center align-self-center align-center"
+                      *ngIf="!isMoreInfoAvailable"
+                    >
+                      <button
+                        (click)="request('Request More Info')"
+                        class="btn btn-new"
+                      >
+                        Request Info
+                      </button>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

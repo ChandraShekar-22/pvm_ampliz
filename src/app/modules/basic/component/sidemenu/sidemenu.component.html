@@ -1,22 +1,22 @@
 <div class="left side-menu in h-100">
-  <!--- Sidemenu -->
-  <div id="sidebar-menu">
-    <!-- Left Menu Start -->
-    <ul class="metismenu b2b" id="side-menu" *ngIf="dataSet === 'B2B'">
-      <!--<li class="menu-title">Navigation</li>-->
+	<!--- Sidemenu -->
+	<div id="sidebar-menu">
+		<!-- Left Menu Start -->
+		<ul class="metismenu b2b" id="side-menu" *ngIf="dataSet === 'B2B'">
+			<!--<li class="menu-title">Navigation</li>-->
 
-      <li class="active d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('dashboard')"
-          data-tooltip="Dashboard"
-          [ngClass]="{ activeElement: elementName == 'dashboard' }"
-        >
-          <i class="mdi mdi-airplay"></i>
-        </a>
-      </li>
+			<li class="active d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('dashboard')"
+					data-tooltip="Dashboard"
+					[ngClass]="{ activeElement: elementName == 'dashboard' }"
+				>
+					<i class="mdi mdi-airplay"></i>
+				</a>
+			</li>
 
-      <!-- <li class="d-none d-sm-block">
+			<!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('contacts')"
@@ -27,7 +27,7 @@
         </a>
       </li> -->
 
-      <!-- <li class="d-none d-sm-block">
+			<!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('freecredits')"
@@ -37,41 +37,41 @@
         </a>
       </li> -->
 
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('pricing')"
-          data-tooltip="Subscription"
-          [ngClass]="{ activeElement: elementName == 'pricing' }"
-        >
-          <i class="mdi mdi-settings-outline"></i>
-        </a>
-      </li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('pricing')"
+					data-tooltip="Subscription"
+					[ngClass]="{ activeElement: elementName == 'pricing' }"
+				>
+					<i class="mdi mdi-settings-outline"></i>
+				</a>
+			</li>
 
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('company_search')"
-          data-tooltip="Company
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('company_search')"
+					data-tooltip="Company
           Search"
-          [ngClass]="{ activeElement: elementName == 'company_search' }"
-        >
-          <i class="ti-world"></i>
-        </a>
-      </li>
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('idealprofile')"
-          data-tooltip="Ideal Customer Profile"
-          [ngClass]="{ activeElement: elementName == 'idealprofile' }"
-        >
-          <i class="ti-id-badge"></i>
-        </a>
-      </li>
+					[ngClass]="{ activeElement: elementName == 'company_search' }"
+				>
+					<i class="ti-world"></i>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('idealprofile')"
+					data-tooltip="Ideal Customer Profile"
+					[ngClass]="{ activeElement: elementName == 'idealprofile' }"
+				>
+					<i class="ti-id-badge"></i>
+				</a>
+			</li>
 
-      <!-- uncomment on final build -->
-      <!-- <li class="d-none d-sm-block">
+			<!-- uncomment on final build -->
+			<!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('b2b')"
@@ -92,7 +92,7 @@
         </a>
       </li> -->
 
-      <!-- <li class="active d-none d-sm-block">
+			<!-- <li class="active d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('dashboard')"
@@ -103,7 +103,7 @@
         </a>
       </li> -->
 
-      <!-- <li class="d-none d-sm-block">
+			<!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('contacts')"
@@ -113,7 +113,7 @@
           <i class="mdi mdi-heart-multiple-outline"></i>
         </a>
       </li> -->
-      <!-- <li class="d-none d-sm-block">
+			<!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('freecredits')"
@@ -156,8 +156,8 @@
           <i class="ti-id-badge"></i>
         </a>
       </li> -->
-      <!-- uncomment on final build -->
-      <!-- <li class="d-none d-sm-block">
+			<!-- uncomment on final build -->
+			<!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('b2b')"
@@ -176,8 +176,8 @@
           <i class="ti-list"></i>
         </a>
       </li> -->
-      <!-- uncomment on final build till here-->
-      <!-- <li class="active d-block d-sm-none">
+			<!-- uncomment on final build till here-->
+			<!-- <li class="active d-block d-sm-none">
         <a
           class="link tooltip-right"
           (click)="openItem('dashboard')"
@@ -254,21 +254,21 @@
           <i class="ti-id-badge"></i> <span>Ideal Customer Profile </span>
         </a>
       </li> -->
-    </ul>
+		</ul>
 
-    <ul class="metismenu" id="side-menu" *ngIf="dataSet !== 'B2B'">
-      <li class="active d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('hcdashboard')"
-          data-tooltip="Dashboard"
-          [ngClass]="{ activeElement: elementName == 'hcdashboard' }"
-        >
-          <i class="mdi mdi-airplay"></i>
-        </a>
-      </li>
+		<ul class="metismenu" id="side-menu" *ngIf="dataSet !== 'B2B'">
+			<li class="active d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('hcdashboard')"
+					data-tooltip="Dashboard"
+					[ngClass]="{ activeElement: elementName == 'hcdashboard' }"
+				>
+					<i class="mdi mdi-airplay"></i>
+				</a>
+			</li>
 
-      <!-- <li class="d-none d-sm-block">
+			<!-- <li class="d-none d-sm-block">
         <a
           class="link tooltip-right"
           (click)="openItem('contacts')"
@@ -278,133 +278,147 @@
           <i class="mdi mdi-heart-multiple-outline"></i>
         </a>
       </li> -->
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('freecredits')"
-          data-tooltip="Free Credits"
-          [ngClass]="{ activeElement: elementName == 'freecredits' }"
-        >
-          <i class="mdi mdi-gift"></i>
-        </a>
-      </li>
-      <li class="d-none d-sm-block" *ngIf="isSpecialityUser == true">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('mytab')"
-          data-tooltip="My Data"
-          [ngClass]="{ activeElement: elementName == 'mytab' }"
-        >
-          <i class="fa fa-database"></i> <span>My Data</span>
-        </a>
-      </li>
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('pricing')"
-          data-tooltip="Subscription"
-          [ngClass]="{ activeElement: elementName == 'pricing' }"
-        >
-          <i class="mdi mdi-settings-outline"></i>
-        </a>
-      </li>
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('physician')"
-          data-tooltip="HCP's"
-          [ngClass]="{ activeElement: elementName == 'physician' }"
-        >
-          <i class="fa fa-user-md"></i>
-        </a>
-      </li>
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('hospital')"
-          data-tooltip="Hospital"
-          [ngClass]="{ activeElement: elementName == 'hospital' }"
-        >
-          <i class="fa fa-hospital-o"></i>
-        </a>
-      </li>
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('executive')"
-          data-tooltip="Executive"
-          [ngClass]="{ activeElement: elementName == 'executive' }"
-        >
-          <i class="fa fa-user-circle"></i><span></span>
-        </a>
-      </li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('freecredits')"
+					data-tooltip="Free Credits"
+					[ngClass]="{ activeElement: elementName == 'freecredits' }"
+				>
+					<i class="mdi mdi-gift"></i>
+				</a>
+			</li>
+			<li class="d-none d-sm-block" *ngIf="isSpecialityUser == true">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('mytab')"
+					data-tooltip="My Data"
+					[ngClass]="{ activeElement: elementName == 'mytab' }"
+				>
+					<i class="fa fa-database"></i> <span>My Data</span>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('pricing')"
+					data-tooltip="Subscription"
+					[ngClass]="{ activeElement: elementName == 'pricing' }"
+				>
+					<i class="mdi mdi-settings-outline"></i>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('physician')"
+					data-tooltip="HCP's"
+					[ngClass]="{ activeElement: elementName == 'physician' }"
+				>
+					<i class="fa fa-user-md"></i>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('hospital')"
+					data-tooltip="Hospital"
+					[ngClass]="{ activeElement: elementName == 'hospital' }"
+				>
+					<i class="fa fa-hospital-o"></i>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('executive')"
+					data-tooltip="Executive"
+					[ngClass]="{ activeElement: elementName == 'executive' }"
+				>
+					<i class="fa fa-user-circle"></i><span></span>
+				</a>
+			</li>
 
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('imaging')"
-          data-tooltip="Imaging"
-          [ngClass]="{ activeElement: elementName == 'imaging' }"
-        >
-          <!-- <i class="fa fa-bolt"></i> -->
-          <mat-icon> filter_frames </mat-icon>
-        </a>
-      </li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('imaging')"
+					data-tooltip="Imaging"
+					[ngClass]="{ activeElement: elementName == 'imaging' }"
+				>
+					<!-- <i class="fa fa-bolt"></i> -->
+					<mat-icon> filter_frames </mat-icon>
+				</a>
+			</li>
 
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('ltc')"
-          data-tooltip="LTC"
-          [ngClass]="{ activeElement: elementName == 'ltc' }"
-        >
-          <mat-icon> accessible </mat-icon>
-        </a>
-      </li>
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('lists')"
-          data-tooltip="Lists"
-          [ngClass]="{ activeElement: elementName == 'lists' }"
-        >
-          <i class="mdi mdi-format-list-bulleted"></i>
-        </a>
-      </li>
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('npi-lookup')"
-          data-tooltip="NPI"
-          [ngClass]="{ activeElement: elementName == 'npi-lookup' }"
-        >
-          <i class="ti-export"></i>
-        </a>
-      </li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('ltc')"
+					data-tooltip="LTC"
+					[ngClass]="{ activeElement: elementName == 'ltc' }"
+				>
+					<mat-icon> accessible </mat-icon>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('payor')"
+					data-tooltip="MCO"
+					[ngClass]="{ activeElement: elementName == 'payor' }"
+				>
+					<svg class="svg_icon" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
+						<path
+							d="M543.8 287.6c17 0 32-14 32-32.1c1-9-3-17-11-24L309.5 7c-6-5-14-7-21-7s-15 1-22 8L10 231.5c-7 7-10 15-10 24c0 18 14 32.1 32 32.1h32V448c0 35.3 28.7 64 64 64H448.5c35.5 0 64.2-28.8 64-64.3l-.7-160.2h32zM256 208c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v48h48c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H320v48c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V320H208c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h48V208z"
+						/>
+					</svg>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('lists')"
+					data-tooltip="Lists"
+					[ngClass]="{ activeElement: elementName == 'lists' }"
+				>
+					<i class="mdi mdi-format-list-bulleted"></i>
+				</a>
+			</li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('npi-lookup')"
+					data-tooltip="NPI"
+					[ngClass]="{ activeElement: elementName == 'npi-lookup' }"
+				>
+					<i class="ti-export"></i>
+				</a>
+			</li>
 
-      <li class="d-none d-sm-block" *ngIf="isAdmin">
-        <a
-          class="link tooltip-right"
-          data-tooltip="Teams"
-          [ngClass]="{ activeElement: elementName == 'team-member' }"
-          (click)="openItem('team-member')"
-        >
-          <i class="mdi mdi-account-multiple"></i>
-        </a>
-      </li>
+			<li class="d-none d-sm-block" *ngIf="isAdmin">
+				<a
+					class="link tooltip-right"
+					data-tooltip="Team Member"
+					[ngClass]="{ activeElement: elementName == 'team-member' }"
+					(click)="openItem('team-member')"
+				>
+					<i class="mdi mdi-account-multiple"></i>
+				</a>
+			</li>
 
-      <li class="d-none d-sm-block">
-        <a
-          class="link tooltip-right"
-          (click)="openItem('geneateapi')"
-          data-tooltip="Generate Api Key"
-          [ngClass]="{ activeElement: elementName == 'apis' }"
-        >
-          <i class="fa fa-code"></i>
-        </a>
-      </li>
+			<li class="d-none d-sm-block">
+				<a
+					class="link tooltip-right"
+					(click)="openItem('geneateapi')"
+					data-tooltip="Generate Api Key"
+					[ngClass]="{ activeElement: elementName == 'apis' }"
+				>
+					<i class="fa fa-code"></i>
+				</a>
+			</li>
 
-      <!-- <li class="active d-block d-sm-none">
+			<!-- <li class="active d-block d-sm-none">
         <a
           class="link tooltip-right"
           (click)="openItem('hcdashboard')"
@@ -496,8 +510,8 @@
           <i class="fa fa-code"></i>
         </a>
       </li> -->
-    </ul>
-  </div>
-  <!-- Sidebar -->
-  <div class="clearfix"></div>
+		</ul>
+	</div>
+	<!-- Sidebar -->
+	<div class="clearfix"></div>
 </div>

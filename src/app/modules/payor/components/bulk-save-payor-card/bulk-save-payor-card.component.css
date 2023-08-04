@@ -1,0 +1,57 @@
+.flex1 {
+  flex: 1;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bulkSaveCardCont {
+  width: 100%;
+  padding: 17px 20px;
+  background-color: #f5f5f5;
+}
+
+.clearText {
+  color: #2d8cff;
+  font-weight: 500;
+  /* color: #ccc; */
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.searchButton {
+  position: relative;
+  border-radius: 25px;
+  border: 1px solid #c8c8c8;
+  margin-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 13px;
+  font-weight: normal;
+  height: 30px;
+  cursor: pointer;
+}
+.count {
+  font-weight: bold;
+  color: #000;
+}
+
+.selectedText {
+  font-weight: normal;
+  /* color: #ccc; */
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.03em;
+}
+
+.exportIcon {
+  width: 12px;
+  height: 12px;
+}
