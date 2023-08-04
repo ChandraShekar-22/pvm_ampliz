@@ -63,6 +63,8 @@ import { ImagingCenterModule } from './modules/ImagingCenter/imaging-center.modu
 import { LTCModule } from './modules/LTC/ltc.module'
 import { CommonComponentsModule } from './modules/common-components/common-components.module'
 
+import { PayorModule } from './modules/payor/payor.module'
+
 const appRoutes: Routes = [
 	{
 		path: '',
@@ -119,6 +121,7 @@ const appRoutes: Routes = [
 		BasicModule,
 		HealthcareModule,
 		ImagingCenterModule,
+		PayorModule,
 		LTCModule,
 	],
 	providers: [
