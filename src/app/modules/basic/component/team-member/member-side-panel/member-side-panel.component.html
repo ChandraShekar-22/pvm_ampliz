@@ -18,8 +18,7 @@
 						placeholder="Search member"
 						class="search-input"
 						[(ngModel)]="searchMember.searchName"
-						(ngModelChange)="handleSearch($event)"
-						[ngModelOptions]="{ updateOn: 'blur' }"
+						(keyup)="handleSearch()"
 					/>
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</div>
@@ -43,7 +42,22 @@
 					<!-- <div class="clear-all-container d-flex justify-content-end">
 						<span class="clear-all-text">Clear All</span>
 					</div> -->
-					<div class="form-check" *ngFor="let item of filterItems; let i = index">
+					<div class="form-check" *ngFor="let item of filterItems | slice : 0 : 4; let i = index">
+						<div class="form-check form-check-inline">
+							<input
+								class="form-check-input checkbox-input"
+								type="checkbox"
+								[id]="item.name"
+								[(ngModel)]="item.checked"
+								(change)="handleFilter(item)"
+							/>
+							<!-- [checked]="item.checked" -->
+
+							<label class="form-check-label" [for]="item.name">{{ item.name }}</label>
+						</div>
+					</div>
+					<hr />
+					<div class="form-check" *ngFor="let item of filterItems | slice : 4 : 8; let i = index">
 						<div class="form-check form-check-inline">
 							<input
 								class="form-check-input checkbox-input"
@@ -60,7 +74,7 @@
 				</div>
 			</span>
 			<!-- Add member button -->
-			<button class="col-4 add-member-btn" (click)="addUser()">
+			<button class="col-4 add-member-btn" (click)="addUser()" >
 				<i class="fa fa-plus"></i>
 				<span class="ml-2">Add Member</span>
 			</button>
@@ -73,13 +87,9 @@
 				class="card-container"
 				[class.active-card]="adminActive == true"
 				(click)="openAdmin()"
-				*ngIf="filterCount <= 0"
+				*ngIf="showAdmin"
 			>
-				<app-member-card
-					[userInfo]="adminDetails"
-					[isAdmin]="true"
-					*ngIf="adminDetails"
-				></app-member-card>
+				<app-member-card [userInfo]="adminDetails" [isAdmin]="true" *ngIf="adminDetails"></app-member-card>
 			</div>
 
 			<div
@@ -90,7 +100,8 @@
 			>
 				<app-member-card [userInfo]="user" [isAdmin]="false" *ngIf="user"> </app-member-card>
 			</div>
-			<div class="loader-container text-center">
+			<div class="loader-container text-center" *ngIf="showMore">
+				<span *ngIf="!listLoader" (click)="handleShowMore()">Show More</span>
 				<svg viewBox="25 25 50 50" *ngIf="listLoader">
 					<circle r="10" cy="50" cx="50"></circle>
 				</svg>

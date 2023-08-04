@@ -84,18 +84,21 @@ import { AddTeamMemberComponent } from './component/team-member/team-action-card
 import { MemberListComponent } from './component/team-member/team-action-cards/member-list/member-list.component';
 import { TeamMemberSignupComponent } from './container/team-member-signup/team-member-signup.component';
 import { NoMemberLimitComponent } from './component/team-member/team-action-cards/no-member-limit/no-member-limit.component';
+import { PermissionsComponent } from './component/team-member/team-action-cards/permissions/permissions.component';
+import { RightPanelComponent } from './component/right-panel/right-panel.component';
+import { ConfirmPanelComponent } from './component/team-member/member-action-panel/confirm-panel/confirm-panel.component';
 const appRoutes = [
 	{
 		path: 'login',
-		component: LoginComponent,
+		component: LoginComponent
 	},
 	{
 		path: 'signup',
-		component: SignupComponent,
+		component: SignupComponent
 	},
 	{
 		path: 'verify',
-		component: VerifyUserComponent,
+		component: VerifyUserComponent
 	},
 	// {
 	//   path: "signup/:type/:inviteId",
@@ -103,48 +106,48 @@ const appRoutes = [
 	// },
 	{
 		path: 'dashboard',
-		component: DashboardComponent,
+		component: DashboardComponent
 	},
 	{
 		path: 'contacts',
-		component: ContactsComponent,
+		component: ContactsComponent
 	},
 	{
 		path: 'requesthifi/:name',
-		component: RequesthifiComponent,
+		component: RequesthifiComponent
 	},
 	{
 		path: 'payment',
-		component: PaymentComponent,
+		component: PaymentComponent
 	},
 	{
 		path: 'idealprofile',
-		component: DashboardFilterComponent,
+		component: DashboardFilterComponent
 	},
 	{
 		path: 'pricing',
-		component: PricingComponent,
+		component: PricingComponent
 	},
 	{
 		path: 'editprofile',
-		component: EditprofileComponent,
+		component: EditprofileComponent
 	},
 	{
 		path: 'freecredits',
-		component: FreecreditsComponent,
+		component: FreecreditsComponent
 	},
 	{
 		path: 'payment_history',
-		component: PaymentHistoryComponent,
+		component: PaymentHistoryComponent
 	},
 	{
 		path: 'team-member',
-		component: TeamMemberComponent,
+		component: TeamMemberComponent
 	},
 	{
 		path: 'team-member-signup',
-		component: TeamMemberSignupComponent,
-	},
+		component: TeamMemberSignupComponent
+	}
 ];
 
 @NgModule({
@@ -227,7 +230,10 @@ const appRoutes = [
 		AddTeamMemberComponent,
 		MemberListComponent,
 		TeamMemberSignupComponent,
-  NoMemberLimitComponent,
+		NoMemberLimitComponent,
+		PermissionsComponent,
+		RightPanelComponent,
+		ConfirmPanelComponent
 	],
 	imports: [
 		CommonComponentsModule,
@@ -235,7 +241,7 @@ const appRoutes = [
 		AgGridModule,
 		RouterModule.forChild(appRoutes),
 		ReactiveFormsModule,
-		IconsModule,
+		IconsModule
 	],
 	exports: [
 		HeaderComponent,
@@ -273,7 +279,7 @@ const appRoutes = [
 		// InviteTeammemberComponent,
 		RequestContactComponent,
 		ExportButtonLoaderComponent,
-		DeleteIconAgGridComponent,
-	],
+		DeleteIconAgGridComponent
+	]
 })
 export class BasicModule {}

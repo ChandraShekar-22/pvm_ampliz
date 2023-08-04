@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
-	providedIn: 'root',
+	providedIn: 'root'
 })
 export class DataService {
 	public getMemberList: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -22,13 +23,17 @@ export class DataService {
 
 	public creditUpdated: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+	public noResultFound: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+	public statusChanged: BehaviorSubject<any> = new BehaviorSubject([]);
+
 	orgId: any = localStorage.getItem('organizationId');
 	public searchFilter = new BehaviorSubject({
 		organizationId: this.orgId,
 		role: [],
 		offset: 0,
 		count: 5,
-		userStatus: [],
+		userStatus: []
 	});
 
 	constructor() {}
@@ -37,12 +42,6 @@ export class DataService {
 		this.adminInfo.next(value);
 	}
 	getAdminInfo() {
-		return this.adminInfo.asObservable();
-	}
-	setAdminCredits(value: any): void {
-		this.adminCredit.next(value);
-	}
-	getAdminCredits() {
 		return this.adminInfo.asObservable();
 	}
 

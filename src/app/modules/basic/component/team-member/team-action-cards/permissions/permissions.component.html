@@ -1,0 +1,24 @@
+<div class="main-container">
+	<h6>Permissions</h6>
+
+	<div class="card">
+		<div class="flex-container">
+			<div class="title-col">
+				<span>Download List</span>
+				<p>Has an ability to download list</p>
+			</div>
+
+			<div class="action-col row align-items-center">
+				<input type="checkbox" id="switch" [(ngModel)]="isDownload" (change)="onChange('download')" /><label
+					for="switch"
+					>Toggle</label
+				>
+			</div>
+		</div>
+
+		<div class="cta-container d-flex justify-content-end mt-2" *ngIf="showSavebtn">
+			<button class="cancel-btn" (click)="onCancel()">Cancel</button>
+			<button class="save-btn" type="submit" (click)="onSubmit()">Save</button>
+		</div>
+	</div>
+</div>

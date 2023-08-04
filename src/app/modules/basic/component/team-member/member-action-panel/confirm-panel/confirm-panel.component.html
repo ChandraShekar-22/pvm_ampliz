@@ -1,0 +1,93 @@
+<app-right-panel [title]="!activate ? 'Confirm Deactivation' : 'Activate User'" [show]="show">
+	<div class="container mt-1">
+		<div class="deactivate-container" *ngIf="!activate">
+			<h5>Are you sure you want to deactivate {{ userInfo.fullName }}'s account?</h5>
+
+			<p class="mt-3">
+				The credits assigned to <b>{{ userInfo.fullName }}</b> will be added back to the admin's wallet
+			</p>
+		</div>
+
+		<div class="acivate-counter" *ngIf="activate">
+			<h5>Are you sure you want to activate {{ userInfo.fullName }}'s account?</h5>
+
+			<div class="d-flex mt-4">
+				<div class="credit-container col-6 flex-column pl-0">
+					<div class="input-header">
+						<span>Credits</span>
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							[(ngModel)]="params.credit"
+							[class.input-error]="!isCreditCorrect()"
+						/>
+						<div class="input-group-append">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment(true)"
+								[class.range-error]="!isCreditCorrect()"
+							>
+								<i class="fa fa-plus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="mobile-credit-container col-6 flex-column">
+					<div class="input-header">
+						<span class>Mobile credits</span>
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="decrement()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+						<input
+							type="number"
+							min="1"
+							class="form-control"
+							[(ngModel)]="params.mobileCredit"
+							[class.input-error]="!isMobileCreditCorrect()"
+						/>
+						<div class="input-group-append">
+							<button
+								class="btn range-button"
+								type="button"
+								(click)="increment()"
+								[class.range-error]="!isMobileCreditCorrect()"
+							>
+								<i class="fa fa-plus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="action-button-container d-flex align-items-center justify-content-end mt-4 mr-3 gap-3">
+			<span class="canel-btn" (click)="handleCancel()">Cancel</span>
+			<button class="save-btn" type="button" [class.enable-btn]="isCreditCorrect() && isMobileCreditCorrect()" (click)="handleSubmit()">
+				{{ activate ? 'Activate' : 'Deactivate'}}
+			</button>
+		</div>
+	</div>
+</app-right-panel>

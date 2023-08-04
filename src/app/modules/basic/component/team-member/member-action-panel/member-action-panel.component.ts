@@ -7,48 +7,53 @@ import { MessageService } from 'src/app/modules/B2B/services/message.service';
 @Component({
 	selector: 'app-member-action-panel',
 	templateUrl: './member-action-panel.component.html',
-	styleUrls: ['./member-action-panel.component.css'],
+	styleUrls: ['./member-action-panel.component.css']
 })
 export class MemberActionPanelComponent implements OnInit {
-	// @Input() userInfo: any;
-	// @Input() addUser: boolean = false;
 	addUser: boolean = false;
 	@Output() cancelAddMember: EventEmitter<boolean> = new EventEmitter();
+
 	userInfo: any;
+	adminInfo: any;
+
+	showPanel: boolean = false;
+
 	loader: boolean;
 
 	updateTime: any;
 	activeTab: any = 0;
 	tabItems: any = [
 		{
-			name: 'credits',
+			name: 'summary'
 		},
 		{
-			name: 'lists',
-		},
+			name: 'lists'
+		}
 	];
 	statusList: any = [
 		{
 			key: 'Invited',
 			cta: 'Resend Invitation?',
-			style: 'invited-status',
+			style: 'invited-status'
 		},
 		{
 			key: 'Active',
 			cta: 'Deactivate',
-			style: 'active-status',
+			style: 'active-status'
 		},
 		{
 			key: 'Inactive',
 			cta: 'Activate',
-			style: 'inactive-status',
+			style: 'inactive-status'
 		},
 		{
 			key: 'InvitationExpired',
 			cta: 'Resend Invitation?',
-			style: 'expired-status',
-		},
+			style: 'expired-status'
+		}
 	];
+
+	noResultFound: boolean = false;
 	// Verified | Active | Inactive | InvitationExpired
 	constructor(
 		private dataService: b2bService,
@@ -57,17 +62,21 @@ export class MemberActionPanelComponent implements OnInit {
 		private messageService: MessageService
 	) {
 		this.service.loader.subscribe((loader) => (this.loader = loader));
+		this.service.noResultFound.subscribe((event: boolean) => {
+			if (event) {
+				this.noResultFound = true;
+			} else {
+				this.noResultFound = false;
+			}
+		});
 	}
 
-	get isAdmin() {
-		return this.service.isAdmin(this.userInfo);
-	}
-
-	ngOnInit(): void {
+	async ngOnInit() {
 		this.service.getUserInfo().subscribe((info) => {
 			this.userInfo = info;
 			this.activeTab = 0;
 		});
+		await this.getAdmin();
 		this.service.addUser.subscribe((res) => {
 			this.addUser = res;
 		});
@@ -76,6 +85,16 @@ export class MemberActionPanelComponent implements OnInit {
 				this.addUser = false;
 			}
 		});
+	}
+
+	getAdmin() {
+		this.service.getAdminInfo().subscribe((info) => {
+			this.adminInfo = info;
+		});
+	}
+
+	get isAdmin() {
+		return this.service.isAdmin(this.userInfo);
 	}
 
 	ngAfterViewInit() {
@@ -113,12 +132,10 @@ export class MemberActionPanelComponent implements OnInit {
 
 	handleAction() {
 		const body = {
-			email: this.userInfo.email,
+			email: this.userInfo.email
 		};
-		if (this.getStatusKey == 'Active') {
-			this.deactivateUser(body);
-		} else if (this.getStatusKey == 'Inactive') {
-			this.activateUser(body);
+		if (this.getStatusKey == 'Active' || this.getStatusKey == 'Inactive') {
+			this.showPanel = true;
 		} else {
 			this.resendInvitation(body);
 		}
@@ -129,34 +146,6 @@ export class MemberActionPanelComponent implements OnInit {
 			(res) => {
 				this.service.getMemberList.next(true);
 				this.messageService.display(true, 'Invitation sent');
-			},
-			(err) => {
-				this.messageService.displayError(true, err.message);
-			}
-		);
-	}
-
-	activateUser(body: any) {
-		this.api.activateUser(body).subscribe(
-			(res) => {
-				this.service.getMemberList.next(true);
-				this.userInfo.userStatus == this.statusList[2].key;
-				const message = this.userInfo.fullName + ' Activated';
-				this.messageService.display(true, message);
-			},
-			(err) => {
-				this.messageService.displayError(true, err.message);
-			}
-		);
-	}
-
-	deactivateUser(body: any) {
-		this.api.deactivateUser(body).subscribe(
-			(res) => {
-				this.service.getMemberList.next(true);
-				this.userInfo.userStatus == this.statusList[1].key;
-				const message = this.userInfo.fullName + ' Deactivated';
-				this.messageService.display(true, message);
 			},
 			(err) => {
 				this.messageService.displayError(true, err.message);

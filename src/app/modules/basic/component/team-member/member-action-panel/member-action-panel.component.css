@@ -38,9 +38,11 @@
 	color: #0071eb;
 	font-weight: 400;
 	font-size: 12px;
-	cursor: pointer;
 	letter-spacing: 0.5px;
 	margin-right: 10px;
+}
+.deactivate-btn span {
+	cursor: pointer;
 }
 .tab-container {
 	background-color: #ffff;
@@ -74,6 +76,28 @@ div.tab a:hover {
 .tab-active {
 	color: #0071eb !important;
 	border-bottom: 1.5px solid #0071eb;
+}
+
+/* No Result */
+.no-result-container {
+	height: 80%;
+	display: grid;
+	place-items: center;
+}
+.no-result-container div {
+	display: grid;
+	place-items: center;
+}
+.no-result-container img {
+	width: 250px;
+	height: 250px;
+	margin-bottom: 10px;
+}
+.no-result-container span {
+	color: #040404;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 3;
 }
 
 /* loader css */
@@ -116,13 +140,7 @@ div.tab a:hover {
 	content: '';
 	height: 100%;
 	width: 100%;
-	background-image: linear-gradient(
-		to right,
-		#d9d9d9 0%,
-		rgba(0, 0, 0, 0.07) 20%,
-		#d9d9d9 40%,
-		#d9d9d9 100%
-	);
+	background-image: linear-gradient(to right, #d9d9d9 0%, rgba(0, 0, 0, 0.07) 20%, #d9d9d9 40%, #d9d9d9 100%);
 	background-repeat: no-repeat;
 	background-size: 450px 400px;
 	animation: shimmer 1s linear infinite;

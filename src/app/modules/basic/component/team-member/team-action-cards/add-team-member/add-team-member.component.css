@@ -11,6 +11,10 @@
 .role-container {
 	margin-top: 25px;
 }
+.action-section {
+	padding: 10px 25px 20px 25px;
+}
+
 /* header css */
 .header {
 	padding: 15px 20px !important;
@@ -164,10 +168,9 @@ input[type='number']::-webkit-outer-spin-button {
 	pointer-events: none;
 }
 .enable-btn {
-	
 }
 .canel-btn {
-	color: #85898f;
+	color: #495365;
 	background-color: transparent;
 	border: none;
 	font-size: 12px;
@@ -179,18 +182,28 @@ input[type='number']::-webkit-outer-spin-button {
 /* Confirm Message css */
 .confirm-text {
 	color: #040404;
-	font-size: 12px;
+	font-size: 13px;
+	font-weight: 400;
+}
+.message-container {
+	background: #fff3d6;
+	padding: 10px;
+	border-radius: 5px;
+	border: 0.5px solid #f3d68b;
+	color: #040404;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
-
 /* Loader css */
-svg {
+.loader-svg {
 	width: 2.25em;
 	transform-origin: center;
 	animation: rotate4 2s linear infinite;
 }
 
-circle {
+.loader-svg circle {
 	fill: none;
 	stroke: #0071eb;
 	stroke-width: 2;
@@ -221,3 +234,74 @@ circle {
 		stroke-dashoffset: -125px;
 	}
 }
+
+/* Toggle switch */
+input[type='checkbox'] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 45px;
+	height: 23px;
+	background: #85898f;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+	margin-bottom: 0px;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 15px;
+	height: 15px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: #0071eb;
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+	padding: 30px 36px 30px 49px;
+}
+
+.flex-container span {
+	color: #495365;
+	font-size: 13px;
+	font-weight: 400;
+}
+.flex-container p {
+	color: #969393;
+	font-size: 11px;
+	font-weight: 300;
+}
+
+.title-col {
+	flex: 1;
+}
+
+.action-col {
+	display: flex;
+	align-content: center;
+	margin-right: 1px;
+}
+/* 
+label:active:after {
+	width: 130px;
+} */

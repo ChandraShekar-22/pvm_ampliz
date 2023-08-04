@@ -1,0 +1,11 @@
+<div>
+	<div class="backdrop" *ngIf="show"></div>
+
+	<div class="createListWrapper" [ngClass]="show === true ? 'slide-in' : 'slide-out'">
+		<div class="d-flex justify-content-start align-items-center p-3">
+			<span style="color: #040404; font-weight: 500; font-size: 16px;">{{ title }}</span>
+		</div>
+		<hr class="m-0 p-0" />
+		<ng-content class="mt-2"></ng-content>
+	</div>
+</div>
