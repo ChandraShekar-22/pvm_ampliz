@@ -3,3 +3,4 @@ node_modules
 dist
 .prettierrc
 **/.DS_Store
+DS_Store
