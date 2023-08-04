@@ -1,0 +1,135 @@
+<div class="physican_container card-animate">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8">
+        <div class="physician_card">
+          <div class="form-check">
+            <input
+              *ngIf="!checkboxDisabled && isSubscribed"
+              [(ngModel)]="checkboxSelected"
+              (change)="handleCheckboxChange($event)"
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+              [disabled]="!isSubscribed"
+            />
+            <div
+              *ngIf="checkboxDisabled"
+              class="form-check-input partiallySelected"
+            >
+              <div class="insideContent"></div>
+            </div>
+          </div>
+          <div class="physician_content">
+            <h5 class="physician_name">
+              {{ imagingInfo?.fullName }}
+            </h5>
+            <div class="physician_info">
+              <span
+                (click)="doSearchImaging('titleInclude', imagingInfo?.title)"
+                style="cursor: pointer"
+                >{{ imagingInfo?.title.toString() }}</span
+              >
+              <span
+                class="physican_location"
+                [style.paddingLeft]="imagingInfo?.executiveId ? '0px' : '15px'"
+                ><i class="fa fa-map-marker pr-1" aria-hidden="true"></i
+                >{{ location }}</span
+              >
+            </div>
+            <div
+              *ngIf="imagingInfo.hospitalName !== ''"
+              (click)="doSearchImaging('company', imagingInfo.hospitalName)"
+              class="company_cont"
+            >
+              <i class="fa fa-hospital-o pr-2" aria-hidden="true"></i>
+              <span style="color: #999">{{ imagingInfo.hospitalName }}</span>
+            </div>
+            <!------------>
+            <mat-chip-list>
+              <mat-chip
+                disableRipple="true"
+                selectable="false"
+                class="bottomChip"
+                selected="false"
+                disabled="true"
+                (click)="doSearchImaging('skillInclude', skill)"
+                *ngFor="
+                  let skill of industryAndSkillset | slice : 0 : sliceLength
+                "
+              >
+                {{ skill }}
+              </mat-chip>
+              <span
+                *ngIf="industryAndSkillset.length > sliceLength"
+                class="moreButton"
+                (click)="handleShowMore()"
+              >
+                {{ showMore ? "More +" : "Less -" }}
+              </span>
+            </mat-chip-list>
+            <!------------>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="physican_additionInfo">
+          <ng-container
+            *ngIf="imagingInfo.email != null && imagingInfo.email != ''"
+          >
+            <span>
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              <a
+                [href]="'mailto:' + imagingInfo.email"
+                class="physican_email"
+                >{{ imagingInfo.email }}</a
+              >
+            </span>
+          </ng-container>
+          <ng-container
+            *ngIf="
+              imagingInfo.phoneNumber.length > 0 &&
+              imagingInfo.phoneNumber != null
+            "
+          >
+            <span class="physican_phone">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              {{ imagingInfo.phoneNumber }}</span
+            >
+          </ng-container>
+
+          <div class="flex1" style="flex: 1; display: flex"></div>
+          <div class="saveBtn_wrp">
+            <app-save-payour-modal
+              *ngIf="showSaveButton && !showRequest"
+              [selectedItems]="[imagingInfo.mcoExecutiveId]"
+              [isSaveButton]="isSaveButton"
+              [fromCard]="true"
+            ></app-save-payour-modal>
+            <div
+              class="pb-5 d-flex justify-content-center align-items-center align-self-center align-center"
+              *ngIf="showRequest"
+            >
+              <button
+                (click)="request('Request Payor Info')"
+                class="btn btn-new"
+              >
+                Request Info
+              </button>
+            </div>
+            <app-payor-not-correct
+              *ngIf="!showRequest"
+              [imagingId]="imagingInfo.mcoExecutiveId"
+            ></app-payor-not-correct>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-b2b-savelist
+  [b2bSaveDrawer]="b2bSaveDrawer"
+  (cancelBtnClick)="cancelBtnClick($event)"
+  *ngIf="b2bSaveDrawer"
+></app-b2b-savelist>

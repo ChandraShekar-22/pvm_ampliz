@@ -1,0 +1,63 @@
+<div class="card column filter-component" style="width: 23rem">
+  <div class="image-filter">
+    <div class="flex-row filter-header">
+      <div>
+        <h6 class="card-title titleCardStyle">Showing results for</h6>
+      </div>
+      <div
+        class="searchButton primary"
+        [ngClass]="filterData.validateImagingSearch() ? 'primaryBtn' : ''"
+        (click)="clearFilter()"
+      >
+        <span> Clear </span>
+      </div>
+    </div>
+    <mat-accordion>
+      <app-individual-filter
+        #companyAuto
+        (valueChanges)="companyValueChanges($event)"
+        [totalItems]="companyList"
+        [(includedItems)]="filterData.centerName"
+        (includedItemsChange)="omitChanges()"
+        includePlaceholder="Company"
+        title="Company name"
+      ></app-individual-filter>
+
+      <app-individual-filter
+        #noOfImgEqListMulti
+        type="singleselectnumber"
+        [totalItems]="numberOfImagingEquipmentList"
+        [(includedItems)]="filterData.industry"
+        (includedItemsChange)="omitChanges()"
+        includePlaceholder="MCO type"
+        title="MCO"
+        [disabled]="!isSubscribed"
+      >
+      </app-individual-filter>
+
+      <div class="location">
+        <app-individual-location-filter
+          [countryList]="countryList"
+          (locationValueChanged)="hanldeLocationValueChange($event)"
+          [disabled]="!isSubscribed"
+          [selectedStatesFromFilter]="filterData.stateList"
+          [selectedCitiesFromFilter]="filterData.cityList"
+        >
+        </app-individual-location-filter>
+      </div>
+    </mat-accordion>
+  </div>
+  <div class="upgrade-card" (click)="requestPricing()" *ngIf="isPaid">
+    <div>
+      <div class="blt-background">
+        <mat-icon class="mt-ico">bolt</mat-icon>
+      </div>
+    </div>
+    <div style="padding-left: 10px">
+      <div class="upgrd-to-unlock">Request to unlock more filters</div>
+      <div class="improve-search">
+        Improve your search result with additional filters
+      </div>
+    </div>
+  </div>
+</div>

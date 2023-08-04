@@ -7,8 +7,8 @@ export const environment = {
 
 	// Stage
 	prodAdbApi: 'https://stage.ampliz.com',
-	prodHcApi: 'https://hcapi.ampliz.com',
-	prodNPIApi: 'https://hcapi.ampliz.com',
+	prodHcApi: 'https://stageapi.ampliz.com',
+	prodNPIApi: 'https://stageapi.ampliz.com',
 
 	prodB2BApi: 'http://159.138.102.73:9000',
 	prodGlobalB2BApi: 'https://test.ampliz.com',
@@ -20,7 +20,7 @@ export const environment = {
 
 	// prodB2BApi: 'http://159.138.102.73:9000',
 	// prodGlobalB2BApi: 'https://test.ampliz.com',
-};
+}
 
 /*
  * For easier debugging in development mode, you can import the following file
