@@ -121,7 +121,7 @@ export class AddTeamMemberComponent implements OnInit {
 			return true;
 		}
 	}
-	// Is correct
+	// Is correct conditions
 	isCreditCorrect() {
 		const isInteger = Number.isInteger(this.params.dailyCredit);
 		if (this.remainingCredit > this.params.dailyCredit && isInteger == true) {
