@@ -113,7 +113,6 @@ export class AddTeamMemberComponent implements OnInit {
 		for (var i = 0; i < emailArray.length; i++) {
 			if (!this.regex.test(emailArray[i])) {
 				this.invalidEmails.push(emailArray[i]);
-				console.log('VALIDE', this.invalidEmails, emailArray[i]);
 			}
 		}
 		if (this.invalidEmails.length > 0) {
