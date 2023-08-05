@@ -229,12 +229,12 @@
 		*ngIf="saveDrawer"
 	></app-savelist>
 
-	<!-- <app-notcorrect
+	<app-notcorrect
 		[notCorrectList]="notCorrectReasons"
 		[notCorrectDiv]="notCorrectDrawer"
-		[mcoExecutive]="imagingOverviewResult?.mcoExecutiveId"
+		[physicianId]="imagingOverviewResult?.mcoExecutiveId"
 		[physicianName]="imagingOverviewResult?.fullName"
 		(cancelBtnClick)="cancelBtnClick($event)"
 		*ngIf="notCorrectDrawer"
-	></app-notcorrect> -->
+	></app-notcorrect>
 </div>
