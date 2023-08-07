@@ -186,7 +186,7 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 		this.getPhysicianPractiseHospital();
 		this.getPhysicianAffiliatedHospital();
 
-		this.getGeoLocation('1025 S 6th St ,Springfield, IL,62703');
+		// this.getGeoLocation('1025 S 6th St ,Springfield, IL,62703');
 	}
 	ngAfterViewInit() {
 		this.getDashboardDetails();
@@ -311,18 +311,18 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	getGeoLocation(address: any) {
-		var settings = {
-			url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA9MPVyBx9QI03grz7fgaUuLmwcJ8lwd9k`,
-			method: 'GET',
-			timeout: 0
-		};
-		$.ajax(settings)
-			.done((response) => {
-				this.geoLocation = response.results[0].geometry.location;
-			})
-			.fail((error) => {
-				console.log(error);
-			});
-	}
+	// getGeoLocation(address: any) {
+	// 	var settings = {
+	// 		url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA9MPVyBx9QI03grz7fgaUuLmwcJ8lwd9k`,
+	// 		method: 'GET',
+	// 		timeout: 0
+	// 	};
+	// 	$.ajax(settings)
+	// 		.done((response) => {
+	// 			this.geoLocation = response.results[0].geometry.location;
+	// 		})
+	// 		.fail((error) => {
+	// 			console.log(error);
+	// 		});
+	// }
 }
