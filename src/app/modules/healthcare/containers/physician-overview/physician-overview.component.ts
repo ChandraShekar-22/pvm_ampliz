@@ -57,7 +57,7 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	}
 	getMapUrl(hospitalLocation: string) {
 		return this.domSanitizer.bypassSecurityTrustResourceUrl(
-			`https://maps.google.com/maps?&q=${hospitalLocation.replace(/,/g, '')}&output‌=embed`
+			`https://www.google.com/maps/embed/v1/place?key=AIzaSyA9MPVyBx9QI03grz7fgaUuLmwcJ8lwd9k&q=${hospitalLocation}‌`
 		);
 	}
 
@@ -132,17 +132,17 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	get hasEmail() {
 		return (
 			this.physicianOverviewResult?.physicianInfoData?.emailAddress &&
-			this.physicianOverviewResult?.physicianInfoData?.emailAddress?.length !== 0
+			this.physicianOverviewResult?.physicianInfoData?.emailAddress?.length === 0
 		);
 	}
 	get hasPhoneNumber() {
 		return (
 			this.physicianOverviewResult?.physicianInfoData?.phoneNumber &&
-			this.physicianOverviewResult?.physicianInfoData?.phoneNumber?.length !== 0
+			this.physicianOverviewResult?.physicianInfoData?.phoneNumber?.length === 0
 		);
 	}
 	get saveButtonText() {
-		return this.hasEmail || this.hasPhoneNumber
+		return this.hasEmail && this.hasPhoneNumber
 			? 'Request'
 			: this.physicianOverviewResult.physicianInfoData.leadSaveStatus == 'NotSaved'
 			? 'View'

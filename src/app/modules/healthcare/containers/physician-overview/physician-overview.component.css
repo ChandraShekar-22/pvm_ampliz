@@ -92,6 +92,12 @@
 .map_container > div {
 	display: flex;
 	gap: 45px;
+	justify-content: space-between;
+}
+.map_flex {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 .map_container > div {
 	gap: 19px;

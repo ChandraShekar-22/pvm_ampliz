@@ -204,7 +204,7 @@
 							<p [ngClass]="{ selected: selectedTab === 3 }" (click)="tabselected(3)">EXPERIENCE</p>
 							<p [ngClass]="{ selected: selectedTab === 4 }" (click)="tabselected(4)">PHYSICIAN PRACTICE LOCATION</p>
 							<p [ngClass]="{ selected: selectedTab === 5 }" (click)="tabselected(5)">AFFILIATION</p>
-							<p [ngClass]="{ selected: selectedTab === 6 }" (click)="tabselected(6)">RX-DATA</p>
+							<!-- <p [ngClass]="{ selected: selectedTab === 6 }" (click)="tabselected(6)">RX-DATA</p> -->
 							<p [ngClass]="{ selected: selectedTab === 7 }" (click)="tabselected(7)">SIMILAR PHYSICIAN</p>
 						</section>
 					</div>
@@ -326,51 +326,76 @@
 							</div>
 						</section>
 						<section *ngIf="selectedTab === 4">
-							<div class="map_container" *ngFor="let hospital of physicianPractiseHospitals">
-								<div>
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-										<path
-											d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"
-											stroke="black"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
-										<path
-											d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"
-											stroke="black"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
-									</svg>
-									<section>
-										{{ hospital.hospitalName }}
-										<p class="location">
-											<span>{{ hospital.hospitalLocation }}, </span>
-										</p>
-									</section>
+							<div class="map_flex">
+								<div class="map_container" *ngFor="let hospital of physicianPractiseHospitals">
+									<div>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path
+												d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"
+												stroke="black"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"
+												stroke="black"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
+										<section>
+											{{ hospital.hospitalName }}
+											<p class="location">
+												<span>{{ hospital.hospitalLocation }}, </span>
+											</p>
+										</section>
+									</div>
+									<iframe
+										[frameBorder]="0"
+										width="70%"
+										height="303"
+										[src]="getMapUrl(hospital.hospitalLocation)"
+									></iframe>
 								</div>
-								<iframe
-									[frameBorder]="0"
-									width="70%"
-									height="303"
-									[src]="getMapUrl(hospital.hospitalLocation)"
-								></iframe>
-								<iframe
-									src="https://www.google.com/maps?q=Randall Miller %26 Associates 300 E Broadway, Logansport, IN 46947&output=embed"
-								></iframe>
 							</div>
+							
 						</section>
 						<section *ngIf="selectedTab === 5">
-							<div class="similar_physician_container">
-								<div *ngFor="let hospital of affiliatedHospitals">
-									<app-similar-physician
-										[hospitalLocation]="hospital.hospitalLocation"
-										[hospitalName]="hospital.hospitalName"
-									></app-similar-physician>
+							<div class="map_flex">
+								<div class="map_container" *ngFor="let hospital of affiliatedHospitals">
+									<div>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path
+												d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"
+												stroke="black"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"
+												stroke="black"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
+										<section>
+											{{ hospital.hospitalName }}
+											<p class="location">
+												<span>{{ hospital.hospitalLocation }}, </span>
+											</p>
+										</section>
+									</div>
+									<iframe
+										[frameBorder]="0"
+										width="70%"
+										height="303"
+										[src]="getMapUrl(hospital.hospitalLocation)"
+									></iframe>
 								</div>
-								<div class="dummy_card" *ngFor="let i of [0, 1, 2, 3]"></div>
 							</div>
 						</section>
 						<section *ngIf="selectedTab === 6">
