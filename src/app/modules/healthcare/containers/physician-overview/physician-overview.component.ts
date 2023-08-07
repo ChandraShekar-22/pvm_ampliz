@@ -98,8 +98,17 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	}
 	getPhysicianAffiliatedHospital() {
 		this.amplizService.getPhysicianAffiliatedHospital(this.paramsData).subscribe((res) => {
-			this.affiliatedHospitals = res.affiliatedHospitals;
+			this.affiliatedHospitals = res.affiliatedHospitals.filter((el) => el.hospitalLocation && el.hospitalName);
 		});
+	}
+	get hideAffiliatedHospital() {
+		return this.affiliatedHospitals.length !== 0;
+	}
+	get hideSimilarPhysician() {
+		return this.similarPhysician.length !== 0;
+	}
+	get hidePhysicianPractiseHospitals() {
+		return this.physicianPractiseHospitals.length !== 0;
 	}
 	getSmiliarPhysician(speciality: string) {
 		this.amplizService

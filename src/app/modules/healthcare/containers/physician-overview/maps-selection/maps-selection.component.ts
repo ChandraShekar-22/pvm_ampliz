@@ -13,10 +13,7 @@ export class MapsSelectionComponent implements OnInit {
 	constructor(private domSanitizer: DomSanitizer) {}
 
 	ngOnInit(): void {
-		this.hospitalLocation = this.mapsFilterData?.[0] || { hospitalLocation: '', hospitalName: '' };
-	}
-	get mapsFilterData() {
-		return this.mapsData.filter((el) => el.hospitalLocation && el.hospitalName);
+		this.hospitalLocation = this.mapsData?.[0] || { hospitalLocation: '', hospitalName: '' };
 	}
 	ngOnChages(changes: any) {}
 
@@ -26,7 +23,7 @@ export class MapsSelectionComponent implements OnInit {
 		);
 	}
 	get hideMap() {
-		return this.mapsFilterData.length !== 0;
+		return this.mapsData.length !== 0;
 	}
 	onSelectList(hospitalLocation: any) {
 		this.hospitalLocation = hospitalLocation;

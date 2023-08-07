@@ -202,10 +202,20 @@
 							<p [ngClass]="{ selected: selectedTab === 1 }" (click)="tabselected(1)">SUMMARY</p>
 							<p [ngClass]="{ selected: selectedTab === 2 }" (click)="tabselected(2)">HOSPITAL INFORMATION</p>
 							<p [ngClass]="{ selected: selectedTab === 3 }" (click)="tabselected(3)">EXPERIENCE</p>
-							<p [ngClass]="{ selected: selectedTab === 4 }" (click)="tabselected(4)">PHYSICIAN PRACTICE LOCATION</p>
-							<p [ngClass]="{ selected: selectedTab === 5 }" (click)="tabselected(5)">AFFILIATION</p>
+							<p
+								*ngIf="hidePhysicianPractiseHospitals"
+								[ngClass]="{ selected: selectedTab === 4 }"
+								(click)="tabselected(4)"
+							>
+								PHYSICIAN PRACTICE LOCATION
+							</p>
+							<p *ngIf="hideAffiliatedHospital" [ngClass]="{ selected: selectedTab === 5 }" (click)="tabselected(5)">
+								AFFILIATION
+							</p>
 							<!-- <p [ngClass]="{ selected: selectedTab === 6 }" (click)="tabselected(6)">RX-DATA</p> -->
-							<p [ngClass]="{ selected: selectedTab === 7 }" (click)="tabselected(7)">SIMILAR PHYSICIAN</p>
+							<p *ngIf="hideSimilarPhysician" [ngClass]="{ selected: selectedTab === 7 }" (click)="tabselected(7)">
+								SIMILAR PHYSICIAN
+							</p>
 						</section>
 					</div>
 				</div>
