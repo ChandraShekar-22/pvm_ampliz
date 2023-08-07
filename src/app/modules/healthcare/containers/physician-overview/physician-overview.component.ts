@@ -102,9 +102,16 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 		});
 	}
 	getSmiliarPhysician(speciality: string) {
-		this.amplizService.getSmiliarPhysician({ physicianId: this.paramsData, speciality }).subscribe((res) => {
-			this.similarPhysician = res.similarPhysicianList;
-		});
+		this.amplizService
+			.getSmiliarPhysician({
+				physicianId: this.paramsData,
+				speciality,
+				state: this.physicianOverviewResult.physicianHospitalInfoData.state,
+				city: this.physicianOverviewResult.physicianHospitalInfoData.city
+			})
+			.subscribe((res) => {
+				this.similarPhysician = res.similarPhysicianList;
+			});
 	}
 
 	get gender() {

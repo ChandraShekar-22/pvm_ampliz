@@ -1,0 +1,64 @@
+.hospital_name,
+.hospital_location {
+	color: #000;
+	font-family: Roboto;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 24px;
+}
+
+.hospital_location {
+	color: #85898f;
+	font-size: 15px;
+}
+
+.map_card {
+	display: flex;
+	gap: 10px;
+	border-bottom: 1px solid #e4e4e4;
+	padding: 10px;
+}
+
+.map_card.selected {
+	background: #e4e4e4;
+}
+.map_list {
+	width: 30%;
+	height: 300px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+.map_list svg {
+	width: 20px;
+}
+
+.map_list::-webkit-scrollbar {
+	width: 05px;
+}
+
+/* Track */
+.map_list::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Handle */
+.map_list::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+.map_list::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.iframe_container {
+	width: 100%;
+	display: flex;
+	gap: 10px;
+}
+
+.map_iframe_container {
+	flex: 1;
+}

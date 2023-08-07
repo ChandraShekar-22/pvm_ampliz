@@ -60,6 +60,7 @@ import { PhysicianImageCardComponent } from './containers/physican/physician-ima
 import { PhysicianNotCorrectComponent } from './containers/physician-overview/physician-not-correct/physician-not-correct.component';
 import { RxDataComponent } from './containers/physician-overview/rx-data/rx-data.component';
 import { SimilarPhysicianComponent } from './containers/physician-overview/similar-physician/similar-physician.component';
+import { MapsSelectionComponent } from './containers/physician-overview/maps-selection/maps-selection.component';
 // component/confidence-level/confidence-level.component
 const appRoutes = [
   {
@@ -190,6 +191,7 @@ const appRoutes = [
     PhysicianNotCorrectComponent,
     RxDataComponent,
     SimilarPhysicianComponent,
+    MapsSelectionComponent,
   ],
   imports: [
     CommonComponentsModule,
