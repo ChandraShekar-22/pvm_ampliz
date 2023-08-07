@@ -23,7 +23,6 @@ export class TeamMemberSignupComponent implements OnInit {
 
 	emailError: boolean = false;
 	passwordError: boolean = false;
-	passwordLengthError: boolean = false;
 
 	emailVerified: boolean = false;
 
@@ -64,7 +63,6 @@ export class TeamMemberSignupComponent implements OnInit {
 	handleSubmit() {
 		this.emailError = false;
 		this.passwordError = false;
-		this.passwordLengthError = false;
 		if (!this.emptyForm) {
 			this.loader = true;
 			var passwordVerified: boolean = this.validatePasswords();
