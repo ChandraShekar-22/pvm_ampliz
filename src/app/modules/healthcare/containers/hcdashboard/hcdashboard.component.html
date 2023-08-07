@@ -1,213 +1,157 @@
 <div id="wrapper">
-  <!-- Top Bar Start -->
-  <app-header [user]="user" style="width: 100%"></app-header>{{ user }}
-  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
-  <!-- Top Bar End -->
-  <!-- ========== Left Sidebar Start ========== -->
+	<!-- Top Bar Start -->
+	<app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+	<!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+	<!-- Top Bar End -->
+	<!-- ========== Left Sidebar Start ========== -->
 
-  <app-sidemenu elementName="hcdashboard"></app-sidemenu>
+	<app-sidemenu elementName="hcdashboard"></app-sidemenu>
 
-  <!-- Left Sidebar End -->
-  <!-- ============================================================== -->
-  <!-- Start right Content here -->
-  <!-- ============================================================== -->
-  <div class="content-page enlarged" style="background: #f5f5f5">
-    <div class="content mx-auto">
-      <div class="row mb-3">
-        <div class="col-md-12">
-          <div class="card cardox">
-            <div class="card-body p-0">
-              <div class="row">
-                <div class="col-md-3">
-                  <img
-                    src="assets/images/hcd.png"
-                    class="img-fluid rounded"
-                    alt="Responsive image"
-                    width="90%"
-                  />
-                </div>
-                <div class="col-md-9 py-4">
-                  <h4 class="text-white">{{ userName + "!" }}</h4>
-                  <p class="text-white h6 font-weight-normal mb-4">
-                    You have
-                    <span style="color: #f29f1a">{{ credits }} Credits</span> and  <span style="color: #f29f1a">{{ mc }} Mobile Credits</span>
-                    left in your account, please upgrade now to get more credits
-                    or book a demo with us.
-                  </p>
+	<!-- Left Sidebar End -->
+	<!-- ============================================================== -->
+	<!-- Start right Content here -->
+	<!-- ============================================================== -->
+	<div class="content-page enlarged" style="background: #f5f5f5">
+		<div class="content mx-auto">
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<div class="card cardox">
+						<div class="card-body p-0">
+							<div class="row">
+								<div class="col-md-3">
+									<img src="assets/images/hcd.png" class="img-fluid rounded" alt="Responsive image" width="90%" />
+								</div>
+								<div class="col-md-9 py-4">
+									<h4 class="text-white">{{ userName + '!' }}</h4>
+									<p class="text-white h6 font-weight-normal mb-4">
+										You have
+										<span style="color: #f29f1a">{{ credits }} Credits</span> <span *ngIf="mc > 0">and</span>
+										<span style="color: #f29f1a" *ngIf="mc > 0">{{ mc }} Mobile Credits</span>
+										left in your account, please upgrade now to get more credits or book a demo with us.
+									</p>
 
-                  <a
-                    class="btn btn-yellow btn-lg mr-4"
-                    *ngIf="subscribed === false"
-                    type="button"
-                    (click)="requestPricing()"
-                    >Request Pricing</a
-                  >
-                  <a
-                    class="btn btn-new btn-lg btn-red"
-                    href="https://www.ampliz.com/book-your-demo"
-                    target="_BLANK"
-                    >Book a demo</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12 col-xs-12 col-md-8">
-          <div class="card py-3 px-4 border-radius-7">
-            <div class="card-body p-0">
-              <div class="titleHeading">Top Speciality</div>
-              <!-- <div class="subHeading">
+									<a
+										class="btn btn-yellow btn-lg mr-4"
+										*ngIf="subscribed === false"
+										type="button"
+										(click)="requestPricing()"
+										>Request Pricing</a
+									>
+									<a class="btn btn-new btn-lg btn-red" href="https://www.ampliz.com/book-your-demo" target="_BLANK"
+										>Book a demo</a
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-xs-12 col-md-8">
+					<div class="card py-3 px-4 border-radius-7">
+						<div class="card-body p-0">
+							<div class="titleHeading">Top Speciality</div>
+							<!-- <div class="subHeading">
                 Lorem ipsum dolor sit amet, consecteture
               </div> -->
 
-              <div
-                class="
-                  d-flex
-                  flex-wrap
-                  align-items-center
-                  justify-content-between
-                  mt-3
-                "
-              >
-                <div
-                  class="box p-3 border-shadow border-radius-7 text-center"
-                  (click)="gotoDetails('Urologist')"
-                >
-                  <div class="icon-wrapper">
-                    <img src="assets/img/urologist.png" />
-                  </div>
-                  <div class="heading">UROLOGIST</div>
-                  <div class="count">12,953</div>
-                </div>
-                <div
-                  class="box p-3 border-shadow border-radius-7 text-center"
-                  (click)="gotoDetails('Dentist')"
-                >
-                  <div class="icon-wrapper">
-                    <img src="assets/img/dentist.png" />
-                  </div>
-                  <div class="heading">DENTIST</div>
-                  <div class="count">234,516</div>
-                </div>
-                <div
-                  class="box p-3 border-shadow border-radius-7 text-center"
-                  (click)="gotoDetails('Cardiology')"
-                >
-                  <div class="icon-wrapper">
-                    <img src="assets/img/Cardiologist.png" />
-                  </div>
-                  <div class="heading">CARDIOLOGY</div>
-                  <div class="count">43,465</div>
-                </div>
-                <div
-                  class="box p-3 border-shadow border-radius-7 text-center"
-                  (click)="gotoDetails('Nurse')"
-                >
-                  <div class="icon-wrapper">
-                    <img src="assets/img/nurse.png" />
-                  </div>
-                  <div class="heading">NURSE</div>
-                  <div class="count">694,566</div>
-                </div>
-                <div
-                  class="box p-3 border-shadow border-radius-7 text-center"
-                  (click)="gotoDetails('Physician')"
-                >
-                  <div class="icon-wrapper">
-                    <img src="assets/img/Physician_2.png" />
-                  </div>
-                  <div class="heading">PHYSICIAN</div>
-                  <div class="count">1,140,846</div>
-                </div>
-                <div
-                  class="box p-3 border-shadow border-radius-7 text-center"
-                  (click)="gotoDetails('Pathology')"
-                >
-                  <div class="icon-wrapper">
-                    <img src="assets/img/Pathologist.png" />
-                  </div>
-                  <div class="heading">PATHOLOGY</div>
-                  <div class="count">26,966</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-xs-12 col-md-4 align-self-stretch">
-          <div class="card py-3 px-4 border-radius-7 h-100">
-            <div class="card-body" *ngIf="allList.length === 0">
-              <div class="layout h-100">
-                <div
-                  class="
-                    d-flex
-                    justify-content-center
-                    align-items-center align-self-center
-                    h-100
-                    flex-column
-                  "
-                >
-                  <div class="text-center mb-3">
-                    <img src="assets/images/noList.png" width="60%" />
-                  </div>
-                  <h5 class="text-center pa-4 mb-3 font-weight-normal">
-                    No List Found
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn btn-new"
-                    (click)="createNewList()"
-                  >
-                    <span class="iconfont-size">Create New List</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="card-body p-0" *ngIf="allList.length > 0">
-              <div class="titleHeading">Top Lists</div>
-              <!-- <div class="subHeading">
+							<div class="d-flex flex-wrap align-items-center justify-content-between mt-3">
+								<div class="box p-3 border-shadow border-radius-7 text-center" (click)="gotoDetails('Urologist')">
+									<div class="icon-wrapper">
+										<img src="assets/img/urologist.png" />
+									</div>
+									<div class="heading">UROLOGIST</div>
+									<div class="count">12,953</div>
+								</div>
+								<div class="box p-3 border-shadow border-radius-7 text-center" (click)="gotoDetails('Dentist')">
+									<div class="icon-wrapper">
+										<img src="assets/img/dentist.png" />
+									</div>
+									<div class="heading">DENTIST</div>
+									<div class="count">234,516</div>
+								</div>
+								<div class="box p-3 border-shadow border-radius-7 text-center" (click)="gotoDetails('Cardiology')">
+									<div class="icon-wrapper">
+										<img src="assets/img/Cardiologist.png" />
+									</div>
+									<div class="heading">CARDIOLOGY</div>
+									<div class="count">43,465</div>
+								</div>
+								<div class="box p-3 border-shadow border-radius-7 text-center" (click)="gotoDetails('Nurse')">
+									<div class="icon-wrapper">
+										<img src="assets/img/nurse.png" />
+									</div>
+									<div class="heading">NURSE</div>
+									<div class="count">694,566</div>
+								</div>
+								<div class="box p-3 border-shadow border-radius-7 text-center" (click)="gotoDetails('Physician')">
+									<div class="icon-wrapper">
+										<img src="assets/img/Physician_2.png" />
+									</div>
+									<div class="heading">PHYSICIAN</div>
+									<div class="count">1,140,846</div>
+								</div>
+								<div class="box p-3 border-shadow border-radius-7 text-center" (click)="gotoDetails('Pathology')">
+									<div class="icon-wrapper">
+										<img src="assets/img/Pathologist.png" />
+									</div>
+									<div class="heading">PATHOLOGY</div>
+									<div class="count">26,966</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-xs-12 col-md-4 align-self-stretch">
+					<div class="card py-3 px-4 border-radius-7 h-100">
+						<div class="card-body" *ngIf="allList.length === 0">
+							<div class="layout h-100">
+								<div class="d-flex justify-content-center align-items-center align-self-center h-100 flex-column">
+									<div class="text-center mb-3">
+										<img src="assets/images/noList.png" width="60%" />
+									</div>
+									<h5 class="text-center pa-4 mb-3 font-weight-normal">No List Found</h5>
+									<button type="button" class="btn btn-new" (click)="createNewList()">
+										<span class="iconfont-size">Create New List</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="card-body p-0" *ngIf="allList.length > 0">
+							<div class="titleHeading">Top Lists</div>
+							<!-- <div class="subHeading">
                 Lorem ipsum dolor sit amet, consecteture
               </div> -->
-              <!-- createdBy: "Alok"
+							<!-- createdBy: "Alok"
                             createdOn: "2021-07-06"
                             listId: "60e40c37d2b67e60caa57bf8"
                             listName: "Sample1"
                             noOfLeads: 11
                             updatedOn: "2021-07-22" -->
-              <ul class="list-unstyled">
-                <li
-                  *ngFor="let item of allList"
-                  (click)="gotoListDetails(item)"
-                >
-                  <div class="listName float-left">
-                    <i class="fa fa-list border-fa"></i>
-                    <a
-                      href="javascript:void(0)"
-                      class="pl-2"
-                      style="color: dodgerblue"
-                      >{{ item.listName }}
-                    </a>
-                  </div>
-                  <div class="listContacts float-right">
-                    <div class="listCount">
-                      {{ item.noOfLeads }}
-                      {{ item.noOfLeads > 1 ? "contacts" : "contact" }}
-                    </div>
-                    <div class="listDate">
-                      {{ item.createdOn | date: "dd MMM yyyy" }}
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ============================================================== -->
-  <!-- Start right Content End -->
-  <!-- ============================================================== -->
+							<ul class="list-unstyled">
+								<li *ngFor="let item of allList" (click)="gotoListDetails(item)">
+									<div class="listName float-left">
+										<i class="fa fa-list border-fa"></i>
+										<a href="javascript:void(0)" class="pl-2" style="color: dodgerblue">{{ item.listName }} </a>
+									</div>
+									<div class="listContacts float-right">
+										<div class="listCount">
+											{{ item.noOfLeads }}
+											{{ item.noOfLeads > 1 ? 'contacts' : 'contact' }}
+										</div>
+										<div class="listDate">
+											{{ item.createdOn | date : 'dd MMM yyyy' }}
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Start right Content End -->
+	<!-- ============================================================== -->
 </div>
