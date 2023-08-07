@@ -123,19 +123,25 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 	// Is correct conditions
 	isCreditCorrect() {
-		const isInteger = Number.isInteger(this.params.dailyCredit);
-		if (this.remainingCredit > this.params.dailyCredit && isInteger == true) {
-			return true;
+		if (this.params.dailyCredit >= 0 && this.params.dailyCredit !== null) {
+			if (this.remainingCredit > this.params.dailyCredit) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			return;
 		}
 	}
 	isMobileCreditCorrect() {
-		const isInteger = Number.isInteger(this.params.mobileCredit);
-		if (this.remainingMobileCredit > this.params.mobileCredit && isInteger == true) {
-			return true;
+		if (this.params.mobileCredit >= 0 && this.params.mobileCredit !== null) {
+			if (this.remainingMobileCredit > this.params.mobileCredit) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			return;
 		}
 	}
 

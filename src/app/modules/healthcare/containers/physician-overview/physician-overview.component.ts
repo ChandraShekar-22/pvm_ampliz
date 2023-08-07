@@ -6,6 +6,7 @@ import { param } from 'jquery';
 import { MessageService } from '../../../B2B/services/message.service';
 import { DataService } from '../../services/data.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 @Component({
 	selector: 'app-physician-overview',
 	templateUrl: './physician-overview.component.html',
@@ -29,6 +30,12 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	affiliatedHospitals: any[] = [];
 	similarPhysician: any[] = [];
 	selectedTab = 1;
+
+	geoLocation: any = {
+		lat: 0,
+		lng: 0
+	};
+
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		public amplizService: AmplizService,
@@ -162,6 +169,8 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 		this.getPrescriberDrug();
 		this.getPhysicianPractiseHospital();
 		this.getPhysicianAffiliatedHospital();
+
+		this.getGeoLocation('1025 S 6th St ,Springfield, IL,62703');
 	}
 	ngAfterViewInit() {
 		this.getDashboardDetails();
@@ -284,5 +293,20 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 		} else {
 			this.saveDrawer = true;
 		}
+	}
+
+	getGeoLocation(address: any) {
+		var settings = {
+			url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA9MPVyBx9QI03grz7fgaUuLmwcJ8lwd9k`,
+			method: 'GET',
+			timeout: 0
+		};
+		$.ajax(settings)
+			.done((response) => {
+				this.geoLocation = response.results[0].geometry.location;
+			})
+			.fail((error) => {
+				console.log(error);
+			});
 	}
 }

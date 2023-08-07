@@ -94,7 +94,10 @@
 							class="form-control"
 							value="1"
 							[(ngModel)]="params.dailyCredit"
-							(keypress)="isCreditCorrect()"
+							(keypress)="
+								isCreditCorrect();
+								(($event.charCode != 8 && $event.charCode == 0) || ($event.charCode >= 48 && $event.charCode <= 57))
+							"
 							[class.input-error]="!isCreditCorrect()"
 							step="1"
 						/>
@@ -133,7 +136,10 @@
 							value="1"
 							step="1"
 							[(ngModel)]="params.mobileCredit"
-							(keypress)="isMobileCreditCorrect()"
+							(keypress)="
+								isMobileCreditCorrect();
+								(($event.charCode != 8 && $event.charCode == 0) || ($event.charCode >= 48 && $event.charCode <= 57))
+							"
 							[class.input-error]="!isMobileCreditCorrect()"
 						/>
 						<div class="input-group-append">

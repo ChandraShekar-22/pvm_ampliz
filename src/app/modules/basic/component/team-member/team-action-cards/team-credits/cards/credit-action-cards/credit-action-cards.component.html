@@ -36,6 +36,9 @@
 							min="1"
 							class="form-control"
 							[(ngModel)]="params.credit"
+							(keypress)="
+								(($event.charCode != 8 && $event.charCode == 0) || ($event.charCode >= 48 && $event.charCode <= 57))
+							"
 							[class.input-error]="!isCreditCorrect()"
 						/>
 						<div class="input-group-append">
@@ -71,6 +74,7 @@
 							min="1"
 							class="form-control"
 							[(ngModel)]="params.mobileCredit"
+							(keypress)="(($event.charCode != 8 && $event.charCode == 0) || ($event.charCode >= 48 && $event.charCode <= 57))"
 							[class.input-error]="!isMobileCreditCorrect()"
 						/>
 						<div class="input-group-append">
@@ -89,12 +93,7 @@
 
 			<div class="action-button-container d-flex align-items-center justify-content-end mt-3 gap-3">
 				<span class="canel-btn" (click)="handleCancel()">Cancel</span>
-				<button
-					class="save-btn"
-					type="button"
-					(click)="updateCredits()"
-					[class.enable-btn]="validateInput"
-				>
+				<button class="save-btn" type="button" (click)="updateCredits()" [class.enable-btn]="validateInput">
 					{{ edit ? 'Update' : 'Add' }}
 				</button>
 			</div>
