@@ -106,8 +106,8 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 			.getSmiliarPhysician({
 				physicianId: this.paramsData,
 				speciality,
-				state: this.physicianOverviewResult.physicianHospitalInfoData.state,
-				city: this.physicianOverviewResult.physicianHospitalInfoData.city
+				state: this.physicianOverviewResult.physicianInfoData.state,
+				city: this.physicianOverviewResult.physicianInfoData.city
 			})
 			.subscribe((res) => {
 				this.similarPhysician = res.similarPhysicianList;
@@ -115,7 +115,7 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	}
 
 	get gender() {
-		return this.physicianOverviewResult.physicianInfoData.gender === 'M' ? 'Male' : 'Female';
+		return this.physicianOverviewResult.physicianInfoData.gender;
 	}
 	get isBlankHospitalInfo() {
 		if (

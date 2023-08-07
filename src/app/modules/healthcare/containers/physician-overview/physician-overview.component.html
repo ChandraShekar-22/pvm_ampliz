@@ -254,39 +254,37 @@
 								</button>
 							</div>
 							<ng-template #hospitalContent>
-								<p class="bio_content" *ngIf="physicianOverviewResult.physicianHospitalInfoData.hospitalBio">
-									{{ physicianOverviewResult.physicianHospitalInfoData.hospitalBio }}
+								<p class="bio_content" *ngIf="physicianOverviewResult.physicianInfoData.hospitalBio">
+									{{ physicianOverviewResult.physicianInfoData.hospitalBio }}
 								</p>
 								<div class="hospital_content">
-									<p *ngIf="physicianOverviewResult.physicianHospitalInfoData.webAddress">
+									<p *ngIf="physicianOverviewResult.physicianInfoData.webAddress">
 										Web Address :
-										<span
-											><a [href]="physicianOverviewResult.physicianHospitalInfoData.webAddress">Web address</a></span
-										>
+										<span><a [href]="physicianOverviewResult.physicianInfoData.webAddress">Web address</a></span>
 									</p>
-									<p *ngIf="physicianOverviewResult.physicianHospitalInfoData.address">
+									<p *ngIf="physicianOverviewResult.physicianInfoData.address">
 										Address :
-										<span>{{ physicianOverviewResult.physicianHospitalInfoData.address }} </span>
+										<span>{{ physicianOverviewResult.physicianInfoData.address }} </span>
 									</p>
-									<p *ngIf="physicianOverviewResult.physicianHospitalInfoData.city">
+									<p *ngIf="physicianOverviewResult.physicianInfoData.city">
 										City :
-										<span>{{ physicianOverviewResult.physicianHospitalInfoData.city }}</span>
+										<span>{{ physicianOverviewResult.physicianInfoData.city }}</span>
 									</p>
-									<p *ngIf="physicianOverviewResult.physicianHospitalInfoData.state">
+									<p *ngIf="physicianOverviewResult.physicianInfoData.state">
 										State :
-										<span>{{ physicianOverviewResult.physicianHospitalInfoData.state }}</span>
+										<span>{{ physicianOverviewResult.physicianInfoData.state }}</span>
 									</p>
-									<p *ngIf="physicianOverviewResult.physicianHospitalInfoData.country">
+									<p *ngIf="physicianOverviewResult.physicianInfoData.country">
 										Country :
-										<span>{{ physicianOverviewResult.physicianHospitalInfoData.country }}</span>
+										<span>{{ physicianOverviewResult.physicianInfoData.country }}</span>
 									</p>
-									<p *ngIf="physicianOverviewResult.physicianHospitalInfoData.zipCode">
+									<p *ngIf="physicianOverviewResult.physicianInfoData.zipCode">
 										Zipcode :
-										<span>{{ physicianOverviewResult.physicianHospitalInfoData.zipCode }}</span>
+										<span>{{ physicianOverviewResult.physicianInfoData.zipCode }}</span>
 									</p>
-									<p *ngIf="physicianOverviewResult.physicianHospitalInfoData.hospitalContact">
+									<p *ngIf="physicianOverviewResult.physicianInfoData.hospitalContact">
 										Hospital Contact :
-										<span>{{ physicianOverviewResult.physicianHospitalInfoData.hospitalContact }}</span>
+										<span>{{ physicianOverviewResult.physicianInfoData.hospitalContact }}</span>
 									</p>
 								</div>
 								<h4
@@ -336,11 +334,13 @@
 						</section>
 						<section *ngIf="selectedTab === 7">
 							<div class="similar_physician_container">
-								<div *ngFor="let hospital of physicianPractiseHospitals">
-									<!-- <app-similar-physician
-										[hospitalLocation]="hospital.hospitalLocation"
-										[hospitalName]="hospital.hospitalName"
-									></app-similar-physician> -->
+								<div *ngFor="let hospital of similarPhysician">
+									<app-similar-physician
+										[name]="hospital.fullName"
+										[hospital]="hospital.hospitalName"
+										[specialty]="hospital.specialty"
+										[physicianId]="hospital.physicianId"
+									></app-similar-physician>
 								</div>
 								<div class="dummy_card" *ngFor="let i of [0, 1, 2, 3]"></div>
 							</div>

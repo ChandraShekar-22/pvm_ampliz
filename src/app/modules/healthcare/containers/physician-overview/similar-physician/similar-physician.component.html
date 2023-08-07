@@ -1,11 +1,11 @@
-<div class="similar_physician_container">
-	<!-- <img class="doctor_image" [src]="'assets/images/doctor-M.png'" /> -->
+<div class="similar_physician_container" (click)="onCardClick()">
+	<img class="doctor_image" [src]="'assets/images/doctor-M.png'" />
 	<!-- <div class="icon_container">
 		<i class="fa fa-hospital-o"></i>
 	</div> -->
 	<div>
-		<p class="physician_name">{{ hospitalName }}</p>
-		<!-- <p class="physician_speciality">Gastroenterology</p> -->
-		<p class="physician_hospital">{{ hospitalLocation }}</p>
+		<p class="physician_name">{{ name }}</p>
+		<p class="physician_speciality">{{ specialty }}</p>
+		<p class="physician_hospital">{{ hospital }}</p>
 	</div>
 </div>
