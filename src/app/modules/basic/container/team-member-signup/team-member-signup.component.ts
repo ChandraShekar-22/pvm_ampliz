@@ -8,7 +8,7 @@ import { P } from '@angular/cdk/keycodes';
 @Component({
 	selector: 'app-team-member-signup',
 	templateUrl: './team-member-signup.component.html',
-	styleUrls: ['./team-member-signup.component.css'],
+	styleUrls: ['./team-member-signup.component.css']
 })
 export class TeamMemberSignupComponent implements OnInit {
 	signup = {
@@ -18,11 +18,12 @@ export class TeamMemberSignupComponent implements OnInit {
 		confirm_password: '',
 		show_set_password: false,
 		show_confirm_password: false,
-		policy: false,
+		policy: false
 	};
 
 	emailError: boolean = false;
 	passwordError: boolean = false;
+	passwordLengthError: boolean = false;
 
 	emailVerified: boolean = false;
 
@@ -52,9 +53,9 @@ export class TeamMemberSignupComponent implements OnInit {
 	}
 
 	get emptyForm() {
-		return this.signup.fullName.length > 0 &&
-			this.signup.confirm_password.length > 0 &&
-			this.signup.set_password.length > 0 &&
+		return this.signup.fullName !== '' &&
+			this.signup.confirm_password !== '' &&
+			this.signup.set_password !== '' &&
 			this.signup.policy == true
 			? false
 			: true;
@@ -63,6 +64,7 @@ export class TeamMemberSignupComponent implements OnInit {
 	handleSubmit() {
 		this.emailError = false;
 		this.passwordError = false;
+		this.passwordLengthError = false;
 		if (!this.emptyForm) {
 			this.loader = true;
 			var passwordVerified: boolean = this.validatePasswords();
@@ -77,6 +79,7 @@ export class TeamMemberSignupComponent implements OnInit {
 	validatePasswords() {
 		const pwd = this.signup.set_password;
 		const confirm_pwd = this.signup.confirm_password;
+
 		if (pwd === confirm_pwd) {
 			return true;
 		} else {
@@ -87,7 +90,7 @@ export class TeamMemberSignupComponent implements OnInit {
 
 	validateEmail() {
 		const params = {
-			email: this.signup.email,
+			email: this.signup.email
 		};
 		if (params.email.length > 0) {
 			this.api.verifyTeamEmail(params).subscribe(
@@ -108,25 +111,29 @@ export class TeamMemberSignupComponent implements OnInit {
 		const params = {
 			email: this.signup.email,
 			fullName: this.signup.fullName,
-			password: this.signup.confirm_password,
+			password: this.signup.confirm_password
 		};
-		this.api.setTeamMemberPassword(params).subscribe(
-			(res) => {
-				setTimeout(() => {
-					this.login();
-				}, 100);
-			},
-			(err) => {
-				this.loader = false;
-				this.messageService.displayError(true, 'Try again after some time');
-			}
-		);
+		if (params.fullName !== '' && params.password !== '') {
+			this.api.setTeamMemberPassword(params).subscribe(
+				(res) => {
+					setTimeout(() => {
+						this.login();
+					}, 100);
+				},
+				(err) => {
+					this.loader = false;
+					this.messageService.displayError(true, 'Try again after some time');
+				}
+			);
+		} else {
+			this.loader = false;
+		}
 	}
 
 	login() {
 		const loginParams = {
 			email: this.signup.email,
-			pwd: this.signup.confirm_password,
+			pwd: this.signup.confirm_password
 		};
 
 		this.domainName = window.location.hostname;
@@ -161,35 +168,15 @@ export class TeamMemberSignupComponent implements OnInit {
 		myDate.setMonth(myDate.getMonth() + 12);
 		this.domainName = this.domainName.substring(this.domainName.indexOf('.') + 1);
 		document.cookie =
-			'auth_token = ' +
-			res.access_token +
-			'; expires=' +
-			myDate +
-			'; path=/; domain=.' +
-			this.domainName;
+			'auth_token = ' + res.access_token + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
 		document.cookie =
-			'refresh_token = ' +
-			res.refresh_token +
-			'; expires=' +
-			myDate +
-			'; path=/; domain=.' +
-			this.domainName;
+			'refresh_token = ' + res.refresh_token + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
 		document.cookie =
 			'username = ' + res.username + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
 		document.cookie =
-			'credits = ' +
-			res.CurrentCredits +
-			'; expires=' +
-			myDate +
-			'; path=/; domain=.' +
-			this.domainName;
+			'credits = ' + res.CurrentCredits + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
 		document.cookie =
-			'isPersonaSet = ' +
-			res.isPersonaSet +
-			'; expires=' +
-			myDate +
-			'; path=/; domain=.' +
-			this.domainName;
+			'isPersonaSet = ' + res.isPersonaSet + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
 		document.cookie =
 			'Dataset = ' + res.Dataset + '; expires=' + myDate + '; path=/; domain=.' + this.domainName;
 		document.cookie = 'amp_u=1;expires=' + myDate + '; path=/; domain=.' + this.domainName;
