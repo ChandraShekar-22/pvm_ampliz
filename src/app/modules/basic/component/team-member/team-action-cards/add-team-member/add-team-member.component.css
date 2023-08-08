@@ -167,8 +167,6 @@ input[type='number']::-webkit-outer-spin-button {
 	opacity: 0.5;
 	pointer-events: none;
 }
-.enable-btn {
-}
 .canel-btn {
 	color: #495365;
 	background-color: transparent;
@@ -177,6 +175,15 @@ input[type='number']::-webkit-outer-spin-button {
 	font-weight: 300;
 	cursor: pointer;
 	padding: 0;
+}
+.low-credit-cta {
+	padding-left: 120px;
+}
+.low-credit-cta span {
+	color: #f83428;
+	font-weight: 500;
+	font-size: 12px;
+	cursor: pointer;
 }
 
 /* Confirm Message css */

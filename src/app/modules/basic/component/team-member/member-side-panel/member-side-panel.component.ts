@@ -173,6 +173,7 @@ export class MemberSidePanelComponent implements OnInit {
 		this.api.getAdminDetails().subscribe(
 			(res) => {
 				const admin = res.adminDetails;
+				console.log('ADMIN DETS', admin);
 				this.service.setAdminInfo(admin);
 				this.adminDetails = admin;
 				if (openAdmin === true) {

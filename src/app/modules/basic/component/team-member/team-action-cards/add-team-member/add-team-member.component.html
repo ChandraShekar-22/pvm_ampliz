@@ -62,12 +62,16 @@
 			<span class="header-text col-5">
 				Your total credit <b>{{ remainingCredit }}</b>
 			</span>
-			<span class="header-text col-6">
+			<span class="header-text col-3">
 				Your mobile credit
 				<b>
 					{{ remainingMobileCredit }}
 				</b>
 			</span>
+
+			<div class="justify-content-end low-credit-cta" *ngIf="headerError">
+				<span (click)="upgrade()">Upgrade Credits</span>
+			</div>
 		</div>
 		<!-- Header 2 ends -->
 
@@ -161,7 +165,7 @@
 		</div>
 
 		<!-- Permissions  -->
-		<div class="header d-flex align-items-center justify-content-start" [class.header-error]="headerError">
+		<div class="header d-flex align-items-center justify-content-start">
 			<span class="header-text"> Permissions </span>
 		</div>
 

@@ -56,6 +56,7 @@ export class AddTeamMemberComponent implements OnInit {
 	ngOnInit(): void {
 		this.service.getAdminInfo().subscribe((admin) => {
 			this.adminDetails = admin;
+			console.log('ADD ADMIN', admin);
 		});
 		this.setDomain();
 	}
@@ -124,7 +125,7 @@ export class AddTeamMemberComponent implements OnInit {
 	// Is correct conditions
 	isCreditCorrect() {
 		if (this.params.dailyCredit >= 0 && this.params.dailyCredit !== null) {
-			if (this.remainingCredit > this.params.dailyCredit) {
+			if (this.remainingCredit >= this.params.dailyCredit) {
 				return true;
 			} else {
 				return false;
@@ -135,7 +136,7 @@ export class AddTeamMemberComponent implements OnInit {
 	}
 	isMobileCreditCorrect() {
 		if (this.params.mobileCredit >= 0 && this.params.mobileCredit !== null) {
-			if (this.remainingMobileCredit > this.params.mobileCredit) {
+			if (this.remainingMobileCredit >= this.params.mobileCredit) {
 				return true;
 			} else {
 				return false;
@@ -235,6 +236,10 @@ export class AddTeamMemberComponent implements OnInit {
 				this.params.mobileCredit--;
 			}
 		}
+	}
+
+	upgrade() {
+		window.open('https://www.ampliz.com/book-your-demo', '_blank');
 	}
 	clearInputs() {
 		this.params = {
