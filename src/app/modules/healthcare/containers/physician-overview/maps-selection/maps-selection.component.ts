@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MapsSelectionComponent implements OnInit {
 	@Input() mapsData: { hospitalLocation: string; hospitalName: string }[] = [];
+	@Input() name: string;
 	hospitalLocation: { hospitalLocation: string; hospitalName: string };
 
 	constructor(private domSanitizer: DomSanitizer) {}

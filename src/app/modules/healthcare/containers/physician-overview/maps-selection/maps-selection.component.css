@@ -63,3 +63,10 @@
 .map_iframe_container {
 	flex: 1;
 }
+
+.not_found {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

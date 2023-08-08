@@ -93,7 +93,9 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	}
 	getPhysicianPractiseHospital() {
 		this.amplizService.getPhysicianPractiseHospital(this.paramsData).subscribe((res) => {
-			this.physicianPractiseHospitals = res.physicianPractiseHospitals;
+			this.physicianPractiseHospitals = res.physicianPractiseHospitals.filter(
+				(el) => el.hospitalLocation && el.hospitalName
+			);
 		});
 	}
 	getPhysicianAffiliatedHospital() {
@@ -124,7 +126,16 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	}
 
 	get gender() {
-		return this.physicianOverviewResult.physicianInfoData.gender;
+		if (this.physicianOverviewResult.physicianInfoData.gender) {
+			return ['m', 'male'].includes(this.physicianOverviewResult.physicianInfoData.gender.toLowerCase())
+				? 'Male'
+				: 'Female';
+		} else {
+			return '';
+		}
+	}
+	get experienceList() {
+		return this.physicianOverviewResult.physicianInfoData.experience.filter((el) => !!el);
 	}
 	get isBlankHospitalInfo() {
 		if (

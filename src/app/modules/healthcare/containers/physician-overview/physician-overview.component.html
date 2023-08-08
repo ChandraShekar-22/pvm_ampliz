@@ -51,7 +51,7 @@
 											{{ physicianOverviewResult.physicianInfoData.hospitalName }}
 										</section>
 										<section class="physician_general">
-											<p><span class="dot"></span>{{ gender }}</p>
+											<p *ngIf="gender"><span class="dot"></span>{{ gender }}</p>
 											<p *ngIf="languages">
 												<span class="dot"></span>
 												{{ languages }}
@@ -167,7 +167,7 @@
 									<span
 										(click)="viewPhysicianMobileNumber()"
 										*ngIf="!physicianOverviewResult.physicianInfoData.mobileViewed; else viewed"
-										>Direct Dail</span
+										>Direct Dia</span
 									>
 									<ng-template #viewed>
 										<span
@@ -202,20 +202,10 @@
 							<p [ngClass]="{ selected: selectedTab === 1 }" (click)="tabselected(1)">SUMMARY</p>
 							<p [ngClass]="{ selected: selectedTab === 2 }" (click)="tabselected(2)">HOSPITAL INFORMATION</p>
 							<p [ngClass]="{ selected: selectedTab === 3 }" (click)="tabselected(3)">EXPERIENCE</p>
-							<p
-								*ngIf="hidePhysicianPractiseHospitals"
-								[ngClass]="{ selected: selectedTab === 4 }"
-								(click)="tabselected(4)"
-							>
-								PHYSICIAN PRACTICE LOCATION
-							</p>
-							<p *ngIf="hideAffiliatedHospital" [ngClass]="{ selected: selectedTab === 5 }" (click)="tabselected(5)">
-								AFFILIATION
-							</p>
+							<p [ngClass]="{ selected: selectedTab === 4 }" (click)="tabselected(4)">PHYSICIAN PRACTICE LOCATION</p>
+							<p [ngClass]="{ selected: selectedTab === 5 }" (click)="tabselected(5)">AFFILIATION</p>
 							<!-- <p [ngClass]="{ selected: selectedTab === 6 }" (click)="tabselected(6)">RX-DATA</p> -->
-							<p *ngIf="hideSimilarPhysician" [ngClass]="{ selected: selectedTab === 7 }" (click)="tabselected(7)">
-								SIMILAR PHYSICIAN
-							</p>
+							<p [ngClass]="{ selected: selectedTab === 7 }" (click)="tabselected(7)">SIMILAR PHYSICIAN</p>
 						</section>
 					</div>
 				</div>
@@ -324,26 +314,31 @@
 							>
 								EXPERIENCE
 							</h4>
-							<div class="physician_experience">
-								<p
-									class="experience_container"
-									*ngFor="let speciality of physicianOverviewResult.physicianInfoData.experience"
-								>
+							<div class="physician_experience" *ngIf="experienceList.length !== 0; else notFound">
+								<p class="experience_container" *ngFor="let speciality of experienceList">
 									{{ speciality }}
 								</p>
 							</div>
+							<ng-template #notFound>
+								<div class="notFound">
+									<p>No Experience Found</p>
+								</div>
+							</ng-template>
 						</section>
 						<section *ngIf="selectedTab === 4">
-							<app-maps-selection [mapsData]="physicianPractiseHospitals"></app-maps-selection>
+							<app-maps-selection
+								[mapsData]="physicianPractiseHospitals"
+								name="Physician Practise Hospital"
+							></app-maps-selection>
 						</section>
 						<section *ngIf="selectedTab === 5">
-							<app-maps-selection [mapsData]="affiliatedHospitals"></app-maps-selection>
+							<app-maps-selection [mapsData]="affiliatedHospitals" name="Affiliation"></app-maps-selection>
 						</section>
 						<section *ngIf="selectedTab === 6">
 							<app-rx-data></app-rx-data>
 						</section>
 						<section *ngIf="selectedTab === 7">
-							<div class="similar_physician_container">
+							<div class="similar_physician_container" *ngIf="similarPhysician.length !== 0; else notFound">
 								<div *ngFor="let hospital of similarPhysician">
 									<app-similar-physician
 										[name]="hospital.fullName"
@@ -354,6 +349,11 @@
 								</div>
 								<div class="dummy_card" *ngFor="let i of [0, 1, 2, 3]"></div>
 							</div>
+							<ng-template #notFound>
+								<div class="notFound">
+									<p>No Similar Physician Found</p>
+								</div>
+							</ng-template>
 						</section>
 					</div>
 				</div>

@@ -492,3 +492,15 @@
 	height: 130px;
 	border-radius: 50%;
 }
+
+.notFound {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.notFound p {
+	color: #777777;
+	font-size: 12px;
+}
