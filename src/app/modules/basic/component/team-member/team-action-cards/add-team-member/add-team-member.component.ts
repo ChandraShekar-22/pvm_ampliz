@@ -56,7 +56,6 @@ export class AddTeamMemberComponent implements OnInit {
 	ngOnInit(): void {
 		this.service.getAdminInfo().subscribe((admin) => {
 			this.adminDetails = admin;
-			console.log('ADD ADMIN', admin);
 		});
 		this.setDomain();
 	}

@@ -115,14 +115,13 @@ export class PhysicianImageCardComponent implements OnInit {
   viewPhysicianMobileNumber() {
     this.amplizService.viewPhysicianMobileNumber(this.physicianData.physicianId).subscribe((res) => {
       this.viewDetail();
-      console.log(res);
     });
   }
   viewPhysicianEmail() {
     this.amplizService.viewPhysicianEmail(this.physicianData.physicianId).subscribe((res) => {
-      console.log(res);
-      this.viewDetail();
-    });
+					// console.log(res);
+					this.viewDetail();
+				});
   }
 
   viewPhysicianFromList() {

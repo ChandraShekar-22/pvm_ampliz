@@ -317,7 +317,6 @@ export class ListdetailsComponent implements OnInit, AfterViewInit {
 		}
 	}
 	ngOnInit() {
-		console.log('IS DOWNLOAD', this.isDownload);
 		this.route.params.subscribe((res) => {
 			this.listId = res.listId;
 		});

@@ -126,16 +126,15 @@ export class DataService {
   }
 
   nonNullValuesinObj(obj) {
-    // return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value !== null));
-    console.log('TYPE OF ', typeof obj);
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key) && obj[key] !== null && obj[key] !== '') {
-        return obj;
-      }
-    }
+			// return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value !== null));
+			for (let key in obj) {
+				if (obj.hasOwnProperty(key) && obj[key] !== null && obj[key] !== '') {
+					return obj;
+				}
+			}
 
-    return null;
-  }
+			return null;
+		}
 
   // Time Diff
   getTimeDifference(item: any) {

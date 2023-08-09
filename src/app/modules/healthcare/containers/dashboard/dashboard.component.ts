@@ -73,35 +73,37 @@ export class DashboardComponent implements OnInit {
 
   checkChromeExtenstion() {
     if (chrome.runtime) {
-      console.log('IN IF');
-      chrome.runtime.sendMessage('abgoaphadkcmbkapnamhkcgkaddlmfal', { message: 'isinstalled' }, (response) => {
-        //
-        if (chrome.runtime.lastError) {
-          //
-          this.showChrmBtn = true;
-          //
-          this.chromeData = {
-            chrome_status: 'Not Installed',
-          };
-        } else {
-          console.log('IN IF');
-          this.showChrmBtn = false;
-          this.chromeData = {
-            chrome_status: 'Installed',
-          };
-        }
-        this.amplizService.chromeStatus(this.chromeData).subscribe(
-          (res) => {
-            //
-          },
-          (error) => {
-            //
-          }
-        );
-      });
-    } else {
-      this.showChrmBtn = true;
-    }
+					chrome.runtime.sendMessage(
+						'abgoaphadkcmbkapnamhkcgkaddlmfal',
+						{ message: 'isinstalled' },
+						(response) => {
+							//
+							if (chrome.runtime.lastError) {
+								//
+								this.showChrmBtn = true;
+								//
+								this.chromeData = {
+									chrome_status: 'Not Installed'
+								};
+							} else {
+								this.showChrmBtn = false;
+								this.chromeData = {
+									chrome_status: 'Installed'
+								};
+							}
+							this.amplizService.chromeStatus(this.chromeData).subscribe(
+								(res) => {
+									//
+								},
+								(error) => {
+									//
+								}
+							);
+						}
+					);
+				} else {
+					this.showChrmBtn = true;
+				}
   }
   async getDashboardDetails() {
     const authToken = await localStorage.getItem('auth_token');

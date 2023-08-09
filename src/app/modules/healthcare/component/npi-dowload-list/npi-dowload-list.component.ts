@@ -73,7 +73,7 @@ export class NpiDowloadListComponent implements OnInit {
 	getDownloadNumbers() {
 		this.amplizService.npiDownloadNumbers(this.bulkNpiId).subscribe((res) => {
 			this.downloadNumber = res;
-			console.log(this.downloadNumber);
+
 		});
 	}
 	get currentCredits() {
@@ -104,7 +104,7 @@ export class NpiDowloadListComponent implements OnInit {
 			const fileName = this.selectListForm.value.fileName;
 			const key = this.countKeys[filter];
 			const recordCount = this.downloadNumber?.[key] || 0;
-			console.log(this.downloadNumber[key], this.downloadNumber, filter);
+
 			this.amplizService
 				.downloadPhysicianData(this.bulkNpiId, filter, fileName, recordCount)
 				.subscribe(
@@ -134,7 +134,6 @@ export class NpiDowloadListComponent implements OnInit {
 		this.papa.parse(data, {
 			complete: (results) => {
 				// `results` contains parsed CSV data
-				console.log(results);
 			},
 			header: true, // Set this to `true` if your CSV file has headers
 		});
