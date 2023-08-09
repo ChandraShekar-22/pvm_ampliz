@@ -7,18 +7,17 @@ export const environment = {
 
 	// Stage
 	// prodAdbApi: 'https://stage.ampliz.com',
-	prodAdbApi: 'https://go.ampliz.com',
-	prodHcApi: 'https://stageapi.ampliz.com',
-	prodNPIApi: 'https://stageapi.ampliz.com',
-	prodGlobalB2BApi: 'https://test.ampliz.com'
+	// prodHcApi: 'https://stageapi.ampliz.com',
+	// prodNPIApi: 'https://stageapi.ampliz.com',
+	// prodGlobalB2BApi: 'https://test.ampliz.com'
 	//  ----------------------
 
 	// PROD
-	// prodGlobalB2BApi: 'https://test.ampliz.com'
-	// prodAdbApi: 'https://go.ampliz.com',
-	// prodB2BApi: 'http://119.8.182.178:9000',
-	// prodHcApi: 'https://hcapi.ampliz.com',
-	// prodNPIApi: 'https://hcapi.ampliz.com'
+	prodGlobalB2BApi: 'https://test.ampliz.com',
+	prodAdbApi: 'https://go.ampliz.com',
+	prodB2BApi: 'http://119.8.182.178:9000',
+	prodHcApi: 'https://hcapi.ampliz.com',
+	prodNPIApi: 'https://hcapi.ampliz.com'
 };
 
 /*

@@ -7,7 +7,8 @@ import { shareReplay } from 'rxjs/operators';
 	providedIn: 'root'
 })
 export class BasicService {
-	teams_api: string = 'https://test.ampliz.com';
+	// teams_api: string = 'https://test.ampliz.com';
+	teams_api: string = 'https://hcapi.ampliz.com';
 	constructor(private http: HttpClient) {}
 
 	// Teams
