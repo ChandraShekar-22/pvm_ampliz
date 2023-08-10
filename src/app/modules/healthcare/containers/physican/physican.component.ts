@@ -233,7 +233,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
         // this.netNewCount = res.netNew;
 
         //we are pushing the current offset value so that it can be reused
-        this.previousOffsets.push(res.offset);
+        // this.previousOffsets.push(res.offset); 
         this.previousSavedOffsets.push(res.savedListOffset);
         this.totalCount = res.totalResult;
         this.totalSize = this.tab == 1 ? res.totalResult : res.netNew;
