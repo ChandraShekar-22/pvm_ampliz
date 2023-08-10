@@ -203,6 +203,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 		this.leadWithEmail = event.leadWithEmail || false;
 		this.leadWithProvider = event.provider_Type;
 		this.physicianSearchParameter.experience = event.experience;
+		this.offset = 0;
 		this.saveDraftLeads();
 		this.getPhysicianSearchData();
 	}
@@ -221,7 +222,6 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 		);
 	}
 	getPhysicianSearchData() {
-		this.offset = 0;
 		this.previousOffsets = [0];
 		this.previousSavedOffsets = [0];
 		this.loaderService.display(true);
