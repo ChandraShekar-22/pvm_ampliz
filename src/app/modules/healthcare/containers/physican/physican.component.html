@@ -155,9 +155,9 @@
 					<div class="physician-content-main" *ngIf="tab == 2">
 						<div class="totalSize > 0">
 							<div *ngFor="let item of totalSearchResult; let i = index">
-								<app-physican-image
+								<app-physician-image-card
 									[isPaid]="isPaid"
-									[checkboxDisabled]="item.inSavedList || !(isPaid == true || isSpecialityUser == true)"
+									[checkboxDisabled]="physicianCheckboxDisabled(item)"
 									[checkboxValue]="selectedPhysicianInCurrentPage.indexOf(item.physicianId) !== -1"
 									(checkBoxChanged)="handleIndividualCheckboxChange($event, item)"
 									[isPhysician]="true"
@@ -165,7 +165,7 @@
 									(DataRefreshed)="getPhysicianSearchData()"
 									[currentCredit]="currentCredit"
 									[dataIndex]="i"
-								></app-physican-image>
+								></app-physician-image-card>
 							</div>
 						</div>
 					</div>
