@@ -41,14 +41,14 @@ export class ConfirmPanelComponent implements OnInit {
 	}
 
 	isCreditCorrect() {
-		if (this.remainingCredit > this.params.credit && this.params.credit >= 0) {
+		if (this.remainingCredit >= this.params.credit && this.params.credit >= 0) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	isMobileCreditCorrect() {
-		if (this.remainingMobileCredit > this.params.mobileCredit && this.params.mobileCredit >= 0) {
+		if (this.remainingMobileCredit >= this.params.mobileCredit && this.params.mobileCredit >= 0) {
 			return true;
 		} else {
 			return false;

@@ -67,7 +67,7 @@ export class CreditActionCardsComponent implements OnInit {
 
 	isCreditCorrect() {
 		const isInteger = Number.isInteger(this.params.credit);
-		if (this.remainingCredits > this.differenceInCredit && isInteger === true) {
+		if (this.remainingCredits >= this.differenceInCredit && isInteger === true) {
 			return true;
 		} else {
 			return false;
@@ -75,7 +75,7 @@ export class CreditActionCardsComponent implements OnInit {
 	}
 	isMobileCreditCorrect() {
 		const isInteger = Number.isInteger(this.params.mobileCredit);
-		if (this.remainingMobileCredits > this.differenceInMobileCredit && isInteger === true) {
+		if (this.remainingMobileCredits >= this.differenceInMobileCredit && isInteger === true) {
 			return true;
 		} else {
 			return false;

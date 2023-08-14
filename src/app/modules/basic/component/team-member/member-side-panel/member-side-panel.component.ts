@@ -103,6 +103,8 @@ export class MemberSidePanelComponent implements OnInit {
 	) {
 		this.service.getMemberList.subscribe((event) => {
 			if (event) {
+				this.getAdminDetails(true);
+				this.activeCard = null;
 				this.getMembersList(true);
 				setTimeout(() => {
 					this.getAdminDetails();
@@ -173,7 +175,6 @@ export class MemberSidePanelComponent implements OnInit {
 		this.api.getAdminDetails().subscribe(
 			(res) => {
 				const admin = res.adminDetails;
-				console.log('ADMIN DETS', admin);
 				this.service.setAdminInfo(admin);
 				this.adminDetails = admin;
 				if (openAdmin === true) {
@@ -188,7 +189,7 @@ export class MemberSidePanelComponent implements OnInit {
 		);
 	}
 
-	async getMembersList(reset?: any) {
+	async getMembersList(reset: any) {
 		if (reset == true) {
 			this.membersListInput.offset = 0;
 		}
@@ -197,6 +198,7 @@ export class MemberSidePanelComponent implements OnInit {
 			(res) => {
 				this.userList = res?.userList;
 				this.memberTotalCount = res.totalCount;
+
 				if (this.activeCard !== null) {
 					this.service.setUserInfo(this.userList[this.activeCard]);
 					this.adminCredits.emit(this.adminDetails);
