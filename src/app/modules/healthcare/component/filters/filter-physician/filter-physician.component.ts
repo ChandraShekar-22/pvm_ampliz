@@ -711,6 +711,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	}
 	removeLanguage(language: string) {
 		this.languages = this.languages.filter((el) => el !== language);
+		this.omitChange();
+		this.storeFilterData();
 	}
 	removeAge() {
 		this.age = '';
