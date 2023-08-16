@@ -103,8 +103,6 @@ export class MemberSidePanelComponent implements OnInit {
 	) {
 		this.service.getMemberList.subscribe((event) => {
 			if (event) {
-				this.getAdminDetails(true);
-				this.activeCard = null;
 				this.getMembersList(true);
 				setTimeout(() => {
 					this.getAdminDetails();
@@ -200,6 +198,7 @@ export class MemberSidePanelComponent implements OnInit {
 				this.memberTotalCount = res.totalCount;
 
 				if (this.activeCard !== null) {
+					this.activeCard = 0; 
 					this.service.setUserInfo(this.userList[this.activeCard]);
 					this.adminCredits.emit(this.adminDetails);
 				}
