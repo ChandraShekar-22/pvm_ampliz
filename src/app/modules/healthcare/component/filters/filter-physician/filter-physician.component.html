@@ -7,11 +7,7 @@
 	</div>
 	<mat-accordion>
 		<!-- Speciality component -->
-		<mat-expansion-panel
-			#panelSpec
-			hideToggle="true"
-			(opened)="triggerAutoFocus('#includeSpecialityInput')"
-		>
+		<mat-expansion-panel #panelSpec hideToggle="true" (opened)="triggerAutoFocus('#includeSpecialityInput')">
 			<mat-expansion-panel-header
 				[ngClass]="panelSpec.expanded ? 'expanded' : ''"
 				[collapsedHeight]="'70px'"
@@ -280,7 +276,7 @@
 				</mat-chip-list>
 				<mat-autocomplete
 					#emailStatusAuto="matAutocomplete"
-			 		(optionSelected)="addEmailStatus($event.option)"
+					(optionSelected)="addEmailStatus($event.option)"
 					class="app-autocomplete"
 				>
 					<mat-option [value]="30">30 Days</mat-option>
@@ -297,53 +293,6 @@
 				></app-confidence-level>
 			</div>
 		</mat-expansion-panel>
-		<!-- Email Status component ends -->
-
-		<!-- Name component -->
-		<!-- <mat-expansion-panel
-      #panelName
-      hideToggle="true"
-      [disabled]="isPaid"
-      (opened)="triggerAutoFocus('#physicianNameInput')"
-    >
-      <mat-expansion-panel-header
-        [ngClass]="panelName.expanded ? 'expanded' : ''"
-        [collapsedHeight]="'70px'"
-        [expandedHeight]="'70px'"
-      >
-        <mat-panel-title>
-          <div>
-            <mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Name
-          </div>
-          <div class="header-info" *ngIf="physicianName.length == 0">
-            Physician name
-          </div>
-          <div class="selected" *ngIf="physicianName.length > 0">
-            <mat-chip-list #physicianNameList aria-label="Physician name">
-              <mat-basic-chip [ngClass]="'selected'">
-                {{ physicianName }}
-              </mat-basic-chip>
-            </mat-chip-list>
-          </div>
-        </mat-panel-title>
-        <mat-panel-description>
-          <mat-icon class="matrl-plus">{{
-            panelName.expanded ? "remove" : "add"
-          }}</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-form-field>
-        <input
-          #physicianNameInput
-          id="physicianNameInput"
-          matInput
-          value="{{ physicianName }}"
-          (keyup)="addPhysicianName($event)"
-        />
-      </mat-form-field>
-    </mat-expansion-panel> -->
-		<!-- Name component End-->
-		<!-- Hospital Name component -->
 
 		<mat-expansion-panel
 			#panelHospitalName
@@ -505,12 +454,6 @@
 							<span *ngIf="selectedStates?.length > 1" class="additional-selection">
 								+ {{ selectedStates.length - 1 }} more
 							</span>
-							<!-- <mat-basic-chip
-                *ngFor="let state of selectedStates"
-                [ngClass]="'selected'"
-              >
-                {{ state.stateFullName }}
-              </mat-basic-chip> -->
 						</mat-chip-list>
 					</div>
 				</mat-panel-title>
@@ -581,41 +524,8 @@
 				<mat-autocomplete #cityAuto="matAutocomplete" class="app-autocomplete">
 					<mat-option *ngFor="let city of searchCity" [value]="city" (click)="onCitySelect(city)">
 						{{ city.city }}
-					</mat-option>
-				</mat-autocomplete>
-				<!-- <mat-select
-          panelClass="mat-custom-select"
-          style="width: 100% !important"
-        >
-          <mat-select-trigger>
-            <mat-basic-chip
-              *ngIf="selectedCities?.length > 0"
-              [selectable]="selectable"
-              [removable]="removable"
-              (removed)="onCityDeselect(selectedCities[0])"
-            >
-              {{ selectedCities[0].city }}
-              <mat-icon matChipRemove>close</mat-icon>
-            </mat-basic-chip>
-            <span
-              *ngIf="selectedCities?.length > 1"
-              class="additional-selection"
-            >
-              (+{{ selectedCities.length - 1 }}
-              {{ selectedCities?.length === 2 ? "other" : "others" }})
-            </span>
-          </mat-select-trigger>
-
-          <mat-option
-            *ngFor="let city of searchCity"
-            [value]="city"
-            (click)="onCitySelect(city)"
-            ><mat-checkbox
-              [checked]="selectedCities.includes(city)"
-            ></mat-checkbox
-            >{{ city.city }}</mat-option
-          >
-        </mat-select> -->
+					</mat-option> </mat-autocomplete
+				>
 			</mat-form-field>
 		</mat-expansion-panel>
 		<mat-expansion-panel #panelAdvance hideToggle="true" [disabled]="isPaid">
@@ -673,6 +583,71 @@
 					</div>
 				</div>
 			</div>
+			<span class="form-label">Languages</span>
+			<mat-form-field>
+				<mat-chip-list #languages aria-label="Languages">
+					<mat-basic-chip
+						*ngFor="let language of getSelectedLanguages"
+						[selectable]="selectable"
+						[removable]="removable"
+						(removed)="removeLanguage(language)"
+					>
+						{{ language }}
+						<mat-icon matChipRemove>close</mat-icon>
+					</mat-basic-chip>
+
+					<input
+						#languagesInput
+						id="languagesInput"
+						placeholder=" "
+						aria-label="Languages"
+						matInput
+						[formControl]="languagesControl"
+						[matAutocomplete]="languagesAuto"
+						floatPlaceholder="never"
+						[matChipInputFor]="languages"
+						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						class="email-status-input"
+					/>
+				</mat-chip-list>
+				<mat-autocomplete
+					#languagesAuto="matAutocomplete"
+					(optionSelected)="addLanguage($event.option)"
+					class="app-autocomplete"
+				>
+					<mat-option *ngFor="let language of filteredLanguage" [value]="language">{{ language }}</mat-option>
+				</mat-autocomplete>
+			</mat-form-field>
+			<span class="form-label">Age</span>
+			<mat-form-field>
+				<mat-chip-list #age aria-label="age">
+					<mat-basic-chip *ngIf="getAge" [selectable]="selectable" [removable]="removable" (removed)="removeAge()">
+						{{ getAge }}
+						<mat-icon matChipRemove>close</mat-icon>
+					</mat-basic-chip>
+
+					<input
+						#languagesInput
+						id="languagesInput"
+						placeholder=" "
+						aria-label="Languages"
+						matInput
+						[formControl]="ageControl"
+						[matAutocomplete]="ageAuto"
+						floatPlaceholder="never"
+						[matChipInputFor]="age"
+						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						class="email-status-input"
+					/>
+				</mat-chip-list>
+				<mat-autocomplete
+					#ageAuto="matAutocomplete"
+					(optionSelected)="addAge($event.option)"
+					class="app-autocomplete"
+				>
+					<mat-option *ngFor="let age of ageList" [value]="age">{{ age }}</mat-option>
+				</mat-autocomplete>
+			</mat-form-field>
 		</mat-expansion-panel>
 	</mat-accordion>
 </div>

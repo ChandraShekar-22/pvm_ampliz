@@ -197,6 +197,8 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 		this.physicianSearchParameter.specialityIncluded = event.specialityIncluded;
 		this.physicianSearchParameter.stateList = event.stateList.map((state) => state.state);
 		this.physicianSearchParameter.npiNumber = event.npiNumber;
+		this.physicianSearchParameter.languages = event.languages;
+		this.physicianSearchParameter.age = event.age ? `Age ${event.age}` : '';
 		this.physicianSearchParameter.email_Score = event.email_Score;
 
 		// this.leadWithEmail = event.leadWithEmail || false;

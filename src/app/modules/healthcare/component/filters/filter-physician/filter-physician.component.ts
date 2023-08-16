@@ -53,15 +53,22 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	excludeSpecialityInput: ElementRef<HTMLInputElement>;
 	@ViewChild('emailStatusInput', { static: false })
 	emailStatusInput: ElementRef<HTMLInputElement>;
+	@ViewChild('languagesInput', { static: false })
+	languagesInput: ElementRef<HTMLInputElement>;
+	@ViewChild('languagesInput', { static: false })
+	ageInput: ElementRef<HTMLInputElement>;
 	separatorKeysCodes: number[] = [ENTER, COMMA];
 	hospitalControl = new FormControl();
 	stateControl = new FormControl();
+	typedLanguage = '';
 	cityControl = new FormControl();
 	npiNumberControl = new FormControl();
 	experienceControl = new FormControl();
 	includeSpecialityControl = new FormControl();
 	excludeSpecialityControl = new FormControl();
 	emailStatusControl = new FormControl();
+	languagesControl = new FormControl();
+	ageControl = new FormControl();
 	hideHospitalNamePlaceholder: boolean = false;
 	// Data for filter component
 	filteredHospitals: Observable<string[]>;
@@ -74,6 +81,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	includedSpecialities: any = [];
 	excludedSpecialities: any = [];
 	emailStatus: number = 0;
+	languages: string[] = [];
+	age: string = '';
 	physicianName: string = '';
 	hospitalNames: any = [];
 	selectedStates: any = [];
@@ -88,6 +97,200 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	isPaid: boolean = false;
 	provider_Type: any;
 	leadWithProvider: boolean = false;
+	languagesItem = [
+		'Afar',
+		'Afghani',
+		'Afrikaans',
+		'Akan',
+		'Albanian',
+		'American Sign Language',
+		'Amharic',
+		'Arabic',
+		'Aramaic',
+		'Armenian',
+		'Assamese',
+		'Assyrian',
+		'Azerbaijani',
+		'Azeri',
+		'Bambara',
+		'Bashkir',
+		'Basque',
+		'Belarusian',
+		'Belorussian',
+		'Bengali',
+		'Berber',
+		'Bikol',
+		'Bini',
+		'Bisaya',
+		'Bislama',
+		'Bosnian',
+		'Breton',
+		'Bulgarian',
+		'Burmese',
+		'Cajun',
+		'Cantonese',
+		'Catalan',
+		'Chaldean',
+		'Chamorro',
+		'Chinese',
+		'Chiu Chow',
+		'Coptic',
+		'Cree',
+		'Creole',
+		'Croatian',
+		'Czech',
+		'Danish',
+		'Divehi',
+		'Dutch',
+		'Eastern Farsi',
+		'Eastern Panjabi',
+		'Edo',
+		'Efik',
+		'Egyyptian Arabic',
+		'English',
+		'Esperanto',
+		'Estonian',
+		'Ewe',
+		'Faroese',
+		'Fijian',
+		'Filipino',
+		'Finnish',
+		'Flemish',
+		'Formosan',
+		'French',
+		'French Creole',
+		'Frisian',
+		'Fukien',
+		'Ga',
+		'Gaelic',
+		'Georgian',
+		'German',
+		'Ghanian',
+		'Gikuyu',
+		'Greek',
+		'Guarani',
+		'Gujarati',
+		'Haitian',
+		'Haitian Creole',
+		'Hakka',
+		'Hausa',
+		'Hawaiian',
+		'Hebrew',
+		'Hiligaynon',
+		'Hindi',
+		'Hmong',
+		'Hungarian',
+		'Icelandic',
+		'Igbo',
+		'Ilocano',
+		'Indian',
+		'Indic',
+		'Indonesian',
+		'Iraqi',
+		'Italian',
+		'Japanese',
+		'Javanese',
+		'Jewish',
+		'Kachi',
+		'Kannada',
+		'Kapampangan',
+		'Kashmiri',
+		'Kathiawad',
+		'Kazakh',
+		'Khmer',
+		'Konkani',
+		'Korean',
+		'Kurdi',
+		'Kurdish',
+		'Lao',
+		'Laotian',
+		'Latin',
+		'Latvian',
+		'Lingala',
+		'Lithuanian',
+		'Luo (Kenya And Tanzania)',
+		'Macedonian',
+		'Malagasy',
+		'Malay',
+		'Malayalam',
+		'Maltese',
+		'Mandarin',
+		'Mandingo',
+		'Mandinka',
+		'Marathi',
+		'Marshallese',
+		'Marwari',
+		'Mfantse',
+		'Mien',
+		'Minnan',
+		'Mongolian',
+		'Moroccan Arabic',
+		'Navajo',
+		'Nepalese',
+		'Nepali',
+		'Nigerian',
+		'Norwegian',
+		'Oriya',
+		'Oromo',
+		'Paiute',
+		'Pangasiwaan',
+		'Panjabi',
+		'Papiamento',
+		'Pashto',
+		'Patois',
+		'Persian',
+		'Polish',
+		'Portuguese',
+		'Punjabi',
+		'Quechua',
+		'Rajasthani',
+		'Romanian',
+		'Russian',
+		'Samoan',
+		'Sanskrit',
+		'Serbian',
+		'Serbian Cyrillic',
+		'Serbo-Croatian',
+		'Shanghanese',
+		'Shona',
+		'Sindhi',
+		'Singhalese',
+		'Sinhala',
+		'Slavic',
+		'Slovak',
+		'Slovenian',
+		'Somali',
+		'Spanish',
+		'Swahili',
+		'Swedish',
+		'Syriac',
+		'Syrian',
+		'Tagalog',
+		'Tahitian',
+		'Tajik',
+		'Tamic',
+		'Tamil',
+		'Telugu',
+		'Thai',
+		'Tibetan',
+		'Tigrinya',
+		'Toisan',
+		'Tongan',
+		'Turkish',
+		'Turkman',
+		'Twi',
+		'Ukrainian',
+		'Urdu',
+		'Uzbek',
+		'Vietnamese',
+		'Visayan',
+		'Welsh',
+		'Wolof',
+		'Yiddish',
+		'Yoruba',
+		'Yugoslavian',
+		'Zulu'
+	];
 	constructor(
 		private amplizService: AmplizService,
 		private filterStorageService: FilterStorageService,
@@ -120,10 +323,21 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		// this.isPaid = false;
 		//
 	}
+	get filteredLanguage() {
+		if (this.typedLanguage) {
+			return [...this.languagesItem].filter((el) => new RegExp(this.typedLanguage, 'i').test(el));
+		}
+		return this.languagesItem;
+	}
+	get getSelectedLanguages() {
+		return this.languages;
+	}
 	getPersistData() {
 		setTimeout(() => {
 			this.hospitalNames = this.filterStorageService.get('physician_hospital') || [];
 			this.emailStatus = this.filterStorageService.get('email_Score') || 0;
+			this.languages = this.filterStorageService.get('physician_languages') || [];
+			this.age = this.filterStorageService.get('physician_age') || '';
 			this.includedSpecialities = this.filterStorageService.get('physician_specialityIncluded') || [];
 			this.excludedSpecialities = this.filterStorageService.get('physician_specialityExcluded') || [];
 			this.physicianName = this.filterStorageService.get('physician_physicianName') || '';
@@ -146,7 +360,9 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 				this.leadWithEmail !== false ||
 				this.leadWithProvider !== false ||
 				this.emailStatus !== undefined ||
-				this.emailTypeIsp !== false
+				this.emailTypeIsp !== false ||
+				this.languages.length !== 0 ||
+				this.age !== ''
 			) {
 				this.omitChange();
 			}
@@ -263,6 +479,11 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.filterStorageService.set('physician_providerType', this.leadWithProvider);
 		this.filterStorageService.set('email_Score', this.emailStatus);
 		this.filterStorageService.set('emailTypeIsp', this.emailTypeIsp);
+		this.filterStorageService.set('physician_languages', this.languages);
+		this.filterStorageService.set('physician_age', this.age);
+	}
+	get getAge() {
+		return this.age;
 	}
 	omitChange() {
 		this.onFilterChange.emit({
@@ -277,7 +498,9 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 			provider_Type: this.leadWithProvider,
 			email_Score: this.emailStatus,
 			emailTypeIsp: this.emailTypeIsp,
-			experience: this.experience
+			experience: this.experience,
+			languages: this.languages,
+			age: this.age
 		});
 		this.changeSearchData();
 	}
@@ -296,7 +519,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 			leadWithPhone: false,
 			email_Score: this.emailStatus,
 			emailTypeIsp: this.emailTypeIsp,
-			experience: this.experience
+			experience: this.experience,
+			languager: this.languages
 		});
 	}
 	removeHospital(val: any): void {
@@ -459,6 +683,40 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.omitChange();
 		this.storeFilterData();
 	}
+	addLanguage(event): void {
+		const indexof = this.languages.indexOf(event.value);
+		if (indexof === -1) {
+			this.languages.push(event.value);
+			this.languagesInput.nativeElement.value = '';
+			this.typedLanguage = '';
+			this.omitChange();
+			this.storeFilterData();
+		}
+	}
+	addAge(event): void {
+		if (typeof event.value === 'string') {
+			event.value = parseInt(event.value);
+		}
+		if (event.value !== 0) {
+			this.age = event.value;
+			this.ageInput.nativeElement.value = '';
+		}
+		this.omitChange();
+		this.storeFilterData();
+	}
+	get ageList() {
+		return new Array(100).fill(0).map((el, index) => {
+			return index + 19;
+		});
+	}
+	removeLanguage(language: string) {
+		this.languages = this.languages.filter((el) => el !== language);
+	}
+	removeAge() {
+		this.age = '';
+		this.omitChange();
+		this.storeFilterData();
+	}
 	removeEmailStatus() {
 		this.emailStatus = 0;
 
@@ -516,11 +774,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.omitChange();
 		this.storeFilterData();
 	}
-	// onCityKeyUp(citySearchPhrase: any) {
-	//   this.searchCity = this.filteredCities.filter((ele) =>
-	//     ele.city.toLocaleLowerCase().includes(citySearchPhrase.toLowerCase())
-	//   );
-	// }
+
 	clearAll() {
 		this.includeSpecialityControl.setValue(null);
 		this.includeSpecialityInput.nativeElement.value = '';
@@ -558,6 +812,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.leadWithProvider = false;
 		this.leadWithEmail = false;
 		this.emailStatus = 0;
+		this.languages = [];
 		this.omitChange();
 		this.storeFilterData();
 	}
@@ -590,6 +845,9 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 				const temp: any = [];
 				this.filteredStates = temp;
 			}
+		});
+		this.languagesControl.valueChanges.subscribe((value) => {
+			this.typedLanguage = value;
 		});
 		// change control of NPI
 		this.npiNumberControl.valueChanges.subscribe((value) => {
