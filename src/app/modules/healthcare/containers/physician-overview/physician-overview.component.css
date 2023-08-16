@@ -61,9 +61,9 @@
 .rounded {
 	border-radius: 50px !important;
 }
-.icon_container {
+/* .icon_container {
 	margin-top: 65px;
-}
+} */
 .physician_general > p {
 	display: flex;
 	align-items: center;
@@ -468,7 +468,7 @@
 	font-size: 15px;
 	font-family: Roboto;
 	letter-spacing: 0.45px;
-	font-weight: 400;
+	font-weight: 500;
 }
 
 .viewed_style {
