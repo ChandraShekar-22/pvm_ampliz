@@ -49,9 +49,12 @@
 						<h5 class="physician_name" (click)="onPhysicianNameClicked(physicianData)">
 							{{ physicianData.fullName }}
 						</h5>
-						<div class="physician_info">
-							<span>{{ physicianData.specialty }}</span>
-							<span class="physican_location" [style.paddingLeft]="physicianData.executiveId ? '0px' : '15px'"
+
+						<div class="physician_hospital">
+							<span style="color: #999; cursor: text">{{ physicianData.specialty }}</span>
+						</div>
+						<div class="physician_hospital">
+							<span style="color: #999; cursor: text"
 								><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ physicianData.city
 								}}{{
 									',
