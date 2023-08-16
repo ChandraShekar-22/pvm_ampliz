@@ -18,7 +18,7 @@
 							<div class="insideContent"></div>
 						</div>
 					</div>
-					<div class="physician_imgContainer">
+					<!-- <div class="physician_imgContainer">
 						<img
 							[src]="
 								physicianData.gender === 'M'
@@ -43,7 +43,7 @@
 							class="p-2"
 							*ngIf="physicianData.executiveId"
 						/>
-					</div>
+					</div> -->
 
 					<div class="physician_content">
 						<h5 class="physician_name" (click)="onPhysicianNameClicked(physicianData)">
@@ -92,7 +92,7 @@
 						<span class="physican_phone">
 							<i class="fa fa-envelope-o" aria-hidden="true"></i>
 							<span
-								class="font-weight-normal font-11 link_blue_color"
+								class="font-weight-normal link_blue_color"
 								*ngIf="!physicianData.emailViewed; else showViewed"
 								(click)="viewPhysicianEmail()"
 							>
@@ -106,7 +106,7 @@
 
 								<ng-template #viewRequest>
 									<span
-										class="font-weight-normal font-11 link_blue_color"
+										class="font-weight-normal link_blue_color"
 										(click)="request('Request Email Access', physicianData.physicianId)"
 										>Request Email</span
 									>
@@ -116,9 +116,9 @@
 					</ng-container>
 					<ng-container *ngIf="physicianData.phoneExists && physicianData.phoneViewed">
 						<span class="physican_phone">
-							<i class="fa fa-phone fa-lg" aria-hidden="true"></i>
+							<i class="fa fa-phone" aria-hidden="true"></i>
 							<span
-								class="font-weight-normal font-11 link_blue_color"
+								class="font-weight-normal link_blue_color"
 								*ngIf="!physicianData.phoneViewed; else showViewed"
 								(click)="viewPhysicianEmail()"
 							>
@@ -127,11 +127,11 @@
 
 							<ng-template #showViewed>
 								<div *ngIf="physicianData.phoneNumber.length !== 0; else viewRequest">
-									<span class="font-weight-normal font-11 dark_gray">{{ physicianData.phoneNumber }} </span>
+									<span class="font-weight-normal">{{ physicianData.phoneNumber }} </span>
 								</div>
 								<ng-template #viewRequest>
 									<span
-										class="font-weight-normal font-11 link_blue_color"
+										class="font-weight-normal link_blue_color"
 										(click)="request('Request Phone Number Access', physicianData.physicianId)"
 										>Request Phone number</span
 									>
@@ -141,9 +141,9 @@
 					</ng-container>
 					<ng-container *ngIf="physicianData.isMobile">
 						<span class="physican_phone">
-							<i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
+							<i class="fa fa-mobile fa-lg" aria-hidden="true"></i>
 							<span
-								class="font-weight-normal font-11 link_blue_color"
+								class="font-weight-normal link_blue_color"
 								*ngIf="!physicianData.mobileViewed; else showViewed"
 								(click)="viewPhysicianMobileNumber()"
 							>
@@ -155,7 +155,7 @@
 
 								<ng-template #viewRequest>
 									<span
-										class="font-weight-normal font-11 link_blue_color"
+										class="font-weight-normal link_blue_color"
 										(click)="request('Request Mobile Number Access', physicianData.physicianId)"
 										>Request Mobile number</span
 									>
