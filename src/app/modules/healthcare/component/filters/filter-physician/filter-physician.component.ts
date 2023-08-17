@@ -783,10 +783,12 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.excludeSpecialityControl.setValue(null);
 		this.excludeSpecialityInput.nativeElement.value = '';
 		this.emailStatusControl.setValue(null);
+		this.ageControl.setValue('');
 		this.emailStatusInput.nativeElement.value = '';
 		this.emailStatusControl.setValue(null);
 		this.npiNumberInput.nativeElement.value = '';
 		this.experienceInput.nativeElement.value = '';
+		this.ageInput.nativeElement.value = '';
 		this.stateControl.setValue(null);
 		this.stateInput.nativeElement.value = '';
 		this.stateControl.setValue(null);
@@ -815,6 +817,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.leadWithEmail = false;
 		this.emailStatus = 0;
 		this.languages = [];
+		this.age = '';
 		this.omitChange();
 		this.storeFilterData();
 	}
