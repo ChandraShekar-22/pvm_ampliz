@@ -50,10 +50,12 @@
 							{{ physicianData.fullName }}
 						</h5>
 
-						<div class="physician_hospital">
+						<!-- <div class="physician_hospital">
 							<span style="color: #999; cursor: text">{{ physicianData.specialty }}</span>
-						</div>
+						</div> -->
 						<div class="physician_hospital">
+							<span style="color: #999; cursor: text" class="mr-2">{{ physicianData.specialty }}</span>
+
 							<span style="color: #999; cursor: text"
 								><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ physicianData.city
 								}}{{
@@ -154,8 +156,9 @@
 							</span>
 
 							<ng-template #showViewed>
-								<span *ngIf="physicianData.mobileNumber; else viewRequest">{{ physicianData.mobileNumber }}</span>
-
+								<span *ngIf="physicianData.mobileNumber.length !== 0; else viewRequest">{{
+									physicianData.mobileNumber
+								}}</span>
 								<ng-template #viewRequest>
 									<span
 										class="font-weight-normal link_blue_color"
