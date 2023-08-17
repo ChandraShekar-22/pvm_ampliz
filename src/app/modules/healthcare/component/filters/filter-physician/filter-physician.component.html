@@ -524,8 +524,8 @@
 				<mat-autocomplete #cityAuto="matAutocomplete" class="app-autocomplete">
 					<mat-option *ngFor="let city of searchCity" [value]="city" (click)="onCitySelect(city)">
 						{{ city.city }}
-					</mat-option> </mat-autocomplete
-				>
+					</mat-option>
+				</mat-autocomplete>
 			</mat-form-field>
 		</mat-expansion-panel>
 		<mat-expansion-panel #panelAdvance hideToggle="true" [disabled]="isPaid">
@@ -543,46 +543,6 @@
 				</mat-panel-description>
 			</mat-expansion-panel-header>
 
-			<div class="toggle-container d-flex align-items-center justify-content-between">
-				<div class="text-grey font-13">Provider with independent</div>
-				<div class="toggle width-auto">
-					<div class="onoffswitch">
-						<input
-							type="checkbox"
-							name="onoffswitch"
-							class="onoffswitch-checkbox"
-							id="providerIndependent"
-							tabindex="1"
-							[(ngModel)]="leadWithProvider"
-							(change)="handleChange(leadWithProvider, 'Independent')"
-						/>
-						<label class="onoffswitch-label" for="providerIndependent">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="toggle-container d-flex align-items-center justify-content-between mt-3">
-				<div class="text-grey font-13">Show Only Personal Email</div>
-				<div class="toggle width-auto">
-					<div class="onoffswitch">
-						<input
-							type="checkbox"
-							name="onoffswitch"
-							class="onoffswitch-checkbox"
-							id="showonlypersonalemail"
-							tabindex="2"
-							[(ngModel)]="emailTypeIsp"
-							(change)="handleChange(emailTypeIsp, 'emailTypeIsp')"
-						/>
-						<label class="onoffswitch-label" for="showonlypersonalemail">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
-					</div>
-				</div>
-			</div>
 			<span class="form-label">Languages</span>
 			<mat-form-field>
 				<mat-chip-list #languages aria-label="Languages">
@@ -648,6 +608,68 @@
 					<mat-option *ngFor="let age of ageList" [value]="age">{{ age }}</mat-option>
 				</mat-autocomplete>
 			</mat-form-field>
+
+			<div class="toggle-container d-flex align-items-center justify-content-between">
+				<div class="text-grey font-13">Provider with independent</div>
+				<div class="toggle-switch">
+					<input
+						class="toggle-input"
+						id="toggle"
+						type="checkbox"
+						[(ngModel)]="leadWithProvider"
+						(change)="handleChange(leadWithProvider, 'Independent')"
+					/>
+					<label class="toggle-label" for="toggle"></label>
+				</div>
+
+				<!-- <div class="toggle width-auto">
+					<div class="onoffswitch">
+						<input
+							type="checkbox"
+							name="onoffswitch"
+							class="onoffswitch-checkbox"
+							id="providerIndependent"
+							tabindex="1"
+							[(ngModel)]="leadWithProvider"
+							(change)="handleChange(leadWithProvider, 'Independent')"
+						/>
+						<label class="onoffswitch-label" for="providerIndependent">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div> -->
+			</div>
+			<div class="toggle-container d-flex align-items-center justify-content-between mt-3">
+				<div class="text-grey font-13">Show Only Personal Email</div>
+				<div class="toggle-switch">
+					<input
+						class="toggle-input"
+						id="toggle 1"
+						type="checkbox"
+						[(ngModel)]="emailTypeIsp"
+						(change)="handleChange(emailTypeIsp, 'emailTypeIsp')"
+					/>
+					<label class="toggle-label" for="toggle 1"></label>
+				</div>
+				<!-- <div class="toggle width-auto">
+					<div class="onoffswitch">
+						<input
+							type="checkbox"
+							name="onoffswitch"
+							class="onoffswitch-checkbox"
+							id="showonlypersonalemail"
+							tabindex="2"
+							[(ngModel)]="emailTypeIsp"
+							(change)="handleChange(emailTypeIsp, 'emailTypeIsp')"
+						/>
+						<label class="onoffswitch-label" for="showonlypersonalemail">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div> -->
+			</div>
 		</mat-expansion-panel>
 	</mat-accordion>
 </div>
