@@ -258,7 +258,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
     this.searchContactInput.deptInclude = this.includedDepartmentList;
     this.searchContactInput.skillInclude = this.includedSkillList;
     this.searchContactInput.skillExclude = this.excludedSkillList;
-    this.searchContactInput.employeeRange = this.includedEmployeeRange;
+    this.searchContactInput.employeeRangeList = this.includedEmployeeRange;
     this.searchContactInput.revenue = this.includedRevenueRange;
 
     // this.searchContactInput.specialtyIds = this.selectedCompanyKeywords.map(
@@ -336,7 +336,7 @@ export class FilterPeopleComponent implements OnInit, AfterViewInit, OnChanges, 
       this.includedDepartmentList = searchData.deptInclude;
       this.includedSkillList = searchData.skillInclude;
       this.excludedSkillList = searchData.skillExclude;
-      this.includedEmployeeRange = searchData.employeeRange;
+      this.includedEmployeeRange = searchData.employeeRangeList;
       searchData.revenue = [...searchData.revenue];
       this.includedRevenueRange = searchData.revenue;
       this.selectedCompanyKeywords = searchData.specialtyIds;
