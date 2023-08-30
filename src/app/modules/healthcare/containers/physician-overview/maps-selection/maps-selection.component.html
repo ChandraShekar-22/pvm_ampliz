@@ -31,6 +31,7 @@
 				<p class="hospital_location">
 					<span>{{ hospital.hospitalLocation }}, </span>
 				</p>
+				<p class="clickable" (click)="getSimilarPhysician($event, hospital.hospitalLocation)">More Physicians</p>
 			</section>
 		</div>
 	</section>
@@ -40,4 +41,17 @@
 </div>
 <div *ngIf="!hideMap" class="not_found">
 	<p>No {{ name }} Found</p>
+</div>
+
+<h4 class="heading" *ngIf="similarPhysicianList.length !== 0">Similar Physician</h4>
+<div class="similar_physician_container" *ngIf="similarPhysicianList.length !== 0">
+	<div *ngFor="let hospital of similarPhysicianList">
+		<app-similar-physician
+			[name]="hospital.fullName"
+			[hospital]="hospital.hospitalName"
+			[specialty]="hospital.specialty"
+			[physicianId]="hospital.physicianId"
+		></app-similar-physician>
+	</div>
+	<div class="dummy_card" *ngFor="let i of [0, 1, 2, 3]"></div>
 </div>

@@ -1196,4 +1196,10 @@ export class AmplizService {
 		const response = this.http.get(url, { params: props });
 		return response;
 	}
+
+	getSmiliarPhysicianByLocation(props: any): Observable<any> {
+		const url = environment.prodHcApi + '/amplizhcreadapi/search/get-similar-physicians-by-location';
+		const response = this.http.get(url, { params: props });
+		return response;
+	}
 }

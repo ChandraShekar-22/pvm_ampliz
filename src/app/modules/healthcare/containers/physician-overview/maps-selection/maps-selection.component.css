@@ -70,3 +70,34 @@
 	justify-content: center;
 	align-items: center;
 }
+
+.clickable {
+	color: #1a73e8;
+	font-family: Roboto, Arial;
+	font-size: 12px;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+.similar_physician_container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	gap: 83px;
+	row-gap: 53px;
+}
+
+.dummy_card {
+	min-width: calc(100% / 3);
+	flex-basis: calc(100% / 3);
+	flex-grow: 1;
+}
+
+.heading {
+	color: #000;
+	font-size: 15px;
+	font-weight: 600;
+	letter-spacing: 0.75px;
+	margin: 15px 0 30px;
+}

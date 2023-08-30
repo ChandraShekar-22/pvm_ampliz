@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
+import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 
 @Component({
 	selector: 'app-maps-selection',
@@ -10,8 +13,15 @@ export class MapsSelectionComponent implements OnInit {
 	@Input() mapsData: { hospitalLocation: string; hospitalName: string }[] = [];
 	@Input() name: string;
 	hospitalLocation: { hospitalLocation: string; hospitalName: string };
+	loading: boolean = false;
+	similarPhysicianList: any = [];
 
-	constructor(private domSanitizer: DomSanitizer) {}
+	constructor(
+		private domSanitizer: DomSanitizer,
+		private amplizService: AmplizService,
+		private loaderServe: LoaderService,
+		private messageService: MessageService
+	) {}
 
 	ngOnInit(): void {
 		this.hospitalLocation = this.mapsData?.[0] || { hospitalLocation: '', hospitalName: '' };
@@ -28,5 +38,23 @@ export class MapsSelectionComponent implements OnInit {
 	}
 	onSelectList(hospitalLocation: any) {
 		this.hospitalLocation = hospitalLocation;
+	}
+	getSimilarPhysician(event: MouseEvent, hospital: string) {
+		event.stopPropagation();
+		const splitAddress = hospital.split(',').filter((el) => !!el.trim());
+		console.log(splitAddress);
+		const length = splitAddress.length;
+		const state = splitAddress?.[length - 2]?.trim();
+		const city = splitAddress?.[length - 3] || '';
+		this.loading = true;
+		this.amplizService.getSmiliarPhysicianByLocation({ city, state }).subscribe(
+			(res) => {
+				this.loading = false;
+				this.similarPhysicianList = res.similarPhysicianList;
+			},
+			(err) => {
+				this.loading = false;
+			}
+		);
 	}
 }
