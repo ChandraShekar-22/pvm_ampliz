@@ -112,6 +112,16 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	get hidePhysicianPractiseHospitals() {
 		return this.physicianPractiseHospitals.length !== 0;
 	}
+	get hospitalAddress() {
+		const {
+			address1 = '',
+			address2 = '',
+			hospitalName = '',
+			city = '',
+			state = ''
+		} = this.physicianOverviewResult?.physicianInfoData || '';
+		return [address1, address2, hospitalName, city, state].join(', ');
+	}
 	getSmiliarPhysician(speciality: string) {
 		this.amplizService
 			.getSmiliarPhysician({

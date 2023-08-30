@@ -216,6 +216,11 @@
 								{{ physicianOverviewResult.physicianInfoData.providerBio }}
 							</p>
 							<div class="npi_content">
+								<p>
+									Location: <span>{{ hospitalAddress }}</span>
+								</p>
+							</div>
+							<div class="npi_content">
 								<p *ngIf="physicianOverviewResult.physicianInfoData?.npiNumber">
 									NPI Number :
 									<span>{{ physicianOverviewResult.physicianInfoData.npiNumber }}</span>
@@ -329,6 +334,7 @@
 							<app-maps-selection
 								[mapsData]="physicianPractiseHospitals"
 								name="Physician Practise Hospital"
+								[physicianOverviewResult]="physicianOverviewResult"
 							></app-maps-selection>
 						</section>
 						<section *ngIf="selectedTab === 5">

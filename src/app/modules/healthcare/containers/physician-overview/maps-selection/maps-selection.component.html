@@ -7,7 +7,7 @@
 					hospital.hospitalLocation === hospitalLocation.hospitalLocation &&
 					hospital.hospitalName === hospitalLocation.hospitalName
 			}"
-			*ngFor="let hospital of mapsData"
+			*ngFor="let hospital of mapList"
 			(click)="onSelectList(hospital)"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -31,9 +31,7 @@
 				<p class="hospital_location">
 					<span>{{ hospital.hospitalLocation }}, </span>
 				</p>
-				<p class="clickable" (click)="getSimilarPhysician($event, hospital.hospitalLocation)">
-					More physicians from this location
-				</p>
+				<p class="clickable">More physicians from this location</p>
 			</section>
 		</div>
 	</section>
@@ -45,7 +43,7 @@
 	<p>No {{ name }} Found</p>
 </div>
 
-<h4 class="heading" *ngIf="similarPhysicianList.length !== 0">Similar Physician</h4>
+<h4 class="heading" *ngIf="similarPhysicianList.length !== 0">More physicians practicing in this location</h4>
 <div class="similar_physician_container" *ngIf="similarPhysicianList.length !== 0">
 	<div *ngFor="let hospital of similarPhysicianList">
 		<app-similar-physician

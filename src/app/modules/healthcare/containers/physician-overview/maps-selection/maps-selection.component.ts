@@ -12,6 +12,7 @@ import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.servic
 export class MapsSelectionComponent implements OnInit {
 	@Input() mapsData: { hospitalLocation: string; hospitalName: string }[] = [];
 	@Input() name: string;
+	@Input() physicianOverviewResult: any;
 	hospitalLocation: { hospitalLocation: string; hospitalName: string };
 	loading: boolean = false;
 	similarPhysicianList: any = [];
@@ -25,8 +26,15 @@ export class MapsSelectionComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.hospitalLocation = this.mapsData?.[0] || { hospitalLocation: '', hospitalName: '' };
+		if (this.hospitalLocation) {
+			this.getSimilarPhysician(this.hospitalLocation.hospitalLocation);
+		}
 	}
 	ngOnChages(changes: any) {}
+
+	get mapList() {
+		return this.mapsData;
+	}
 
 	get MapUrl() {
 		return this.domSanitizer.bypassSecurityTrustResourceUrl(
@@ -36,13 +44,13 @@ export class MapsSelectionComponent implements OnInit {
 	get hideMap() {
 		return this.mapsData.length !== 0;
 	}
-	onSelectList(hospitalLocation: any) {
-		this.hospitalLocation = hospitalLocation;
+	onSelectList(hospital: any) {
+		this.hospitalLocation = hospital;
+		this.getSimilarPhysician(hospital.hospitalLocation);
 	}
-	getSimilarPhysician(event: MouseEvent, hospital: string) {
+	getSimilarPhysician(hospital: string) {
 		event.stopPropagation();
 		const splitAddress = hospital.split(',').filter((el) => !!el.trim());
-		console.log(splitAddress);
 		const length = splitAddress.length;
 		const state = splitAddress?.[length - 2]?.trim();
 		const city = splitAddress?.[length - 3] || '';
