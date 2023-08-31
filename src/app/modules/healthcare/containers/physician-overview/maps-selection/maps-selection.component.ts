@@ -12,6 +12,7 @@ import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.servic
 export class MapsSelectionComponent implements OnInit {
 	@Input() mapsData: { hospitalLocation: string; hospitalName: string }[] = [];
 	@Input() name: string;
+	@Input() hideMore: boolean = false;
 	@Input() physicianOverviewResult: any;
 	hospitalLocation: { hospitalLocation: string; hospitalName: string };
 	loading: boolean = false;

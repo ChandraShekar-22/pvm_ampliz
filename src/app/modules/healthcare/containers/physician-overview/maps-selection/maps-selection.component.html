@@ -31,7 +31,7 @@
 				<p class="hospital_location">
 					<span>{{ hospital.hospitalLocation }}, </span>
 				</p>
-				<p class="clickable">More physicians from this location</p>
+				<p class="clickable" *ngIf="!hideMore">More physicians from this location</p>
 			</section>
 		</div>
 	</section>
