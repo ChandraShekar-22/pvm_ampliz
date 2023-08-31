@@ -338,7 +338,11 @@
 							></app-maps-selection>
 						</section>
 						<section *ngIf="selectedTab === 5">
-							<app-maps-selection [mapsData]="affiliatedHospitals" name="Affiliation"></app-maps-selection>
+							<app-maps-selection
+								[hideMore]="true"
+								[mapsData]="affiliatedHospitals"
+								name="Affiliation"
+							></app-maps-selection>
 						</section>
 						<section *ngIf="selectedTab === 6">
 							<app-rx-data></app-rx-data>
