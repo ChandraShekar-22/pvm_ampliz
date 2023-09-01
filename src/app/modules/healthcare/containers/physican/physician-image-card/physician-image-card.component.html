@@ -3,7 +3,6 @@
 		<div class="row" style="align-items: center">
 			<div class="col-sm-12" [ngClass]="smallResolution ? 'col-md-12' : 'col-md-12'">
 				<div class="physician_card row justify-content-between align-center">
-					<!-- <div class="form-check " *ngIf="isPaid==true||isSpecialityUser==true"> -->
 					<div class="form-check form1 col-1" style="margin: 0px !important; justify-content: start !important">
 						<input
 							*ngIf="!checkboxDisabled"
@@ -28,11 +27,7 @@
 						{{ physicianData.fullName }}
 					</h5>
 
-					<!-- <div class="row justify-content-between align-center"> -->
-					<!-- <div class=""> -->
-
-					<!-- </div> -->
-
+					<!-- Action Buttons starts -->
 					<div class="button-group i-container col-1">
 						<!-- Panel Starts -->
 						<button
@@ -56,6 +51,7 @@
 							<i class="fa fa-envelope-open-o" aria-hidden="true"></i>
 						</button>
 
+						<!-- Email Panel starts -->
 						<mat-menu #email="matMenu" xPosition="before">
 							<div
 								class="menu-div row"
@@ -92,9 +88,8 @@
 											{{ physicianData.email }}
 										</h6>
 									</div>
-									<!-- <span class="col-12 email-subtitle">Verified email</span>  -->
-									<!-- Email ends -->
-									<!-- Phone Starts -->
+
+									<!-- Phone -->
 									<div class="col-12 mb-1">
 										<span class="email-title"
 											>Phone number
@@ -124,8 +119,7 @@
 										</ng-template>
 									</div>
 
-									<!-- && this.physicianData.mobileNumber.indexOf('x') > -1 -->
-									<!-- Direct Dial Starts -->
+									<!-- Direct Dial -->
 									<ng-container
 										*ngIf="
 											physicianData.mobileNumber.length !== 0 && this.physicianData.mobileNumber.indexOf('x') <= -1
@@ -152,9 +146,7 @@
 											</h6>
 										</div>
 									</ng-container>
-									<!-- Direct dial Ends -->
 
-									<!-- Action Button starts -->
 									<div class="col-12 mt-2 d-flex justify-content-end">
 										<div
 											class="saveBtn_wrp"
@@ -172,14 +164,12 @@
 												<span> Saved </span>
 												<i class="fa fa-check-circle pl-1" aria-hidden="true"></i>
 											</button>
-											<!-- <span class="notCorrect">Not correct</span> -->
 										</div>
 									</div>
-									<!-- Action Button ends -->
 								</div>
 							</div>
 						</mat-menu>
-						<!-- Panel Ends -->
+						<!-- Email Panel Ends -->
 
 						<!-- Direct Dial starts-->
 						<button
@@ -202,6 +192,8 @@
 						>
 							<i class="fa fa-mobile fa-lg" aria-hidden="true"></i>
 						</button>
+
+						<!-- Direct Dial panel starts -->
 						<mat-menu #directDial xPosition="before">
 							<div
 								class="menu-div row"
@@ -226,7 +218,6 @@
 											></i>
 										</h6>
 									</div>
-									<!-- <span class="col-12 email-subtitle">Verified email</span> -->
 									<div class="col-12 mt-2 d-flex justify-content-end">
 										<button class="physician_save" style="cursor: default !important" *ngIf="!showSaveButton">
 											<span> Saved </span>
@@ -236,29 +227,12 @@
 								</div>
 							</div>
 						</mat-menu>
+						<!-- Direct Dial panel ends -->
 						<!-- Direct Dial ends -->
-
-						<!-- <button
-							class="flag-icn"
-							(click)="notCorrectDrawer = true"
-							[matTooltip]="'Not correct'"
-							[matTooltipPosition]="'above'"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="13"
-								height="13"
-								fill="currentColor"
-								class="bi bi-flag"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21.294 21.294 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21.317 21.317 0 0 0 14 7.655V1.222z"
-								/>
-							</svg>
-						</button> -->
 					</div>
+					<!-- Action Buttons ends -->
 
+					<!-- Additional info Starts -->
 					<div class="physician_hospital row col-7">
 						<div class="col-6 inline-flex align-center">
 							<i class="fa fa-stethoscope mr-2" aria-hidden="true"></i>
@@ -274,8 +248,6 @@
 								physicianData.specialty | titlecase
 							}}</span>
 						</div>
-
-						<!-- <div class="physician_hospital" style="margin-top: -11px"> -->
 						<div class="col-6 inline-flex align-center">
 							<i class="fa fa-hospital-o mr-2" aria-hidden="true"></i>
 							<span
@@ -308,12 +280,116 @@
 							>
 						</div>
 					</div>
-					<!-- </div> -->
+					<!-- Additional info Ends -->
 				</div>
 			</div>
-			<div class="col-sm-12" [ngClass]="smallResolution ? 'col-md-3' : 'col-md-2'">
+		</div>
+	</div>
+</div>
+<app-savelist
+	[saveListDiv]="saveDrawer"
+	[physicianId]="physicianData.physicianId"
+	[executiveId]="physicianData.executiveId"
+	(cancelBtnClick)="cancelBtnClick($event)"
+	(refreshedData)="refreshedData($event)"
+	[currentCredit]="currentCredit"
+	*ngIf="saveDrawer"
+></app-savelist>
+<app-notcorrect
+	[notCorrectDiv]="notCorrectDrawer"
+	[physicianId]="physicianData.physicianId"
+	[physicianName]="physicianData.fullName"
+	[executiveId]="physicianData.executiveId"
+	(cancelBtnClick)="cancelBtnClick($event)"
+	*ngIf="notCorrectDrawer"
+></app-notcorrect>
+
+<!-- OLD DESIGN -->
+
+<!-- <div class="physican_container card-animate">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12" [ngClass]="smallResolution ? 'col-md-8' : 'col-md-9'">
+				<div class="physician_card">
+
+					<div class="form-check">
+						<input
+							*ngIf="!checkboxDisabled"
+							[disabled]="checkboxDisabled"
+							class="form-check-input"
+							type="checkbox"
+							id="flexCheckDefault"
+							(change)="checkboxValueChange($event)"
+							[(ngModel)]="checkboxValue"
+						/>
+						<div *ngIf="checkboxDisabled" class="form-check-input partiallySelected">
+							<div class="insideContent"></div>
+						</div>
+					</div>
+					<div class="physician_imgContainer">
+						<img
+							[src]="
+								physicianData.gender === 'M'
+									? 'assets/images/doctor-M.png'
+									: physicianData.gender === 'F'
+									? 'assets/images/Doctor-F.png'
+									: 'assets/img/Physician-hc.png'
+							"
+							width="100%"
+							class="p-2"
+							*ngIf="physicianData.physicianId"
+						/>
+						<img
+							[src]="
+								physicianData.gender === 'M'
+									? 'assets/images/Executive-M.png'
+									: physicianData.gender === 'F'
+									? 'assets/images/Execuitve-F.png'
+									: 'assets/img/Executive-hc.png'
+							"
+							width="100%"
+							class="p-2"
+							*ngIf="physicianData.executiveId"
+						/>
+					</div>
+
+					<div class="physician_content">
+						<h5 class="physician_name" (click)="onPhysicianNameClicked(physicianData)">
+							{{ physicianData.fullName }}
+						</h5>
+						<div class="physician_hospital">
+							<span style="color: #999; cursor: text" class="mr-2">{{ physicianData.specialty }}</span>
+
+							<span style="color: #999; cursor: text"
+								><i class="fa fa-map-marker pr-1" aria-hidden="true"></i>{{ physicianData.city
+								}}{{
+									',
+                ' + physicianData.state
+								}}{{ ', ' + physicianData.country }}</span
+							>
+						</div>
+						<div class="physician_hospital">
+							<i class="fa fa-hospital-o pr-2" aria-hidden="true"></i>
+							<span
+								class="clickable"
+								(click)="goToHospital(physicianData.hospitalId)"
+								*ngIf="physicianData.showHospitalLink"
+								>{{ physicianData.hospitalName }}</span
+							>
+							<span style="color: #999; cursor: text" *ngIf="physicianData.showHospitalLink == false">{{
+								physicianData.hospitalName
+							}}</span>
+						</div>
+						<div class="physician_info">
+							<span style="color: #999; cursor: text">{{ physicianData.title }}</span>
+						</div>
+				
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12" [ngClass]="smallResolution ? 'col-md-4' : 'col-md-3'">
 				<div class="physican_additionInfo">
-					<!-- <ng-container *ngIf="physicianData.emailExists">
+					<ng-container *ngIf="physicianData.emailExists">
 						<span class="physican_phone">
 							<i class="fa fa-envelope-o" aria-hidden="true"></i>
 							<span
@@ -388,9 +464,9 @@
 								</ng-template>
 							</ng-template>
 						</span>
-					</ng-container> -->
+					</ng-container>
 
-					<!-- <div
+					<div
 						class="saveBtn_wrp"
 						*ngIf="!(isSpecialityUser === true && isPhysician == true) && showReqesutButton == false"
 					>
@@ -400,9 +476,8 @@
 							</span>
 							<app-circle-loader [radius]="13" *ngIf="showButtonLoader"></app-circle-loader>
 						</button>
-
+						<span class="notCorrect" (click)="notCorrectDrawer = true">Not correct</span>
 					</div>
-
 					<div
 						class="saveBtn_wrp"
 						*ngIf="!(isSpecialityUser === true && isPhysician == true) && showReqesutButton == true"
@@ -410,7 +485,7 @@
 						<button class="physician_save" (click)="request('Request Email Access', physicianData.physicianId)">
 							<span> Request Contact </span>
 						</button>
-					</div> -->
+					</div>
 				</div>
 			</div>
 		</div>
@@ -432,4 +507,5 @@
 	[executiveId]="physicianData.executiveId"
 	(cancelBtnClick)="cancelBtnClick($event)"
 	*ngIf="notCorrectDrawer"
-></app-notcorrect>
+></app-notcorrect> -->
+<!-- OLD DESIGN ENDS -->
