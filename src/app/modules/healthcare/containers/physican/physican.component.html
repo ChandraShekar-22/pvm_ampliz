@@ -19,7 +19,7 @@
 						<div class="form-check" *ngIf="totalSearchResult.length > 0">
 							<input
 								*ngIf="showSaveAllCheckbox"
-								class="form-check-input"
+								class="form-check-input checkbox-input"
 								type="checkbox"
 								id="flexCheckDefault"
 								(change)="checkSelectAll($event.target.checked)"
@@ -35,7 +35,7 @@
 							</div>
 						</div>
 						<!-- single loader -->
-						<div class="toggle-container pl-3" *ngIf="showCountLoader">
+						<div class="toggle-container" *ngIf="showCountLoader">
 							<div class="toggle">
 								<span class="placeholder-item"></span>
 								<span class="placeholder-item w-50"></span>
@@ -82,7 +82,7 @@
 					</div>
 					<div class="toggle-container">
 						<div class="toggle width-auto">
-							<span class="text-grey font-13">HCP's with Email</span>
+							<span class="text-grey font-12">HCP's with Email</span>
 							<div class="onoffswitch">
 								<input
 									type="checkbox"

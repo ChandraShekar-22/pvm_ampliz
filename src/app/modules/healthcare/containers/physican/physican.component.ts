@@ -32,7 +32,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 	tab = 1;
 	physicianSearchParameter: SearchPhysicianModel = new SearchPhysicianModel();
 	offset: number = 0;
-	limit: number = 5;
+	limit: number = 10;
 	leadWithEmail: boolean = false;
 	leadWithPhone: boolean = false;
 	leadWithProvider: boolean = false;
@@ -56,7 +56,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 	clientIp: any = '';
 	selectedPhysician: Array<string> = [];
 	selectedPhysicianInCurrentPage: Array<any> = [];
-	pageNumberOptions: Array<any> = [5, 10, 25, 50];
+	pageNumberOptions: Array<any> = [10, 20, 30, 40, 50];
 	isSpecialityUser: boolean = false;
 	showCountLoader: boolean = false;
 	previousOffsets: Array<any> = [0];

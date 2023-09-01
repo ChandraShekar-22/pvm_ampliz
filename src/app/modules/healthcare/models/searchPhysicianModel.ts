@@ -16,7 +16,7 @@ export class SearchPhysicianModel {
 		public leadWithPhone: boolean = false,
 		public searchType: string = '',
 		public clientIp: string = '',
-		public email_Score: any = [],
+		public email_Score: any = 0,
 		public experience: string[] = [],
 		public languages: string[] = [],
 		public age: string = ''
