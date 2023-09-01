@@ -55,15 +55,22 @@ export class MapsSelectionComponent implements OnInit {
 		const length = splitAddress.length;
 		const state = splitAddress?.[length - 2]?.trim();
 		const city = splitAddress?.[length - 3] || '';
+		const address = splitAddress?.[0] || '';
 		this.loading = true;
-		this.amplizService.getSmiliarPhysicianByLocation({ city, state }).subscribe(
-			(res) => {
-				this.loading = false;
-				this.similarPhysicianList = res.similarPhysicianList;
-			},
-			(err) => {
-				this.loading = false;
-			}
-		);
+		this.amplizService
+			.getSmiliarPhysicianByLocation({
+				city,
+				state,
+				address
+			})
+			.subscribe(
+				(res) => {
+					this.loading = false;
+					this.similarPhysicianList = res.similarPhysicianList;
+				},
+				(err) => {
+					this.loading = false;
+				}
+			);
 	}
 }
