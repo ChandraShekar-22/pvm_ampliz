@@ -49,18 +49,10 @@ export class MapsSelectionComponent implements OnInit {
 		this.hospitalLocation = hospital;
 		this.getSimilarPhysician(hospital.hospitalLocation);
 	}
-	getSimilarPhysician(hospital: string) {
-		event.stopPropagation();
-		const splitAddress = hospital.split(',').filter((el) => !!el.trim());
-		const length = splitAddress.length;
-		const state = splitAddress?.[length - 2]?.trim();
-		const city = splitAddress?.[length - 3]?.trim() || '';
-		const address = splitAddress?.[0]?.trim() || '';
+	getSimilarPhysician(address: string) {
 		this.loading = true;
 		this.amplizService
 			.getSmiliarPhysicianByLocation({
-				city,
-				state,
 				address
 			})
 			.subscribe(
