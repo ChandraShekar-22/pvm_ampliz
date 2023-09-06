@@ -361,13 +361,19 @@
 }
 .email-text {
 	text-align: start;
-	font-size: 14px !important;
+	font-size: 14px;
 	font-weight: 400 !important;
+	cursor: pointer;
 	color: #354054 !important;
 }
-.email-text i {
+.email-container {
+	display: flex;
+	align-items: center;
+	color: #354054 !important;
+}
+.email-icon {
 	cursor: pointer;
-	font-size: 13px;
+	font-size: 13px !important;
 }
 .email-title {
 	font-weight: 400;

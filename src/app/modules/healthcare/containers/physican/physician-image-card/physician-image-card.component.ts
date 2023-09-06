@@ -76,6 +76,13 @@ export class PhysicianImageCardComponent implements OnInit {
 			return false;
 		}
 	}
+	get shortEmail() {
+		if (this.physicianData.email[0].length > 30) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	get isMobileSaved() {
 		return this.physicianData.mobileNumber.length > 0 && this.physicianData.leadSaveStatus === 'Saved';
 	}
@@ -97,7 +104,7 @@ export class PhysicianImageCardComponent implements OnInit {
 		if (this.physicianData.mobileViewed && this.physicianData.mobileNumber.length > 0) {
 			return 'Direct Dial';
 		} else {
-			return 'Request Email';
+			return 'Request Direct Dial';
 		}
 	}
 

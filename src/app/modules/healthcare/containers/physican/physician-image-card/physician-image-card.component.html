@@ -63,52 +63,56 @@
 									<div class="col-12 mb-1">
 										<span class="email-title"
 											>Email
-											<span class="email-text" style="font-size: 11px"
-												><i
-													[matTooltip]="'Copy email'"
-													[matTooltipPosition]="'above'"
-													class="fa fa-clipboard ml-2 pt-1"
-													aria-hidden="true"
-													(click)="handleAction('copy', physicianData.email)"
-													matTooltipClass="tool-tip"
-												></i>
-												<i
-													class="fa fa-paper-plane-o pt-1 ml-2"
-													aria-hidden="true"
-													[matTooltip]="'Send email'"
-													[matTooltipPosition]="'above'"
-													(click)="handleAction()"
-													matTooltipClass="tool-tip"
-												></i
-											></span>
+											<span class="email-text" style="font-size: 11px"> </span>
 										</span>
 									</div>
 									<div class="col-12">
-										<h6 class="email-text">
-											{{ physicianData.email }}
-										</h6>
+										<span class="email-container">
+											<h6
+												class="email-text"
+												*ngIf="!shortEmail"
+												(click)="handleAction()"
+												[matTooltip]="'Send Email'"
+												[matTooltipPosition]="'above'"
+											>
+												{{ physicianData.email }}
+											</h6>
+											<h6
+												class="email-text"
+												*ngIf="shortEmail"
+												[matTooltip]="physicianData.email"
+												[matTooltipPosition]="'above'"
+												(click)="handleAction()"
+											>
+												{{ physicianData.email[0].substring(0, 30) + '...' }}
+											</h6>
+											<i
+												[matTooltip]="'Copy email'"
+												[matTooltipPosition]="'above'"
+												class="fa fa-clipboard email-icon ml-2 pb-2"
+												aria-hidden="true"
+												matTooltipClass="tool-tip"
+												(click)="handleAction('copy', physicianData.email)"
+											></i>
+										</span>
 									</div>
 
 									<!-- Phone -->
 									<div class="col-12 mb-1">
-										<span class="email-title"
-											>Phone number
-
-											<span class="email-text" style="font-size: 11px"
-												><i
-													[matTooltip]="'Copy Phone Number'"
-													matTooltipClass="tool-tip"
-													[matTooltipPosition]="'above'"
-													class="fa fa-clipboard ml-2 pt-1"
-													aria-hidden="true"
-													(click)="handleAction('copy', physicianData.phoneNumber)"
-												></i
-											></span>
-										</span>
+										<span class="email-title">Phone number </span>
 									</div>
 									<div class="col-12">
 										<h6 class="email-text" *ngIf="physicianData.phoneNumber.length !== 0; else requestPhone">
 											{{ physicianData.phoneNumber }}
+											<i
+												[matTooltip]="'Copy Phone Number'"
+												matTooltipClass="tool-tip"
+												[matTooltipPosition]="'above'"
+												class="fa fa-clipboard ml-2 pt-1 email-icon"
+												aria-hidden="true"
+												style="font-size: 13px !important"
+												(click)="handleAction('copy', physicianData.phoneNumber)"
+											></i>
 										</h6>
 										<ng-template #requestPhone>
 											<span
@@ -126,23 +130,20 @@
 										"
 									>
 										<div class="col-12 mb-1">
-											<span class="email-title"
-												>Direct dial
-												<span class="email-text" style="font-size: 11px"
-													><i
-														[matTooltip]="'Copy Direct Dial'"
-														matTooltipClass="tool-tip"
-														[matTooltipPosition]="'above'"
-														class="fa fa-clipboard ml-2 pt-1"
-														aria-hidden="true"
-														(click)="handleAction('copy', physicianData.mobileNumber)"
-													></i
-												></span>
-											</span>
+											<span class="email-title">Direct dial </span>
 										</div>
 										<div class="col-12">
 											<h6 class="email-text">
 												{{ physicianData.mobileNumber }}
+												<i
+													[matTooltip]="'Copy Direct Dial'"
+													matTooltipClass="tool-tip"
+													[matTooltipPosition]="'above'"
+													class="fa fa-clipboard ml-2 pt-1 email-icon"
+													style="font-size: 13px !important;"
+													aria-hidden="true"
+													(click)="handleAction('copy', physicianData.mobileNumber)"
+												></i>
 											</h6>
 										</div>
 									</ng-container>
