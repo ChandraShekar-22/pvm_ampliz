@@ -60,6 +60,14 @@
 								style="margin: 15px 10px 20px 10px !important"
 							>
 								<div class="row align-content-center col-12 justify-conten-start">
+									<div class="col-12 d-flex justify-content-end">
+										<i
+											class="fa fa-times close-icon"
+											aria-hidden="true"
+											matTooltipClass="tool-tip"
+											(click)="handleAction('close', 'email')"
+										></i>
+									</div>
 									<div class="col-12 mb-1">
 										<span class="email-title"
 											>Email
@@ -89,7 +97,7 @@
 											<i
 												[matTooltip]="'Copy email'"
 												[matTooltipPosition]="'above'"
-												class="fa fa-clipboard email-icon ml-2 pb-2"
+												class="fa fa-clone email-icon ml-2 pb-2"
 												aria-hidden="true"
 												matTooltipClass="tool-tip"
 												(click)="handleAction('copy', physicianData.email)"
@@ -108,7 +116,7 @@
 												[matTooltip]="'Copy Phone Number'"
 												matTooltipClass="tool-tip"
 												[matTooltipPosition]="'above'"
-												class="fa fa-clipboard ml-2 pt-1 email-icon"
+												class="fa fa-clone ml-2 pt-1 email-icon"
 												aria-hidden="true"
 												style="font-size: 13px !important"
 												(click)="handleAction('copy', physicianData.phoneNumber)"
@@ -139,7 +147,7 @@
 													[matTooltip]="'Copy Direct Dial'"
 													matTooltipClass="tool-tip"
 													[matTooltipPosition]="'above'"
-													class="fa fa-clipboard ml-2 pt-1 email-icon"
+													class="fa fa-clone ml-2 pt-1 email-icon"
 													style="font-size: 13px !important"
 													aria-hidden="true"
 													(click)="handleAction('copy', physicianData.mobileNumber)"
@@ -203,6 +211,14 @@
 								style="margin: 15px 10px 20px 10px !important"
 							>
 								<div class="row align-content-center col-12 justify-conten-start">
+									<div class="col-12 d-flex justify-content-end">
+										<i
+											class="fa fa-times close-icon"
+											aria-hidden="true"
+											matTooltipClass="tool-tip"
+											(click)="handleAction('close', 'mobile')"
+										></i>
+									</div>
 									<div class="col-12">
 										<span class="email-title">Direct dial</span>
 									</div>
@@ -213,7 +229,7 @@
 												[matTooltip]="'Copy Direct Dial'"
 												matTooltipClass="tool-tip"
 												[matTooltipPosition]="'above'"
-												class="fa fa-clipboard ml-2 pt-1"
+												class="fa fa-clone ml-2 pt-1"
 												aria-hidden="true"
 												(click)="handleAction('copy', physicianData.mobileNumber)"
 											></i>

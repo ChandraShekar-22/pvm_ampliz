@@ -258,6 +258,8 @@ export class PhysicianImageCardComponent implements OnInit {
 	handleAction(type?, value?) {
 		if (type === 'copy') {
 			this.clipboard.copy(value);
+		} else if (type === 'close') {
+			value === 'email' ? this.emailTrigger.closeMenu() : this.mobileTrigger.closeMenu();
 		} else {
 			document.location = 'mailto:' + this.physicianData.email;
 		}
@@ -281,6 +283,4 @@ export class PhysicianImageCardComponent implements OnInit {
 			this.showPhoneLoader = false;
 		}
 	}
-
-	openOnMouseOver() {}
 }

@@ -411,6 +411,12 @@
 .email-text i {
 	font-size: 11px !important;
 }
+.close-icon {
+	cursor: pointer;
+	color: #354054;
+	font-size: 13px;
+	margin-right: 10px;
+}
 
 ::ng-deep .mat-menu-panel {
 	min-height: auto !important;
