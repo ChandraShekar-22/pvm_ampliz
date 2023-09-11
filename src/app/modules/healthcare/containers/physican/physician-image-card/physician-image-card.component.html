@@ -140,7 +140,7 @@
 													matTooltipClass="tool-tip"
 													[matTooltipPosition]="'above'"
 													class="fa fa-clipboard ml-2 pt-1 email-icon"
-													style="font-size: 13px !important;"
+													style="font-size: 13px !important"
 													aria-hidden="true"
 													(click)="handleAction('copy', physicianData.mobileNumber)"
 												></i>
@@ -239,45 +239,44 @@
 							<i class="fa fa-stethoscope mr-2" aria-hidden="true"></i>
 							<span
 								style="color: #999; cursor: text; cursor: pointer"
-								*ngIf="shortSpeciality"
 								[matTooltip]="physicianData.specialty"
 								[matTooltipPosition]="'above'"
 								matTooltipClass="tool-tip"
-								>{{ physicianData.specialty.substring(0, 34) + '...' | titlecase }}</span
 							>
-							<span style="color: #999; cursor: text" *ngIf="!shortSpeciality">{{
-								physicianData.specialty | titlecase
-							}}</span>
+								{{
+									shortSpeciality
+										? physicianData.specialty.substring(0, 34) + '...'
+										: (physicianData.specialty | titlecase)
+								}}
+							</span>
 						</div>
 						<div class="col-6 inline-flex align-center">
 							<i class="fa fa-hospital-o mr-2" aria-hidden="true"></i>
 							<span
 								class="clickable"
 								(click)="goToHospital(physicianData.hospitalId)"
-								*ngIf="physicianData.showHospitalLink && shortHospital"
+								*ngIf="physicianData.showHospitalLink"
 								[matTooltip]="physicianData.hospitalName"
 								[matTooltipPosition]="'above'"
 								matTooltipClass="tool-tip"
-								>{{ physicianData.hospitalName.substring(0, 34) + '...' | titlecase }}</span
 							>
-							<span
-								class="clickable"
-								(click)="goToHospital(physicianData.hospitalId)"
-								*ngIf="physicianData.showHospitalLink && !shortHospital"
-								>{{ physicianData.hospitalName | titlecase }}</span
-							>
+								{{
+									(shortHospital ? physicianData.hospitalName.substring(0, 34) + '...' : physicianData.hospitalName)
+										| titlecase
+								}}
+							</span>
+
 							<span
 								style="color: #999; cursor: text; cursor: pointer"
-								*ngIf="physicianData.showHospitalLink == false && shortHospital"
+								*ngIf="physicianData.showHospitalLink == false"
 								[matTooltip]="physicianData.hospitalName"
 								[matTooltipPosition]="'above'"
 								matTooltipClass="tool-tip"
-								>{{ physicianData.hospitalName.substring(0, 34) + '...' | titlecase }}</span
 							>
-							<span
-								style="color: #999; cursor: text"
-								*ngIf="physicianData.showHospitalLink == false && !shortHospital"
-								>{{ physicianData.hospitalName | titlecase }}</span
+								{{
+									(shortHospital ? physicianData.hospitalName.substring(0, 34) + '...' : physicianData.hospitalName)
+										| titlecase
+								}}</span
 							>
 						</div>
 					</div>
@@ -306,7 +305,6 @@
 ></app-notcorrect>
 
 <!-- OLD DESIGN -->
-
 <!-- <div class="physican_container card-animate">
 	<div class="container">
 		<div class="row">
