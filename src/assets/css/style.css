@@ -3821,12 +3821,12 @@ app-company-b2b #wrapper {
 /* border: 3px solid #fff !important; */
 content: "";
 position: absolute;
-top: -2px;
-left: 5px;
+top: -1px;
+left: 4px;
 display: table;
-width: 9px;
-height: 15px;
-border: 3px solid #fff;
+width: 5px;
+height: 10px;
+border: 2px solid #fff;
 border-top-width: 0;
 border-left-width: 0;
 -webkit-transform: rotate(45deg);
