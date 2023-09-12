@@ -742,7 +742,7 @@ p.sub-header {
 }
 
 .toggle-switch .toggle-input:checked + .toggle-label {
-	background-color: #0071eb;
+	background-color: #2d8cff;
 }
 
 .toggle-switch .toggle-input:checked + .toggle-label::before {
