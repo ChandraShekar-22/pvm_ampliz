@@ -62,6 +62,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 	previousOffsets: Array<any> = [0];
 	previousSavedOffsets: Array<any> = [0];
 	savedPhysicians: Array<any> = [];
+	emailTypeIsp: boolean = false;
 	constructor(
 		public amplizService: AmplizService,
 		private loaderService: SkeletonloaderService,
@@ -200,7 +201,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 		this.physicianSearchParameter.languages = event.languages;
 		this.physicianSearchParameter.age = event.age ? `Age ${event.age}` : '';
 		this.physicianSearchParameter.email_Score = event.email_Score;
-
+		this.emailTypeIsp = event.emailTypeIsp;
 		// this.leadWithEmail = event.leadWithEmail || false;
 		this.leadWithEmail = event.leadWithEmail || false;
 		this.leadWithProvider = event.provider_Type;
@@ -327,7 +328,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 		// this.physicianSearchParameter.emailTypeIsp = this.leadWithEmail
 		//   ? "Yes"
 		//   : "";
-		this.physicianSearchParameter.emailTypeIsp = '';
+		this.physicianSearchParameter.emailTypeIsp = this.emailTypeIsp ? 'Yes' : '';
 		this.physicianSearchParameter.provider_Type = this.leadWithProvider ? 'Independent' : '';
 		this.physicianSearchParameter.leadWithEmail = this.leadWithEmail;
 		this.physicianSearchParameter.leadWithPhone = this.leadWithPhone;
