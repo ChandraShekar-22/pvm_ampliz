@@ -788,7 +788,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.emailStatusControl.setValue(null);
 		this.npiNumberInput.nativeElement.value = '';
 		this.experienceInput.nativeElement.value = '';
-		this.ageInput.nativeElement.value = '';
+		// this.ageInput.nativeElement.value = '';
 		this.stateControl.setValue(null);
 		this.stateInput.nativeElement.value = '';
 		this.stateControl.setValue(null);

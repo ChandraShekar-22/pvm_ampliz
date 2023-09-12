@@ -338,9 +338,16 @@
 	padding: 0px;
 }
 /* 
-
-.active-btn i {
+.i-container button:hover {
+	border-color: #2d8cff;
 	color: #2d8cff;
+} */
+
+.active-btn {
+	/* border-color: #2d8cff !important; */
+}
+.active-btn i {
+	color: #2d8cff !important;
 }
 /* ` */
 .menu-div {
@@ -421,5 +428,5 @@
 	white-space: pre-line !important;
 	background-color: #040404;
 	color: white;
-	font-size: 13px;
+	font-size: 12px;
 }
