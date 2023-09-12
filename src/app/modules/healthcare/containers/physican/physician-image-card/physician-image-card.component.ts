@@ -88,10 +88,10 @@ export class PhysicianImageCardComponent implements OnInit {
 	}
 	get emailTooltip() {
 		if (this.physicianData.emailExists && !this.physicianData.emailViewed) {
-			return 'View Email';
+			return 'View email costs one credit';
 		}
 		if (this.physicianData.emailViewed && this.physicianData.length === 0) {
-			return 'Request Email';
+			return 'Request Email (If Ampliz finds a verified email, you will be charged one credit)';
 		}
 		if (this.physicianData.emailViewed && this.physicianData.email.length > 0) {
 			return 'Email';
@@ -99,12 +99,12 @@ export class PhysicianImageCardComponent implements OnInit {
 	}
 	get mobileTooltip() {
 		if (this.physicianData.isMobile && !this.physicianData.mobileViewed) {
-			return 'View Direct Dial';
+			return 'View direct dial costs one credit';
 		}
 		if (this.physicianData.mobileViewed && this.physicianData.mobileNumber.length > 0) {
 			return 'Direct Dial';
 		} else {
-			return 'Request Direct Dial';
+			return 'Request Direct Dial (If Ampliz finds a verified number, you will be charged one credit)';
 		}
 	}
 

@@ -184,7 +184,7 @@
 					</div>
 				</div>
 
-				<div class="search_pagination_wrapper" *ngIf="!(noResult && offset == 0)">
+				<div class="search_pagination_wrapper" *ngIf="!(noResult && offset == 0) && totalCount > 10">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="paginationWrapper">
