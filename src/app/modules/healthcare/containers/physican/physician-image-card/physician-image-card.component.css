@@ -172,11 +172,20 @@
 }
 
 .physician_hospital {
-	color: #2d8cff;
+	/* color: #2d8cff; */
 	display: flex;
 	align-items: center;
 	font-weight: 400;
-	font-size: 12px !important;
+	font-size: 13px !important;
+}
+.physician_hospital i {
+	color: #040404 !important;
+}
+.physician_hospital span {
+	color: #040404 !important;
+}
+.default-actn-btn i {
+	color: #040404;
 }
 
 .physican_location img {

@@ -63,14 +63,14 @@ export class PhysicianImageCardComponent implements OnInit {
 		);
 	}
 	get shortHospital() {
-		if (this.physicianData.hospitalName.length > 34) {
+		if (this.physicianData.hospitalName.length > 30) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	get shortSpeciality() {
-		if (this.physicianData.specialty.length > 34) {
+		if (this.physicianData.specialty.length > 30) {
 			return true;
 		} else {
 			return false;
@@ -90,7 +90,10 @@ export class PhysicianImageCardComponent implements OnInit {
 		if (this.physicianData.emailExists && !this.physicianData.emailViewed) {
 			return 'View email costs one credit';
 		}
-		if (this.physicianData.emailViewed && this.physicianData.length === 0) {
+		if (
+			(this.physicianData.emailViewed && this.physicianData.length === 0) ||
+			!this.physicianData.emailExists
+		) {
 			return 'Request Email (If Ampliz finds a verified email, you will be charged one credit)';
 		}
 		if (this.physicianData.emailViewed && this.physicianData.email.length > 0) {
