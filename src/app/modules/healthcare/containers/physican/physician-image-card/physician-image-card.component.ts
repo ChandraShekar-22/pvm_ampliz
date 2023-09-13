@@ -258,6 +258,7 @@ export class PhysicianImageCardComponent implements OnInit {
 	handleAction(type?, value?) {
 		if (type === 'copy') {
 			this.clipboard.copy(value);
+			this.messageService.display(true, 'Copied!');
 		} else if (type === 'close') {
 			value === 'email' ? this.emailTrigger.closeMenu() : this.mobileTrigger.closeMenu();
 		} else {
