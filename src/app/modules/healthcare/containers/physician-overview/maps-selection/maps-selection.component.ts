@@ -50,19 +50,21 @@ export class MapsSelectionComponent implements OnInit {
 		this.getSimilarPhysician(hospital.hospitalLocation);
 	}
 	getSimilarPhysician(address: string) {
-		this.loading = true;
-		this.amplizService
-			.getSmiliarPhysicianByLocation({
-				address
-			})
-			.subscribe(
-				(res) => {
-					this.loading = false;
-					this.similarPhysicianList = res.similarPhysicianList;
-				},
-				(err) => {
-					this.loading = false;
-				}
-			);
+		if (address) {
+			this.loading = true;
+			this.amplizService
+				.getSmiliarPhysicianByLocation({
+					address
+				})
+				.subscribe(
+					(res) => {
+						this.loading = false;
+						this.similarPhysicianList = res.similarPhysicianList;
+					},
+					(err) => {
+						this.loading = false;
+					}
+				);
+		}
 	}
 }
