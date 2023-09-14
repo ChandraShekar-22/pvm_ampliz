@@ -373,7 +373,7 @@
 	font-size: 14px;
 	font-weight: 400 !important;
 	cursor: pointer;
-	color: #354054 !important;
+	color: #040404 !important;
 }
 .email-container {
 	display: flex;
@@ -383,6 +383,7 @@
 .email-icon {
 	cursor: pointer;
 	font-size: 13px !important;
+	color: #040404 !important;
 }
 .email-title {
 	font-weight: 400;

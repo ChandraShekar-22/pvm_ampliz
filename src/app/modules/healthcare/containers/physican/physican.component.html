@@ -212,7 +212,7 @@
 									</li>
 
 									<li class="opt" *ngIf="isPaid == true">
-										<mat-form-field class="mx-3" style="max-width: 75px">
+										<mat-form-field class="mx-3" style="max-width: 75px; color: #040404 !important;">
 											<mat-label>Records Per Page</mat-label>
 											<mat-select [(ngModel)]="limit" (selectionChange)="handleRecordsChange()">
 												<mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{ opt }}</mat-option>
