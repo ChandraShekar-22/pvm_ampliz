@@ -814,6 +814,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.npiNumberList = [];
 		this.experienceList = [];
 		this.leadWithProvider = false;
+		this.emailTypeIsp = false;
 		this.leadWithEmail = false;
 		this.emailStatus = 0;
 		this.languages = [];
