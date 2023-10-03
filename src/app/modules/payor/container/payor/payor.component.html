@@ -21,12 +21,13 @@
 <div id="wrapper">
   <app-header style="width: 100%" [elementName]="'payor'"></app-header>
   <!-- <app-sidemenu elementName="payor"></app-sidemenu> -->
-  <div style="margin-top: 90px; margin-left: 70px">
+  <div style="margin-top: 90px">
     <app-hc-top-tab
       [activeLink]="currentTab"
       [tabItems]="tabItems"
       [isPrimary]="true"
       (tabChanged)="handleTabChange($event)"
+      [fontSize]="'12px'"
     >
     </app-hc-top-tab>
   </div>

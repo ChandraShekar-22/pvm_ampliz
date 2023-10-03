@@ -1,49 +1,65 @@
 <div [class.withBorder]="isBorder">
-    <nav mat-tab-nav-bar>
-      <div class="row-tab" style="width: 100% !important; align-items: center; background-color: #ffffff">
-        <div *ngIf="haveCheckbox==true" class="form-check">
-          <input *ngIf="!partiallySelected" class="form-check-input" type="checkbox" [(ngModel)]="allSelected"
-            id="flexCheckDefault" (change)="checkboxValueChange()" />
-          <div (click)="checkboxValueChange()" *ngIf="partiallySelected" class="form-check-input partiallySelected">
-            <div class=" insideContent">
-            </div>
-          </div>
-    
-        </div>
-    
-        <div *ngIf="haveSelectBox==true" class="form-check">
-          <app-select-bulk-modal
-          (selectVisibleClicked)="handleSelectVisibleChange()"
-          [allContactsSelected]="allContactsSelected"
-          [allVisibleSelected]="allVisibleSelected"
-          (selectAllClicked)="handleSelectAllClick()"
-          [totalSavableItemCount]="totalSavableItemCount"
-          [totalItemCount]="totalItemCount"
-          (successfullySaved)="handleSuccessSave()"
-          [selectedFilter]="selectedFilter"
-          ></app-select-bulk-modal>
-    
-        </div>
-        <div style="flex: 1 !important">
-          <a mat-tab-link *ngFor="let tab of tabItems; index as i" (click)="changeTab(i)" [active]="activeLink == i"
-            [class.activeNormal]="activeLink == i && !isPrimary" [class.activePrimary]="activeLink == i && isPrimary"
-            class="tab-anchor">
-            <!-- <div class="align-base"> -->
-            <i-feather name="{{ tab?.icon?.name }}" [ngClass]="tab?.customClass" class="feather"
-              *ngIf="tab.icon !== '' && tab.icon?.type === 'feather'">
-            </i-feather>
-            <mat-icon *ngIf="tab.icon?.name !== '' && tab.icon?.type !== 'feather'" aria-hidden="false"
-              aria-label="home icon" class="mat">{{ tab.icon.name }}</mat-icon>
-            <span *ngIf="!showLoader" class="icon-content">{{ tab.name }}</span>
-            <span *ngIf="showLoader" class="placeholder-item">
-              
-            </span>
-            <!-- </div> -->
-          </a>
-        </div>
-        <div class="flex-row">
-        <ng-content></ng-content>
-        </div>
-      </div>
-    </nav>
-    </div>
+	<nav mat-tab-nav-bar>
+		<div class="row-tab" style="width: 100% !important; align-items: center; background-color: #ffffff">
+			<div *ngIf="haveCheckbox == true" class="form-check">
+				<input
+					*ngIf="!partiallySelected"
+					class="form-check-input"
+					type="checkbox"
+					[(ngModel)]="allSelected"
+					id="flexCheckDefault"
+					(change)="checkboxValueChange()"
+				/>
+				<div (click)="checkboxValueChange()" *ngIf="partiallySelected" class="form-check-input partiallySelected">
+					<div class="insideContent"></div>
+				</div>
+			</div>
+
+			<div *ngIf="haveSelectBox == true" class="form-check">
+				<app-select-bulk-modal
+					(selectVisibleClicked)="handleSelectVisibleChange()"
+					[allContactsSelected]="allContactsSelected"
+					[allVisibleSelected]="allVisibleSelected"
+					(selectAllClicked)="handleSelectAllClick()"
+					[totalSavableItemCount]="totalSavableItemCount"
+					[totalItemCount]="totalItemCount"
+					(successfullySaved)="handleSuccessSave()"
+					[selectedFilter]="selectedFilter"
+				></app-select-bulk-modal>
+			</div>
+			<div style="flex: 1 !important">
+				<a
+					mat-tab-link
+					*ngFor="let tab of tabItems; index as i"
+					(click)="changeTab(i)"
+					[active]="activeLink == i"
+					[class.activeNormal]="activeLink == i && !isPrimary"
+					[class.activePrimary]="activeLink == i && isPrimary"
+					class="tab-anchor"
+				>
+					<!-- <div class="align-base"> -->
+					<i-feather
+						name="{{ tab?.icon?.name }}"
+						[ngClass]="tab?.customClass"
+						class="feather"
+						*ngIf="tab.icon !== '' && tab.icon?.type === 'feather'"
+					>
+					</i-feather>
+					<mat-icon
+						*ngIf="tab.icon?.name !== '' && tab.icon?.type !== 'feather'"
+						aria-hidden="false"
+						aria-label="home icon"
+						class="mat"
+						>{{ tab.icon.name }}</mat-icon
+					>
+					<span *ngIf="!showLoader" class="icon-content" [style.fontSize]="fontSize">{{ tab.name }}</span>
+					<span *ngIf="showLoader" class="placeholder-item"> </span>
+					<!-- </div> -->
+				</a>
+			</div>
+			<div class="flex-row">
+				<ng-content></ng-content>
+			</div>
+		</div>
+	</nav>
+</div>

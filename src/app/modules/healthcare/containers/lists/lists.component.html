@@ -1,153 +1,125 @@
 <div id="wrapper">
-  <app-header [user]="user" [elementName]="'lists'" style="width: 100%"></app-header>{{ user }}
-  <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
-  <!-- <app-sidemenu elementName="lists"></app-sidemenu> -->
+	<app-header [user]="user" [elementName]="'lists'" style="width: 100%"></app-header>{{ user }}
+	<!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
+	<!-- <app-sidemenu elementName="lists"></app-sidemenu> -->
 
-  <app-createlist
-    [createListDiv]="createDrawer"
-    (cancelBtnClick)="cancelBtnClick($event)"
-    *ngIf="createDrawer"
-  ></app-createlist>
-  <app-footer></app-footer>
+	<app-createlist
+		[createListDiv]="createDrawer"
+		(cancelBtnClick)="cancelBtnClick($event)"
+		*ngIf="createDrawer"
+	></app-createlist>
+	<app-footer></app-footer>
 
-  <div class="content-page enlarged">
-    <!-- Start content -->
+	<div class="content-page enlarged">
+		<!-- Start content -->
 
-    <div class="content mx-auto">
-      <!-- container -->
-      <div class="row">
-        <div class="col">
-          <div class="float-start">
-            <div class="h5 text-dark mt-3 fw-normal">Lists</div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="float-end mt-3">
-            <button
-              type="button"
-              class="btn btn-lg create-list pull-right"
-              (click)="createDrawer = true"
-            >
-              <span class="iconfont-size">+</span> Create List
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- Begin page -->
-      <div id="wrapper" style="margin-top: 20px">
-        <!-- Start content -->
+		<div class="content mx-auto">
+			<!-- container -->
+			<div class="row">
+				<div class="col">
+					<div class="float-start">
+						<div class="h5 text-dark mt-3 fw-normal">Lists</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="float-end mt-3">
+						<button type="button" class="btn btn-lg create-list pull-right" (click)="createDrawer = true">
+							<span class="iconfont-size">+</span> Create List
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- Begin page -->
+			<div id="wrapper" style="margin-top: 20px">
+				<!-- Start content -->
 
-        <div class="container-fluid">
-          <!-- Start Edit profile row -->
-          <div class="row">
-            <div class="table-wrapper">
-              <div class="search_pagination_wrapper">
-                <div class="row p-4">
-                  <div class="col-md-3 col-sm-12 p-0 m-0 pb-2 pt-3">
-                    <input
-                      type="text"
-                      id="filter-text-box"
-                      (keyup)="onFilterTextBoxChanged($event)"
-                      class="form-control form-control-lg"
-                      style="height: 40px"
-                      placeholder="Search"
-                      [(ngModel)]="searchString"
-                    />
-                  </div>
-                  <div class="col-md-9 col-sm-12">
-                    <div class="paginationWrapper">
-                      <div class="paginationWrapper" *ngIf="totalSize > 0">
-                        <ul
-                          *ngIf="pager.pages && pager.pages.length"
-                          class="pagination"
-                        >
-                          <!-- <li [ngClass]="{disabled:pager.currentPage === 1}">
+				<div class="container-fluid">
+					<!-- Start Edit profile row -->
+					<div class="row">
+						<div class="table-wrapper">
+							<div class="search_pagination_wrapper">
+								<div class="row p-4">
+									<div class="col-md-3 col-sm-12 p-0 m-0 pb-2 pt-3">
+										<input
+											type="text"
+											id="filter-text-box"
+											(keyup)="onFilterTextBoxChanged($event)"
+											class="form-control form-control-lg"
+											style="height: 40px"
+											placeholder="Search"
+											[(ngModel)]="searchString"
+										/>
+									</div>
+									<div class="col-md-9 col-sm-12">
+										<div class="paginationWrapper">
+											<div class="paginationWrapper" *ngIf="totalSize > 0">
+												<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+													<!-- <li [ngClass]="{disabled:pager.currentPage === 1}">
                                                     <a *ngIf="pager.currentPage === 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
                                                     <a (click)="setPage(1)" *ngIf="pager.currentPage !== 1"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
                                                   </li> -->
-                          <li [ngClass]="{ disabled: pager.currentPage === 1 }">
-                            <a
-                              *ngIf="pager.currentPage === 1"
-                              style="border-radius: 5px 0 0 5px !important"
-                              ><i
-                                class="fa fa-chevron-left"
-                                aria-hidden="true"
-                              ></i
-                            ></a>
-                            <a
-                              *ngIf="pager.currentPage !== 1"
-                              (click)="setPage(pager.currentPage - 1)"
-                              style="border-radius: 5px 0 0 5px !important"
-                              ><i
-                                class="fa fa fa-chevron-left"
-                                aria-hidden="true"
-                              ></i
-                            ></a>
-                          </li>
-                          <!-- <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+													<li [ngClass]="{ disabled: pager.currentPage === 1 }">
+														<a *ngIf="pager.currentPage === 1" style="border-radius: 5px 0 0 5px !important"
+															><i class="fa fa-chevron-left" aria-hidden="true"></i
+														></a>
+														<a
+															*ngIf="pager.currentPage !== 1"
+															(click)="setPage(pager.currentPage - 1)"
+															style="border-radius: 5px 0 0 5px !important"
+															><i class="fa fa fa-chevron-left" aria-hidden="true"></i
+														></a>
+													</li>
+													<!-- <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
                                                     <a (click)="setPage(page)">{{page}}</a>
                                                   </li> -->
-                          <li
-                            [ngClass]="{
-                              disabled: pager.currentPage === pager.totalPages
-                            }"
-                          >
-                            <a
-                              *ngIf="pager.currentPage === pager.totalPages"
-                              style="border-radius: 0 5px 5px 0 !important"
-                              ><i
-                                class="fa fa-chevron-right"
-                                aria-hidden="true"
-                              ></i
-                            ></a>
-                            <a
-                              *ngIf="pager.currentPage !== pager.totalPages"
-                              (click)="setPage(pager.currentPage + 1)"
-                              style="border-radius: 0 5px 5px 0 !important"
-                              ><i
-                                class="fa fa-chevron-right"
-                                aria-hidden="true"
-                              ></i
-                            ></a>
-                          </li>
-                          <!-- <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+													<li
+														[ngClass]="{
+															disabled: pager.currentPage === pager.totalPages
+														}"
+													>
+														<a *ngIf="pager.currentPage === pager.totalPages" style="border-radius: 0 5px 5px 0 !important"
+															><i class="fa fa-chevron-right" aria-hidden="true"></i
+														></a>
+														<a
+															*ngIf="pager.currentPage !== pager.totalPages"
+															(click)="setPage(pager.currentPage + 1)"
+															style="border-radius: 0 5px 5px 0 !important"
+															><i class="fa fa-chevron-right" aria-hidden="true"></i
+														></a>
+													</li>
+													<!-- <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
                                                       <a *ngIf="pager.currentPage === pager.totalPages"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
                                                     <a  *ngIf="pager.currentPage !== pager.totalPages" (click)="setPage(pager.totalPages)"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
                                                   </li> -->
-                        </ul>
-                        <div class="pull-right paginationInfo">
-                          {{ offset + 1 }}-{{
-                            offset + count > totalSize
-                              ? totalSize
-                              : count + offset
-                          }}
-                          of {{ totalSize }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div style="display: flex; flex-direction: row; height: 100%">
-                  <div style="overflow: hidden; flex-grow: 1">
-                    <ag-grid-angular
-                      style="width: 100%; height: calc(100vh - 350px)"
-                      class="ag-theme-material list1"
-                      (gridReady)="onGridReady($event)"
-                      #agGrid
-                      [defaultColDef]="defaultColDef"
-                      [columnDefs]="columnDefs"
-                      [animateRows]="true"
-                      (cellClicked)="onCellClicked($event)"
-                      [sortingOrder]="sortingOrders"
-                      (firstDataRendered)="onFirstDataRendered($event)"
-                      [paginationPageSize]="paginationPageSize"
-                      [frameworkComponents]="frameworkComponents"
-                    >
-                    </ag-grid-angular>
-                  </div>
-                </div>
-              </div>
-              <!-- <div style="display: flex; flex-direction: row; height: 100%">
+												</ul>
+												<div class="pull-right paginationInfo">
+													{{ offset + 1 }}-{{ offset + count > totalSize ? totalSize : count + offset }} of {{ totalSize }}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div style="display: flex; flex-direction: row; height: 100%">
+									<div style="overflow: hidden; flex-grow: 1">
+										<ag-grid-angular
+											style="width: 100%; height: calc(100vh - 350px)"
+											class="ag-theme-material list1"
+											(gridReady)="onGridReady($event)"
+											#agGrid
+											[defaultColDef]="defaultColDef"
+											[columnDefs]="columnDefs"
+											[animateRows]="true"
+											(cellClicked)="onCellClicked($event)"
+											[sortingOrder]="sortingOrders"
+											(firstDataRendered)="onFirstDataRendered($event)"
+											[paginationPageSize]="paginationPageSize"
+											[frameworkComponents]="frameworkComponents"
+										>
+										</ag-grid-angular>
+									</div>
+								</div>
+							</div>
+							<!-- <div style="display: flex; flex-direction: row; height: 100%">
                 <div style="overflow: hidden; flex-grow: 1">
                   <ag-grid-angular
                     style="width: 100%; height: calc(100vh - 350px)"
@@ -167,50 +139,30 @@
                   </ag-grid-angular>
                 </div>
               </div> -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="confirmDelete" role="dialog">
-    <div class="modal-dialog modal-sm cancel-modal">
-      <div class="modal-content cancel-modal">
-        <form #confirmDelete>
-          <div class="modal-header">
-            <h6 class="modal-title">
-              <i class="fa fa-times" aria-hidden="true"></i> Confirmation!
-            </h6>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-hidden="true"
-            >
-              ×
-            </button>
-          </div>
-          <div class="modal-body">Are you sure want to delete this List?</div>
-          <div class="modal-footer" style="display: block; overflow: hidden">
-            <button
-              type="button"
-              class="btn btn-default btn-sm pull-left"
-              data-dismiss="modal"
-              #hideCancelOption
-            >
-              No
-            </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="confirmDelete" role="dialog">
+		<div class="modal-dialog modal-sm cancel-modal">
+			<div class="modal-content cancel-modal">
+				<form #confirmDelete>
+					<div class="modal-header">
+						<h6 class="modal-title"><i class="fa fa-times" aria-hidden="true"></i> Confirmation!</h6>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">Are you sure want to delete this List?</div>
+					<div class="modal-footer" style="display: block; overflow: hidden">
+						<button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="modal" #hideCancelOption>
+							No
+						</button>
 
-            <button
-              type="button"
-              class="btn btn-danger btn-sm pull-right"
-              (click)="deleteList()"
-            >
-              Yes
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+						<button type="button" class="btn btn-danger btn-sm pull-right" (click)="deleteList()">Yes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

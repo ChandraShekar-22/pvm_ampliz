@@ -120,7 +120,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 		{
 			name: 'Subscription',
 			icon: 'mdi mdi-settings-outline',
-			url: ''
+			url: 'pricing'
 		},
 		{
 			name: 'Teams',
@@ -138,6 +138,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			url: 'logout'
 		}
 	];
+
+	dynamicList = ['npi-lookup'];
 
 	constructor(
 		public router: Router,
@@ -179,7 +181,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			if (subList.indexOf(this.elementName) > -1) {
 				this.hcMenu.map((active) => (active = false));
 				this.hcMenu[1].active = true;
-				console.log('HC MENU ', this.hcMenu);
 				subList = [];
 			}
 			// Enrich SubMenu
@@ -208,7 +209,43 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			this.subNav.map((active) => (active = false));
 			this.subNav[subIndex].active = true;
 		}
+		// this.getDynamicNav();
 	}
+
+	// getDynamicNav() {
+	// 	if (this.dynamicList[0] !== 'all') {
+	// 		let tempSearchItem = [];
+	// 		let index = [];
+
+	// 		tempSearchItem = this.hcMenu[1].sub.map((item) => {
+	// 			// index.push(item.url.indexOf());
+	// 			return item.url.toLowerCase();
+	// 		});
+	// 		index = this.dynamicList.map((item) => {
+	// 			return tempSearchItem.indexOf(item);
+	// 		});
+	// 		if (index.length !== -1) {
+	// 			index.map((index) => {
+	// 				this.hcMenu[1].sub.splice(index, 1);
+	// 			});
+	// 		} else {
+	// 			console.log('IN ELSE');
+	// 			tempSearchItem = this.hcMenu[2].sub.map((item) => {
+	// 				return item.url.toLowerCase();
+	// 			});
+	// 			console.log('TEM', tempSearchItem);
+	// 			index = this.dynamicList.map((item) => {
+	// 				return tempSearchItem.indexOf(item);
+	// 			});
+
+	// 			console.log('index', index);
+	// 			index.map((index) => {
+	// 				this.hcMenu[2].sub.splice(index, 1);
+	// 			});
+	// 			console.log('MENY', this.hcMenu[2]);
+	// 		}
+	// 	}
+	// }
 
 	ngAfterViewInit() {
 		this.access_token = this.cookieService.get('auth_token');
@@ -372,21 +409,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			this.ngZone.run(() => this.router.navigateByUrl(url)).then();
 		}
 	}
-	editprofile() {}
-	toggleSideMenu() {
-		let el: HTMLElement = document.getElementsByTagName('body')[0];
-		if (el.classList['0'] === 'enlarged') {
-			el.classList.remove('enlarged');
-		} else {
-			el.classList.add('enlarged');
-		}
-	}
-	navigatePage(item) {
-		this.elementName = item;
-		if (item === 'editprofile') {
-			this.router.navigate(['editprofile']);
-		}
-	}
+
 	public openItem(path: string, payment?: any): void {
 		let urlPath = path;
 		if (path == 'B2B') {

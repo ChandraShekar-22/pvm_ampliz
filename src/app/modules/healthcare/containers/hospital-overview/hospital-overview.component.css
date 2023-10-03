@@ -337,7 +337,7 @@ mat-action-list .mat-list-item {
 }
 
 #wrapper .content-page {
-  margin-left: 70px;
+  /* margin-left: 70px; */
   overflow: hidden;
   background-color: #f4f7f6 !important;
 }

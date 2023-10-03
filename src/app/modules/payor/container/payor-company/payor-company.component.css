@@ -1,219 +1,214 @@
 .imaging-wrapper {
-  margin: 20px;
-  margin-top: 30px;
-  overflow-y: scroll;
+	margin: 30px 0px 20px;
+	overflow-y: scroll;
 }
 .b2b-content {
-  display: flex;
-  margin-left: 20px;
-  /* border: 1px solid #cdcdcd; */
-  flex-direction: column;
-  flex: 1;
-  height: 100%;
-  /* min-height: 435px; */
-  border-radius: 8px;
-  margin-right: 60px;
-  overflow: hidden;
+	display: flex;
+	margin-left: 20px;
+	/* border: 1px solid #cdcdcd; */
+	flex-direction: column;
+	flex: 1;
+	height: 100%;
+	/* min-height: 435px; */
+	border-radius: 8px;
+	/* margin-right: 60px; */
+	overflow: hidden;
 }
 .other-border {
-  border: 1px solid #cdcdcd;
-  /* border-right: 1px solid #cdcdcd;
+	border: 1px solid #cdcdcd;
+	/* border-right: 1px solid #cdcdcd;
     border-bottom: 1px solid #cdcdcd; */
-  /* border-bottom-left-radius: 8px;
+	/* border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px; */
-  border-radius: 8px;
+	border-radius: 8px;
 }
 .topBorder {
-  border-top: 1px solid #cdcdcd;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+	border-top: 1px solid #cdcdcd;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
 }
 .b2b-content-main {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 0;
-  background-color: #fff;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: 0;
+	background-color: #fff;
 }
 .app-top-tab {
-  width: 100%;
+	width: 100%;
 }
 .b2bContainer {
-  width: 100% !important;
+	width: 100% !important;
 }
 
 .searchButton {
-  position: relative;
-  border-radius: 25px;
-  border: 1px solid #f2f2f2;
-  margin-left: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  font-size: 13px;
-  font-weight: normal;
-  height: 30px;
-  cursor: pointer;
+	position: relative;
+	border-radius: 25px;
+	border: 1px solid #f2f2f2;
+	margin-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 13px;
+	font-weight: normal;
+	height: 30px;
+	cursor: pointer;
 }
 
 .b2b-content-main .mat-tab-label-active {
-  color: #2d8cff !important;
+	color: #2d8cff !important;
 }
 
 .leftIcon {
-  display: flex;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border: 1px solid grey;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
+	display: flex;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border: 1px solid grey;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	cursor: pointer;
 }
 .rightIcon {
-  display: flex;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border: 1px solid grey;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  border-left-width: 0px;
-  cursor: pointer;
+	display: flex;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border: 1px solid grey;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	border-left-width: 0px;
+	cursor: pointer;
 }
 .paginationText {
-  font-size: 14px;
-  margin-right: 20px;
-  font-weight: normal;
-  color: #000;
-  cursor: pointer;
+	font-size: 14px;
+	margin-right: 20px;
+	font-weight: normal;
+	color: #000;
+	cursor: pointer;
 }
 .people-wrapper {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 
-.b2b-content-main
-  .mat-tab-header-pagination-controls-enabled
-  .mat-tab-header-pagination {
-  display: none !important;
+.b2b-content-main .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+	display: none !important;
 }
 
-.b2b-content-main
-  .mat-tab-header-pagination-controls-enabled
-  .mat-tab-header-pagination {
-  display: none !important;
+.b2b-content-main .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+	display: none !important;
 }
 
 .flex1 {
-  flex: 1;
+	flex: 1;
 }
 
 .flex-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .primaryBtn {
-  color: #2d8cff !important;
-  border-color: #2d8cff !important;
+	color: #2d8cff !important;
+	border-color: #2d8cff !important;
 }
 
 .primary {
-  color: #2d8cff !important;
+	color: #2d8cff !important;
 }
 
 .menuWrapper {
-  padding: 20px;
+	padding: 20px;
 }
 
 .menuTitle {
-  font-weight: normal;
-  color: #000 !important;
+	font-weight: normal;
+	color: #000 !important;
 }
 .activity-wrapper {
-  padding: 0 20px;
-  margin-left: 50px;
+	padding: 0 20px;
+	margin-left: 50px;
 }
 
 mat-form-field.mat-form-field {
-  font-size: 12px;
-  /* height: 18px; */
+	font-size: 12px;
+	/* height: 18px; */
 }
 
 .opt .mat-form-field-appearance-outline .mat-form-field-wrapper {
-  margin: 0 !important;
+	margin: 0 !important;
 }
 .backIcon {
-  padding-bottom: 20px;
-  font-size: 20px;
-  cursor: pointer;
+	padding-bottom: 20px;
+	font-size: 20px;
+	cursor: pointer;
 }
 
 .disabledPagination {
-  pointer-events: none;
-  color: grey;
-  cursor: default;
+	pointer-events: none;
+	color: grey;
+	cursor: default;
 }
 .opt ::ng-deep .mat-form-field-underline {
-  display: none;
+	display: none;
 }
 .opt ::ng-deep .mat-select {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
 }
 
 .disabled {
-  cursor: not-allowed !important;
-  color: grey;
+	cursor: not-allowed !important;
+	color: grey;
 }
 
 .lockIcon {
-  height: 14px !important;
-  width: 14px !important;
-  color: rgb(255, 222, 6) !important;
-  position: absolute;
-  font-weight: bold;
+	height: 14px !important;
+	width: 14px !important;
+	color: rgb(255, 222, 6) !important;
+	position: absolute;
+	font-weight: bold;
 }
 
 .selectDisabled {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .selectDisabledOverlay {
-  height: 80%;
-  width: 100%;
-  background-color: #000;
-  position: absolute;
-  top: 0px;
-  opacity: 0.2;
-  border-radius: 5px;
+	height: 80%;
+	width: 100%;
+	background-color: #000;
+	position: absolute;
+	top: 0px;
+	opacity: 0.2;
+	border-radius: 5px;
 }
 
 .content-page {
-  background-color: #f5f5f5;
+	background-color: #f5f5f5;
 }
 
 .selectVal {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 @media screen and (max-width: 1280px) {
-  .selectVal {
-    margin-right: 3px;
-  }
-  .paginationText {
-    font-size: 12px;
-    margin-right: 5px;
-    font-weight: normal;
-    color: #000;
-    cursor: pointer;
-  }
+	.selectVal {
+		margin-right: 3px;
+	}
+	.paginationText {
+		font-size: 12px;
+		margin-right: 5px;
+		font-weight: normal;
+		color: #000;
+		cursor: pointer;
+	}
 }

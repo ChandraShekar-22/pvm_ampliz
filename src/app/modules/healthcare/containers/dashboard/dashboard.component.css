@@ -1,53 +1,53 @@
 .bg-green {
-  background: #d3ecfa;
+	background: #d3ecfa;
 }
 
 .heroContent {
-  position: absolute;
-  top: 30%;
-  left: 30%;
-  transform: translate(-50%, -50%);
+	position: absolute;
+	top: 30%;
+	left: 30%;
+	transform: translate(-50%, -50%);
 }
 .chrm-info {
-  color: #717783;
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 2rem;
+	color: #717783;
+	font-size: 1rem;
+	font-weight: 300;
+	line-height: 2rem;
 }
 .img-thumbnail {
-  padding: 0.25rem;
-  background-color: #fff;
-  border: none !important;
-  border-radius: 0.25rem;
-  max-width: 72% !important;
-  height: auto;
+	padding: 0.25rem;
+	background-color: #fff;
+	border: none !important;
+	border-radius: 0.25rem;
+	max-width: 72% !important;
+	height: auto;
 }
 .user-badge {
-  position: relative !important;
-  top: 15px;
-  left: 0;
-  padding: 5px 15px;
-  border-radius: 20px;
-  color: #ffffff;
-  font-size: 11px;
-  text-transform: uppercase;
-  font-weight: bold;
+	position: relative !important;
+	top: 15px;
+	left: 0;
+	padding: 5px 15px;
+	border-radius: 20px;
+	color: #ffffff;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
 }
 .mx-top {
-  border: none !important;
-  padding-bottom: 30px !important;
-  padding-top: 0px !important;
+	border: none !important;
+	padding-bottom: 30px !important;
+	padding-top: 0px !important;
 }
 .btn-new-Pri {
-  background-color: #38c17e !important;
-  border: 1px solid #07c166 !important;
-  color: #ffffff !important;
+	background-color: #38c17e !important;
+	border: 1px solid #07c166 !important;
+	color: #ffffff !important;
 }
 
 .btn-new-Sec {
-  background-color: #ffffff !important;
-  border: 1px solid #07c166 !important;
-  color: #38c17e !important;
+	background-color: #ffffff !important;
+	border: 1px solid #07c166 !important;
+	color: #38c17e !important;
 }
 
 /* NEW DESIGN CSS */
