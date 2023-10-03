@@ -88,6 +88,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 	ngOnInit() {
 		// this.getPhysicianSearchData();
 		// this.getIPAddress();
+		console.log("IN INIT")
 		this.getDashboardDetails();
 		this.saveDraftLeads();
 		this.netNewCount = 0;

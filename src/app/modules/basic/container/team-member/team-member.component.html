@@ -1,7 +1,7 @@
 
 <div id="wrapper">
-	<app-header style="width: 100%"></app-header>
-	<app-sidemenu elementName="team-member"></app-sidemenu>
+	<app-header style="width: 100%" [elementName]="'team-member'"></app-header>
+	<!-- <app-sidemenu elementName="team-member"></app-sidemenu> -->
 	<div class="content-page enlarged">
 		<!-- [style.height.px]="updatedHeight" -->
 		<div class="content row" *ngIf="isAdmin">

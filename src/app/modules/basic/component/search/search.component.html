@@ -4,7 +4,7 @@
         <label class="search-input-label">
             <i class="fa fa-search" aria-hidden="true"></i>
             <input class="search-input" (ngModelChange)="getSearchData($event)" [ngModel]="searchVal"
-                placeholder="Search for Physician Name, Hospital Name and Executive Name" />
+                placeholder="Search for Physician Name" />
             <i *ngIf="searchVal" class="fa fa-times clearBtn" aria-hidden="true" (click)="hideModel($event)"></i>
         </label>
     </div>

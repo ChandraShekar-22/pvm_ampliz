@@ -3,6 +3,10 @@
 	border-width: 10px !important;
 	font-weight: normal;
 	min-height: 55px;
+	justify-content: start !important;
+	padding: 0 10px !important;
+	margin-right: 10px !important;
+	min-width: fit-content;
 }
 :host {
 	width: 100%;
@@ -98,6 +102,7 @@
 	overflow: hidden;
 	margin-bottom: 10px;
 }
+
 
 @media screen and (max-width: 1300px) {
 	.mat-tab-link {

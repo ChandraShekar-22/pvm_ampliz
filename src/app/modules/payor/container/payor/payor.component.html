@@ -19,8 +19,8 @@
 </div> -->
 
 <div id="wrapper">
-  <app-header style="width: 100%"></app-header>
-  <app-sidemenu elementName="payor"></app-sidemenu>
+  <app-header style="width: 100%" [elementName]="'payor'"></app-header>
+  <!-- <app-sidemenu elementName="payor"></app-sidemenu> -->
   <div style="margin-top: 90px; margin-left: 70px">
     <app-hc-top-tab
       [activeLink]="currentTab"

@@ -1,7 +1,7 @@
 <div id="wrapper">
-  <app-header [user]="" style="width: 100%"></app-header>
+  <app-header [user]="" style="width: 100%" [elementName]="'hospital'"></app-header>
   <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
-  <app-sidemenu elementName="hospital"></app-sidemenu>
+  <!-- <app-sidemenu elementName="hospital"></app-sidemenu> -->
   <div class="content-page">
     <div class="content" *ngIf="hospitalOverviewResult !== undefined">
       <div class="row">

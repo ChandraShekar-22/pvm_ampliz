@@ -20,7 +20,7 @@ export class ErrorInterceptorService {
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
 				let errorMsg = 'Error occured';
-				console.log(error, 'searchMCOExecutives');
+				console.log(error, 'Err');
 				if (error instanceof HttpErrorResponse) {
 					this.handleError(error);
 				} else {

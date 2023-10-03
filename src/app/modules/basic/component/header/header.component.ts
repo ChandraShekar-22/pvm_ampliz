@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, NgZone, AfterViewInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { AmplizService } from "../../../healthcare/services/ampliz.service";
-import { LoaderService } from "../../../healthcare/services/loader.service";
-import { SuccessmessageService } from "../../../healthcare/services/successmessage.service";
-import { ErrorService } from "../../../healthcare/services/error.service";
-import { CookieService } from "ngx-cookie-service";
-import { DataService } from "../../../healthcare/services/data.service";
-import { Subscription } from "rxjs-compat";
-import { MessageService } from "../../../B2B/services/message.service";
-import { DataService as B2BService } from "../../../B2B/services/data.service";
-import { B2bService } from "../../../B2B/services/b2b.service"
+import { Component, OnInit, Input, NgZone, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AmplizService } from '../../../healthcare/services/ampliz.service';
+import { LoaderService } from '../../../healthcare/services/loader.service';
+import { SuccessmessageService } from '../../../healthcare/services/successmessage.service';
+import { ErrorService } from '../../../healthcare/services/error.service';
+import { CookieService } from 'ngx-cookie-service';
+import { DataService } from '../../../healthcare/services/data.service';
+import { Subscription } from 'rxjs-compat';
+import { MessageService } from '../../../B2B/services/message.service';
+import { DataService as B2BService } from '../../../B2B/services/data.service';
+import { B2bService } from '../../../B2B/services/b2b.service';
+import { E } from '@angular/cdk/keycodes';
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
@@ -42,6 +43,102 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	@Input() elementName = 'dashboard';
 	dailyCurrentCredits: any;
 	dailyUsedCredits: any;
+
+	hcMenu: any = [
+		{ name: 'Dashboard', sub: [], active: false, url: 'hcdashboard' },
+		{
+			name: 'Search',
+			sub: [
+				{
+					name: 'Physician',
+					icon: 'fa fa-user-md',
+					active: false,
+					url: 'physician'
+				},
+				{
+					name: 'Executive',
+					icon: 'fa fa-user-circle',
+					active: false,
+					url: 'executive'
+				},
+				{
+					name: 'LTC',
+					icon: 'fa fa-wheelchair',
+					active: false,
+					url: 'ltc'
+				},
+				{
+					name: 'Imaging',
+					icon: 'mat-imaging',
+					active: false,
+					url: 'imaging'
+				},
+				{
+					name: 'MCO',
+					icon: 'mco-svg',
+					active: false,
+					url: 'payor'
+				},
+				{
+					name: 'Hospital',
+					icon: 'fa fa-hospital-o',
+					active: false,
+					url: 'hospital'
+				}
+			],
+			active: false,
+			url: 'physician'
+		},
+		{
+			name: 'Enrich',
+			sub: [
+				{
+					name: 'NPI',
+					icon: 'ti-export',
+					active: false,
+					url: 'npi-lookup'
+				}
+			],
+			active: false,
+			url: 'npi-lookup'
+		},
+		{
+			name: 'Lists',
+			sub: [],
+			active: false,
+			url: 'lists'
+		}
+	];
+	subNav: any = [];
+
+	accountMenu = [
+		{
+			name: 'Edit Profile',
+			icon: 'fa fa-gear',
+			url: 'editprofile'
+		},
+		{
+			name: 'Subscription',
+			icon: 'mdi mdi-settings-outline',
+			url: ''
+		},
+		{
+			name: 'Teams',
+			icon: 'mdi mdi-account-multiple',
+			url: 'team-member'
+		},
+		{
+			name: 'Generate API Key',
+			icon: 'fa fa-code',
+			url: 'geneateapi'
+		},
+		{
+			name: 'Logout',
+			icon: 'ti-power-off',
+			url: 'logout'
+		}
+	];
+
 	constructor(
 		public router: Router,
 		private amplizService: AmplizService,
@@ -63,7 +160,55 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	get dataSet() {
 		return window.localStorage.getItem('Dataset');
 	}
-	ngOnInit() {}
+	ngOnInit() {
+		this.getActiveNav();
+	}
+
+	getActiveNav() {
+		let navList: any = [];
+		this.hcMenu.map((item) => navList.push(item.url.toLowerCase()));
+
+		if (navList.indexOf(this.elementName) > -1) {
+			this.hcMenu.map((active) => (active = false));
+			this.hcMenu[navList.indexOf(this.elementName)].active = true;
+			navList = [];
+		} else {
+			let subList: any = [];
+			// Search SubMenu
+			this.hcMenu[1].sub.map((item) => subList.push(item.url.toLowerCase()));
+			if (subList.indexOf(this.elementName) > -1) {
+				this.hcMenu.map((active) => (active = false));
+				this.hcMenu[1].active = true;
+				console.log('HC MENU ', this.hcMenu);
+				subList = [];
+			}
+			// Enrich SubMenu
+			this.hcMenu[2].sub.map((item) => subList.push(item.url.toLowerCase()));
+			if (subList.indexOf(this.elementName) > -1) {
+				this.hcMenu.map((active) => (active = false));
+				this.hcMenu[2].active = true;
+				subList = [];
+			}
+		}
+		this.getSubMenu();
+	}
+
+	getSubMenu() {
+		let list = [];
+		const index = this.hcMenu
+			.map((item) => {
+				return item.active;
+			})
+			.indexOf(true);
+		if (index >= 0) {
+			this.subNav = this.hcMenu[index].sub;
+			// Active Menu
+			this.subNav.map((item) => list.push(item.url.toLowerCase()));
+			const subIndex = list.indexOf(this.elementName);
+			this.subNav.map((active) => (active = false));
+			this.subNav[subIndex].active = true;
+		}
+	}
 
 	ngAfterViewInit() {
 		this.access_token = this.cookieService.get('auth_token');
@@ -219,6 +364,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	logout() {
 		this.amplizService.logout();
 	}
+	navigate(url: any, exception?: any) {
+		if (url === 'logout') {
+			this.amplizService.logout();
+		} else {
+			this.elementName = url;
+			this.ngZone.run(() => this.router.navigateByUrl(url)).then();
+		}
+	}
 	editprofile() {}
 	toggleSideMenu() {
 		let el: HTMLElement = document.getElementsByTagName('body')[0];
@@ -234,7 +387,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			this.router.navigate(['editprofile']);
 		}
 	}
-	public openItem(path: string): void {
+	public openItem(path: string, payment?: any): void {
 		let urlPath = path;
 		if (path == 'B2B') {
 			urlPath = 'payment';

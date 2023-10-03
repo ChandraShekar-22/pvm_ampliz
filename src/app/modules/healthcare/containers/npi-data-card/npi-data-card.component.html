@@ -1,7 +1,7 @@
 <app-npi-data-progress-modal [name]="reportInfo.fileName" *ngIf="showProgressModal"></app-npi-data-progress-modal>
 <div id="wrapper">
-  <app-header [user]="" style="width: 100%"></app-header>
-  <app-sidemenu elementName="npi-lookup"></app-sidemenu>
+  <app-header [user]="" style="width: 100%" [elementName]="'npi-lookup'"></app-header>
+  <!-- <app-sidemenu elementName="npi-lookup"></app-sidemenu> -->
   <app-npi-dowload-list
     [currentCredit]="currentCredits"
     [saveListDiv]="downloadModal"

@@ -3,10 +3,11 @@
     [user]="user"
     style="width: 100%"
     [header-data]="headerData"
+    [elementName]="'lists'"
   ></app-header
   >{{ user }}
   <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
-  <app-sidemenu elementName="lists"></app-sidemenu>
+  <!-- <app-sidemenu elementName="lists"></app-sidemenu> -->
   <app-createlist
     [createListDiv]="createDrawer"
     (cancelBtnClick)="cancelBtnClick($event)"

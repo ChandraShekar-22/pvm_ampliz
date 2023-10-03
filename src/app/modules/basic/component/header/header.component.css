@@ -1,5 +1,159 @@
-.hide-phone {
-    display: visible !important;
-    padding-top: 18px!important;
-    margin-right: 50px!important;
+.header-bar {
+	padding: 10px 0px;
+}
+.active {
+	color: #2d8cff !important;
+}
+.custom-box-shadow {
+	box-shadow: 0px 1px 0px 0px rgba(53, 64, 83, 0.19);
+}
+/* Profile css */
+.account-dropdown {
+	cursor: pointer;
+	color: #040404 !important;
+}
+/* Action css */
+.action-container {
+	padding-right: 30px !important;
+}
+
+/* Navigation link Css */
+.menu-nav {
+	font-size: 13px;
+	font-weight: 400;
+	color: #040404;
+	background: #fff;
+	margin-left: 10px;
+	cursor: pointer;
+	justify-content: space-around;
+	transition: all 0.2s ease-out;
+}
+.dropbtn:hover {
+	color: #2d8cff;
+}
+/* Drop Down Menu css */
+
+/* drop down container css */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	min-width: 350px;
+	max-width: 650px;
+	z-index: 999999;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+	background-color: #fff;
+	border: 1px solid #ece9e9;
+	cursor: default;
+	top: 20px;
+}
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+.dropdown-content:hover .dropbtn {
+	color: #2d8cff !important;
+}
+.disable-drop-down {
+	display: none !important;
+}
+
+/* .tempClass {
+	display: block;
+} */
+
+/* Content Container css */
+.submenu-container {
+	display: grid;
+	grid-template-columns: min-content min-content;
+	grid-template-rows: auto;
+	padding: 10px;
+}
+.submenu-item {
+	min-width: 300px;
+	height: auto;
+	cursor: pointer;
+	margin: 15px;
+	padding: 10px;
+}
+
+/* Content css */
+.icon-container {
+	background-color: #f4f7f6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #b7b7b7;
+	opacity: 0.5;
+	margin-right: 10px;
+	transition: all 0.2s ease-out;
+}
+.hover-underline-animation {
+	position: relative;
+	color: #040404;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 13px;
+}
+.hover-underline-animation::after {
+	content: '';
+	position: absolute;
+	width: 60%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: -3px;
+	left: 0px;
+	background-color: #2d8cff;
+	transform-origin: bottom right;
+	transition: transform 0.25s ease-out;
+}
+.submenu-item:hover .hover-underline-animation::after {
+	transform: scaleX(1);
+	transform-origin: bottom left;
+}
+.submenu-item:hover .hover-underline-animation {
+	font-weight: 500 !important;
+}
+
+.submenu-item:hover .icon-container {
+	border: 1px solid #2d8cff;
+	background: #2d8cff05;
+	color: #2d8cff;
+	opacity: 1;
+	fill: #2d8cff !important;
+}
+.description {
+	font-size: 11px;
+	font-weight: 400;
+	margin-top: 5px;
+}
+
+/* Second Nav Css */
+.lower-header {
+	padding: 0px !important;
+	background-color: #f4f4f4;
+	margin-top: 8px;
+	/* border: 2px solid #040404; */
+	font-size: 13px;
+	/* color: #040404 !important; */
+	border-bottom-width: 1px;
+}
+.nav-link {
+	font-size: 12px !important;
+	color: #040404 !important;
+	margin-top: -1px;
+	cursor: pointer;
+	fill: #040404 !important;
+}
+.active-sub-nav {
+	color: #2d8cff !important;
+	fill: #2d8cff !important;
+}
+mat-icon {
+	font-size: 14px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
 }

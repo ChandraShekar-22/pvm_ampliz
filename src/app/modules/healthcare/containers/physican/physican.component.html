@@ -1,7 +1,9 @@
 <div id="wrapper">
-	<app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+	<app-header [user]="user" style="width: 100%" [elementName]="'physician'"></app-header>{{ user }}
 	<!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
-	<app-sidemenu elementName="physician"></app-sidemenu>
+	<!-- <app-sidemenu elementName="physician"></app-sidemenu> -->
+
+
 
 	<div class="content-page">
 		<!-- Start content -->
@@ -212,7 +214,7 @@
 									</li>
 
 									<li class="opt" *ngIf="isPaid == true">
-										<mat-form-field class="mx-3" style="max-width: 75px; color: #040404 !important;">
+										<mat-form-field class="mx-3" style="max-width: 75px; color: #040404 !important">
 											<mat-label>Records Per Page</mat-label>
 											<mat-select [(ngModel)]="limit" (selectionChange)="handleRecordsChange()">
 												<mat-option [value]="opt" *ngFor="let opt of pageNumberOptions">{{ opt }}</mat-option>
