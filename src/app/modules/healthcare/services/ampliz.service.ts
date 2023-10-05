@@ -1212,4 +1212,14 @@ export class AmplizService {
 		const response = this.http.get(url);
 		return response;
 	}
+	getCPTDetails(physicianId: string) {
+		const url = environment.prodHcApi + '/amplizhcreadapi/search/get-physician-cpt-details';
+		const response = this.http.get(url, { params: { physicianId } });
+		return response;
+	}
+	getHcpcsDetails(physicianId: string) {
+		const url = environment.prodHcApi + '/amplizhcreadapi/search/get-physician-hcpcs-details';
+		const response = this.http.get(url, { params: { physicianId } });
+		return response;
+	}
 }

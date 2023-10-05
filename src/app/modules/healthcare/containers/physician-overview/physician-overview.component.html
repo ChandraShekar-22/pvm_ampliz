@@ -206,6 +206,8 @@
 							<p [ngClass]="{ selected: selectedTab === 5 }" (click)="tabselected(5)">AFFILIATION</p>
 							<!-- <p [ngClass]="{ selected: selectedTab === 6 }" (click)="tabselected(6)">RX-DATA</p> -->
 							<p [ngClass]="{ selected: selectedTab === 7 }" (click)="tabselected(7)">SIMILAR PHYSICIAN</p>
+							<p [ngClass]="{ selected: selectedTab === 8 }" (click)="tabselected(8)">CPT</p>
+							<p [ngClass]="{ selected: selectedTab === 9 }" (click)="tabselected(9)">HSCPC</p>
 						</section>
 					</div>
 				</div>
@@ -346,6 +348,12 @@
 						</section>
 						<section *ngIf="selectedTab === 6">
 							<app-rx-data></app-rx-data>
+						</section>
+						<section *ngIf="selectedTab === 8">
+							<app-cpt-details [physicianId]="paramsData"></app-cpt-details>
+						</section>
+						<section *ngIf="selectedTab === 9">
+							<app-hscpc-details [physicianId]="paramsData"></app-hscpc-details>
 						</section>
 						<section *ngIf="selectedTab === 7">
 							<div class="similar_physician_container" *ngIf="similarPhysician.length !== 0; else notFound">

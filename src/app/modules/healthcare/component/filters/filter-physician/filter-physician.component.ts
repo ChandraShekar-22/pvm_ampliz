@@ -527,7 +527,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 			languages: this.languages,
 			age: this.age,
 			cptCodes: this.codeClassification === 'CPT' ? this.filteredCodes : [],
-			hcpcsCodes: this.codeClassification === 'HSCPCot' ? this.filteredCodes : []
+			hcpcsCodes: this.codeClassification === 'HSCPC' ? this.filteredCodes : []
 		});
 		this.changeSearchData();
 	}

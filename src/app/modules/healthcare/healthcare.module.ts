@@ -61,6 +61,8 @@ import { PhysicianNotCorrectComponent } from './containers/physician-overview/ph
 import { RxDataComponent } from './containers/physician-overview/rx-data/rx-data.component';
 import { SimilarPhysicianComponent } from './containers/physician-overview/similar-physician/similar-physician.component';
 import { MapsSelectionComponent } from './containers/physician-overview/maps-selection/maps-selection.component';
+import { CptDetailsComponent } from './containers/physician-overview/cpt-details/cpt-details.component';
+import { HscpcDetailsComponent } from './containers/physician-overview/hscpc-details/hscpc-details.component';
 // component/confidence-level/confidence-level.component
 const appRoutes = [
   {
@@ -192,6 +194,8 @@ const appRoutes = [
     RxDataComponent,
     SimilarPhysicianComponent,
     MapsSelectionComponent,
+    CptDetailsComponent,
+    HscpcDetailsComponent,
   ],
   imports: [
     CommonComponentsModule,

@@ -30,6 +30,8 @@ export class PhysicianOverviewComponent implements OnInit, AfterViewInit {
 	affiliatedHospitals: any[] = [];
 	similarPhysician: any[] = [];
 	selectedTab = 1;
+	cptDetails: any = [];
+	hcpcsDetails: any = [];
 
 	geoLocation: any = {
 		lat: 0,
