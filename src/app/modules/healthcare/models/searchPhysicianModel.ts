@@ -19,7 +19,9 @@ export class SearchPhysicianModel {
 		public email_Score: any = 0,
 		public experience: string[] = [],
 		public languages: string[] = [],
-		public age: string = ''
+		public age: string = '',
+		public cptCodes: number[] = [],
+		public hcpcsCodes: number[] = []
 	) {}
 
 	public toJson(): object {
@@ -43,7 +45,9 @@ export class SearchPhysicianModel {
 			email_Score: this.email_Score,
 			experience: this.experience,
 			languages: this.languages,
-			age: this.age
+			age: this.age,
+			hcpcsCodes: this.hcpcsCodes,
+			cptCodes: this.cptCodes
 		};
 	}
 
@@ -68,7 +72,9 @@ export class SearchPhysicianModel {
 			obj.email_Score,
 			obj.experience,
 			obj.languages,
-			obj.age
+			obj.age,
+			obj.cptCodes,
+			obj.hcpcsCodes
 		);
 	}
 }

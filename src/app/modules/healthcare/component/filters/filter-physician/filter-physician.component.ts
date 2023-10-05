@@ -43,6 +43,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	npiNumberInput: ElementRef<HTMLInputElement>;
 	@ViewChild('experienceInput', { static: false })
 	experienceInput: ElementRef<HTMLInputElement>;
+	@ViewChild('cptCodeInput', { static: false })
+	cptCodeInput: ElementRef<HTMLInputElement>;
 	@ViewChild('stateInput', { static: false })
 	stateInput: ElementRef<HTMLInputElement>;
 	@ViewChild('cityInput', { static: false })
@@ -53,6 +55,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	excludeSpecialityInput: ElementRef<HTMLInputElement>;
 	@ViewChild('emailStatusInput', { static: false })
 	emailStatusInput: ElementRef<HTMLInputElement>;
+	@ViewChild('codeClassificationInput', { static: false })
+	codeClassificationInput: ElementRef<HTMLInputElement>;
 	@ViewChild('languagesInput', { static: false })
 	languagesInput: ElementRef<HTMLInputElement>;
 	@ViewChild('languagesInput', { static: false })
@@ -67,20 +71,26 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	includeSpecialityControl = new FormControl();
 	excludeSpecialityControl = new FormControl();
 	emailStatusControl = new FormControl();
+	codeClassificationControl = new FormControl();
 	languagesControl = new FormControl();
 	ageControl = new FormControl();
+	cptControl = new FormControl();
 	hideHospitalNamePlaceholder: boolean = false;
+	staticCodeClassificationList = ['CPT', 'HSCPC'];
 	// Data for filter component
 	filteredHospitals: Observable<string[]>;
 	filteredStates: Observable<string[]>;
+	filteredCodes: number[] = [];
 	stateList: any = [];
 	filteredCities: any = [];
 	filteredSpeciality: any = [];
 	filteredSpecialityEx: any = [];
+	cptCodeList: any = [];
 	// Variable to be used for filter API call
 	includedSpecialities: any = [];
 	excludedSpecialities: any = [];
 	emailStatus: number = 0;
+	codeClassification: string = '';
 	languages: string[] = [];
 	age: string = '';
 	physicianName: string = '';
@@ -336,10 +346,13 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		setTimeout(() => {
 			this.hospitalNames = this.filterStorageService.get('physician_hospital') || [];
 			this.emailStatus = this.filterStorageService.get('email_Score') || 0;
+			this.codeClassification = this.filterStorageService.get('code_classification') || '';
+			this.getlistForCodeClassification();
 			this.languages = this.filterStorageService.get('physician_languages') || [];
 			this.age = this.filterStorageService.get('physician_age') || '';
 			this.includedSpecialities = this.filterStorageService.get('physician_specialityIncluded') || [];
 			this.excludedSpecialities = this.filterStorageService.get('physician_specialityExcluded') || [];
+			this.filteredCodes = this.filterStorageService.get('selected_code_list') || [];
 			this.physicianName = this.filterStorageService.get('physician_physicianName') || '';
 			this.selectedCities = this.filterStorageService.get('physician_cityList') || [];
 			this.selectedStates = this.filterStorageService.get('physician_stateList') || [];
@@ -360,6 +373,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 				this.leadWithEmail !== false ||
 				this.leadWithProvider !== false ||
 				this.emailStatus !== undefined ||
+				this.codeClassification ||
 				this.emailTypeIsp !== false ||
 				this.languages.length !== 0 ||
 				this.age !== ''
@@ -431,6 +445,13 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 			this.storeFilterData();
 		}
 	}
+	onCodeSelect(event: MatAutocompleteSelectedEvent) {
+		console.log(event.option.value);
+		this.filteredCodes = [...new Set([...this.filteredCodes, event.option.value])];
+		this.cptCodeInput.nativeElement.value = '';
+		this.omitChange();
+		this.storeFilterData();
+	}
 	// selectNPI(event: MatAutocompleteSelectedEvent): void {
 	//   this.npiNumbers.push(event.option.viewValue);
 	//   this.npiNumberInput.nativeElement.value = "";
@@ -470,6 +491,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.filterStorageService.set('physician_hospital', this.hospitalNames);
 		this.filterStorageService.set('physician_experience', this.experience);
 		this.filterStorageService.set('physician_specialityIncluded', this.includedSpecialities);
+
 		this.filterStorageService.set('physician_specialityExcluded', this.excludedSpecialities);
 		this.filterStorageService.set('physician_physicianName', this.physicianName);
 		this.filterStorageService.set('physician_cityList', this.selectedCities);
@@ -478,6 +500,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.filterStorageService.set('physician_leadWithEmail', this.leadWithEmail);
 		this.filterStorageService.set('physician_providerType', this.leadWithProvider);
 		this.filterStorageService.set('email_Score', this.emailStatus);
+		this.filterStorageService.set('code_classification', this.codeClassification);
+		this.filterStorageService.set('selected_code_list', this.filteredCodes);
 		this.filterStorageService.set('emailTypeIsp', this.emailTypeIsp);
 		this.filterStorageService.set('physician_languages', this.languages);
 		this.filterStorageService.set('physician_age', this.age);
@@ -497,10 +521,13 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 			leadWithEmail: this.leadWithEmail,
 			provider_Type: this.leadWithProvider,
 			email_Score: this.emailStatus,
+			code_classification: this.codeClassification,
 			emailTypeIsp: this.emailTypeIsp,
 			experience: this.experience,
 			languages: this.languages,
-			age: this.age
+			age: this.age,
+			cptCodes: this.codeClassification === 'CPT' ? this.filteredCodes : [],
+			hcpcsCodes: this.codeClassification === 'HSCPCot' ? this.filteredCodes : []
 		});
 		this.changeSearchData();
 	}
@@ -518,6 +545,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 			provider_Type: this.leadWithProvider,
 			leadWithPhone: false,
 			email_Score: this.emailStatus,
+			code_classification: this.codeClassification,
 			emailTypeIsp: this.emailTypeIsp,
 			experience: this.experience,
 			languager: this.languages
@@ -683,6 +711,23 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.omitChange();
 		this.storeFilterData();
 	}
+	addCodeClassification(event): void {
+		console.log(event, this.codeClassification);
+		if (!!event) {
+			this.codeClassification = event;
+			this.getlistForCodeClassification();
+			if (this.filteredCodes.length !== 0) {
+				this.filteredCodes = [];
+				this.omitChange();
+				this.storeFilterData();
+			}
+		}
+	}
+	removeCode(code: number) {
+		this.filteredCodes = this.filteredCodes.filter((el) => el !== code);
+		this.omitChange();
+		this.storeFilterData();
+	}
 	addLanguage(event): void {
 		const indexof = this.languages.indexOf(event.value);
 		if (indexof === -1) {
@@ -724,6 +769,15 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 
 		this.omitChange();
 		this.storeFilterData();
+	}
+	get isCodeClassification() {
+		return !!this.codeClassification;
+	}
+	get getCodeClassification() {
+		return this.codeClassification;
+	}
+	removeCodeClassification() {
+		this.codeClassification = '';
 	}
 	selectedHospitalName(event: MatAutocompleteSelectedEvent): void {
 		if (this.hospitalNames.findIndex((hospital) => hospital === event.option.viewValue) === -1) {
@@ -783,11 +837,13 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.excludeSpecialityControl.setValue(null);
 		this.excludeSpecialityInput.nativeElement.value = '';
 		this.emailStatusControl.setValue(null);
+		this.codeClassificationControl.setValue(null);
 		this.ageControl.setValue('');
 		this.emailStatusInput.nativeElement.value = '';
-		this.emailStatusControl.setValue(null);
 		this.npiNumberInput.nativeElement.value = '';
 		this.experienceInput.nativeElement.value = '';
+		this.cptCodeInput.nativeElement.value = '';
+		this.codeClassificationInput.nativeElement.value = '';
 		// this.ageInput.nativeElement.value = '';
 		this.stateControl.setValue(null);
 		this.stateInput.nativeElement.value = '';
@@ -798,6 +854,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.hospitalNames = [];
 		this.includedSpecialities = [];
 		this.excludedSpecialities = [];
+		this.codeClassification = '';
+		this.filteredCodes = [];
 		this.physicianName = '';
 		this.selectedCities = [];
 		this.selectedStates = [];
@@ -987,5 +1045,35 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	triggerAutoFocus(eleId: string) {
 		const element = this.renderer.selectRootElement(eleId);
 		setTimeout(() => element.focus(), 100);
+	}
+
+	getlistForCodeClassification() {
+		switch (this.codeClassification) {
+			case 'CPT':
+				this.getCPTCodes();
+				break;
+			case 'HSCPC':
+				this.getHSCPCCodes();
+				break;
+		}
+	}
+	getCPTCodes() {
+		this.amplizService.getCptCodes().subscribe((res: any) => {
+			this.cptCodeList = res.cptCodes;
+		});
+	}
+	get getcptCodeList() {
+		switch (this.codeClassification) {
+			case 'CPT':
+				return this.cptCodeList.map((el) => ({ code: el.cptCode, description: el.description }));
+			case 'HSCPC':
+				return this.cptCodeList.map((el) => ({ code: el.hcpcsCode, description: el.description }));
+		}
+		return [];
+	}
+	getHSCPCCodes() {
+		this.amplizService.getHcpcsCodes().subscribe((res: any) => {
+			this.cptCodeList = res.hcpcsCodes;
+		});
 	}
 }

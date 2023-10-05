@@ -54,13 +54,6 @@
 						[matChipInputFor]="includeSpecialityList"
 						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 					/>
-					<!-- <input
-            #includeSpecialityInput
-            [matChipInputFor]="includeSpecialityList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="addIncludeSpeciality($event)"
-          /> -->
 				</mat-chip-list>
 				<mat-autocomplete
 					#includeSpecAuto="matAutocomplete"
@@ -99,17 +92,6 @@
 						{{ spec }}
 						<mat-icon matChipRemove>close</mat-icon>
 					</mat-basic-chip>
-					<!-- <input
-            #includeSpecialityInput
-            aria-label="Include Speciality"
-            matInput
-            [formControl]="includeSpecialityControl"
-            [matAutocomplete]="includeSpecAuto"
-            floatPlaceholder="never"
-            [matChipInputFor]="includeSpecialityList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addIncludeSpeciality($event)"
-          /> -->
 					<input
 						#excludeSpecialityInput
 						matInput
@@ -130,18 +112,6 @@
 					</mat-option>
 				</mat-autocomplete>
 			</mat-form-field>
-			<!-- <mat-chip-list aria-label="Ex Terms selection" #excludedTerms>
-        <mat-basic-chip
-          *ngFor="let st of suggestionTermsEx"
-          class="suggested"
-          [selectable]="true"
-          value="st"
-          [selected]="st"
-          (click)="termsSelectedEx(st)"
-        >
-          {{ st }} +
-        </mat-basic-chip>
-      </mat-chip-list> -->
 		</mat-expansion-panel>
 		<!-- Speciality component end -->
 
@@ -212,6 +182,136 @@
 			</mat-form-field>
 		</mat-expansion-panel>
 		<!-- Experience panel End-->
+		<mat-expansion-panel
+			#panelExperience
+			hideToggle="true"
+			[disabled]="isPaid"
+			(opened)="triggerAutoFocus('#experienceInput')"
+		>
+			<mat-expansion-panel-header
+				[ngClass]="panelExperience.expanded ? 'expanded' : ''"
+				[collapsedHeight]="'70px'"
+				[expandedHeight]="'70px'"
+			>
+				<mat-panel-title>
+					<div><mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Codes</div>
+					<div class="header-info" *ngIf="filteredCodes.length == 0">CPT/HCPCS</div>
+					<div class="selected" *ngIf="filteredCodes.length > 0">
+						<mat-chip-list #addedHospitals aria-label="Hospital name">
+							<mat-basic-chip *ngIf="filteredCodes?.length > 0" [ngClass]="'selected'">
+								{{ filteredCodes[0] }}
+							</mat-basic-chip>
+							<span *ngIf="filteredCodes?.length > 1" class="additional-selection">
+								+ {{ filteredCodes.length - 1 }} more
+							</span>
+						</mat-chip-list>
+					</div>
+				</mat-panel-title>
+				<mat-panel-description>
+					<mat-icon class="matrl-plus">{{ panelExperience.expanded ? 'remove' : 'add' }} </mat-icon>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			<span class="form-label">Codes Classification</span>
+			<mat-form-field>
+				<!-- <mat-chip-list #codeClassificationValue aria-label="code classification input">
+					<mat-basic-chip
+						[selectable]="selectable"
+						[removable]="removable"
+						(removed)="removeCodeClassification()"
+						*ngIf="isCodeClassification"
+					>
+						{{ codeClassification }}
+						<mat-icon matChipRemove>close</mat-icon>
+					</mat-basic-chip>
+
+					<input
+						#codeClassificationInput
+						id="codeClassificationInput"
+						placeholder=""
+						aria-label="code classification input"
+						matInput
+						[formControl]="codeClassificationControl"
+						[matAutocomplete]="sicCodeAuto"
+						floatPlaceholder="never"
+						[matChipInputFor]="codeClassificationValue"
+						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						class="email-status-input"
+					/>
+				</mat-chip-list>
+				<mat-autocomplete
+					#sicCodeAuto="matAutocomplete"
+					(optionSelected)="addCodeClassification($event.option)"
+					class="app-autocomplete"
+				>
+					<mat-option value="CPT">CPT</mat-option>
+					<mat-option value="HSCPC">HSCPC</mat-option>
+				</mat-autocomplete> -->
+				<mat-select [(value)]="codeClassification" panelClass="mat-custom-select" style="width: 100% !important">
+					<mat-select-trigger>
+						<mat-basic-chip
+							*ngIf="isCodeClassification"
+							[selectable]="selectable"
+							[removable]="removable"
+							(removed)="removeCodeClassification()"
+						>
+							{{ codeClassification }}
+							<mat-icon matChipRemove>close</mat-icon>
+						</mat-basic-chip>
+					</mat-select-trigger>
+					<mat-option
+						*ngFor="let code of staticCodeClassificationList"
+						[value]="code"
+						(click)="addCodeClassification(code)"
+					>
+						<app-checkbox [checked]="codeClassification === code"></app-checkbox>
+						{{ code }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<span class="form-label">Enter Codes</span>
+			<mat-form-field>
+				<mat-chip-list #experienceList aria-label="Experience input">
+					<mat-basic-chip
+						*ngFor="let name of filteredCodes"
+						[selectable]="selectable"
+						[removable]="removable"
+						(removed)="removeCode(name)"
+					>
+						{{ name }}
+						<mat-icon matChipRemove>close</mat-icon>
+					</mat-basic-chip>
+					<input
+						#cptCodeInput
+						id="cptCodeInput"
+						placeholder=""
+						aria-label="Experience Input"
+						matInput
+						[formControl]="cptControl"
+						[matAutocomplete]="cptCodeAuto"
+						floatPlaceholder="never"
+						[matChipInputFor]="experienceList"
+						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+					/>
+				</mat-chip-list>
+
+				<mat-autocomplete
+					#cptCodeAuto="matAutocomplete"
+					(optionSelected)="onCodeSelect($event)"
+					class="app-autocomplete"
+				>
+					<ng-container *ngIf="codeClassification === 'CPT'; else showHSCPCList">
+						<mat-option *ngFor="let cptCode of cptCodeList" [value]="cptCode.cptCode">
+							{{ cptCode.cptCode }}-{{ cptCode.description }}
+						</mat-option>
+					</ng-container>
+					<ng-template #showHSCPCList>
+						<mat-option *ngFor="let cptCode of cptCodeList" [value]="cptCode.hcpcsCode">
+							{{ cptCode.hcpcsCode }}-{{ cptCode.description }}
+						</mat-option>
+					</ng-template>
+				</mat-autocomplete>
+			</mat-form-field>
+		</mat-expansion-panel>
 
 		<!-- Email Status component starts -->
 		<mat-expansion-panel
@@ -543,72 +643,6 @@
 				</mat-panel-description>
 			</mat-expansion-panel-header>
 
-			<!-- <span class="form-label">Languages</span> -->
-			<!-- <mat-form-field>
-				<mat-chip-list #languages aria-label="Languages">
-					<mat-basic-chip
-						*ngFor="let language of getSelectedLanguages"
-						[selectable]="selectable"
-						[removable]="removable"
-						(removed)="removeLanguage(language)"
-					>
-						{{ language }}
-						<mat-icon matChipRemove>close</mat-icon>
-					</mat-basic-chip>
-
-					<input
-						#languagesInput
-						id="languagesInput"
-						placeholder=" "
-						aria-label="Languages"
-						matInput
-						[formControl]="languagesControl"
-						[matAutocomplete]="languagesAuto"
-						floatPlaceholder="never"
-						[matChipInputFor]="languages"
-						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-						class="email-status-input"
-					/>
-				</mat-chip-list>
-				<mat-autocomplete
-					#languagesAuto="matAutocomplete"
-					(optionSelected)="addLanguage($event.option)"
-					class="app-autocomplete"
-				>
-					<mat-option *ngFor="let language of filteredLanguage" [value]="language">{{ language }}</mat-option>
-				</mat-autocomplete>
-			</mat-form-field>
-			<span class="form-label">Age</span>
-			<mat-form-field>
-				<mat-chip-list #age aria-label="age">
-					<mat-basic-chip *ngIf="getAge" [selectable]="selectable" [removable]="removable" (removed)="removeAge()">
-						{{ getAge }}
-						<mat-icon matChipRemove>close</mat-icon>
-					</mat-basic-chip>
-
-					<input
-						#languagesInput
-						id="languagesInput"
-						placeholder=" "
-						aria-label="Languages"
-						matInput
-						[formControl]="ageControl"
-						[matAutocomplete]="ageAuto"
-						floatPlaceholder="never"
-						[matChipInputFor]="age"
-						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-						class="email-status-input"
-					/>
-				</mat-chip-list>
-				<mat-autocomplete
-					#ageAuto="matAutocomplete"
-					(optionSelected)="addAge($event.option)"
-					class="app-autocomplete"
-				>
-					<mat-option *ngFor="let age of ageList" [value]="age">{{ age }}</mat-option>
-				</mat-autocomplete>
-			</mat-form-field> -->
-
 			<div class="toggle-container d-flex align-items-center justify-content-between">
 				<div class="text-grey font-13">Private Practitioners</div>
 				<div class="toggle-switch">
@@ -621,24 +655,6 @@
 					/>
 					<label class="toggle-label" for="toggle"></label>
 				</div>
-
-				<!-- <div class="toggle width-auto">
-					<div class="onoffswitch">
-						<input
-							type="checkbox"
-							name="onoffswitch"
-							class="onoffswitch-checkbox"
-							id="providerIndependent"
-							tabindex="1"
-							[(ngModel)]="leadWithProvider"
-							(change)="handleChange(leadWithProvider, 'Independent')"
-						/>
-						<label class="onoffswitch-label" for="providerIndependent">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
-					</div>
-				</div> -->
 			</div>
 			<div class="toggle-container d-flex align-items-center justify-content-between mt-3">
 				<div class="text-grey font-13">Show Only Personal Email</div>
@@ -652,23 +668,6 @@
 					/>
 					<label class="toggle-label" for="toggle 1"></label>
 				</div>
-				<!-- <div class="toggle width-auto">
-					<div class="onoffswitch">
-						<input
-							type="checkbox"
-							name="onoffswitch"
-							class="onoffswitch-checkbox"
-							id="showonlypersonalemail"
-							tabindex="2"
-							[(ngModel)]="emailTypeIsp"
-							(change)="handleChange(emailTypeIsp, 'emailTypeIsp')"
-						/>
-						<label class="onoffswitch-label" for="showonlypersonalemail">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
-					</div>
-				</div> -->
 			</div>
 		</mat-expansion-panel>
 	</mat-accordion>

@@ -1202,4 +1202,14 @@ export class AmplizService {
 		const response = this.http.get(url, { params: props });
 		return response;
 	}
+	getCptCodes() {
+		const url = environment.prodHcApi + '/amplizhcreadapi/general/get-cpt-codes';
+		const response = this.http.get(url);
+		return response;
+	}
+	getHcpcsCodes() {
+		const url = environment.prodHcApi + '/amplizhcreadapi/general/get-hcpcs-codes';
+		const response = this.http.get(url);
+		return response;
+	}
 }

@@ -88,7 +88,7 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 	ngOnInit() {
 		// this.getPhysicianSearchData();
 		// this.getIPAddress();
-		console.log("IN INIT")
+		console.log('IN INIT');
 		this.getDashboardDetails();
 		this.saveDraftLeads();
 		this.netNewCount = 0;
@@ -193,6 +193,8 @@ export class PhysicanPageComponent implements OnInit, AfterViewInit {
 	filterChanged(event: any) {
 		this.filterChangeOmitted = true;
 		this.physicianSearchParameter.cityList = event.cityList.map((city) => city.city);
+		this.physicianSearchParameter.cptCodes = event.cptCodes;
+		this.physicianSearchParameter.hcpcsCodes = event.hcpcsCodes;
 		this.physicianSearchParameter.hospitalNameList = event.hospitalNameList;
 		this.physicianSearchParameter.physicianName = event.physicianName;
 		this.physicianSearchParameter.specialityExcluded = event.specialityExcluded;
