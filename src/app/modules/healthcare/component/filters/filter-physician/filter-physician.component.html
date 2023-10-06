@@ -195,14 +195,14 @@
 			>
 				<mat-panel-title>
 					<div><mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Codes</div>
-					<div class="header-info" *ngIf="filteredCodes.length == 0">CPT/HCPCS</div>
-					<div class="selected" *ngIf="filteredCodes.length > 0">
+					<div class="header-info" *ngIf="selectedCodes.length == 0">CPT/HCPCS</div>
+					<div class="selected" *ngIf="selectedCodes.length > 0">
 						<mat-chip-list #addedHospitals aria-label="Hospital name">
-							<mat-basic-chip *ngIf="filteredCodes?.length > 0" [ngClass]="'selected'">
-								{{ filteredCodes[0] }}
+							<mat-basic-chip *ngIf="selectedCodes?.length > 0" [ngClass]="'selected'">
+								{{ selectedCodes[0] }}
 							</mat-basic-chip>
-							<span *ngIf="filteredCodes?.length > 1" class="additional-selection">
-								+ {{ filteredCodes.length - 1 }} more
+							<span *ngIf="selectedCodes?.length > 1" class="additional-selection">
+								+ {{ selectedCodes.length - 1 }} more
 							</span>
 						</mat-chip-list>
 					</div>
@@ -211,19 +211,18 @@
 					<mat-icon class="matrl-plus">{{ panelExperience.expanded ? 'remove' : 'add' }} </mat-icon>
 				</mat-panel-description>
 			</mat-expansion-panel-header>
-			<span class="form-label">Codes Classification</span>
+			<span class="form-label">CPT</span>
 			<mat-form-field>
-				<!-- <mat-chip-list #codeClassificationValue aria-label="code classification input">
+				<mat-chip-list #codeClassificationValue aria-label="code classification input">
 					<mat-basic-chip
+						*ngFor="let name of selectedCPTCode"
 						[selectable]="selectable"
 						[removable]="removable"
-						(removed)="removeCodeClassification()"
-						*ngIf="isCodeClassification"
+						(removed)="removeCPTCode(name)"
 					>
-						{{ codeClassification }}
+						{{ name }}
 						<mat-icon matChipRemove>close</mat-icon>
 					</mat-basic-chip>
-
 					<input
 						#codeClassificationInput
 						id="codeClassificationInput"
@@ -240,39 +239,19 @@
 				</mat-chip-list>
 				<mat-autocomplete
 					#sicCodeAuto="matAutocomplete"
-					(optionSelected)="addCodeClassification($event.option)"
+					(optionSelected)="addCodeClassification($event)"
 					class="app-autocomplete"
 				>
-					<mat-option value="CPT">CPT</mat-option>
-					<mat-option value="HSCPC">HSCPC</mat-option>
-				</mat-autocomplete> -->
-				<mat-select [(value)]="codeClassification" panelClass="mat-custom-select" style="width: 100% !important">
-					<mat-select-trigger>
-						<mat-basic-chip
-							*ngIf="isCodeClassification"
-							[selectable]="selectable"
-							[removable]="removable"
-							(removed)="removeCodeClassification()"
-						>
-							{{ codeClassification }}
-							<mat-icon matChipRemove>close</mat-icon>
-						</mat-basic-chip>
-					</mat-select-trigger>
-					<mat-option
-						*ngFor="let code of staticCodeClassificationList"
-						[value]="code"
-						(click)="addCodeClassification(code)"
-					>
-						<app-checkbox [checked]="codeClassification === code"></app-checkbox>
-						{{ code }}
+					<mat-option *ngFor="let cptCode of cptCodeList" [value]="cptCode.cptCode">
+						{{ cptCode.cptCode }}-{{ cptCode.description }}
 					</mat-option>
-				</mat-select>
+				</mat-autocomplete>
 			</mat-form-field>
-			<span class="form-label">Enter Codes</span>
+			<span class="form-label">HCPCS</span>
 			<mat-form-field>
 				<mat-chip-list #experienceList aria-label="Experience input">
 					<mat-basic-chip
-						*ngFor="let name of filteredCodes"
+						*ngFor="let name of selectedHSCPCCode"
 						[selectable]="selectable"
 						[removable]="removable"
 						(removed)="removeCode(name)"
@@ -299,16 +278,9 @@
 					(optionSelected)="onCodeSelect($event)"
 					class="app-autocomplete"
 				>
-					<ng-container *ngIf="codeClassification === 'CPT'; else showHSCPCList">
-						<mat-option *ngFor="let cptCode of cptCodeList" [value]="cptCode.cptCode">
-							{{ cptCode.cptCode }}-{{ cptCode.description }}
-						</mat-option>
-					</ng-container>
-					<ng-template #showHSCPCList>
-						<mat-option *ngFor="let cptCode of cptCodeList" [value]="cptCode.hcpcsCode">
-							{{ cptCode.hcpcsCode }}-{{ cptCode.description }}
-						</mat-option>
-					</ng-template>
+					<mat-option *ngFor="let cptCode of hscpcCodeList" [value]="cptCode.hcpcsCode">
+						{{ cptCode.hcpcsCode }}-{{ cptCode.description }}
+					</mat-option>
 				</mat-autocomplete>
 			</mat-form-field>
 		</mat-expansion-panel>
