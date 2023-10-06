@@ -45,45 +45,54 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	dailyUsedCredits: any;
 
 	hcMenu: any = [
-		{ name: 'Dashboard', sub: [], active: false, url: 'hcdashboard' },
+		{ name: 'Dashboard', sub: [], active: false, url: 'hcdashboard', icon: 'fa fa-home' },
 		{
 			name: 'Search',
+			icon: 'fa fa-search',
 			sub: [
 				{
 					name: 'Physician',
 					icon: 'fa fa-user-md',
 					active: false,
-					url: 'physician'
+					url: 'physician',
+					description: '4.6 million physicians, nurses and allied health professionals.'
 				},
 				{
 					name: 'Executive',
 					icon: 'fa fa-user-circle',
 					active: false,
-					url: 'executive'
+					url: 'executive',
+					description: 'nearly 230,000 executives detailed title and contact information.'
 				},
 				{
 					name: 'LTC',
-					icon: 'fa fa-wheelchair',
+					icon: 'fa fa-wheelchair-alt',
 					active: false,
-					url: 'ltc'
+					url: 'ltc',
+					description:
+						'intelligence on nearly 100,000 skilled nursing, assisted living, home health and hospice organizations'
 				},
 				{
 					name: 'Imaging',
-					icon: 'mat-imaging',
+					icon: 'fa fa-flask',
 					active: false,
-					url: 'imaging'
+					url: 'imaging',
+					description:
+						'more than 18,000 imaging centers, enabling you to understand key metrics on executive contacts, organizational'
 				},
 				{
 					name: 'MCO',
-					icon: 'mco-svg',
+					icon: 'fa fa-building-o',
 					active: false,
-					url: 'payor'
+					url: 'payor',
+					description: 'nearly 4,000 accountable care organizations, health information exchanges and payors.'
 				},
 				{
 					name: 'Hospital',
 					icon: 'fa fa-hospital-o',
 					active: false,
-					url: 'hospital'
+					url: 'hospital',
+					description: 'more than 9,300 distinct hospital and health system profiles'
 				}
 			],
 			active: false,
@@ -91,12 +100,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 		},
 		{
 			name: 'Enrich',
+			icon: 'fa fa-refresh',
 			sub: [
 				{
 					name: 'NPI',
 					icon: 'ti-export',
 					active: false,
-					url: 'npi-lookup'
+					url: 'npi-lookup',
+					description: 'Upload NPI numbers and get email, phone and profile data.'
 				}
 			],
 			active: false,
@@ -104,6 +115,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 		},
 		{
 			name: 'Lists',
+			icon: 'fa fa-list',
 			sub: [],
 			active: false,
 			url: 'lists'

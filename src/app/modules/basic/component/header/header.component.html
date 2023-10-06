@@ -144,7 +144,9 @@
 	<div class="col-4 main-nav">
 		<div class="menu-nav d-flex">
 			<div class="dropdown" *ngFor="let menu of hcMenu">
-				<span class="dropbtn" [class.active]="menu.active" (click)="navigate(menu.url)">{{ menu.name }}</span>
+				<span class="dropbtn" [class.active]="menu.active" (click)="navigate(menu.url)">
+					<i class="mr-2" [ngClass]="menu.icon"></i>{{ menu.name }}</span
+				>
 
 				<div class="dropdown-content" *ngIf="menu.sub.length > 0" [class.disable-drop-down]="menu.active">
 					<div class="submenu-container">
@@ -179,10 +181,7 @@
 
 								<div class="col-8 d-flex flex-column">
 									<span class="hover-underline-animation"> {{ sub.name }}</span>
-									<span class="description"
-										>Lorem ipsum dolor sit amet, Tempore iste molestias praesentium vitae sunt hic quia sequi nemo
-										dolores.</span
-									>
+									<span class="description">{{ sub.description | titlecase }}</span>
 								</div>
 							</div>
 						</ng-container>
