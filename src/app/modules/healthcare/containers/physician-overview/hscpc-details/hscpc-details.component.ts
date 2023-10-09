@@ -46,7 +46,7 @@ export class HscpcDetailsComponent implements OnInit {
 		this.columnDefs = [
 			{ tooltipField: 'col1' },
 			{
-				headerName: 'HCPCS Code',
+				headerName: 'Code',
 				field: 'hcpcsCode',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -58,7 +58,7 @@ export class HscpcDetailsComponent implements OnInit {
 				cellStyle: { fontWeight: '500' }
 			},
 			{
-				headerName: 'HCPCS Description',
+				headerName: 'Description',
 				field: 'description',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -68,10 +68,10 @@ export class HscpcDetailsComponent implements OnInit {
 				lockPosition: true,
 				sortable: true,
 				suppressSizeToFit: true,
-				cellStyle: { color: '#515050', fontWeight: '400' }
+				cellStyle: { color: '#515050', fontWeight: '400', wordBreak: 'normal', lineHeight: 'unset' }
 			},
 			{
-				headerName: 'HCPCS Beneficiaries',
+				headerName: 'Beneficiaries',
 				field: 'beneficiaries',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -83,7 +83,7 @@ export class HscpcDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'HCPCS servicesCount',
+				headerName: 'Services Count',
 				field: 'servicesCount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -95,10 +95,11 @@ export class HscpcDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'HCPCS Number of Beneficiary/Per Day Services',
+				headerName: 'Number of Beneficiary/Per Day Services',
 				field: 'numberOfBeneficiaryOrPerDayServices',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
@@ -107,10 +108,11 @@ export class HscpcDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Submitted Charge Amount',
+				headerName: 'Avg Submitted Charge Amount',
 				field: 'avgSubmittedChargeAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
@@ -119,10 +121,11 @@ export class HscpcDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Medicare Allowed Amount',
+				headerName: 'Avg Medicare Allowed Amount',
 				field: 'avgMedicareAllowedAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
@@ -131,10 +134,11 @@ export class HscpcDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Medicare Payment Amount',
+				headerName: 'Avg Medicare Payment Amount',
 				field: 'avgMedicarePaymentAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
@@ -143,10 +147,11 @@ export class HscpcDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Medicare Standardized Payment Amount',
+				headerName: 'Avg Medicare Standardized Payment Amount',
 				field: 'avgMedicareStandardizedPaymentAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,

@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			icon: 'fa fa-search',
 			sub: [
 				{
-					name: 'Physician',
+					name: 'Healthcare Professionals',
 					icon: 'fa fa-user-md',
 					active: false,
 					url: 'physician',

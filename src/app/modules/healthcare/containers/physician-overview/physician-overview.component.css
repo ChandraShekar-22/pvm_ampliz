@@ -362,7 +362,7 @@
 
 .tab_container {
 	display: flex;
-	gap: 50px;
+	gap: 30px;
 	margin-top: 69px;
 }
 .tab_container p {
@@ -374,6 +374,7 @@
 	margin: 0 !important;
 	cursor: pointer;
 	color: #85898f;
+	text-transform: uppercase;
 }
 .tab_container p.selected {
 	color: #0071eb;

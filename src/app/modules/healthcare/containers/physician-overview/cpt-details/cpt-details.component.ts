@@ -46,7 +46,7 @@ export class CptDetailsComponent implements OnInit {
 		this.columnDefs = [
 			{ tooltipField: 'col1' },
 			{
-				headerName: 'CPT Code',
+				headerName: 'Code',
 				field: 'cptCode',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -58,7 +58,7 @@ export class CptDetailsComponent implements OnInit {
 				cellStyle: { fontWeight: '500' }
 			},
 			{
-				headerName: 'CPT Description',
+				headerName: 'Description',
 				field: 'description',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -71,7 +71,7 @@ export class CptDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400', wordBreak: 'normal', lineHeight: 'unset' }
 			},
 			{
-				headerName: 'CPT Beneficiaries',
+				headerName: 'Beneficiaries',
 				field: 'beneficiaries',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -83,7 +83,7 @@ export class CptDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'CPT servicesCount',
+				headerName: 'Services Count',
 				field: 'servicesCount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
@@ -95,10 +95,11 @@ export class CptDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'CPT Number of Beneficiary/Per Day Services',
+				headerName: 'Number of Beneficiary/Per Day Services',
 				field: 'numberOfBeneficiaryOrPerDayServices',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
@@ -107,22 +108,25 @@ export class CptDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Submitted Charge Amount',
+				headerName: 'Avg Submitted Charge Amount',
 				field: 'avgSubmittedChargeAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
+				wrapHeaderText: true,
 				width: 180,
 				suppressSizeToFit: true,
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Medicare Allowed Amount',
+				headerName: 'Avg Medicare Allowed Amount',
 				field: 'avgMedicareAllowedAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
@@ -131,10 +135,11 @@ export class CptDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Medicare Payment Amount',
+				headerName: 'Avg Medicare Payment Amount',
 				field: 'avgMedicarePaymentAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
@@ -143,14 +148,16 @@ export class CptDetailsComponent implements OnInit {
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			},
 			{
-				headerName: 'Average Medicare Standardized Payment Amount',
+				headerName: 'Avg Medicare Standardized Payment Amount',
 				field: 'avgMedicareStandardizedPaymentAmount',
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
+				wrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
 				width: 180,
+				headerClass: 'wrap-header',
 				suppressSizeToFit: true,
 				cellStyle: { color: '#515050', fontWeight: '400' }
 			}

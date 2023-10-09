@@ -321,8 +321,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	ngOnInit() {
 		// this.getPersistData();
 		this.getAllListData();
-		this.getCPTCodes();
 		this.getHSCPCCodes();
+		this.getCPTCodes();
 	}
 	get selectedCodes() {
 		return [...this.selectedCPTCode, ...this.selectedHSCPCCode];
@@ -455,6 +455,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	}
 	onCodeSelect(event: MatAutocompleteSelectedEvent) {
 		this.selectedHSCPCCode = [...new Set([...this.selectedHSCPCCode, event.option.value])];
+		this.hscpcCodeList = [];
 		this.cptCodeInput.nativeElement.value = '';
 		this.omitChange();
 		this.storeFilterData();
@@ -721,7 +722,7 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	}
 	addCodeClassification(event): void {
 		this.selectedCPTCode = [...new Set([...this.selectedCPTCode, event.option.value])];
-		console.log(this.selectedCPTCode);
+		this.cptCodeList = [];
 		this.codeClassificationInput.nativeElement.value = '';
 		this.omitChange();
 		this.storeFilterData();
@@ -937,6 +938,22 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 				this.experienceList = temp;
 			}
 		});
+		this.cptControl.valueChanges.subscribe((value) => {
+			let hv = value !== null ? value : '';
+			if (hv.length >= 3) {
+				this.getHSCPCCodes(hv);
+			} else {
+				this.hscpcCodeList = [];
+			}
+		});
+		this.codeClassificationControl.valueChanges.subscribe((value) => {
+			let hv = value !== null ? value : '';
+			if (hv.length >= 3) {
+				this.getCPTCodes(hv);
+			} else {
+				this.cptCodeList = [];
+			}
+		});
 		// change control of Include Speciality
 		this.includeSpecialityControl.valueChanges.subscribe((value) => {
 			let hv = value !== null ? value : '';
@@ -1048,13 +1065,13 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		setTimeout(() => element.focus(), 100);
 	}
 
-	getCPTCodes() {
-		this.amplizService.getCptCodes().subscribe((res: any) => {
+	getCPTCodes(searchPhrase: string = '') {
+		this.amplizService.getCptCodes(searchPhrase).subscribe((res: any) => {
 			this.cptCodeList = res.cptCodes;
 		});
 	}
-	getHSCPCCodes() {
-		this.amplizService.getHcpcsCodes().subscribe((res: any) => {
+	getHSCPCCodes(searchPhrase: string = '') {
+		this.amplizService.getHcpcsCodes(searchPhrase).subscribe((res: any) => {
 			this.hscpcCodeList = res.hcpcsCodes;
 		});
 	}

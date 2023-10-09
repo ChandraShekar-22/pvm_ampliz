@@ -1202,14 +1202,22 @@ export class AmplizService {
 		const response = this.http.get(url, { params: props });
 		return response;
 	}
-	getCptCodes() {
+	getCptCodes(searchPhrase?: string) {
 		const url = environment.prodHcApi + '/amplizhcreadapi/general/get-cpt-codes';
-		const response = this.http.get(url);
+		const params = {};
+		if (searchPhrase) {
+			params['searchPhrase'] = searchPhrase;
+		}
+		const response = this.http.get(url, { params });
 		return response;
 	}
-	getHcpcsCodes() {
+	getHcpcsCodes(searchPhrase?: string) {
 		const url = environment.prodHcApi + '/amplizhcreadapi/general/get-hcpcs-codes';
-		const response = this.http.get(url);
+		const params = {};
+		if (searchPhrase) {
+			params['searchPhrase'] = searchPhrase;
+		}
+		const response = this.http.get(url, { params });
 		return response;
 	}
 	getCPTDetails(physicianId: string) {

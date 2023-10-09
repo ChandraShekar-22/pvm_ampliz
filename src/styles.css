@@ -197,6 +197,9 @@ body {
 	font-weight: 400 !important;
 }
 
+.ag-header-cell-label {
+}
+
 .list1 .ag-header-container,
 .ag-header-cell .ag-header-cell-label,
 .list1 .ag-header-cell {

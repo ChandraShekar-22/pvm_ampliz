@@ -183,13 +183,13 @@
 		</mat-expansion-panel>
 		<!-- Experience panel End-->
 		<mat-expansion-panel
-			#panelExperience
+			#panelCodes
 			hideToggle="true"
 			[disabled]="isPaid"
 			(opened)="triggerAutoFocus('#experienceInput')"
 		>
 			<mat-expansion-panel-header
-				[ngClass]="panelExperience.expanded ? 'expanded' : ''"
+				[ngClass]="panelCodes.expanded ? 'expanded' : ''"
 				[collapsedHeight]="'70px'"
 				[expandedHeight]="'70px'"
 			>
@@ -208,7 +208,7 @@
 					</div>
 				</mat-panel-title>
 				<mat-panel-description>
-					<mat-icon class="matrl-plus">{{ panelExperience.expanded ? 'remove' : 'add' }} </mat-icon>
+					<mat-icon class="matrl-plus">{{ panelCodes.expanded ? 'remove' : 'add' }} </mat-icon>
 				</mat-panel-description>
 			</mat-expansion-panel-header>
 			<span class="form-label">CPT</span>
