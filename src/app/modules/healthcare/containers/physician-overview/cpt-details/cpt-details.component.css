@@ -3,7 +3,7 @@
 }
 
 ::ng-deep .code_container *::-webkit-scrollbar {
-	width: 20px !important;
+	width: 5px !important;
 	height: 5px !important;
 }
 ::ng-deep .code_container *::-webkit-scrollbar-track {

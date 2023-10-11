@@ -1,18 +1,20 @@
 <div id="wrapper">
-    <app-header style="width: 100%" [elementName]="'imaging'"></app-header>
-    <!-- <app-sidemenu elementName="imaging"></app-sidemenu> -->
-    <div style="margin-top: 90px">
-        <app-hc-top-tab
-        [activeLink]="currentTab"
-        [fontSize]="'12px'"
-        [tabItems]="tabItems" [isPrimary]="true" (tabChanged)="handleTabChange($event)">
-        </app-hc-top-tab>
-    </div>
-    <div *ngIf="currentTab==0">
-        <app-imaging-center-executive></app-imaging-center-executive>
-    </div>
-    <div *ngIf="currentTab==1">
-        <app-imaging-center>
-        </app-imaging-center>
-    </div>
+	<app-header style="width: 100%" [elementName]="'imaging'"></app-header>
+	<!-- <app-sidemenu elementName="imaging"></app-sidemenu> -->
+	<div style="margin-top: 106px">
+		<app-hc-top-tab
+			[activeLink]="currentTab"
+			[fontSize]="'12px'"
+			[tabItems]="tabItems"
+			[isPrimary]="true"
+			(tabChanged)="handleTabChange($event)"
+		>
+		</app-hc-top-tab>
+	</div>
+	<div *ngIf="currentTab == 0">
+		<app-imaging-center-executive></app-imaging-center-executive>
+	</div>
+	<div *ngIf="currentTab == 1">
+		<app-imaging-center> </app-imaging-center>
+	</div>
 </div>

@@ -19,22 +19,22 @@
 </div> -->
 
 <div id="wrapper">
-  <app-header style="width: 100%" [elementName]="'payor'"></app-header>
-  <!-- <app-sidemenu elementName="payor"></app-sidemenu> -->
-  <div style="margin-top: 90px">
-    <app-hc-top-tab
-      [activeLink]="currentTab"
-      [tabItems]="tabItems"
-      [isPrimary]="true"
-      (tabChanged)="handleTabChange($event)"
-      [fontSize]="'12px'"
-    >
-    </app-hc-top-tab>
-  </div>
-  <div *ngIf="currentTab == 0">
-    <app-payor-executive></app-payor-executive>
-  </div>
-  <div *ngIf="currentTab == 1">
-    <app-payor-company></app-payor-company>
-  </div>
+	<app-header style="width: 100%" [elementName]="'payor'"></app-header>
+	<!-- <app-sidemenu elementName="payor"></app-sidemenu> -->
+	<div style="margin-top: 106px">
+		<app-hc-top-tab
+			[activeLink]="currentTab"
+			[tabItems]="tabItems"
+			[isPrimary]="true"
+			(tabChanged)="handleTabChange($event)"
+			[fontSize]="'12px'"
+		>
+		</app-hc-top-tab>
+	</div>
+	<div *ngIf="currentTab == 0">
+		<app-payor-executive></app-payor-executive>
+	</div>
+	<div *ngIf="currentTab == 1">
+		<app-payor-company></app-payor-company>
+	</div>
 </div>

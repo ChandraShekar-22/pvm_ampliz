@@ -27,7 +27,7 @@ export class CptDetailsComponent implements OnInit {
 	clickedListId: any;
 	frameworkComponents: any;
 	subscribed: boolean;
-	pager: any = { currentPage: 1, offset: 5, totalPages: 1 };
+	pager: any = { currentPage: 1, offset: 10, totalPages: 1 };
 	totalCount = 0;
 	public overlayLoadingTemplate =
 		'<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
