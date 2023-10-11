@@ -1220,14 +1220,14 @@ export class AmplizService {
 		const response = this.http.get(url, { params });
 		return response;
 	}
-	getCPTDetails(physicianId: string) {
+	getCPTDetails(params) {
 		const url = environment.prodHcApi + '/amplizhcreadapi/search/get-physician-cpt-details';
-		const response = this.http.get(url, { params: { physicianId } });
+		const response = this.http.get(url, { params });
 		return response;
 	}
-	getHcpcsDetails(physicianId: string) {
+	getHcpcsDetails(params) {
 		const url = environment.prodHcApi + '/amplizhcreadapi/search/get-physician-hcpcs-details';
-		const response = this.http.get(url, { params: { physicianId } });
+		const response = this.http.get(url, { params });
 		return response;
 	}
 }

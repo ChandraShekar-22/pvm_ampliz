@@ -20,16 +20,15 @@ export class HscpcDetailsComponent implements OnInit {
 	gridColumnApi: any;
 	paramsData: any;
 	datasource: any;
-	offset: any = 0;
-	count: any = 15;
 	defaultColDef: any;
 	allItems: any[];
-	pager: any = {};
 	pagedItems: any[];
 	totalSize: number;
 	clickedListId: any;
 	frameworkComponents: any;
 	subscribed: boolean;
+	pager: any = { currentPage: 1, offset: 5, totalPages: 1 };
+	totalCount = 0;
 	public overlayLoadingTemplate =
 		'<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
 	public noRowsTemplate = `"<span">no rows to show</span>"`;
@@ -68,7 +67,13 @@ export class HscpcDetailsComponent implements OnInit {
 				lockPosition: true,
 				sortable: true,
 				suppressSizeToFit: true,
-				cellStyle: { color: '#515050', fontWeight: '400', wordBreak: 'normal', lineHeight: 'unset' }
+				cellStyle: {
+					color: '#515050',
+					fontWeight: '400',
+					wordBreak: 'normal',
+					lineHeight: '20px',
+					padding: '10px 0'
+				}
 			},
 			{
 				headerName: 'Beneficiaries',
@@ -197,8 +202,34 @@ export class HscpcDetailsComponent implements OnInit {
 		params.api.sizeColumnsToFit();
 	}
 	getHcpcsDetails() {
-		this.amplizService.getHcpcsDetails(this.physicianId).subscribe((res: any) => {
-			this.paramsData.api.setRowData(res.hcpcsCodeDetailList);
-		});
+		const offset = (this.pager.currentPage - 1) * this.pager.offset;
+		this.amplizService
+			.getHcpcsDetails({ physicianId: this.physicianId, offset, count: this.pager.offset })
+			.subscribe((res: any) => {
+				this.paramsData.api.setRowData(res.hcpcsCodeDetailList);
+				this.totalCount = res.totalCount;
+				this.pager = {
+					...this.pager,
+					totalPages: Math.ceil(this.totalCount / this.pager.offset)
+				};
+			});
+	}
+	onPaginationClick(currentPage) {
+		this.pager = { ...this.pager, currentPage };
+		this.getHcpcsDetails();
+	}
+
+	get offset() {
+		const total = this.pager.offset * (this.pager.currentPage - 1);
+		return +total + 1;
+	}
+
+	get count() {
+		const pageCount = this.pager.currentPage * this.pager.offset;
+		return this.pager.currentPage === this.pager.totalPages
+			? this.totalCount
+			: pageCount > this.totalCount
+			? this.totalCount
+			: pageCount;
 	}
 }

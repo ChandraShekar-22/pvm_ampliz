@@ -18,3 +18,42 @@
 	background: #918c8c !important;
 	border-radius: 10px !important;
 }
+
+.paginationInfo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	font-weight: 400;
+	color: #838486;
+}
+.paginationWrapper {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: flex-end;
+}
+.paginationWrapper > .pagination {
+	padding-top: 0;
+}
+.header_container {
+	display: flex;
+	align-items: center;
+}
+
+.table_heading {
+	font-family: roboto, sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 23px;
+	color: #000000;
+	margin: 0;
+	padding: 0;
+}
+.search_container {
+	display: flex;
+	gap: 53px;
+	align-items: center;
+	justify-content: flex-end;
+}
