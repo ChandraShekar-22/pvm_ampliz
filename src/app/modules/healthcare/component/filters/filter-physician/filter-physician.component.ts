@@ -455,8 +455,10 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	}
 	onCodeSelect(event: MatAutocompleteSelectedEvent) {
 		this.selectedHSCPCCode = [...new Set([...this.selectedHSCPCCode, event.option.value])];
-		this.hscpcCodeList = [];
 		this.cptCodeInput.nativeElement.value = '';
+		setTimeout(() => {
+			this.getHSCPCCodes();
+		}, 500);
 		this.omitChange();
 		this.storeFilterData();
 	}
@@ -722,18 +724,24 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 	}
 	addCodeClassification(event): void {
 		this.selectedCPTCode = [...new Set([...this.selectedCPTCode, event.option.value])];
-		this.cptCodeList = [];
+
 		this.codeClassificationInput.nativeElement.value = '';
+		setTimeout(() => {
+			this.getCPTCodes();
+		}, 500);
+
 		this.omitChange();
 		this.storeFilterData();
 	}
 	removeCode(code: string) {
 		this.selectedHSCPCCode = this.selectedHSCPCCode.filter((el) => el !== code);
+		this.getHSCPCCodes();
 		this.omitChange();
 		this.storeFilterData();
 	}
 	removeCPTCode(code: string) {
 		this.selectedCPTCode = this.selectedCPTCode.filter((el) => el !== code);
+		this.getCPTCodes();
 		this.omitChange();
 		this.storeFilterData();
 	}
@@ -879,6 +887,8 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		this.emailStatus = 0;
 		this.languages = [];
 		this.age = '';
+		this.getCPTCodes();
+		this.getHSCPCCodes();
 		this.omitChange();
 		this.storeFilterData();
 	}
@@ -940,18 +950,14 @@ export class FilterPhysicianComponent implements OnInit, AfterViewInit, OnChange
 		});
 		this.cptControl.valueChanges.subscribe((value) => {
 			let hv = value !== null ? value : '';
-			if (hv.length >= 3) {
+			if (hv) {
 				this.getHSCPCCodes(hv);
-			} else {
-				this.hscpcCodeList = [];
 			}
 		});
 		this.codeClassificationControl.valueChanges.subscribe((value) => {
 			let hv = value !== null ? value : '';
-			if (hv.length >= 3) {
+			if (hv) {
 				this.getCPTCodes(hv);
-			} else {
-				this.cptCodeList = [];
 			}
 		});
 		// change control of Include Speciality

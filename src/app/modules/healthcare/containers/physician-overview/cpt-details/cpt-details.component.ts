@@ -153,13 +153,15 @@ export class CptDetailsComponent implements OnInit {
 				sortingOrder: ['desc', 'asc'],
 				filter: false,
 				wrapText: true,
+				headerWrapText: true,
 				lockPosition: true,
 				autoHeight: true,
 				sortable: true,
 				width: 180,
 				headerClass: 'wrap-header',
 				suppressSizeToFit: true,
-				cellStyle: { color: '#515050', fontWeight: '400' }
+				cellStyle: { color: '#515050', fontWeight: '400' },
+				headerCellStyle: { wordBreak: 'normal', lineHeight: 'unset' }
 			}
 		];
 		this.sortingOrders = ['desc', 'asc', null];

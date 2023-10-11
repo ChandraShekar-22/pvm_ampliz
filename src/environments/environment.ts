@@ -7,8 +7,8 @@ export const environment = {
 
 	// Stage
 	// prodAdbApi: 'https://stage.ampliz.com',
-	prodHcApi: 'https://stageapi.ampliz.com',
-	prodNPIApi: 'https://stageapi.ampliz.com',
+	prodHcApi: 'https://hcapi.ampliz.com',
+	prodNPIApi: 'https://hcapi.ampliz.com',
 	prodGlobalB2BApi: 'https://test.ampliz.com',
 	//  ----------------------
 

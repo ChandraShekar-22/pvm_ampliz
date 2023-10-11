@@ -140,7 +140,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			url: 'team-member'
 		},
 		{
-			name: 'Generate API Key',
+			name: 'API',
 			icon: 'fa fa-code',
 			url: 'geneateapi'
 		},
