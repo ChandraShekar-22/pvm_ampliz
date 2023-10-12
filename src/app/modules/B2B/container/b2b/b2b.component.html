@@ -1,43 +1,53 @@
 <!-- Top Bar Start -->
 <div id="wrapper">
-  <app-header style="width: 100%"></app-header>
-  <!-- <app-header *ngIf="!subscribed" ></app-header> -->
-  <app-sidemenu elementName="b2b"></app-sidemenu>
-  <div class="content-page">
-    <!-- Start content -->
-    <!-- topTab start -->
-    <app-top-tab [tabItems]="tabItems" (tabChanged)="handleTabChange($event)" [activeLink]="currentTab" style="
-        position: fixed;
-        top: 70px;
-        z-index: 9;
-        background-color: #f5f5f5;
-        padding-right: 70px;
-      ">
-      <div [ngClass]="{ 'bg-selected': resentSearchButton }" (click)="reacentButtonClick()" class="searchButton">
-        Recent searches
-      </div>
-      <div [ngClass]="{ 'bg-selected': savedSearchButton }" (click)="savedButtonClick()" class="searchButton">
-        Saved searches
-      </div>
-    </app-top-tab>
-    <!-- topTab ends -->
-    <div class="content b2bContainer">
-      <app-company-b2b *ngIf="currentTab == 1" [isRecentVisible]="resentSearchButton&&isFirstTime"
-        [isSaveVisible]="savedSearchButton&&isFirstTime"
-        (employeesSearched)="searchEmployeesByCompany()"
-        ></app-company-b2b>
-      <app-people-b2b
-      *ngIf="currentTab == 0" [isRecentVisible]="resentSearchButton&&isFirstTime"
-        [isSaveVisible]="savedSearchButton&&isFirstTime"></app-people-b2b>
-      <!-- <app-recent-search-page
+	<app-header style="width: 100%" [elementName]="'b2b'"></app-header>
+	<!-- <app-header *ngIf="!subscribed" ></app-header> -->
+	<!-- <app-sidemenu elementName="b2b"></app-sidemenu> -->
+	<div class="content-page">
+		<!-- Start content -->
+		<!-- topTab start -->
+		<app-top-tab
+			[tabItems]="tabItems"
+			(tabChanged)="handleTabChange($event)"
+			[activeLink]="currentTab"
+      class="top-tab"
+			style=""
+		>
+			<div [ngClass]="{ 'bg-selected': resentSearchButton }" (click)="reacentButtonClick()" class="searchButton">
+				Recent searches
+			</div>
+			<div [ngClass]="{ 'bg-selected': savedSearchButton }" (click)="savedButtonClick()" class="searchButton">
+				Saved searches
+			</div>
+		</app-top-tab>
+		<!-- topTab ends -->
+		<div class="content b2bContainer">
+			<app-company-b2b
+				*ngIf="currentTab == 1"
+				[isRecentVisible]="resentSearchButton && isFirstTime"
+				[isSaveVisible]="savedSearchButton && isFirstTime"
+				(employeesSearched)="searchEmployeesByCompany()"
+			></app-company-b2b>
+			<app-people-b2b
+				*ngIf="currentTab == 0"
+				[isRecentVisible]="resentSearchButton && isFirstTime"
+				[isSaveVisible]="savedSearchButton && isFirstTime"
+			></app-people-b2b>
+			<!-- <app-recent-search-page
         *ngIf="resentSearchButton == true"
       ></app-recent-search-page> -->
 
-      <app-recent-view-more [recentViewMore]="resentSearchButton&&!isFirstTime" *ngIf="resentSearchButton&&!isFirstTime"
-        (cancelBtnClick)="reacentButtonClick()"></app-recent-view-more>
+			<app-recent-view-more
+				[recentViewMore]="resentSearchButton && !isFirstTime"
+				*ngIf="resentSearchButton && !isFirstTime"
+				(cancelBtnClick)="reacentButtonClick()"
+			></app-recent-view-more>
 
-      <app-saved-view-more [savedSearchViewMore]="savedSearchButton&&!isFirstTime"
-        *ngIf="savedSearchButton&&!isFirstTime" (cancelBtnClick)="savedButtonClick()"></app-saved-view-more>
-    </div>
-  </div>
+			<app-saved-view-more
+				[savedSearchViewMore]="savedSearchButton && !isFirstTime"
+				*ngIf="savedSearchButton && !isFirstTime"
+				(cancelBtnClick)="savedButtonClick()"
+			></app-saved-view-more>
+		</div>
+	</div>
 </div>

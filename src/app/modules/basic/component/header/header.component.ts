@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	CurrentCredits = '';
 	isPersonaSet = '';
 	showError = false;
-	@Input() elementName = 'dashboard';
+	@Input() elementName = '';
 	dailyCurrentCredits: any;
 	dailyUsedCredits: any;
 
@@ -151,7 +151,70 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 		}
 	];
 
-	dynamicList = ['npi-lookup'];
+	b2bMenu: any = [
+		{ name: 'Dashboard', sub: [], active: false, url: 'dashboard', icon: 'fa fa-home' },
+		{
+			name: 'Search',
+			sub: [
+				// {
+				// 	name: 'B2B',
+				// 	url: 'b2b',
+				// 	active: false,
+				// 	description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quasi asperiores provident',
+				// 	icon: 'fa fa-search'
+				// },
+				{
+					name: 'Company Search',
+					url: 'company_search',
+					active: false,
+					description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quasi asperiores provident',
+					icon: 'ti-world'
+				},
+				{
+					name: 'Customer Ideal Profile',
+					icon: 'ti-id-badge',
+					url: 'idealprofile',
+					active: false,
+					description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quasi asperiores provident'
+				}
+			],
+			url: 'company_search',
+			active: false,
+			icon: 'fa fa-search'
+		},
+		{
+			name: 'Lists',
+			url: 'b2b-list',
+			active: false,
+			sub: [],
+			icon: 'fa fa-list'
+		}
+	];
+
+	b2bAccountMenu: any = [
+		{
+			name: 'Teams',
+			icon: 'mdi mdi-account-multiple',
+			url: 'team-member'
+		},
+		{
+			name: 'Edit Profile',
+			icon: 'fa fa-gear',
+			url: 'editprofile'
+		},
+		// {
+		// 	name: 'Subscription',
+		// 	icon: 'mdi mdi-settings-outline',
+		// 	url: 'pricing'
+		// },
+		{
+			name: 'Logout',
+			icon: 'ti-power-off',
+			url: 'logout'
+		}
+	];
+
+	// dynamicList = ['npi-lookup'];
 
 	constructor(
 		public router: Router,
@@ -179,9 +242,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	}
 
 	getActiveNav() {
-		let navList: any = [];
-		this.hcMenu.map((item) => navList.push(item.url.toLowerCase()));
+		if (this.dataSet !== 'B2B') {
+			this.getHcActiveNav();
+		} else {
+			this.getB2BActiveNav();
+		}
+		this.getSubMenu();
+	}
 
+	getHcActiveNav() {
+		let navList = [];
+		this.hcMenu.map((item) => navList.push(item.url.toLowerCase()));
 		if (navList.indexOf(this.elementName) > -1) {
 			this.hcMenu.map((active) => (active = false));
 			this.hcMenu[navList.indexOf(this.elementName)].active = true;
@@ -203,23 +274,57 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 				subList = [];
 			}
 		}
-		this.getSubMenu();
+	}
+
+	getB2BActiveNav() {
+		let navList = [];
+		this.b2bMenu.map((item) => navList.push(item.url.toLowerCase()));
+		if (navList.indexOf(this.elementName) > -1) {
+			this.b2bMenu.map((active) => (active = false));
+			this.b2bMenu[navList.indexOf(this.elementName)].active = true;
+			navList = [];
+		} else {
+			let subList: any = [];
+			this.b2bMenu[1].sub.map((item) => subList.push(item.url.toLowerCase()));
+			console.log('I ekse', subList, this.elementName);
+			if (subList.indexOf(this.elementName) > -1) {
+				this.b2bMenu.map((active) => (active = false));
+				this.b2bMenu[1].active = true;
+				subList = [];
+			}
+		}
 	}
 
 	getSubMenu() {
 		let list = [];
-		const index = this.hcMenu
-			.map((item) => {
-				return item.active;
-			})
-			.indexOf(true);
-		if (index >= 0) {
-			this.subNav = this.hcMenu[index].sub;
-			// Active Menu
-			this.subNav.map((item) => list.push(item.url.toLowerCase()));
-			const subIndex = list.indexOf(this.elementName);
-			this.subNav.map((active) => (active = false));
-			this.subNav[subIndex].active = true;
+		if (this.dataSet !== 'B2B') {
+			const index = this.hcMenu
+				.map((item) => {
+					return item.active;
+				})
+				.indexOf(true);
+			if (index >= 0 && this.hcMenu[index].sub.length > 0) {
+				this.subNav = this.hcMenu[index].sub;
+				// Active Menu
+				this.subNav.map((item) => list.push(item.url.toLowerCase()));
+				const subIndex = list.indexOf(this.elementName);
+				this.subNav.map((active) => (active = false));
+				this.subNav[subIndex].active = true;
+			}
+		} else {
+			const index = this.b2bMenu
+				.map((item) => {
+					return item.active;
+				})
+				.indexOf(true);
+			if (index >= 0 && this.b2bMenu[index].sub.length > 0) {
+				this.subNav = this.b2bMenu[index].sub;
+				// Active Menu
+				this.subNav.map((item) => list.push(item.url.toLowerCase()));
+				const subIndex = list.indexOf(this.elementName);
+				this.subNav.map((active) => (active = false));
+				this.subNav[subIndex].active = true;
+			}
 		}
 		// this.getDynamicNav();
 	}

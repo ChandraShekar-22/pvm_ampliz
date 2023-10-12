@@ -44,9 +44,9 @@
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 <div id="wrapper">
-  <app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+  <app-header [user]="user" style="width: 100%" [elementName]="'idealprofile'"></app-header>{{ user }}
   <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header>
-  <app-sidemenu elementName="idealprofile"></app-sidemenu>
+  <!-- <app-sidemenu elementName="idealprofile"></app-sidemenu> -->
 
   <div class="content-page">
     <!-- Start content -->
@@ -97,16 +97,16 @@
                         <div
                           id="ember675"
                           class="ember-view animated-container">
-                          <div class="t__h2" style="">
+                          <div class="t__h2">
                             Hi, <strong>{{ name }}!</strong>
                             I’m Lakshmanan from Ampliz.
                           </div>
 
-                          <div class="t__h2" style="">
+                          <div class="t__h2">
                             I’m here to help you find
                           </div>
 
-                          <div class="t__h2" style="">
+                          <div class="t__h2">
                             your Ideal Customer Profiles. Let's go!
                           </div>
                         </div>

@@ -7,7 +7,6 @@
   height: 100%;
   /* min-height: 435px; */
   border-radius: 8px;
-  margin-right: 60px;
   overflow: hidden;
 }
 .other-border {
@@ -84,7 +83,7 @@
   cursor: pointer;
 }
 .people-wrapper {
-  margin-top: 20px;
+  margin: 40px 0px 30px;;
 }
 
 .b2b-content-main .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {

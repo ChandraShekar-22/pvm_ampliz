@@ -4,6 +4,10 @@
   width: 100%;
   overflow: hidden;
 }
+.content-page .content {
+  padding: 80px 15px 50px 15px !important;
+}
+
 
 .ag-root-wrapper {
     border-width: 10px !important;

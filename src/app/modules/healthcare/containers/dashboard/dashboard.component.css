@@ -49,6 +49,9 @@
 	border: 1px solid #07c166 !important;
 	color: #38c17e !important;
 }
+.content-page .content {
+	padding: 95px 5px 50px 5px !important;
+}
 
 /* NEW DESIGN CSS */
 /* .content-page {

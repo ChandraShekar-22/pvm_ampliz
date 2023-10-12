@@ -449,7 +449,7 @@
 }
 
 .enlarged #wrapper .footer {
-	left: 70px;
+	/* left: 70px; */
 }
 
 .enlarged #wrapper .topbar .topbar-left {
@@ -3806,7 +3806,6 @@ app-b2b .navbar-custom {
 app-people-b2b #wrapper,
 app-company-b2b #wrapper {
 	background-color: #f5f5f5;
-	margin-left: 30px;
 }
 
 .form-check input[type='checkbox']:checked:after,

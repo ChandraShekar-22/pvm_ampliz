@@ -1,7 +1,7 @@
 <div id="wrapper">
-  <app-header [user]="user" style="width: 100%"></app-header>{{ user }}
+  <app-header [user]="user" [elementName]="'b2b-list'" style="width: 100%"></app-header>{{ user }}
   <!-- <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header> -->
-  <app-sidemenu elementName="b2b-list"></app-sidemenu>
+  <!-- <app-sidemenu elementName="b2b-list"></app-sidemenu> -->
 
   <app-b2b-create-list
     [createListDiv]="createDrawer"

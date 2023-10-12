@@ -5,6 +5,8 @@ h5 {
   visibility: hidden;
 }
 
+
+
 .input-container {
   position: relative;
   display: inline-block;
@@ -1950,7 +1952,7 @@ h4 {
 }
 
 .content-page .content {
-  padding: 93px 15px 50px 15px;
+  padding: 123px 0px 50px;
   min-height: 134vh;
   position: relative;
   background: #ecedee;
