@@ -167,15 +167,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 					name: 'Company Search',
 					url: 'company_search',
 					active: false,
-					description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quasi asperiores provident',
+					description: 'Find information about companies and people.',
 					icon: 'ti-world'
 				},
 				{
-					name: 'Customer Ideal Profile',
+					name: 'Ideal Customer Profile',
 					icon: 'ti-id-badge',
 					url: 'idealprofile',
 					active: false,
-					description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quasi asperiores provident'
+					description: 'Define your target audiences.'
 				}
 			],
 			url: 'company_search',
@@ -279,6 +279,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	getB2BActiveNav() {
 		let navList = [];
 		this.b2bMenu.map((item) => navList.push(item.url.toLowerCase()));
+		console.log('B@B', this.elementName);
 		if (navList.indexOf(this.elementName) > -1) {
 			this.b2bMenu.map((active) => (active = false));
 			this.b2bMenu[navList.indexOf(this.elementName)].active = true;
@@ -286,7 +287,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 		} else {
 			let subList: any = [];
 			this.b2bMenu[1].sub.map((item) => subList.push(item.url.toLowerCase()));
-			console.log('I ekse', subList, this.elementName);
 			if (subList.indexOf(this.elementName) > -1) {
 				this.b2bMenu.map((active) => (active = false));
 				this.b2bMenu[1].active = true;

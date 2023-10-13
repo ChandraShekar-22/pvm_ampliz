@@ -44,14 +44,14 @@
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 <div id="wrapper">
-  <app-header [user]="user" style="width: 100%" [elementName]="'idealprofile'"></app-header>{{ user }}
-  <app-header *ngIf="!subscribed" [header-data]="headerData"></app-header>
-  <!-- <app-sidemenu elementName="idealprofile"></app-sidemenu> -->
+	<app-header [user]="user" style="width: 100%" [elementName]="'idealprofile'"></app-header>{{ user }}
+	<app-header *ngIf="!subscribed" [header-data]="headerData" [elementName]="'idealprofile'"></app-header>
+	<!-- <app-sidemenu elementName="idealprofile"></app-sidemenu> -->
 
-  <div class="content-page">
-    <!-- Start content -->
-    <div class="content row">
-      <!-- <div class="row">
+	<div class="content-page">
+		<!-- Start content -->
+		<div class="content row">
+			<!-- <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <div class="card intro-card col d-flex justify-content-center">
@@ -66,172 +66,133 @@
             </div>
             <div class="col-md-4"></div>
         </div> -->
-      <div class="container-fluid">
-        <div id="loadme" *ngIf="spinner"></div>
+			<div class="container-fluid">
+				<div id="loadme" *ngIf="spinner"></div>
 
-        <!-- <div id="loadme" class="text-center" style="display:block; margin: 0 auto !important;" *ngIf="spinner">
+				<!-- <div id="loadme" class="text-center" style="display:block; margin: 0 auto !important;" *ngIf="spinner">
                     <img src="../assets/img/Loader3.gif" />
                 </div> -->
-        <!-- <div class="centered">
+				<!-- <div class="centered">
                     <div class="spinner-border text-primary text-center" role="status" *ngIf="spinner">
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div> -->
-        <!--  BEGIN CONTENT AREA  -->
+				<!--  BEGIN CONTENT AREA  -->
 
-        <div class="container" *ngIf="filterSelect">
-          <div class="layout-top-spacing" id="cancel-row">
-            <div id="" class="main-content">
-              <div
-                class="onboarding__home__guide-header flex-auto flex flex-row">
-                <div class="flex-auto">
-                  <div id="ember673" class="ember-view">
-                    <div
-                      class="onboarding__home__guide-assistant__circle-backdrop__right
-                      o__large">
-                      <div
-                        class="onboarding__home__guide-assistant__speech-bubble__right">
-                        <div class="t__light-text u__padb__5">
-                          Lakshmanan from Ampliz
-                        </div>
-                        <div
-                          id="ember675"
-                          class="ember-view animated-container">
-                          <div class="t__h2">
-                            Hi, <strong>{{ name }}!</strong>
-                            I’m Lakshmanan from Ampliz.
-                          </div>
+				<div class="container" *ngIf="filterSelect">
+					<div class="layout-top-spacing" id="cancel-row">
+						<div id="" class="main-content">
+							<div class="onboarding__home__guide-header flex-auto flex flex-row">
+								<div class="flex-auto">
+									<div id="ember673" class="ember-view">
+										<div class="onboarding__home__guide-assistant__circle-backdrop__right o__large">
+											<div class="onboarding__home__guide-assistant__speech-bubble__right">
+												<div class="t__light-text u__padb__5">Lakshmanan from Ampliz</div>
+												<div id="ember675" class="ember-view animated-container">
+													<div class="t__h2">
+														Hi, <strong>{{ name }}!</strong>
+														I’m Lakshmanan from Ampliz.
+													</div>
 
-                          <div class="t__h2">
-                            I’m here to help you find
-                          </div>
+													<div class="t__h2">I’m here to help you find</div>
 
-                          <div class="t__h2">
-                            your Ideal Customer Profiles. Let's go!
-                          </div>
-                        </div>
-                      </div>
-                      <img
-                        class="onboarding__home__guide-assistant__asset
-                        o__large"src="/assets/images/Lakshman.png"
-                        />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12 layout-spacing padd-img">
-                <div class="statbox bx-shadow widget box box-shadow">
-                  <section class="02">
-                    <div class="row no-gutters">
-                      <div class="col-lg-12 col-md-12 border-icp">
-                        <div class="pull-left icp-text mb-3">
-                          <h6>
-                            <!-- <i class="fa fa-user-circle-o mr-2 icp-fa-icon"
+													<div class="t__h2">your Ideal Customer Profiles. Let's go!</div>
+												</div>
+											</div>
+											<img class="onboarding__home__guide-assistant__asset o__large" src="/assets/images/Lakshman.png" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 layout-spacing padd-img">
+								<div class="statbox bx-shadow widget box box-shadow">
+									<section class="02">
+										<div class="row no-gutters">
+											<div class="col-lg-12 col-md-12 border-icp">
+												<div class="pull-left icp-text mb-3">
+													<h6>
+														<!-- <i class="fa fa-user-circle-o mr-2 icp-fa-icon"
                                                             aria-hidden="true"></i> -->
-                            Tell us about your Ideal Customer Profile
-                          </h6>
-                        </div>
-                        <div class="pull-right icp-step">
-                          <p *ngIf="level === false">
-                            <span class="fnt-wt">{{ remainStep }}
-                              <!-- <span *ngIf !='deptmnt'>steps</span>  -->
-                              <span *ngIf="deptmnt === true">step</span>
-                              <!-- <span [ngClass]="{'my-class': deptmnt===true, 'my-class2':deptmnt === false }">steps/step</span> -->
-                              <span *ngIf="deptmnt === false">steps</span>
-                              left </span><span class="ml-2">About 2 mins</span>
-                          </p>
-                          <p *ngIf="level === true" class="fnt-wt">
-                            0 steps left
-                          </p>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <!-- <progress-bar [progress]=progresValue [color]="'#1bb157'">
+														Tell us about your Ideal Customer Profile
+													</h6>
+												</div>
+												<div class="pull-right icp-step">
+													<p *ngIf="level === false">
+														<span class="fnt-wt"
+															>{{ remainStep }}
+															<!-- <span *ngIf !='deptmnt'>steps</span>  -->
+															<span *ngIf="deptmnt === true">step</span>
+															<!-- <span [ngClass]="{'my-class': deptmnt===true, 'my-class2':deptmnt === false }">steps/step</span> -->
+															<span *ngIf="deptmnt === false">steps</span>
+															left </span
+														><span class="ml-2">About 2 mins</span>
+													</p>
+													<p *ngIf="level === true" class="fnt-wt">0 steps left</p>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<!-- <progress-bar [progress]=progresValue [color]="'#1bb157'">
                                                 </progress-bar> -->
-                        <mat-progress-bar
-                          mode="determinate"
-                          [value]="progresValue"></mat-progress-bar>
-                      </div>
+												<mat-progress-bar mode="determinate" [value]="progresValue"></mat-progress-bar>
+											</div>
 
-                      <div class="col-lg-4 col-md-4">
-                        <div
-                          class="wizard-content-left
-                          justify-content-center
-                          align-items-center">
-                          <div
-                            class="no-resp-image"
-                            *ngIf="ind_data.length == 0 &&
-                            dept_data.length == 0 &&
-                            lev_data.length == 0 &&
-                            emp_data.length == 0 &&
-                            loc_data.length == 0 &&
-                            rev_data.length == 0">
-                            <img
-                              src="/assets/images/filter.png"
-                              class="img-responsive"
-                              />
-                          </div>
-                          <div
-                            class="widget-content widget-content-area
-                            tags-content"[ngClass]="{
-                            icp_scroll:
-                            loc_data.length> 0 ||
-                            ind_data.length > 0 ||
-                            emp_data.length > 0 ||
-                            dept_data.length > 0 ||
-                            lev_data.length > 0
-                            }"
-                            id="style-6"
-                            >
-                            <h6 *ngIf="loc_data.length> 0" class="mt-2">
-                              Location
-                            </h6>
-                            <span *ngFor="let location of loc_data">
-                              <button class="chips">
-                                {{ location.name
-                                }}<i
-                                  class="fa fa-times close_icon"
-                                  (click)="cancelLocation(location)"></i>
-                              </button>
-                            </span>
+											<div class="col-lg-4 col-md-4">
+												<div class="wizard-content-left justify-content-center align-items-center">
+													<div
+														class="no-resp-image"
+														*ngIf="
+															ind_data.length == 0 &&
+															dept_data.length == 0 &&
+															lev_data.length == 0 &&
+															emp_data.length == 0 &&
+															loc_data.length == 0 &&
+															rev_data.length == 0
+														"
+													>
+														<img src="/assets/images/filter.png" class="img-responsive" />
+													</div>
+													<div
+														class="widget-content widget-content-area tags-content"
+														[ngClass]="{
+															icp_scroll:
+																loc_data.length > 0 ||
+																ind_data.length > 0 ||
+																emp_data.length > 0 ||
+																dept_data.length > 0 ||
+																lev_data.length > 0
+														}"
+														id="style-6"
+													>
+														<h6 *ngIf="loc_data.length > 0" class="mt-2">Location</h6>
+														<span *ngFor="let location of loc_data">
+															<button class="chips">
+																{{ location.name }}<i class="fa fa-times close_icon" (click)="cancelLocation(location)"></i>
+															</button>
+														</span>
 
-                            <h6 *ngIf="ind_data.length> 0">Industry</h6>
-                            <span
-                              *ngFor="let industries of ind_data"
-                              class="selected_button">
-                              <button class="chips">
-                                {{ industries.name
-                                }}<i
-                                  class="fa fa-times close_icon"
-                                  (click)="cancelIndustry(industries)"></i>
-                              </button>
-                            </span>
+														<h6 *ngIf="ind_data.length > 0">Industry</h6>
+														<span *ngFor="let industries of ind_data" class="selected_button">
+															<button class="chips">
+																{{ industries.name
+																}}<i class="fa fa-times close_icon" (click)="cancelIndustry(industries)"></i>
+															</button>
+														</span>
 
-                            <h6 *ngIf="emp_data.length> 0" class="mt-2">
-                              Employee Size
-                            </h6>
-                            <span *ngFor="let emp of emp_data">
-                              <button class="chips">
-                                {{ emp.name
-                                }}<i
-                                  class="fa fa-times close_icon"
-                                  (click)="cancelEmp(emp)"></i>
-                              </button>
-                            </span>
+														<h6 *ngIf="emp_data.length > 0" class="mt-2">Employee Size</h6>
+														<span *ngFor="let emp of emp_data">
+															<button class="chips">
+																{{ emp.name }}<i class="fa fa-times close_icon" (click)="cancelEmp(emp)"></i>
+															</button>
+														</span>
 
-                            <h6 *ngIf="dept_data.length> 0" class="mt-2">
-                              Department
-                            </h6>
-                            <span *ngFor="let dept of dept_data">
-                              <button class="chips">
-                                {{ dept.name
-                                }}<i
-                                  class="fa fa-times close_icon"
-                                  (click)="cancelDept(dept)"></i>
-                              </button>
-                            </span>
+														<h6 *ngIf="dept_data.length > 0" class="mt-2">Department</h6>
+														<span *ngFor="let dept of dept_data">
+															<button class="chips">
+																{{ dept.name }}<i class="fa fa-times close_icon" (click)="cancelDept(dept)"></i>
+															</button>
+														</span>
 
-                            <!-- <mat-form-field class="example-chip-list">
+														<!-- <mat-form-field class="example-chip-list">
                                                             <h6 *ngIf="ind_data.length>0">Industry</h6>
                                                             <mat-chip-list #chipList>
                                                                 <mat-chip *ngFor="let industries of ind_data"
@@ -244,7 +205,7 @@
                                                                 </mat-chip>
                                                             </mat-chip-list>
                                                         </mat-form-field> -->
-                            <!-- <mat-form-field class="example-chip-list">
+														<!-- <mat-form-field class="example-chip-list">
                                                             <h6 *ngIf="dept_data.length>0">Department</h6>
                                                             <mat-chip-list #chipList>
                                                                 <mat-chip *ngFor="let fruit of dept_data"
@@ -256,7 +217,7 @@
                                                                 </mat-chip>
                                                             </mat-chip-list>
                                                         </mat-form-field> -->
-                            <!-- <mat-form-field class="example-chip-list">
+														<!-- <mat-form-field class="example-chip-list">
                                                             <h6 *ngIf="rev_data.length>0">Revenue </h6>
                                                             <mat-chip-list #chipList>
                                                                 <mat-chip *ngFor="let fruit of rev_data"
@@ -268,19 +229,15 @@
                                                                 </mat-chip>
                                                             </mat-chip-list>
                                                         </mat-form-field> -->
-                            <h6 *ngIf="lev_data.length> 0" class="mt-2">
-                              Seniority
-                            </h6>
-                            <span *ngFor="let seniority of lev_data">
-                              <button class="chips">
-                                {{ seniority.name
-                                }}<i
-                                  class="fa fa-times close_icon"
-                                  (click)="cancelSeniority(seniority)"></i>
-                              </button>
-                            </span>
+														<h6 *ngIf="lev_data.length > 0" class="mt-2">Seniority</h6>
+														<span *ngFor="let seniority of lev_data">
+															<button class="chips">
+																{{ seniority.name
+																}}<i class="fa fa-times close_icon" (click)="cancelSeniority(seniority)"></i>
+															</button>
+														</span>
 
-                            <!-- <mat-form-field class="example-chip-list">
+														<!-- <mat-form-field class="example-chip-list">
                                                             <h6 *ngIf="lev_data.length>0"> Seniority</h6>
                                                             <mat-chip-list #chipList>
                                                                 <mat-chip *ngFor="let fruit of lev_data"
@@ -292,15 +249,15 @@
                                                                 </mat-chip>
                                                             </mat-chip-list>
                                                         </mat-form-field> -->
-                            <!-- REVENUE IMPORTANT START -->
-                            <!-- <h6 *ngIf="rev_data.length>0" class="mt-2">Revenue </h6>
+														<!-- REVENUE IMPORTANT START -->
+														<!-- <h6 *ngIf="rev_data.length>0" class="mt-2">Revenue </h6>
                                                         <span *ngFor="let reven of rev_data">
                                                             <button class="chips">{{reven.name}}<i
                                                                     class="fa fa-times close_icon"
                                                                     (click)="cancelRevenue(reven)"></i></button>
                                                         </span> -->
-                            <!-- REVENUE IMPORTANT END -->
-                            <!-- <mat-form-field class="example-chip-list">
+														<!-- REVENUE IMPORTANT END -->
+														<!-- <mat-form-field class="example-chip-list">
                                                             <h6 *ngIf="loc_data.length>0"> Location</h6>
                                                             <mat-chip-list #chipList>
                                                                 <mat-chip *ngFor="let fruit of loc_data"
@@ -312,7 +269,7 @@
                                                                 </mat-chip>
                                                             </mat-chip-list>
                                                         </mat-form-field> -->
-                            <!-- <mat-form-field class="example-chip-list">
+														<!-- <mat-form-field class="example-chip-list">
                                                             <h6 *ngIf="emp_data.length>0">Employee Size</h6>
                                                             <mat-chip-list #chipList>
                                                                 <mat-chip *ngFor="let fruit of emp_data"
@@ -324,118 +281,90 @@
                                                                 </mat-chip>
                                                             </mat-chip-list>
                                                         </mat-form-field> -->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-8 col-md-8">
-                        <div class="form-wizard">
-                          <div *ngIf="level">
-                            <div
-                              class="alert alert-danger alert-dismissible
-                              fade
-                              show"role="alert"
-                              *ngIf="showError && this.levs1.length == 0">
-                              <button
-                                type="button"
-                                class="close"
-                                data-dismiss="alert"
-                                aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                              </button>
-                              <strong><i class="fa fa-info-circle"></i></strong>
-                              Required
-                            </div>
-                          </div>
-                          <form [formGroup]="bioSection" role="form">
-                            <div *ngIf="location">
-                              <fieldset class="wizard-fieldset show">
-                                <div>
-                                  <span class="pb-1 text-size">Choose Location</span>
-                                  <div
-                                    class="search-input-group-style
-                                    input-group
-                                    pull-right
-                                    mb-3"style="width: 60%">
-                                    <div class="input-group-prepend">
-                                      <span
-                                        class="input-group-text"
-                                        id="basic-addon1"><svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="24"
-                                          height="24"
-                                          viewBox="0
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-8 col-md-8">
+												<div class="form-wizard">
+													<div *ngIf="level">
+														<div
+															class="alert alert-danger alert-dismissible fade show"
+															role="alert"
+															*ngIf="showError && this.levs1.length == 0"
+														>
+															<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																<span aria-hidden="true">×</span>
+															</button>
+															<strong><i class="fa fa-info-circle"></i></strong>
+															Required
+														</div>
+													</div>
+													<form [formGroup]="bioSection" role="form">
+														<div *ngIf="location">
+															<fieldset class="wizard-fieldset show">
+																<div>
+																	<span class="pb-1 text-size">Choose Location</span>
+																	<div class="search-input-group-style input-group pull-right mb-3" style="width: 60%">
+																		<div class="input-group-prepend">
+																			<span class="input-group-text" id="basic-addon1"
+																				><svg
+																					xmlns="http://www.w3.org/2000/svg"
+																					width="24"
+																					height="24"
+																					viewBox="0
                                           0
                                           24
                                           24"
-                                          fill="none"
-                                          stroke="currentColor"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          class="feather feather-search">
-                                          <circle
-                                            cx="11"
-                                            cy="11"
-                                            r="8"></circle>
-                                          <line
-                                            x1="21"
-                                            y1="21"
-                                            x2="16.65"
-                                            y2="16.65"></line></svg></span>
-                                    </div>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="Search
+																					fill="none"
+																					stroke="currentColor"
+																					stroke-width="2"
+																					stroke-linecap="round"
+																					stroke-linejoin="round"
+																					class="feather feather-search"
+																				>
+																					<circle cx="11" cy="11" r="8"></circle>
+																					<line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg
+																			></span>
+																		</div>
+																		<input
+																			type="text"
+																			class="form-control"
+																			placeholder="Search
                                       Location"
-                                      aria-label="Username"
-                                      aria-describedby="basic-addon1"
-                                      [(ngModel)]="searchedKeyword"
-                                      [ngModelOptions]="{ standalone: true }"
-                                      />
-                                  </div>
-                                </div>
-                                <!-- <p class="pb-2">Number of contacts you want to see a per
+																			aria-label="Username"
+																			aria-describedby="basic-addon1"
+																			[(ngModel)]="searchedKeyword"
+																			[ngModelOptions]="{ standalone: true }"
+																		/>
+																	</div>
+																</div>
+																<!-- <p class="pb-2">Number of contacts you want to see a per
                                                                     the Location</p> -->
-                                <div class="scrollbar" id="style-4">
-                                  <span
-                                    *ngFor="let data of location_data
-                                    | filter: searchedKeyword">
-                                    <div
-                                      class="input-container"
-                                      (click)="onChange7(data.name)">
-                                      <input
-                                        type="checkbox"
-                                        [checked]="data.checked"
-                                        [(ngModel)]="data.checked"
-                                        [ngModelOptions]="{ standalone: true }"
-                                        (change)="onChange(
-                                        data.email,
-                                        $event.target.checked
-                                        )"/>
-                                      <label><span>
-                                          <img
-                                            [src]="data.flag"
-                                            width="22"
-                                            height="22"
-                                            /></span>
-                                        {{ data.name }}</label>
-                                    </div>
-                                  </span>
-                                </div>
-                                <button
-                                  (click)="showindus()"
-                                  class="form-wizard-next-btn float-right mb-3">
-                                  Next
-                                </button>
-                                <!-- <div class="form-group">
+																<div class="scrollbar" id="style-4">
+																	<span *ngFor="let data of location_data | filter : searchedKeyword">
+																		<div class="input-container" (click)="onChange7(data.name)">
+																			<input
+																				type="checkbox"
+																				[checked]="data.checked"
+																				[(ngModel)]="data.checked"
+																				[ngModelOptions]="{ standalone: true }"
+																				(change)="onChange(data.email, $event.target.checked)"
+																			/>
+																			<label
+																				><span> <img [src]="data.flag" width="22" height="22" /></span> {{ data.name }}</label
+																			>
+																		</div>
+																	</span>
+																</div>
+																<button (click)="showindus()" class="form-wizard-next-btn float-right mb-3">Next</button>
+																<!-- <div class="form-group">
                                                                     <span (click)="submitData();"
                                                                         class="form-wizard-next-btn float-right mb-3 ml-2">Submit</span>
                                                                     <span (click)="showLocation()"
                                                                         class="form-wizard-previous-btn float-right mb-3">Previous</span>
                                                                 </div> -->
-                                <!-- LOCATION BUTTONS IMPORTANT END -->
-                                <!-- <div class="form-group">
+																<!-- LOCATION BUTTONS IMPORTANT END -->
+																<!-- <div class="form-group">
                                                                     <button (click)="showrev()"
                                                                         [ngStyle]="{'background-color':loc_data.length===0?'#91bef5':'#2d8cff'}"
                                                                         class="form-wizard-next-btn float-right mb-3 ml-2"
@@ -443,113 +372,89 @@
                                                                     <span (click)="showEmployee();"
                                                                         class="form-wizard-previous-btn float-right mb-3">Previous</span>
                                                                 </div> -->
-                                <!-- LOCATION BUTTONS IMPORTANT END -->
-                              </fieldset>
-                            </div>
+																<!-- LOCATION BUTTONS IMPORTANT END -->
+															</fieldset>
+														</div>
 
-                            <div *ngIf="industry">
-                              <fieldset class="wizard-fieldset show">
-                                <div>
-                                  <span class="pb-1 text-size">Choose Industry</span>
-                                  <div
-                                    class="search-input-group-style
-                                    input-group
-                                    pull-right
-                                    mb-3"style="width: 60%">
-                                    <div class="input-group-prepend">
-                                      <span
-                                        class="input-group-text"
-                                        id="basic-addon1"><svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="24"
-                                          height="24"
-                                          viewBox="0
+														<div *ngIf="industry">
+															<fieldset class="wizard-fieldset show">
+																<div>
+																	<span class="pb-1 text-size">Choose Industry</span>
+																	<div class="search-input-group-style input-group pull-right mb-3" style="width: 60%">
+																		<div class="input-group-prepend">
+																			<span class="input-group-text" id="basic-addon1"
+																				><svg
+																					xmlns="http://www.w3.org/2000/svg"
+																					width="24"
+																					height="24"
+																					viewBox="0
                                           0
                                           24
                                           24"
-                                          fill="none"
-                                          stroke="currentColor"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          class="feather feather-search">
-                                          <circle
-                                            cx="11"
-                                            cy="11"
-                                            r="8"></circle>
-                                          <line
-                                            x1="21"
-                                            y1="21"
-                                            x2="16.65"
-                                            y2="16.65"></line></svg></span>
-                                    </div>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="Search
+																					fill="none"
+																					stroke="currentColor"
+																					stroke-width="2"
+																					stroke-linecap="round"
+																					stroke-linejoin="round"
+																					class="feather feather-search"
+																				>
+																					<circle cx="11" cy="11" r="8"></circle>
+																					<line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg
+																			></span>
+																		</div>
+																		<input
+																			type="text"
+																			class="form-control"
+																			placeholder="Search
                                       Industry"
-                                      aria-label="Username"
-                                      aria-describedby="basic-addon1"
-                                      [(ngModel)]="searchedKeyword"
-                                      [ngModelOptions]="{ standalone: true }"
-                                      />
-                                  </div>
-                                </div>
+																			aria-label="Username"
+																			aria-describedby="basic-addon1"
+																			[(ngModel)]="searchedKeyword"
+																			[ngModelOptions]="{ standalone: true }"
+																		/>
+																	</div>
+																</div>
 
-                                <!-- <p class="pb-2">Number of contacts you want to see a per
+																<!-- <p class="pb-2">Number of contacts you want to see a per
                                                                     the Industry</p> -->
-                                <div class="scrollbar" id="style-4">
-                                  <span
-                                    *ngFor="let data of industry_data
-                                    | filter: searchedKeyword">
-                                    <div
-                                      class="input-container"
-                                      (click)="onChange2(data.name)">
-                                      <input
-                                        type="checkbox"
-                                        [checked]="data.checked"
-                                        [(ngModel)]="data.checked"
-                                        [ngModelOptions]="{ standalone: true }"
-                                        (change)="onChange(
-                                        data.email,
-                                        $event.target.checked
-                                        )"/>
-                                      <label><span>{{ data.name }}</span></label>
-                                    </div>
-                                  </span>
-                                </div>
+																<div class="scrollbar" id="style-4">
+																	<span *ngFor="let data of industry_data | filter : searchedKeyword">
+																		<div class="input-container" (click)="onChange2(data.name)">
+																			<input
+																				type="checkbox"
+																				[checked]="data.checked"
+																				[(ngModel)]="data.checked"
+																				[ngModelOptions]="{ standalone: true }"
+																				(change)="onChange(data.email, $event.target.checked)"
+																			/>
+																			<label
+																				><span>{{ data.name }}</span></label
+																			>
+																		</div>
+																	</span>
+																</div>
 
-                                <a
-                                  (click)="showempEmptyValues()"
-                                  class="skip_sec float-left mb-3">Skip</a>
-                                <button
-                                  (click)="showemp()"
-                                  [ngStyle]="{
-                                  'background-color':
-                                  ind_data.length === 0
-                                  ? '#91bef5'
-                                  : '#2d8cff'
-                                  }"
-                                  class="form-wizard-next-btn
-                                  float-right
-                                  mb-3
-                                  ml-2"[disabled]="ind_data.length === 0">
-                                  Next
-                                </button>
-                                <span
-                                  (click)="showloc()"
-                                  class="form-wizard-previous-btn
-                                  float-right
-                                  mb-3">Previous</span>
-                              </fieldset>
-                            </div>
+																<a (click)="showempEmptyValues()" class="skip_sec float-left mb-3">Skip</a>
+																<button
+																	(click)="showemp()"
+																	[ngStyle]="{
+																		'background-color': ind_data.length === 0 ? '#91bef5' : '#2d8cff'
+																	}"
+																	class="form-wizard-next-btn float-right mb-3 ml-2"
+																	[disabled]="ind_data.length === 0"
+																>
+																	Next
+																</button>
+																<span (click)="showloc()" class="form-wizard-previous-btn float-right mb-3">Previous</span>
+															</fieldset>
+														</div>
 
-                            <div *ngIf="emp">
-                              <fieldset class="wizard-fieldset show">
-                                <h5 class="pb-1">Choose Employee Size</h5>
-                                <!-- <p class="pb-2">Number of contacts you want to see a per
+														<div *ngIf="emp">
+															<fieldset class="wizard-fieldset show">
+																<h5 class="pb-1">Choose Employee Size</h5>
+																<!-- <p class="pb-2">Number of contacts you want to see a per
                                                                     the Employee Size</p> -->
-                                <!-- <div class="search-input-group-style input-group pull-right mb-3"
+																<!-- <div class="search-input-group-style input-group pull-right mb-3"
                                                                     style="width:60%;">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"
@@ -573,162 +478,124 @@
                                                                         [(ngModel)]="searchedKeyword"
                                                                         [ngModelOptions]="{standalone: true}">
                                                                 </div> -->
-                                <div class="scrollbar" id="style-4">
-                                  <span *ngFor="let data of employee_data">
-                                    <div
-                                      class="input-container"
-                                      (click)="onChange5(data.name)">
-                                      <input
-                                        type="checkbox"
-                                        [checked]="data.checked"
-                                        [(ngModel)]="data.checked"
-                                        [ngModelOptions]="{ standalone: true }"
-                                        (change)="onChange(
-                                        data.email,
-                                        $event.target.checked
-                                        )"/>
-                                      <label><span>{{ data.name }}</span></label>
-                                    </div>
-                                  </span>
-                                </div>
-                                <div class="form-group">
-                                  <a
-                                    (click)="showdepEmptyValues()"
-                                    class="skip_sec float-left mb-3">Skip</a>
-                                  <button
-                                    (click)="showdep()"
-                                    [ngStyle]="{
-                                    'background-color':
-                                    emp_data.length === 0
-                                    ? '#91bef5'
-                                    : '#2d8cff'
-                                    }"
-                                    class="form-wizard-next-btn
-                                    float-right
-                                    mb-3
-                                    ml-2"[disabled]="emp_data.length === 0">
-                                    Next
-                                  </button>
-                                  <span
-                                    (click)="showindus()"
-                                    class="form-wizard-previous-btn
-                                    float-right
-                                    mb-3">Previous</span>
-                                </div>
-                                <p class="text-center blockquote">
-                                  " Looks like we have just what you need! "</p>
-                              </fieldset>
-                            </div>
+																<div class="scrollbar" id="style-4">
+																	<span *ngFor="let data of employee_data">
+																		<div class="input-container" (click)="onChange5(data.name)">
+																			<input
+																				type="checkbox"
+																				[checked]="data.checked"
+																				[(ngModel)]="data.checked"
+																				[ngModelOptions]="{ standalone: true }"
+																				(change)="onChange(data.email, $event.target.checked)"
+																			/>
+																			<label
+																				><span>{{ data.name }}</span></label
+																			>
+																		</div>
+																	</span>
+																</div>
+																<div class="form-group">
+																	<a (click)="showdepEmptyValues()" class="skip_sec float-left mb-3">Skip</a>
+																	<button
+																		(click)="showdep()"
+																		[ngStyle]="{
+																			'background-color': emp_data.length === 0 ? '#91bef5' : '#2d8cff'
+																		}"
+																		class="form-wizard-next-btn float-right mb-3 ml-2"
+																		[disabled]="emp_data.length === 0"
+																	>
+																		Next
+																	</button>
+																	<span (click)="showindus()" class="form-wizard-previous-btn float-right mb-3">Previous</span>
+																</div>
+																<p class="text-center blockquote">" Looks like we have just what you need! "</p>
+															</fieldset>
+														</div>
 
-                            <div *ngIf="deptmnt">
-                              <fieldset class="wizard-fieldset show">
-                                <div>
-                                  <span class="pb-1 text-size">Choose Department</span>
-                                  <div
-                                    class="search-input-group-style
-                                    input-group
-                                    pull-right
-                                    mb-3"style="width: 60%">
-                                    <div class="input-group-prepend">
-                                      <span
-                                        class="input-group-text"
-                                        id="basic-addon1"><svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="24"
-                                          height="24"
-                                          viewBox="0
+														<div *ngIf="deptmnt">
+															<fieldset class="wizard-fieldset show">
+																<div>
+																	<span class="pb-1 text-size">Choose Department</span>
+																	<div class="search-input-group-style input-group pull-right mb-3" style="width: 60%">
+																		<div class="input-group-prepend">
+																			<span class="input-group-text" id="basic-addon1"
+																				><svg
+																					xmlns="http://www.w3.org/2000/svg"
+																					width="24"
+																					height="24"
+																					viewBox="0
                                           0
                                           24
                                           24"
-                                          fill="none"
-                                          stroke="currentColor"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          class="feather feather-search">
-                                          <circle
-                                            cx="11"
-                                            cy="11"
-                                            r="8"></circle>
-                                          <line
-                                            x1="21"
-                                            y1="21"
-                                            x2="16.65"
-                                            y2="16.65"></line></svg></span>
-                                    </div>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="Search
+																					fill="none"
+																					stroke="currentColor"
+																					stroke-width="2"
+																					stroke-linecap="round"
+																					stroke-linejoin="round"
+																					class="feather feather-search"
+																				>
+																					<circle cx="11" cy="11" r="8"></circle>
+																					<line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg
+																			></span>
+																		</div>
+																		<input
+																			type="text"
+																			class="form-control"
+																			placeholder="Search
                                       Department"
-                                      aria-label="Username"
-                                      aria-describedby="basic-addon1"
-                                      [(ngModel)]="searchedKeyword"
-                                      [ngModelOptions]="{ standalone: true }"
-                                      />
-                                  </div>
-                                </div>
+																			aria-label="Username"
+																			aria-describedby="basic-addon1"
+																			[(ngModel)]="searchedKeyword"
+																			[ngModelOptions]="{ standalone: true }"
+																		/>
+																	</div>
+																</div>
 
-                                <!-- <p class="pb-2">Number of contacts you want to see a per
+																<!-- <p class="pb-2">Number of contacts you want to see a per
                                                                     the Department</p> -->
-                                <div class="scrollbar" id="style-4">
-                                  <span
-                                    *ngFor="let data of deptartment_data
-                                    | filter: searchedKeyword">
-                                    <div
-                                      class="input-container"
-                                      (click)="onChange3(data.name)">
-                                      <input
-                                        type="checkbox"
-                                        [checked]="data.checked"
-                                        [(ngModel)]="data.checked"
-                                        [ngModelOptions]="{ standalone: true }"
-                                        (change)="onChange(
-                                        data.email,
-                                        $event.target.checked
-                                        )"/>
-                                      <label><span>{{ data.name }}</span></label>
-                                    </div>
-                                  </span>
-                                </div>
-                                <div class="form-group">
-                                  <a
-                                    (click)="showlevelEmptyValues()"
-                                    class="skip_sec float-left mb-3">Skip</a>
-                                  <button
-                                    (click)="showlevel()"
-                                    [ngStyle]="{
-                                    'background-color':
-                                    dept_data.length === 0
-                                    ? '#91bef5'
-                                    : '#2d8cff'
-                                    }"
-                                    class="form-wizard-next-btn
-                                    float-right
-                                    mb-3
-                                    ml-2"[disabled]="dept_data.length === 0">
-                                    Next
-                                  </button>
-                                  <span
-                                    (click)="showemp()"
-                                    class="form-wizard-previous-btn
-                                    float-right
-                                    mb-3">Previous</span>
-                                </div>
-                                <p class="text-center blockquote">
-                                  " Reach your ideal customer... FASTER "</p>
-                              </fieldset>
-                            </div>
+																<div class="scrollbar" id="style-4">
+																	<span *ngFor="let data of deptartment_data | filter : searchedKeyword">
+																		<div class="input-container" (click)="onChange3(data.name)">
+																			<input
+																				type="checkbox"
+																				[checked]="data.checked"
+																				[(ngModel)]="data.checked"
+																				[ngModelOptions]="{ standalone: true }"
+																				(change)="onChange(data.email, $event.target.checked)"
+																			/>
+																			<label
+																				><span>{{ data.name }}</span></label
+																			>
+																		</div>
+																	</span>
+																</div>
+																<div class="form-group">
+																	<a (click)="showlevelEmptyValues()" class="skip_sec float-left mb-3">Skip</a>
+																	<button
+																		(click)="showlevel()"
+																		[ngStyle]="{
+																			'background-color': dept_data.length === 0 ? '#91bef5' : '#2d8cff'
+																		}"
+																		class="form-wizard-next-btn float-right mb-3 ml-2"
+																		[disabled]="dept_data.length === 0"
+																	>
+																		Next
+																	</button>
+																	<span (click)="showemp()" class="form-wizard-previous-btn float-right mb-3">Previous</span>
+																</div>
+																<p class="text-center blockquote">" Reach your ideal customer... FASTER "</p>
+															</fieldset>
+														</div>
 
-                            <div *ngIf="level">
-                              <fieldset class="wizard-fieldset show">
-                                <h5 class="pb-1">
-                                  Choose Seniority
-                                  <strong class="text-danger">*</strong>
-                                </h5>
-                                <!-- <p class="pb-2">Number of contacts you want to see a per
+														<div *ngIf="level">
+															<fieldset class="wizard-fieldset show">
+																<h5 class="pb-1">
+																	Choose Seniority
+																	<strong class="text-danger">*</strong>
+																</h5>
+																<!-- <p class="pb-2">Number of contacts you want to see a per
                                                                     the Seniority</p> -->
-                                <!-- <div class="search-input-group-style input-group pull-right mb-3"
+																<!-- <div class="search-input-group-style input-group pull-right mb-3"
                                                                     style="width:60%;">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"
@@ -752,53 +619,42 @@
                                                                         [(ngModel)]="searchedKeyword"
                                                                         [ngModelOptions]="{standalone: true}">
                                                                 </div> -->
-                                <div class="scrollbar" id="style-4">
-                                  <span
-                                    *ngFor="let data of level_data
-                                    | filter: searchedKeyword">
-                                    <div
-                                      class="input-container"
-                                      (click)="onChange4(data.name)">
-                                      <input
-                                        type="checkbox"
-                                        [checked]="data.checked"
-                                        [(ngModel)]="data.checked"
-                                        [ngModelOptions]="{ standalone: true }"
-                                        (change)="onChange(
-                                        data.email,
-                                        $event.target.checked
-                                        )"/>
-                                      <label><span>{{ data.name }}</span></label>
-                                    </div>
-                                  </span>
-                                </div>
-                                <div class="form-group">
-                                  <!-- <a (click)="showemp()"
+																<div class="scrollbar" id="style-4">
+																	<span *ngFor="let data of level_data | filter : searchedKeyword">
+																		<div class="input-container" (click)="onChange4(data.name)">
+																			<input
+																				type="checkbox"
+																				[checked]="data.checked"
+																				[(ngModel)]="data.checked"
+																				[ngModelOptions]="{ standalone: true }"
+																				(change)="onChange(data.email, $event.target.checked)"
+																			/>
+																			<label
+																				><span>{{ data.name }}</span></label
+																			>
+																		</div>
+																	</span>
+																</div>
+																<div class="form-group">
+																	<!-- <a (click)="showemp()"
                                                                         class="skip_sec float-left mb-3">skip</a> -->
-                                  <!-- <button (click)="showemp();"
+																	<!-- <button (click)="showemp();"
                                                                         [ngStyle]="{'background-color':lev_data.length===0?'#91bef5':'#2d8cff'}"
                                                                         class="form-wizard-next-btn float-right mb-3 ml-2"
                                                                         [disabled]="lev_data.length===0">Next</button>
                                                                     <span (click)="showdep();"
                                                                         class="form-wizard-previous-btn float-right mb-3">Previous</span> -->
-                                  <div class="form-group">
-                                    <span
-                                      (click)="submitData()"
-                                      class="form-wizard-next-btn
-                                      float-right
-                                      mb-3
-                                      ml-2">Submit</span>
-                                    <span
-                                      (click)="showdep()"
-                                      class="form-wizard-previous-btn
-                                      float-right
-                                      mb-3">Previous</span>
-                                  </div>
-                                </div>
-                              </fieldset>
-                            </div>
+																	<div class="form-group">
+																		<span (click)="submitData()" class="form-wizard-next-btn float-right mb-3 ml-2"
+																			>Submit</span
+																		>
+																		<span (click)="showdep()" class="form-wizard-previous-btn float-right mb-3">Previous</span>
+																	</div>
+																</div>
+															</fieldset>
+														</div>
 
-                            <!-- <div *ngIf="rev">
+														<!-- <div *ngIf="rev">
                                                             <fieldset class="wizard-fieldset  show">
                                                                 <h5 class="pb-1">Choose Revenue</h5>
                                                                 <p class="pb-2">Number of contacts you want to see a per
@@ -826,38 +682,37 @@
                                                                       </div>
                                                             </fieldset>
                                                         </div> -->
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="layout-px-spacing" *ngIf="resultDash && finalreport">
-          <div
-            class="row layout-top-spacing"
-            *ngIf="finalreport.company_group_by_industry">
-            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing "> -->
-            <!-- <span class="pull-left report-text">Report on the basis of your selected criteria</span> -->
-            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mb-1">
-              <p>
-                <span
-                  class="fontstyle"
-                  type="text"
-                  data-toggle="collapse"
-                  data-target="#collapseExample"
-                  aria-expanded="false"
-                  aria-controls="collapseExample">
-                  Breakdown on the basis of your<span
-                    class="text-primary selectedCriteria"
-                    (click)="showPanel()">selected criteria</span>
-                </span>
-              </p>
+													</form>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layout-px-spacing" *ngIf="resultDash && finalreport">
+					<div class="row layout-top-spacing" *ngIf="finalreport.company_group_by_industry">
+						<!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing "> -->
+						<!-- <span class="pull-left report-text">Report on the basis of your selected criteria</span> -->
+						<div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mb-1">
+							<p>
+								<span
+									class="fontstyle"
+									type="text"
+									data-toggle="collapse"
+									data-target="#collapseExample"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									Breakdown on the basis of your<span class="text-primary selectedCriteria" (click)="showPanel()"
+										>selected criteria</span
+									>
+								</span>
+							</p>
 
-              <!-- <mat-accordion>
+							<!-- <mat-accordion>
                                     <mat-expansion-panel (opened)="panelOpenState = true"
                                         (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header>
@@ -876,132 +731,104 @@
                                         <strong class="ml-2 mt-2">Seniority :</strong><span class="badge-filter">{{final_level}}</span>
                                     </mat-expansion-panel>
                                 </mat-accordion> -->
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
-              <a class="pull-right refine-criteria" (click)="refineFilters()"><i
-                  class="fa fa-sliders" aria-hidden="true"></i> Refine
-                Criteria</a>
-            </div>
+						</div>
+						<div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+							<a class="pull-right refine-criteria" (click)="refineFilters()"
+								><i class="fa fa-sliders" aria-hidden="true"></i> Refine Criteria</a
+							>
+						</div>
 
-            <div
-              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 clps-screen">
-              <div
-                class="collapse"
-                id="collapseExample"
-                *ngIf="resultDash && isCollapse">
-                <div class="card card-body align-sle-filter">
-                  <i
-                    class="fa fa-close pull-right panel-icon"
-                    (click)="closepanel()"></i>
-                  <p *ngIf="loc1.length> 0">
-                    <strong class="mt-2">Location : </strong><span
-                      class="badge-filter"
-                      *ngFor="let location of loc_data">{{ location.name }}</span>
-                  </p>
-                  <p *ngIf="inds1.length> 0">
-                    <strong class="mt-2">Industry :</strong><span
-                      class="badge-filter"
-                      *ngFor="let industries of ind_data">{{ industries.name }}</span>
-                  </p>
-                  <p *ngIf="emp1.length> 0">
-                    <strong class="mt-2">Employee Range :</strong><span
-                      class="badge-filter" *ngFor="let emp of emp_data">{{
-                      emp.name
-                      }}</span>
-                  </p>
-                  <p *ngIf="dept1.length> 0">
-                    <strong class="mt-2">Department :</strong><span
-                      class="badge-filter" *ngFor="let dept of dept_data">{{
-                      dept.name }}
-                    </span>
-                  </p>
-                  <p *ngIf="levs1.length> 0">
-                    <strong class="mt-2">Seniority : </strong><span
-                      class="badge-filter"
-                      *ngFor="let seniority of lev_data">{{ seniority.name }}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing"
-              *ngIf="finalreport">
-              <div class="widget widget-card-four">
-                <div class="widget-content">
-                  <div class="w-content">
-                    <div class="w-info">
-                      <h6 class="pt-3">Contacts</h6>
-                      <p
-                        class="value pt-3"
-                        *ngIf="finalreport.contact_counts> 0"
-                        >
-                        {{ finalreport.contact_counts | number }}
-                      </p>
-                      <p
-                        class="pt-3 contacts_nodata"
-                        *ngIf="finalreport.contact_counts === 0">
-                        No Contacts Found
-                      </p>
-                    </div>
-                    <div class="">
-                      <div class="w-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="40"
-                          height="55"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="feather feather-mail">
-                          <path
-                            d="M4 4h16c1.1 0 2 .9 2
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 clps-screen">
+							<div class="collapse" id="collapseExample" *ngIf="resultDash && isCollapse">
+								<div class="card card-body align-sle-filter">
+									<i class="fa fa-close pull-right panel-icon" (click)="closepanel()"></i>
+									<p *ngIf="loc1.length > 0">
+										<strong class="mt-2">Location : </strong
+										><span class="badge-filter" *ngFor="let location of loc_data">{{ location.name }}</span>
+									</p>
+									<p *ngIf="inds1.length > 0">
+										<strong class="mt-2">Industry :</strong
+										><span class="badge-filter" *ngFor="let industries of ind_data">{{ industries.name }}</span>
+									</p>
+									<p *ngIf="emp1.length > 0">
+										<strong class="mt-2">Employee Range :</strong
+										><span class="badge-filter" *ngFor="let emp of emp_data">{{ emp.name }}</span>
+									</p>
+									<p *ngIf="dept1.length > 0">
+										<strong class="mt-2">Department :</strong
+										><span class="badge-filter" *ngFor="let dept of dept_data">{{ dept.name }} </span>
+									</p>
+									<p *ngIf="levs1.length > 0">
+										<strong class="mt-2">Seniority : </strong
+										><span class="badge-filter" *ngFor="let seniority of lev_data">{{ seniority.name }}</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget widget-card-four">
+								<div class="widget-content">
+									<div class="w-content">
+										<div class="w-info">
+											<h6 class="pt-3">Contacts</h6>
+											<p class="value pt-3" *ngIf="finalreport.contact_counts > 0">
+												{{ finalreport.contact_counts | number }}
+											</p>
+											<p class="pt-3 contacts_nodata" *ngIf="finalreport.contact_counts === 0">No Contacts Found</p>
+										</div>
+										<div class="">
+											<div class="w-icon">
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="40"
+													height="55"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													class="feather feather-mail"
+												>
+													<path
+														d="M4 4h16c1.1 0 2 .9 2
                             2v12c0 1.1-.9 2-2
                             2H4c-1.1
                             0-2-.9-2-2V6c0-1.1.9-2
-                            2-2z"></path>
-                          <polyline
-                            points="22,6 12,13
-                            2,6"></polyline>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <div class="progress">
+                            2-2z"
+													></path>
+													<polyline
+														points="22,6 12,13
+                            2,6"
+													></polyline>
+												</svg>
+											</div>
+										</div>
+									</div>
+									<!-- <div class="progress">
                                             <div class="progress-bar bg-gradient-secondary" role="progressbar"
                                                 style="width: 99%" aria-valuenow="22" aria-valuemin="0"
                                                 aria-valuemax="100"></div>
                                         </div> -->
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing"
-              *ngIf="finalreport">
-              <div class="widget widget-card-four">
-                <div class="widget-content">
-                  <div class="w-content">
-                    <div class="w-info">
-                      <h6 class="pt-3">Companies</h6>
-                      <p
-                        class="value pt-3"
-                        *ngIf="finalreport.company_counts> 0"
-                        >
-                        {{ finalreport.company_counts | number }}
-                      </p>
-                      <p
-                        class="pt-3 contacts_nodata"
-                        *ngIf="finalreport.company_counts === 0">
-                        No Companies Found
-                      </p>
-                    </div>
-                    <div class="">
-                      <div class="w-icon">
-                        <div class="icon-container">
-                          <i class="fa fa-building-o fnt_company"></i>
-                          <!-- <svg viewBox="0 0 24 24" width="40" height="55"
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget widget-card-four">
+								<div class="widget-content">
+									<div class="w-content">
+										<div class="w-info">
+											<h6 class="pt-3">Companies</h6>
+											<p class="value pt-3" *ngIf="finalreport.company_counts > 0">
+												{{ finalreport.company_counts | number }}
+											</p>
+											<p class="pt-3 contacts_nodata" *ngIf="finalreport.company_counts === 0">No Companies Found</p>
+										</div>
+										<div class="">
+											<div class="w-icon">
+												<div class="icon-container">
+													<i class="fa fa-building-o fnt_company"></i>
+													<!-- <svg viewBox="0 0 24 24" width="40" height="55"
                                                             stroke="currentColor" stroke-width="2" fill="none"
                                                             stroke-linecap="round" stroke-linejoin="round"
                                                             class="css-i6dzq1">
@@ -1009,52 +836,50 @@
                                                             <polyline points="2 17 12 22 22 17"></polyline>
                                                             <polyline points="2 12 12 17 22 12"></polyline>
                                                         </svg> -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <div class="progress">
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- <div class="progress">
                                             <div class="progress-bar bg-gradient-red" role="progressbar"
                                                 style="width: 57%" aria-valuenow="57" aria-valuemin="0"
                                                 aria-valuemax="100"></div>
                                         </div> -->
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing"
-              *ngIf="finalreport">
-              <div class="widget widget-account-invoice-two">
-                <div class="widget-content">
-                  <div class="account-box">
-                    <div class="info">
-                      <h5 class="">Get Custom Data Intelligence</h5>
-                      <!-- <p class="inv-balance">$10,344</p> -->
-                    </div>
-                    <div class="acc-action">
-                      <button
-                        type="button"
-                        *ngIf="finalreport.contact_counts> 50"
-                        class="btn btn-outline-primary waves-effect btn-lg"
-                        (click)="icpFilterDataRequest()"
-                        >
-                        Get 5 Contacts
-                      </button>
-                      <button
-                        type="button"
-                        *ngIf="finalreport.contact_counts <50 ||
-                        finalreport.contact_counts == 50"class="btn
-                        btn-outline-primary waves-effect btn-lg"
-                        (click)="bookDemo(
-                        'www.ampliz.com/get-more-prospects?utm_source=ampliz&utm_medium=icp&utm_campaign=icp'
-                        )">
-                        Talk to us
-                      </button>
-                      <!-- <p *ngIf="requestSampletext" class="sucees_msg">
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget widget-account-invoice-two">
+								<div class="widget-content">
+									<div class="account-box">
+										<div class="info">
+											<h5 class="">Get Custom Data Intelligence</h5>
+											<!-- <p class="inv-balance">$10,344</p> -->
+										</div>
+										<div class="acc-action">
+											<button
+												type="button"
+												*ngIf="finalreport.contact_counts > 50"
+												class="btn btn-outline-primary waves-effect btn-lg"
+												(click)="icpFilterDataRequest()"
+											>
+												Get 5 Contacts
+											</button>
+											<button
+												type="button"
+												*ngIf="finalreport.contact_counts < 50 || finalreport.contact_counts == 50"
+												class="btn btn-outline-primary waves-effect btn-lg"
+												(click)="
+													bookDemo('www.ampliz.com/get-more-prospects?utm_source=ampliz&utm_medium=icp&utm_campaign=icp')
+												"
+											>
+												Talk to us
+											</button>
+											<!-- <p *ngIf="requestSampletext" class="sucees_msg">
                                                     <strong class="reques-success-msg">
                                                         Thanks for asking! We will get back to you in 24 hours </strong>
                                                 </p> -->
-                      <!-- <div class="succes-message"  *ngIf="!requestSample">
+											<!-- <div class="succes-message"  *ngIf="!requestSample">
                                                         <div class="alert alert-success alert-dismissible fade show" role="alert" >
                                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                                 <span aria-hidden="true">×</span>
@@ -1062,13 +887,13 @@
                                                             Data Saved Successfully!
                                                         </div>
                                                     </div> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+						<!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                             <div class="widget widget-card-four">
                                 <div class="widget-content">
                                     <div class="w-content">
@@ -1090,71 +915,57 @@
                                 </div>
                             </div>
                         </div> -->
-            <div
-              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12
-              layout-spacing">
-              <div class="widget widget-card-four bkt-clr">
-                <div class="widget-content">
-                  <div class="w-content">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                      <div class="text-center pb-3">
-                        <h6 class="pb-4 pt-2">
-                          GET ACCESS TO MOST ACCURATE AND COMPREHENSIVE BUSINESS
-                          DATABASE
-                        </h6>
-                        <div class="media-body innerDiv">
-                          <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6 text-center">
-                              <div class="counter">
-                                <h6><span>200 M+</span></h6>
-                                <p class="pt-2">Direct Emails</p>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 text-center">
-                              <div class="counter">
-                                <h6><span>10 M+</span></h6>
-                                <p class="pt-2">Company Profiles</p>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 text-center">
-                              <div class="counter padding50">
-                                <h6><span>4.6 M+</span></h6>
-                                <p class="pt-2">Healthcare Physicians</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="col-xl-12
-                        text-center
-                        pt-3
-                        pb-3
-                        col-lg-12 col-md-12 col-sm-12 col-12
-                        brtn">
-                        <a (click)="getDataAccess()" class="">Get Full Data
-                          Access</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+							<div class="widget widget-card-four bkt-clr">
+								<div class="widget-content">
+									<div class="w-content">
+										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="text-center pb-3">
+												<h6 class="pb-4 pt-2">GET ACCESS TO MOST ACCURATE AND COMPREHENSIVE BUSINESS DATABASE</h6>
+												<div class="media-body innerDiv">
+													<div class="row">
+														<div class="col-lg-4 col-md-4 col-sm-6 text-center">
+															<div class="counter">
+																<h6><span>200 M+</span></h6>
+																<p class="pt-2">Direct Emails</p>
+															</div>
+														</div>
+														<div class="col-lg-4 col-md-4 col-sm-6 text-center">
+															<div class="counter">
+																<h6><span>10 M+</span></h6>
+																<p class="pt-2">Company Profiles</p>
+															</div>
+														</div>
+														<div class="col-lg-4 col-md-4 col-sm-6 text-center">
+															<div class="counter padding50">
+																<h6><span>4.6 M+</span></h6>
+																<p class="pt-2">Healthcare Physicians</p>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-12 text-center pt-3 pb-3 col-lg-12 col-md-12 col-sm-12 col-12 brtn">
+												<a (click)="getDataAccess()" class="">Get Full Data Access</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
-              *ngIf="finalreport">
-              <div class="widget widget-table-one">
-                <div class="widget-heading">
-                  <h5 class="">Contacts by Department</h5>
-                </div>
-                <div class="col-lg-12 col-12 layout-spacing">
-                  <div class="statbox department-card box box-shadow">
-                    <div
-                      class="widget-content widget-content-area
-                      animated-underline-content
-                      scrollbar_market"id="style-5">
-                      <!-- <ul class="nav nav-tabs  mb-3" id="animateLine" role="tablist">
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget widget-table-one">
+								<div class="widget-heading">
+									<h5 class="">Contacts by Department</h5>
+								</div>
+								<div class="col-lg-12 col-12 layout-spacing">
+									<div class="statbox department-card box box-shadow">
+										<div
+											class="widget-content widget-content-area animated-underline-content scrollbar_market"
+											id="style-5"
+										>
+											<!-- <ul class="nav nav-tabs  mb-3" id="animateLine" role="tablist">
                                                     <li class="nav-item">
                                                         <a class="nav-link active" id="animated-underline-home-tab"
                                                             data-toggle="tab" href="#animated-underline-home" role="tab"
@@ -1168,48 +979,42 @@
                                                             aria-selected="true"> Company</a>
                                                     </li>
                                                 </ul> -->
-                      <div class="tab-content" id="animateLineContent-4">
-                        <div
-                          *ngIf="finalreport.contact_group_by_dept.length === 0"
-                          class="text-center">
-                          <img src="/assets/images/new.png" />
-                        </div>
-                        <div
-                          class="tab-pane fade active show"
-                          id="animated-underline-home"
-                          role="tabpanel"
-                          aria-labelledby="animated-underline-home-tab">
-                          <div
-                            *ngFor="let item of
-                            finalreport.contact_group_by_dept"class="widget-content">
-                            <div
-                              class="transactions-list"
-                              *ngIf="item.Department != null">
-                              <div class="t-item">
-                                <div class="t-company-name">
-                                  <div class="t-icon">
-                                    <div class="avatar avatar-xl">
-                                      <!-- <span>{{deptartment_data.icon}}</span> -->
-                                      <span
-                                        class="avatar-title rounded-circle"
-                                        *ngIf="item.Department">{{
-                                        item.Department | shortName }}</span>
-                                    </div>
-                                  </div>
-                                  <div class="t-name">
-                                    <h4>{{ item.Department }}</h4>
-                                  </div>
-                                </div>
-                                <div class="t-rate rate-inc">
-                                  <p>
-                                    <span>{{ item.counts | number }}</span>
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- <div class="tab-pane fade " id="animated-underline-profile"
+											<div class="tab-content" id="animateLineContent-4">
+												<div *ngIf="finalreport.contact_group_by_dept.length === 0" class="text-center">
+													<img src="/assets/images/new.png" />
+												</div>
+												<div
+													class="tab-pane fade active show"
+													id="animated-underline-home"
+													role="tabpanel"
+													aria-labelledby="animated-underline-home-tab"
+												>
+													<div *ngFor="let item of finalreport.contact_group_by_dept" class="widget-content">
+														<div class="transactions-list" *ngIf="item.Department != null">
+															<div class="t-item">
+																<div class="t-company-name">
+																	<div class="t-icon">
+																		<div class="avatar avatar-xl">
+																			<!-- <span>{{deptartment_data.icon}}</span> -->
+																			<span class="avatar-title rounded-circle" *ngIf="item.Department">{{
+																				item.Department | shortName
+																			}}</span>
+																		</div>
+																	</div>
+																	<div class="t-name">
+																		<h4>{{ item.Department }}</h4>
+																	</div>
+																</div>
+																<div class="t-rate rate-inc">
+																	<p>
+																		<span>{{ item.counts | number }}</span>
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- <div class="tab-pane fade " id="animated-underline-profile"
                                                         role="tabpanel"
                                                         aria-labelledby="animated-underline-profile-tab">
                                                         <div class="widget-content">
@@ -1269,45 +1074,39 @@
                                                             </div>
                                                         </div>
                                                     </div> -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
-              *ngIf="finalreport">
-              <div class="widget widget-chart-two">
-                <div class="widget-heading seniority-padd">
-                  <h5 class="">Contacts by Seniority</h5>
-                </div>
-                <div class="widget-content seniority-chart">
-                  <div
-                    *ngIf="finalreport.contact_group_by_level.length === 0"
-                    class="text-center seniority-img">
-                    <img src="/assets/images/new.png" class="" />
-                  </div>
-                  <div
-                    id="chart"
-                    *ngIf="finalreport.contact_group_by_level.length> 0"
-                    >
-                    <apx-chart
-                      [series]="chartOptions.series"
-                      [chart]="chartOptions.chart"
-                      [labels]="chartOptions.labels"
-                      [fill]="chartOptions.fill"
-                      [dataLabels]="chartOptions.dataLabels"
-                      [responsive]="chartOptions.responsive"></apx-chart>
-                  </div>
-                  <div id="chart-2" class=""></div>
-                </div>
-              </div>
-            </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget widget-chart-two">
+								<div class="widget-heading seniority-padd">
+									<h5 class="">Contacts by Seniority</h5>
+								</div>
+								<div class="widget-content seniority-chart">
+									<div *ngIf="finalreport.contact_group_by_level.length === 0" class="text-center seniority-img">
+										<img src="/assets/images/new.png" class="" />
+									</div>
+									<div id="chart" *ngIf="finalreport.contact_group_by_level.length > 0">
+										<apx-chart
+											[series]="chartOptions.series"
+											[chart]="chartOptions.chart"
+											[labels]="chartOptions.labels"
+											[fill]="chartOptions.fill"
+											[dataLabels]="chartOptions.dataLabels"
+											[responsive]="chartOptions.responsive"
+										></apx-chart>
+									</div>
+									<div id="chart-2" class=""></div>
+								</div>
+							</div>
+						</div>
 
-            <!-- REVENUE IMAPORTANT END -->
+						<!-- REVENUE IMAPORTANT END -->
 
-            <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing ">
+						<!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing ">
                                 <div class="widget-four ">
                                     <div class="widget-heading ">
                                         <h5 class=" "> Revenue</h5>
@@ -1422,71 +1221,65 @@
                                     </div>
                                 </div>
                             </div> -->
-            <!-- REVENUE IMAPORTANT END -->
+						<!-- REVENUE IMAPORTANT END -->
 
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
-              *ngIf="finalreport">
-              <div class="widget widget-table-one">
-                <div class="widget-heading">
-                  <h5 class="">Employee Count</h5>
-                </div>
-                <div class="col-lg-12 col-12 layout-spacing">
-                  <!-- <p *ngIf="finalreport.company_group_by_employee_count==0"
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget widget-table-one">
+								<div class="widget-heading">
+									<h5 class="">Employee Count</h5>
+								</div>
+								<div class="col-lg-12 col-12 layout-spacing">
+									<!-- <p *ngIf="finalreport.company_group_by_employee_count==0"
                                             class="text-center mt-3">Data Not Available
                                         </p> -->
-                  <div class="statbox box box-shadow">
-                    <div
-                      class="widget-content widget-content-area
-                      animated-underline-content
-                      scrollbar_market"id="style-5">
-                      <div
-                        *ngIf="finalreport.company_group_by_employee_count.length
-                        ===
-                        0"class="text-center">
-                        <img src="/assets/images/new.png" />
-                      </div>
-                      <div class="tab-content" id="animateLineContent-4">
-                        <div
-                          class="tab-pane fade active show"
-                          id="animated-underline-home"
-                          role="tabpanel"
-                          aria-labelledby="animated-underline-home-tab">
-                          <div
-                            *ngFor="let item of
-                            finalreport.company_group_by_employee_count;
-                            let i= index"class="widget-content">
-                            <div
-                              class="transactions-list"
-                              *ngIf="item.EmployeeRange != null">
-                              <div class="t-item">
-                                <div class="t-company-name">
-                                  <div class="t-icon">
-                                    <div class="avatar avatar-xl">
-                                      <span class="avatar-title rounded-circle"><i
-                                          class="fa fa-users"
-                                          aria-hidden="true"></i></span>
-                                    </div>
-                                  </div>
-                                  <div class="t-name">
-                                    <h4>{{ item.EmployeeRange }}</h4>
-                                  </div>
-                                </div>
-                                <div class="t-rate rate-inc">
-                                  <p>
-                                    <span>{{ item.counts | number }}</span>
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="widget-four  ">
+									<div class="statbox box box-shadow">
+										<div
+											class="widget-content widget-content-area animated-underline-content scrollbar_market"
+											id="style-5"
+										>
+											<div *ngIf="finalreport.company_group_by_employee_count.length === 0" class="text-center">
+												<img src="/assets/images/new.png" />
+											</div>
+											<div class="tab-content" id="animateLineContent-4">
+												<div
+													class="tab-pane fade active show"
+													id="animated-underline-home"
+													role="tabpanel"
+													aria-labelledby="animated-underline-home-tab"
+												>
+													<div
+														*ngFor="let item of finalreport.company_group_by_employee_count; let i = index"
+														class="widget-content"
+													>
+														<div class="transactions-list" *ngIf="item.EmployeeRange != null">
+															<div class="t-item">
+																<div class="t-company-name">
+																	<div class="t-icon">
+																		<div class="avatar avatar-xl">
+																			<span class="avatar-title rounded-circle"
+																				><i class="fa fa-users" aria-hidden="true"></i
+																			></span>
+																		</div>
+																	</div>
+																	<div class="t-name">
+																		<h4>{{ item.EmployeeRange }}</h4>
+																	</div>
+																</div>
+																<div class="t-rate rate-inc">
+																	<p>
+																		<span>{{ item.counts | number }}</span>
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="widget-four  ">
                                     <div class="widget-heading ">
                                         <h5 class=" "> Employee Count</h5>
                                     </div>
@@ -1525,70 +1318,62 @@
                                     </div>
 
                                 </div> -->
-            </div>
-            <div
-              class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
-              *ngIf="finalreport">
-              <div class="widget widget-table-one">
-                <div class="widget-heading">
-                  <h5 class="">Industry</h5>
-                </div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget widget-table-one">
+								<div class="widget-heading">
+									<h5 class="">Industry</h5>
+								</div>
 
-                <!-- <p class="text-center mt-3" *ngIf="finalreport.company_group_by_industry.length==0">
+								<!-- <p class="text-center mt-3" *ngIf="finalreport.company_group_by_industry.length==0">
                                         Data Not Available </p> -->
-                <div class="col-lg-12 col-12 layout-spacing">
-                  <div class="statbox box box-shadow">
-                    <div
-                      class="widget-content widget-content-area
-                      animated-underline-content
-                      scrollbar_market"id="style-5">
-                      <div
-                        *ngIf="finalreport.company_group_by_industry.length ===
-                        0"class="text-center">
-                        <img src="/assets/images/new.png" />
-                      </div>
-                      <div class="tab-content" id="animateLineContent-4">
-                        <div
-                          class="tab-pane fade active show"
-                          id="animated-underline-home"
-                          role="tabpanel"
-                          aria-labelledby="animated-underline-home-tab">
-                          <div
-                            *ngFor="let item of
-                            finalreport.company_group_by_industry"class="widget-content">
-                            <div
-                              class="transactions-list"
-                              *ngIf="item.Industry != null">
-                              <div class="t-item">
-                                <div class="t-company-name">
-                                  <div class="t-icon">
-                                    <div class="avatar avatar-xl">
-                                      <span
-                                        class="avatar-title rounded-circle"
-                                        *ngIf="item.Industry">{{ item.Industry |
-                                        shortName }}</span>
-                                    </div>
-                                  </div>
-                                  <div class="t-name">
-                                    <h4>{{ item.Industry }}</h4>
-                                  </div>
-                                </div>
-                                <div class="t-rate rate-inc">
-                                  <p>
-                                    <span>{{ item.counts | number }}</span>
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+								<div class="col-lg-12 col-12 layout-spacing">
+									<div class="statbox box box-shadow">
+										<div
+											class="widget-content widget-content-area animated-underline-content scrollbar_market"
+											id="style-5"
+										>
+											<div *ngIf="finalreport.company_group_by_industry.length === 0" class="text-center">
+												<img src="/assets/images/new.png" />
+											</div>
+											<div class="tab-content" id="animateLineContent-4">
+												<div
+													class="tab-pane fade active show"
+													id="animated-underline-home"
+													role="tabpanel"
+													aria-labelledby="animated-underline-home-tab"
+												>
+													<div *ngFor="let item of finalreport.company_group_by_industry" class="widget-content">
+														<div class="transactions-list" *ngIf="item.Industry != null">
+															<div class="t-item">
+																<div class="t-company-name">
+																	<div class="t-icon">
+																		<div class="avatar avatar-xl">
+																			<span class="avatar-title rounded-circle" *ngIf="item.Industry">{{
+																				item.Industry | shortName
+																			}}</span>
+																		</div>
+																	</div>
+																	<div class="t-name">
+																		<h4>{{ item.Industry }}</h4>
+																	</div>
+																</div>
+																<div class="t-rate rate-inc">
+																	<p>
+																		<span>{{ item.counts | number }}</span>
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-              <!-- <div class="statbox  box box-shadow">
+							<!-- <div class="statbox  box box-shadow">
                                     <div class="widget-content widget-content-area animated-underline-content">
 
                                 <div class="widget-four  ">
@@ -1634,7 +1419,7 @@
                                 </div>
                                 </div>
                                 </div> -->
-              <!-- <div class="widget widget-table-one">
+							<!-- <div class="widget widget-table-one">
                                                 <div class="widget-heading">
                                                     <h5 class="">Industry</h5>
                                                 </div>
@@ -1659,7 +1444,7 @@
                                                     </div>
                                                 </div>
                                             </div> -->
-              <!-- <div *ngFor="let item of finalreport.company_group_by_industry ; let i = index"
+							<!-- <div *ngFor="let item of finalreport.company_group_by_industry ; let i = index"
                                                 class="vistorsBrowser ">
                                                 <div class="browser-list ">
 
@@ -1684,48 +1469,45 @@
                                                 </div>
 
                                             </div> -->
-              <!-- </div>
+							<!-- </div>
                                     </div> -->
-            </div>
+						</div>
 
-            <div
-              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12
-              layout-spacing"*ngIf="finalreport">
-              <div class="widget-four">
-                <div class="widget-heading">
-                  <h5 class="">Location</h5>
-                </div>
-                <div
-                  *ngIf="finalreport.company_group_by_location.length === 0"
-                  class="text-center">
-                  <img src="/assets/images/new.png" />
-                </div>
-                <div *ngIf="finalreport.company_group_by_location.length> 0">
-                  <!-- HIGHCHART START -->
-                  <highcharts-chart
-                    id="container"
-                    [Highcharts]="Highcharts"
-                    [constructorType]="chartConstructor"
-                    [options]="chartOption"
-                    style="width: 100%; height: 600px; display: block">
-                  </highcharts-chart>
-                  <!-- HIGHCHART End -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- container -->
-    </div>
-    <!-- content -->
-  </div>
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing" *ngIf="finalreport">
+							<div class="widget-four">
+								<div class="widget-heading">
+									<h5 class="">Location</h5>
+								</div>
+								<div *ngIf="finalreport.company_group_by_location.length === 0" class="text-center">
+									<img src="/assets/images/new.png" />
+								</div>
+								<div *ngIf="finalreport.company_group_by_location.length > 0">
+									<!-- HIGHCHART START -->
+									<highcharts-chart
+										id="container"
+										[Highcharts]="Highcharts"
+										[constructorType]="chartConstructor"
+										[options]="chartOption"
+										style="width: 100%; height: 600px; display: block"
+									>
+									</highcharts-chart>
+									<!-- HIGHCHART End -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- container -->
+		</div>
+		<!-- content -->
+	</div>
 
-  <!-- ============================================================== -->
-  <!-- End Right content here -->
-  <!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- End Right content here -->
+	<!-- ============================================================== -->
 
-  <!-- <div class="modal fade" id="myModal" role="dialog">
+	<!-- <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
           
             <div class="modal-content">
@@ -1751,5 +1533,5 @@
             </div>
         </div>
     </div> -->
-  <app-footer></app-footer>
+	<app-footer></app-footer>
 </div>
