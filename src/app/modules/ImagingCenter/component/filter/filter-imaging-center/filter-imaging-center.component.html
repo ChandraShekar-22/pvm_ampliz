@@ -17,11 +17,92 @@
                 includePlaceholder="Center" title="Center name"></app-individual-filter>
 
            
-            <app-individual-filter #noOfImgEqListMulti type="singleselectnumber"
+            <!-- <app-individual-filter #noOfImgEqListMulti type="singleselectnumber"
                 [totalItems]="numberOfImagingEquipmentList" [(includedItems)]="filterData.noOfEqupment"
                 (includedItemsChange)="omitChanges()" includePlaceholder="No. of imaging equipments"
                 title="Imaging equipments" [disabled]="!isSubscribed">
-            </app-individual-filter>
+            </app-individual-filter> -->
+
+
+            <!-- Imaging equipment starts -->
+			<mat-expansion-panel #panelCodes hideToggle="true" [disabled]="!isSubscribed">
+				<!-- (opened)="triggerAutoFocus('#experienceInput')" -->
+
+				<mat-expansion-panel-header
+					[ngClass]="panelCodes.expanded ? 'expanded' : ''"
+					[collapsedHeight]="'70px'"
+					[expandedHeight]="'70px'"
+				>
+					<mat-panel-title>
+						<div>Imaging Equipments</div>
+						<div class="sub-header">Select Imaging Equipments</div>
+						<div class="selected">
+							<mat-chip-list #addedHospitals aria-label="Hospital name">
+								<mat-basic-chip *ngIf="selectedImagingNumber?.length > 0" [ngClass]="'selected'">
+									{{ selectedImagingNumber[0] }}
+								</mat-basic-chip>
+								<span *ngIf="selectedImagingNumber?.length > 1" class="additional-selection">
+									+ {{ selectedImagingNumber.length - 1 }} more
+								</span>
+							</mat-chip-list>
+						</div>
+					</mat-panel-title>
+					<mat-panel-description>
+						<mat-icon class="matrl-plus" *ngIf="isSubscribed">{{ panelCodes.expanded ? 'remove' : 'add' }} </mat-icon>
+						<mat-icon class="filter-title" *ngIf="!isSubscribed">lock</mat-icon>
+					</mat-panel-description>
+				</mat-expansion-panel-header>
+				<span class="form-label">Number of equipments</span>
+				<mat-form-field>
+					<mat-select [placeholder]="" (selectionChange)="imagingNumberSelected()" [(ngModel)]="imagingNumber">
+						<mat-select-trigger>
+							<mat-basic-chip
+								class="chip-list"
+								*ngFor="let item of selectedImagingNumber"
+								(removed)="removeImagingNumber()"
+							>
+								{{ item }}
+								<mat-icon matChipRemove class="chip-list">close</mat-icon>
+							</mat-basic-chip>
+						</mat-select-trigger>
+						<mat-option [value]="item" *ngFor="let item of numberOfImagingEquipmentList">{{ item }}</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<span class="form-label">Name of the equipments</span>
+				<mat-form-field>
+					<mat-chip-list #experienceList aria-label="Experience input">
+						<mat-basic-chip>
+							<!-- *ngFor="let name of selectedHSCPCCode"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="removeCode(name)"
+							{{ name }} -->
+							<mat-icon matChipRemove>close</mat-icon>
+						</mat-basic-chip>
+						<input
+							#cptCodeInput
+							id="cptCodeInput"
+							placeholder=""
+							aria-label="Experience Input"
+							matInput
+							[matAutocomplete]="cptCodeAuto"
+							floatPlaceholder="never"
+							[matChipInputFor]="experienceList"
+						/>
+						<!-- [matChipInputSeparatorKeyCodes]="separatorKeysCodes" -->
+						<!-- [formControl]="cptControl" -->
+					</mat-chip-list>
+
+					<mat-autocomplete #cptCodeAuto="matAutocomplete" class="app-autocomplete">
+						<!-- (optionSelected)="onCodeSelect($event)" -->
+					</mat-autocomplete>
+					<!-- <mat-option *ngFor="let cptCode of hscpcCodeList" [value]="cptCode.hcpcsCode">
+                        {{ cptCode.hcpcsCode }}-{{ cptCode.description }}
+                    </mat-option> -->
+				</mat-form-field>
+			</mat-expansion-panel>
+			<!-- Imaging equipment ends -->
 
             <div class="location">
                 <app-individual-location-filter [countryList]="countryList"
