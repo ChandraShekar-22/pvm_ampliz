@@ -6,13 +6,16 @@ import {
 	OnDestroy,
 	OnInit,
 	Output,
-	ViewChild
+	ViewChild,
+	ElementRef
 } from '@angular/core';
 import { Subscriber, Subscription } from 'rxjs';
 import { FilterStorageService } from 'src/app/modules/B2B/services/filter-storage.service';
 import { SearchImagingExecutivesModel } from '../../../models/SearchImagingExecutivesModel';
 import { ImagingDataService } from '../../../services/imaging-data.service';
 import { ImagingService } from '../../../services/imaging.service';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'app-filter-imaging-center-executives',
@@ -23,6 +26,11 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 	@Output() onFilterChange = new EventEmitter<any>();
 	@Input() isSubscribed: boolean = false;
 	filterData: SearchImagingExecutivesModel = new SearchImagingExecutivesModel();
+	@ViewChild('cptCodeInput', { static: false })
+	cptCodeInput: ElementRef<HTMLInputElement>;
+	selectable = true;
+	removable = true;
+
 	//company Variables
 	companyList: Array<any> = [];
 
@@ -55,6 +63,7 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 	//Search List variables
 	cityList: Array<any> = [];
 	selectedCities: Array<any> = [];
+	cptControl = new FormControl();
 
 	// Revenue Variables
 	revenueList: Array<any> = [];
@@ -67,6 +76,7 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 	imagingNumber: any = 0;
 
 	selectedImagingNumber: any = [];
+	imagingEqupmentsList: Array<any> = [];
 
 	constructor(
 		private b2bService: ImagingService,
@@ -80,10 +90,20 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 		this.getDepartmentList();
 		this.getRevenueList();
 		this.makeImagingEqipmentList();
+		this.getAllListData();
+		this.getImagingCenterEquipment();
 		this.subscription = this.dataService.imagingSearchData.subscribe((res) => {
 			if (res.fromSearch) {
 				this.filterData = res.data;
 				this.omitChanges();
+			}
+		});
+	}
+	getAllListData() {
+		this.cptControl.valueChanges.subscribe((value) => {
+			let hv = value !== null ? value : '';
+			if (hv) {
+				this.getImagingCenterEquipment(hv);
 			}
 		});
 	}
@@ -205,8 +225,16 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 			this.filterData.numberOfImagingEquipments =
 				this.filterStorageService.getNumber('imaging_numberOfImagingEquipmentList') || 0;
 			// setTimeout(() => {
+			if (this.filterData.numberOfImagingEquipments) {
+				this.selectedImagingNumber[0] = this.filterData.numberOfImagingEquipments;
+			}
+
+			this.filterData.imagingEquipments = this.filterStorageService.get('imaging_imagingEquipments') || [];
 			this.omitChanges();
 		});
+	}
+	get selectedImagingEquipments() {
+		return this.filterData.imagingEquipments;
 	}
 
 	storeFilterData() {
@@ -225,6 +253,7 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 			'imaging_numberOfImagingEquipmentList',
 			this.filterData.numberOfImagingEquipments
 		);
+		this.filterStorageService.set('imaging_imagingEquipments', this.filterData.imagingEquipments);
 	}
 
 	omitChanges() {
@@ -234,9 +263,34 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 
 	clearFilter() {
 		const isValid = this.filterData.validateImagingSearch();
+		this.cptCodeInput.nativeElement.value = '';
+		this.selectedImagingNumber = [];
+
 		if (isValid) {
 			this.filterData = new SearchImagingExecutivesModel();
 			this.omitChanges();
 		}
+	}
+	getImagingCenterEquipment(searchPhase = '') {
+		this.b2bService.getImagingCenterEquipment(searchPhase).subscribe((res) => {
+			this.imagingEqupmentsList = res.icEquipmentList;
+		});
+	}
+	removeCode(code: string) {
+		this.filterData.imagingEquipments = this.filterData.imagingEquipments.filter((el) => el !== code);
+		this.getImagingCenterEquipment();
+		this.omitChanges();
+		this.storeFilterData();
+	}
+	onCodeSelect(event: MatAutocompleteSelectedEvent) {
+		this.filterData.imagingEquipments = [
+			...new Set([...this.filterData.imagingEquipments, event.option.value])
+		];
+		this.cptCodeInput.nativeElement.value = '';
+		setTimeout(() => {
+			this.getImagingCenterEquipment();
+		}, 500);
+		this.omitChanges();
+		this.storeFilterData();
 	}
 }

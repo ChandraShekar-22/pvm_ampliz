@@ -1,4 +1,16 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Subscriber, Subscription } from 'rxjs';
 import { B2bService } from 'src/app/modules/B2B/services/b2b.service';
 import { FilterStorageService } from 'src/app/modules/B2B/services/filter-storage.service';
@@ -15,6 +27,11 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 	@Output() onFilterChange = new EventEmitter<any>();
 	@Input() isSubscribed: boolean = false;
 	filterData: SearchImagingModel = new SearchImagingModel();
+	@ViewChild('cptCodeInput', { static: false })
+	cptCodeInput: ElementRef<HTMLInputElement>;
+	selectable = true;
+	removable = true;
+
 	//company Variables
 	companyList: Array<any> = [];
 
@@ -43,16 +60,24 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 	imagingNumber: any = 0;
 
 	selectedImagingNumber: any = [];
+	imagingEqupmentsList: Array<any> = [];
+	cptControl = new FormControl();
 
 	constructor(
 		private b2bService: ImagingService,
 		private filterStorageService: FilterStorageService,
 		private dataService: ImagingDataService
 	) {}
+	get selectedImagingEquipments() {
+		return this.filterData.imagingEquipments;
+	}
 
 	ngOnInit() {
 		this.getPersistData();
 		this.makeImagingEqipmentList();
+		this.getAllListData();
+		this.getImagingCenterEquipment();
+
 		// this.subscription = this.dataService.imagingSearchData.subscribe((res) => {
 		//   if (res.fromSearch) {
 		//     this.filterData=res.data;
@@ -93,6 +118,14 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.filterData.noOfEqupment = 0;
 		this.omitChanges();
 	}
+	getAllListData() {
+		this.cptControl.valueChanges.subscribe((value) => {
+			let hv = value !== null ? value : '';
+			if (hv) {
+				this.getImagingCenterEquipment(hv);
+			}
+		});
+	}
 
 	getPersistData() {
 		// let that = this;
@@ -103,6 +136,11 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 			this.filterData.cityList = this.filterStorageService.get('imaging_selectedCities') || [];
 			this.selectedCountry = this.filterStorageService.get('imaging_selectedCountry') || [];
 			this.filterData.noOfEqupment = this.filterStorageService.getNumber('imaging_noOfEqupment') || 0;
+			if (this.filterData.noOfEqupment) {
+				this.selectedImagingNumber[0] = this.filterData.noOfEqupment;
+			}
+			this.filterData.imagingEquipments =
+				this.filterStorageService.get('imaging_executive_imagingEquipments') || [];
 			// setTimeout(() => {
 			this.omitChanges();
 		});
@@ -115,6 +153,7 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.filterStorageService.set('imaging_selectedCities', this.filterData.cityList);
 
 		this.filterStorageService.setNumberOrString('imaging_noOfEqupment', this.filterData.noOfEqupment);
+		this.filterStorageService.set('imaging_executive_imagingEquipments', this.filterData.imagingEquipments);
 	}
 
 	omitChanges() {
@@ -124,6 +163,8 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 
 	clearFilter() {
 		const isValid = this.filterData.validateImagingSearch();
+		this.cptCodeInput.nativeElement.value = '';
+		this.selectedImagingNumber = [];
 		if (isValid) {
 			this.filterData = new SearchImagingModel();
 			this.omitChanges();
@@ -133,5 +174,27 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.filterData.cityList = locationBody.city.map((item) => item.city);
 		this.filterData.stateList = locationBody.state.map((item) => item.state);
 		this.omitChanges();
+	}
+	getImagingCenterEquipment(searchPhase = '') {
+		this.b2bService.getImagingCenterEquipment(searchPhase).subscribe((res) => {
+			this.imagingEqupmentsList = res.icEquipmentList;
+		});
+	}
+	removeCode(code: string) {
+		this.filterData.imagingEquipments = this.filterData.imagingEquipments.filter((el) => el !== code);
+		this.getImagingCenterEquipment();
+		this.omitChanges();
+		this.storeFilterData();
+	}
+	onCodeSelect(event: MatAutocompleteSelectedEvent) {
+		this.filterData.imagingEquipments = [
+			...new Set([...this.filterData.imagingEquipments, event.option.value])
+		];
+		this.cptCodeInput.nativeElement.value = '';
+		setTimeout(() => {
+			this.getImagingCenterEquipment();
+		}, 500);
+		this.omitChanges();
+		this.storeFilterData();
 	}
 }

@@ -308,6 +308,13 @@ export class ImagingService {
 		});
 		return response;
 	}
+	getImagingCenterEquipment(searchPhrase: any): Observable<any> {
+		const url = environment.prodHcApi + '/amplizhcreadapi/general/get-all-imaging-center-equipments';
+		const response = this.http.get(url, {
+			params: { searchPhrase }
+		});
+		return response;
+	}
 	getExecutivesOfImagingCenter(ImagingCenterId: any, offset: any, count: any): Observable<any> {
 		const url = environment.prodHcApi + '/amplizhcreadapi/searchimagingcenters/get-imaging-center-executives';
 

@@ -1,30 +1,35 @@
 <div class="card column filter-component" style="width: 23rem">
-    <div class="image-filter">
-        <div class="flex-row filter-header">
-            <div>
-                <h6 class="card-title titleCardStyle">Showing results for</h6>
-            </div>
-            <div class="searchButton primary" [ngClass]="filterData.validateImagingSearch()?'primaryBtn':''"
-                (click)="clearFilter()">
-                <span>
-                    Clear
-                </span>
-            </div>
-        </div>
-        <mat-accordion>
-            <app-individual-filter #companyAuto (valueChanges)="companyValueChanges($event)" [totalItems]="companyList"
-                [(includedItems)]="filterData.centerName" (includedItemsChange)="omitChanges()"
-                includePlaceholder="Center" title="Center name"></app-individual-filter>
+	<div class="image-filter">
+		<div class="flex-row filter-header">
+			<div>
+				<h6 class="card-title titleCardStyle">Showing results for</h6>
+			</div>
+			<div
+				class="searchButton primary"
+				[ngClass]="filterData.validateImagingSearch() ? 'primaryBtn' : ''"
+				(click)="clearFilter()"
+			>
+				<span> Clear </span>
+			</div>
+		</div>
+		<mat-accordion>
+			<app-individual-filter
+				#companyAuto
+				(valueChanges)="companyValueChanges($event)"
+				[totalItems]="companyList"
+				[(includedItems)]="filterData.centerName"
+				(includedItemsChange)="omitChanges()"
+				includePlaceholder="Center"
+				title="Center name"
+			></app-individual-filter>
 
-           
-            <!-- <app-individual-filter #noOfImgEqListMulti type="singleselectnumber"
+			<!-- <app-individual-filter #noOfImgEqListMulti type="singleselectnumber"
                 [totalItems]="numberOfImagingEquipmentList" [(includedItems)]="filterData.noOfEqupment"
                 (includedItemsChange)="omitChanges()" includePlaceholder="No. of imaging equipments"
                 title="Imaging equipments" [disabled]="!isSubscribed">
             </app-individual-filter> -->
 
-
-            <!-- Imaging equipment starts -->
+			<!-- Imaging equipment starts -->
 			<mat-expansion-panel #panelCodes hideToggle="true" [disabled]="!isSubscribed">
 				<!-- (opened)="triggerAutoFocus('#experienceInput')" -->
 
@@ -48,7 +53,9 @@
 						</div>
 					</mat-panel-title>
 					<mat-panel-description>
-						<mat-icon class="matrl-plus" *ngIf="isSubscribed">{{ panelCodes.expanded ? 'remove' : 'add' }} </mat-icon>
+						<mat-icon class="matrl-plus" *ngIf="isSubscribed"
+							>{{ panelCodes.expanded ? 'remove' : 'add' }}
+						</mat-icon>
 						<mat-icon class="filter-title" *ngIf="!isSubscribed">lock</mat-icon>
 					</mat-panel-description>
 				</mat-expansion-panel-header>
@@ -72,12 +79,13 @@
 				<span class="form-label">Name of the equipments</span>
 				<mat-form-field>
 					<mat-chip-list #experienceList aria-label="Experience input">
-						<mat-basic-chip>
-							<!-- *ngFor="let name of selectedHSCPCCode"
-                        [selectable]="selectable"
-                        [removable]="removable"
-                        (removed)="removeCode(name)"
-							{{ name }} -->
+						<mat-basic-chip
+							*ngFor="let name of selectedImagingEquipments"
+							[selectable]="selectable"
+							[removable]="removable"
+							(removed)="removeCode(name)"
+						>
+							{{ name }}
 							<mat-icon matChipRemove>close</mat-icon>
 						</mat-basic-chip>
 						<input
@@ -89,28 +97,33 @@
 							[matAutocomplete]="cptCodeAuto"
 							floatPlaceholder="never"
 							[matChipInputFor]="experienceList"
+							[formControl]="cptControl"
 						/>
-						<!-- [matChipInputSeparatorKeyCodes]="separatorKeysCodes" -->
-						<!-- [formControl]="cptControl" -->
 					</mat-chip-list>
 
-					<mat-autocomplete #cptCodeAuto="matAutocomplete" class="app-autocomplete">
-						<!-- (optionSelected)="onCodeSelect($event)" -->
+					<mat-autocomplete
+						#cptCodeAuto="matAutocomplete"
+						class="app-autocomplete"
+						(optionSelected)="onCodeSelect($event)"
+					>
+						<mat-option *ngFor="let cptCode of imagingEqupmentsList" [value]="cptCode">
+							{{ cptCode }}
+						</mat-option>
 					</mat-autocomplete>
-					<!-- <mat-option *ngFor="let cptCode of hscpcCodeList" [value]="cptCode.hcpcsCode">
-                        {{ cptCode.hcpcsCode }}-{{ cptCode.description }}
-                    </mat-option> -->
 				</mat-form-field>
 			</mat-expansion-panel>
 			<!-- Imaging equipment ends -->
 
-            <div class="location">
-                <app-individual-location-filter [countryList]="countryList"
-                    (locationValueChanged)="hanldeLocationValueChange($event)" [disabled]="!isSubscribed"
-                    [selectedStatesFromFilter]="filterData.stateList" [selectedCitiesFromFilter]="filterData.cityList">
-
-                </app-individual-location-filter>
-            </div>
-        </mat-accordion>
-    </div>
+			<div class="location">
+				<app-individual-location-filter
+					[countryList]="countryList"
+					(locationValueChanged)="hanldeLocationValueChange($event)"
+					[disabled]="!isSubscribed"
+					[selectedStatesFromFilter]="filterData.stateList"
+					[selectedCitiesFromFilter]="filterData.cityList"
+				>
+				</app-individual-location-filter>
+			</div>
+		</mat-accordion>
+	</div>
 </div>

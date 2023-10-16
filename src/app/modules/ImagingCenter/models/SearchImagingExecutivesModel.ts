@@ -15,7 +15,8 @@ export class SearchImagingExecutivesModel {
 		public limit: number = 5,
 		public savedListOffset: number = 0,
 		public numberOfImagingEquipments: number = 0,
-		public nameOfImagingEquipments: Array<any> = []
+		public nameOfImagingEquipments: Array<any> = [],
+		public imagingEquipments: Array<string> = []
 	) {}
 
 	public toJson(): object {
@@ -35,7 +36,8 @@ export class SearchImagingExecutivesModel {
 			limit: this.limit,
 			savedListOffset: this.savedListOffset,
 			numberOfImagingEquipments: this.numberOfImagingEquipments,
-			nameOfImagingEquipments: this.nameOfImagingEquipments
+			nameOfImagingEquipments: this.nameOfImagingEquipments,
+			imagingEquipments: this.imagingEquipments
 		};
 	}
 
@@ -56,7 +58,8 @@ export class SearchImagingExecutivesModel {
 			obj.limit,
 			obj.savedListOffset,
 			obj.numberOfImagingEquipments,
-			obj.nameOfImagingEquipments
+			obj.nameOfImagingEquipments,
+			obj.imagingEquipments
 		);
 	}
 
@@ -73,7 +76,8 @@ export class SearchImagingExecutivesModel {
 			this.cityList.length > 0 ||
 			this.stateList.length > 0 ||
 			this.numberOfImagingEquipments > 0 ||
-			this.nameOfImagingEquipments.length > 0
+			this.nameOfImagingEquipments.length > 0 ||
+			this.imagingEquipments.length > 0
 		);
 	}
 
