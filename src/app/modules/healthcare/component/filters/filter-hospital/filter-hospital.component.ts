@@ -292,6 +292,7 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 			this.selectedCode.push(event.option.value);
 			this.codeInput.nativeElement.value = '';
 			this.codeControl.setValue(null);
+			this.getCpdtList();
 			this.omitChange();
 			this.storeFilterData();
 		}
@@ -418,14 +419,7 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 		});
 		this.codeControl.valueChanges.subscribe((value) => {
 			let hv = value !== null ? value : '';
-			if (hv.length >= 3) {
-				this.amplizService.getAllicdtenCodes({ searchPhase: value }).subscribe((response: any) => {
-					this.icptCodeList = response.icdtenCodes;
-				});
-			} else {
-				const tempHospital: any = [];
-				this.filteredHospitals = tempHospital;
-			}
+			this.getCpdtList(hv);
 		});
 		// change control for states
 		this.stateControl.valueChanges.subscribe((value) => {
@@ -463,6 +457,11 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 				const temp: any = [];
 				this.searchCity = temp;
 			}
+		});
+	}
+	getCpdtList(searchPhrase = '') {
+		this.amplizService.getAllicdtenCodes({ searchPhrase }).subscribe((response: any) => {
+			this.icptCodeList = response.icdtenCodes;
 		});
 	}
 	onKey(value) {
