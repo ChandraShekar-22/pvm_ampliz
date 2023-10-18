@@ -93,6 +93,7 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 	) {}
 	ngOnInit() {}
 	ngAfterViewInit() {
+		this.getCpdtList();
 		this.getPersistData();
 		this.getAllListData();
 	}
