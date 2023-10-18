@@ -1230,4 +1230,9 @@ export class AmplizService {
 		const response = this.http.get(url, { params });
 		return response;
 	}
+	getAllicdtenCodes(params) {
+		const url = environment.prodHcApi + '/amplizhcreadapi/general/get-allicdten-codes';
+		const response = this.http.get(url, { params });
+		return response;
+	}
 }
