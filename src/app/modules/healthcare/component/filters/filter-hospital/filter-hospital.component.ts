@@ -461,9 +461,11 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 		});
 	}
 	getCpdtList(searchPhrase = '') {
-		this.amplizService.getAllicdtenCodes({ searchPhrase }).subscribe((response: any) => {
-			this.icptCodeList = response.icdtenCodes;
-		});
+		if (searchPhrase.length >= 3) {
+			this.amplizService.getAllicdtenCodes({ searchPhrase }).subscribe((response: any) => {
+				this.icptCodeList = response.icdtenCodes;
+			});
+		}
 	}
 	onKey(value) {
 		this.searchCity = [];
