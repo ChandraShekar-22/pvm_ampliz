@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { tickStep } from 'd3';
 import { Subscriber, Subscription } from 'rxjs';
 import { B2bService } from 'src/app/modules/B2B/services/b2b.service';
 import { FilterStorageService } from 'src/app/modules/B2B/services/filter-storage.service';
@@ -29,8 +30,179 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 	filterData: SearchImagingModel = new SearchImagingModel();
 	@ViewChild('cptCodeInput', { static: false })
 	cptCodeInput: ElementRef<HTMLInputElement>;
+	@ViewChild('centerName', { static: false })
+	centerName: ElementRef<HTMLInputElement>;
 	selectable = true;
 	removable = true;
+	noOfCompanyList = [
+		'1107',
+		'1716',
+		'10',
+		'100',
+		'101',
+		'102',
+		'1037',
+		'104',
+		'108',
+		'11',
+		'110',
+		'113',
+		'114',
+		'12',
+		'120',
+		'121',
+		'126',
+		'129',
+		'13',
+		'130',
+		'132',
+		'134',
+		'137',
+		'14',
+		'141',
+		'149',
+		'15',
+		'150',
+		'151',
+		'154',
+		'16',
+		'167',
+		'168',
+		'17',
+		'170',
+		'172',
+		'179',
+		'18',
+		'180',
+		'181',
+		'19',
+		'1902',
+		'1922',
+		'198',
+		'199',
+		'2',
+		'20',
+		'200',
+		'201',
+		'209',
+		'21',
+		'213',
+		'22',
+		'222',
+		'23',
+		'236',
+		'237',
+		'24',
+		'240',
+		'246',
+		'2481',
+		'25',
+		'256',
+		'26',
+		'27',
+		'270',
+		'273000',
+		'274',
+		'276',
+		'28',
+		'280',
+		'29',
+		'293',
+		'3',
+		'30',
+		'308',
+		'31',
+		'311',
+		'32',
+		'33',
+		'34',
+		'346',
+		'349',
+		'35',
+		'350',
+		'3583',
+		'36',
+		'37',
+		'372',
+		'376',
+		'38',
+		'39',
+		'392',
+		'396',
+		'4',
+		'40',
+		'400',
+		'401',
+		'41',
+		'42',
+		'420',
+		'43',
+		'433',
+		'44',
+		'444',
+		'45',
+		'450',
+		'46',
+		'476',
+		'48',
+		'5',
+		'50',
+		'501',
+		'503',
+		'51',
+		'52',
+		'526',
+		'54',
+		'546',
+		'549',
+		'55',
+		'559',
+		'56',
+		'57',
+		'59',
+		'590',
+		'592',
+		'6',
+		'60',
+		'61',
+		'62',
+		'629',
+		'63',
+		'650',
+		'652',
+		'66',
+		'668',
+		'68',
+		'688',
+		'69',
+		'698',
+		'7',
+		'71',
+		'715',
+		'73',
+		'74',
+		'741',
+		'75',
+		'753',
+		'77',
+		'78',
+		'8',
+		'80',
+		'800',
+		'82',
+		'83',
+		'84',
+		'85',
+		'86',
+		'88',
+		'9',
+		'90',
+		'92',
+		'94',
+		'95',
+		'96',
+		'99'
+	];
 
 	//company Variables
 	companyList: Array<any> = [];
@@ -62,6 +234,8 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 	selectedImagingNumber: any = [];
 	imagingEqupmentsList: Array<any> = [];
 	cptControl = new FormControl();
+	centerNameController = new FormControl();
+	companyCodeModel = '';
 
 	constructor(
 		private b2bService: ImagingService,
@@ -98,24 +272,31 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		// this.dataService.passSearchImagingInput(this.filterData, false);
 	}
 
-	companyValueChanges(item) {
-		if (item && item.length > 1) {
-			this.b2bService.getCompanyList(item).subscribe((res) => {
-				this.companyList = res.companyListImagingCenter;
-			});
-		}
-	}
-
 	// Imaging functions
 	imagingNumberSelected() {
 		this.selectedImagingNumber[0] = this.imagingNumber;
 		this.filterData.noOfEqupment = this.imagingNumber;
+		this.storeFilterData();
+		this.omitChanges();
+	}
+	onCompanyCodeSelect() {
+		this.filterData.noOfImagingLocation = [
+			...new Set([...this.filterData.noOfImagingLocation, this.companyCodeModel])
+		];
+		this.companyCodeModel = '';
+		this.storeFilterData();
 		this.omitChanges();
 	}
 	removeImagingNumber() {
 		this.selectedImagingNumber = [];
 		this.imagingNumber = 0;
 		this.filterData.noOfEqupment = 0;
+		this.storeFilterData();
+		this.omitChanges();
+	}
+	removeCompanyCode(code) {
+		this.filterData.noOfImagingLocation = this.filterData.noOfImagingLocation.filter((el) => el != code);
+		this.storeFilterData();
 		this.omitChanges();
 	}
 	getAllListData() {
@@ -124,6 +305,17 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 			if (hv) {
 				this.getImagingCenterEquipment(hv);
 			}
+		});
+		this.centerNameController.valueChanges.subscribe((value) => {
+			let hv = value !== null ? value : '';
+			if (hv) {
+				this.getCenterName(hv);
+			}
+		});
+	}
+	getCenterName(searchPhase) {
+		this.b2bService.getCompanyList(searchPhase).subscribe((res) => {
+			this.companyList = res.companyListImagingCenter;
 		});
 	}
 
@@ -141,9 +333,14 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 			}
 			this.filterData.imagingEquipments =
 				this.filterStorageService.get('imaging_executive_imagingEquipments') || [];
+			this.filterData.noOfImagingLocation = this.filterStorageService.get('imaging_noOfImagingLocation') || [];
 			// setTimeout(() => {
 			this.omitChanges();
 		});
+	}
+	get noOfImagingLocation() {
+		console.log(this.filterData.noOfImagingLocation);
+		return this.filterData.noOfImagingLocation;
 	}
 
 	storeFilterData() {
@@ -154,6 +351,7 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 
 		this.filterStorageService.setNumberOrString('imaging_noOfEqupment', this.filterData.noOfEqupment);
 		this.filterStorageService.set('imaging_executive_imagingEquipments', this.filterData.imagingEquipments);
+		this.filterStorageService.set('imaging_noOfImagingLocation', this.filterData.noOfImagingLocation);
 	}
 
 	omitChanges() {
@@ -165,6 +363,8 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		const isValid = this.filterData.validateImagingSearch();
 		this.cptCodeInput.nativeElement.value = '';
 		this.selectedImagingNumber = [];
+		this.centerName.nativeElement.value = '';
+		this.getCenterName('');
 		if (isValid) {
 			this.filterData = new SearchImagingModel();
 			this.omitChanges();
@@ -186,6 +386,12 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.omitChanges();
 		this.storeFilterData();
 	}
+	removeCenterName(code: string) {
+		this.filterData.centerName = this.filterData.centerName.filter((el) => el !== code);
+		this.getCenterName('');
+		this.omitChanges();
+		this.storeFilterData();
+	}
 	onCodeSelect(event: MatAutocompleteSelectedEvent) {
 		this.filterData.imagingEquipments = [
 			...new Set([...this.filterData.imagingEquipments, event.option.value])
@@ -193,6 +399,18 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.cptCodeInput.nativeElement.value = '';
 		setTimeout(() => {
 			this.getImagingCenterEquipment();
+		}, 500);
+		this.omitChanges();
+		this.storeFilterData();
+	}
+	get selectedCenterName() {
+		return this.filterData.centerName;
+	}
+	onCenterSelect(event: MatAutocompleteSelectedEvent) {
+		this.filterData.centerName = [...new Set([...this.filterData.centerName, event.option.value])];
+		this.centerName.nativeElement.value = '';
+		setTimeout(() => {
+			this.getCenterName('');
 		}, 500);
 		this.omitChanges();
 		this.storeFilterData();
