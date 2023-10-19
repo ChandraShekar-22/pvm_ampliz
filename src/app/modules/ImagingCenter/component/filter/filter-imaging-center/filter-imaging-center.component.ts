@@ -283,7 +283,6 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.filterData.noOfImagingLocation = [
 			...new Set([...this.filterData.noOfImagingLocation, this.companyCodeModel])
 		];
-		this.companyCodeModel = '';
 		this.storeFilterData();
 		this.omitChanges();
 	}
@@ -296,6 +295,7 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 	}
 	removeCompanyCode(code) {
 		this.filterData.noOfImagingLocation = this.filterData.noOfImagingLocation.filter((el) => el != code);
+		this.companyCodeModel = '';
 		this.storeFilterData();
 		this.omitChanges();
 	}
