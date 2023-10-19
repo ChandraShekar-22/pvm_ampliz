@@ -24,11 +24,11 @@
 						<div class="sub-header">Center Name</div>
 						<div class="selected">
 							<mat-chip-list #addedHospitals aria-label="Hospital name">
-								<mat-basic-chip *ngIf="selectedCenterName.length > 0" [ngClass]="'selected'">
-									{{ selectedCenterName[0] }}
+								<mat-basic-chip *ngIf="groupSelectedForCenterTab.length > 0" [ngClass]="'selected'">
+									{{ groupSelectedForCenterTab[0] }}
 								</mat-basic-chip>
-								<span *ngIf="selectedCenterName?.length > 1" class="additional-selection">
-									+ {{ selectedCenterName.length - 1 }} more
+								<span *ngIf="groupSelectedForCenterTab?.length > 1" class="additional-selection">
+									+ {{ groupSelectedForCenterTab.length - 1 }} more
 								</span>
 							</mat-chip-list>
 						</div>

@@ -278,6 +278,9 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.storeFilterData();
 		this.omitChanges();
 	}
+	get groupSelectedForCenterTab() {
+		return [...(this.filterData?.centerName || []), ...(this.filterData?.noOfImagingLocation || [])];
+	}
 	removeImagingNumber() {
 		this.selectedImagingNumber = [];
 		this.imagingNumber = 0;
