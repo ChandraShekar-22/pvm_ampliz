@@ -334,7 +334,6 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		});
 	}
 	get noOfImagingLocation() {
-		console.log(this.filterData.noOfImagingLocation);
 		return this.filterData.noOfImagingLocation;
 	}
 

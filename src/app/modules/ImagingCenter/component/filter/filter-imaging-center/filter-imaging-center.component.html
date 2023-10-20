@@ -58,7 +58,7 @@
 							placeholder=""
 							aria-label="Experience Input"
 							matInput
-							[matAutocomplete]="cptCodeAuto"
+							[matAutocomplete]="centerNameAutoComplete"
 							floatPlaceholder="never"
 							[matChipInputFor]="experienceList"
 							[formControl]="centerNameController"
@@ -66,7 +66,7 @@
 					</mat-chip-list>
 
 					<mat-autocomplete
-						#cptCodeAuto="matAutocomplete"
+						#centerNameAutoComplete="matAutocomplete"
 						class="app-autocomplete"
 						(optionSelected)="onCenterSelect($event)"
 					>
@@ -174,7 +174,6 @@
 							[formControl]="cptControl"
 						/>
 					</mat-chip-list>
-
 					<mat-autocomplete
 						#cptCodeAuto="matAutocomplete"
 						class="app-autocomplete"
