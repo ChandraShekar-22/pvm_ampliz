@@ -370,7 +370,7 @@ export class FilterImagingCenterComponent implements OnInit, OnDestroy {
 		this.omitChanges();
 	}
 	getImagingCenterEquipment(searchPhase = '') {
-		this.b2bService.getImagingCenterEquipment(searchPhase).subscribe((res) => {
+		this.b2bService.getImagingCenterEquipment(searchPhase, 'Company').subscribe((res) => {
 			this.imagingEqupmentsList = res.icEquipmentList;
 		});
 	}

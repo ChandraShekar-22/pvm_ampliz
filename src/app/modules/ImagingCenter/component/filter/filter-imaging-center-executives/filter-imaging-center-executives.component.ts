@@ -272,7 +272,7 @@ export class FilterImagingCenterExecutivesComponent implements OnInit {
 		}
 	}
 	getImagingCenterEquipment(searchPhase = '') {
-		this.b2bService.getImagingCenterEquipment(searchPhase).subscribe((res) => {
+		this.b2bService.getImagingCenterEquipment(searchPhase, 'Executive').subscribe((res) => {
 			this.imagingEqupmentsList = res.icEquipmentList;
 		});
 	}
