@@ -305,6 +305,7 @@
 						[matChipInputFor]="hospitalNameList"
 						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 					/>
+					<app-circle-loader class="px-1" [radius]="22" *ngIf="icdLoader"></app-circle-loader>
 				</mat-chip-list>
 
 				<mat-autocomplete

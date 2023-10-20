@@ -73,6 +73,7 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 	selectedCities: any = [];
 	searchCity: any = [];
 	noOfBeds: any = [];
+	icdLoader: boolean = false;
 	dropdownSettings = {
 		enableCheckAll: false,
 		singleSelection: false,
@@ -462,8 +463,10 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 	}
 	getCpdtList(searchPhrase = '') {
 		if (searchPhrase.length >= 3) {
+			this.icdLoader = true;
 			this.amplizService.getAllicdtenCodes({ searchPhrase }).subscribe((response: any) => {
 				this.icptCodeList = response.icdtenCodes;
+				this.icdLoader = false;
 			});
 		}
 	}
