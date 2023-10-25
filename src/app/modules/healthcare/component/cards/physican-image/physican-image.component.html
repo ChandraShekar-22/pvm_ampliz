@@ -32,7 +32,7 @@
 					[matTooltipPosition]="'above'"
 					*ngIf="!openPanel || requestContact"
 				>
-					<span *ngIf="!actionLoader">{{ requestContact ? 'Request contact' : 'View contact' }}</span>
+					<span *ngIf="!actionLoader">{{ requestContact ? 'Request contact' : 'Access contact' }}</span>
 					<app-circle-loader
 						style="padding: 2px 30px !important; display: flex"
 						[radius]="16"
@@ -40,7 +40,7 @@
 					></app-circle-loader>
 				</button>
 				<button *ngIf="openPanel" [mat-menu-trigger-for]="contactPanel" #contactPanelTrigger="matMenuTrigger">
-					<span>View contact</span>
+					<span>{{ actionButtonText }} contact</span>
 				</button>
 
 				<!-- Email Panel starts -->
@@ -99,11 +99,7 @@
 										>
 											Request Email
 										</h6>
-										<app-circle-loader
-										
-											[radius]="16"
-											*ngIf="requestEmailLoader"
-										></app-circle-loader>
+										<app-circle-loader [radius]="16" *ngIf="requestEmailLoader"></app-circle-loader>
 									</ng-template>
 								</span>
 							</div>

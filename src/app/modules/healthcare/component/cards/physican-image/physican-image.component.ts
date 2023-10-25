@@ -106,6 +106,14 @@ export class PhysicanImageComponent implements OnInit, AfterViewInit {
 			return 'Request Email and Phone (If Ampliz finds a verified email, you will be charged one credit)';
 		}
 	}
+	get actionButtonText() {
+		if (this.physicianData.leadSaveStatus === 'Viewed') {
+			return 'Save';
+		}
+		if (this.physicianData.leadSaveStatus === 'Saved') {
+			return 'View';
+		}
+	}
 
 	ngOnInit() {
 		this.elementRef.nativeElement.style.setProperty('--animation-order', this.dataIndex + 1);
