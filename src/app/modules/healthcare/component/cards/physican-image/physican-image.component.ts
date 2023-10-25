@@ -100,7 +100,7 @@ export class PhysicanImageComponent implements OnInit, AfterViewInit {
 	}
 	get emailTooltip() {
 		if (!this.openPanel) {
-			return 'View email costs one credit';
+			return 'Access email costs one credit';
 		}
 		if (this.requestContact) {
 			return 'Request Email and Phone (If Ampliz finds a verified email, you will be charged one credit)';
