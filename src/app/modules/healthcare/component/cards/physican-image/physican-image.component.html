@@ -1,11 +1,233 @@
 <div class="physican_container card-animate">
-  <div class="container">
-    <div class="row">
+	<div class="container">
+		<!-- New design -->
+		<div class="row align-items-center flex-container">
+			<div class="form-check col-1">
+				<input
+					*ngIf="!checkboxDisabled"
+					[disabled]="checkboxDisabled"
+					class="form-check-input"
+					type="checkbox"
+					id="flexCheckDefault"
+					(change)="checkboxValueChange($event)"
+					[(ngModel)]="checkboxValue"
+				/>
+				<div *ngIf="checkboxDisabled" class="form-check-input partiallySelected">
+					<div class="insideContent"></div>
+				</div>
+			</div>
+
+			<div class="name-container col-2">
+				<h5 class="physician_name" (click)="onPhysicianNameClicked(physicianData)">
+					{{ physicianData.fullName }}
+				</h5>
+			</div>
+
+			<div class="action-container button-group i-container col-2">
+				<!-- Panel Starts -->
+				<button
+					class="gray-button"
+					(click)="handleViewContact()"
+					[matTooltip]="emailTooltip"
+					[matTooltipPosition]="'above'"
+					*ngIf="!openPanel || requestContact"
+				>
+					<span *ngIf="!actionLoader">{{ requestContact ? 'Request Contact' : 'View Contact' }}</span>
+					<app-circle-loader
+						style="padding: 2px 30px !important; display: flex"
+						[radius]="16"
+						*ngIf="actionLoader"
+					></app-circle-loader>
+				</button>
+				<button *ngIf="openPanel" [mat-menu-trigger-for]="contactPanel" #contactPanelTrigger="matMenuTrigger">
+					<span>View Contact</span>
+				</button>
+
+				<!-- Email Panel starts -->
+				<mat-menu #contactPanel="matMenu" xPosition="before">
+					<div
+						class="menu-div row"
+						(click)="$event.stopPropagation()"
+						style="margin: 15px 10px 20px 10px !important"
+					>
+						<div class="row align-content-center col-12 justify-conten-start">
+							<div class="col-12 d-flex justify-content-end p-0">
+								<i
+									class="fa fa-times close-icon"
+									aria-hidden="true"
+									matTooltipClass="tool-tip"
+									(click)="handleAction('close', 'email')"
+								></i>
+							</div>
+							<div class="col-12 mb-1">
+								<span class="email-title">Email </span>
+							</div>
+
+							<div class="col-12">
+								<span class="email-container">
+									<h6
+										class="email-text"
+										[matTooltip]="'Send Email'"
+										[matTooltipPosition]="'above'"
+										style="color: #2d8cff !important"
+										*ngIf="physicianData.email[0]?.length > 0; else requestEmail"
+										(click)="handleAction()"
+									>
+										{{
+											physicianData.email[0].length > 30
+												? physicianData.email[0].substring(0, 30) + '...'
+												: physicianData.email[0]
+										}}
+									</h6>
+									<i
+										[matTooltip]="'Copy email'"
+										[matTooltipPosition]="'above'"
+										class="fa fa-clone email-icon ml-2 pb-2"
+										aria-hidden="true"
+										matTooltipClass="tool-tip"
+										(click)="handleAction('copy', physicianData.email)"
+										*ngIf="physicianData.email[0]?.length > 0"
+									></i>
+
+									<ng-template #requestEmail>
+										<h6
+											class="email-text"
+											[matTooltip]="physicianData.email"
+											[matTooltipPosition]="'above'"
+											(click)="request('Request Email Access', physicianData.executiveId)"
+											style="color: #2d8cff !important"
+										>
+											Request Email
+										</h6>
+										<app-circle-loader
+										
+											[radius]="16"
+											*ngIf="requestEmailLoader"
+										></app-circle-loader>
+									</ng-template>
+								</span>
+							</div>
+
+							<!-- Phone -->
+							<div class="col-12 mb-1">
+								<span class="email-title">Phone number </span>
+							</div>
+							<div class="col-12">
+								<h6 class="email-text" *ngIf="physicianData.phoneNumber[0]?.length !== ''; else requestPhone">
+									{{ physicianData.phoneNumber }}
+									<i
+										[matTooltip]="'Copy Phone Number'"
+										matTooltipClass="tool-tip"
+										[matTooltipPosition]="'above'"
+										class="fa fa-clone ml-2 pt-1 email-icon"
+										aria-hidden="true"
+										style="font-size: 13px !important"
+										(click)="handleAction('copy', physicianData.phoneNumber)"
+									></i>
+								</h6>
+								<ng-template #requestPhone>
+									<span
+										class="request-text"
+										(click)="request('Request Phone Number Access', physicianData.executiveId)"
+										>Request Phone</span
+									>
+								</ng-template>
+							</div>
+
+							<div class="col-12 mt-2 d-flex justify-content-end p-0">
+								<div class="saveBtn_wrp" style="margin-bottom: 0px !important" *ngIf="!showReqesutButton">
+									<button class="physician_save" (click)="handleSaveButton()" *ngIf="showSaveButton">
+										<span *ngIf="!showButtonLoader"> Save </span>
+										<app-circle-loader [radius]="13" *ngIf="showButtonLoader"></app-circle-loader>
+									</button>
+									<button class="physician_save" style="cursor: default !important" *ngIf="!showSaveButton">
+										<span> Saved </span>
+										<i class="fa fa-check-circle pl-1" aria-hidden="true"></i>
+									</button>
+									<span class="notCorrect" (click)="notCorrectDrawer = true">Not correct</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mat-menu>
+				<!-- Email Panel Ends -->
+			</div>
+
+			<div class="title-container col-2">
+				<span
+					class="additional-info"
+					[matTooltip]="physicianData.title"
+					[matTooltipPosition]="'above'"
+					matTooltipClass="tool-tip"
+				>
+					<i class="fa fa-id-card-o mr-2" aria-hidden="true"></i>
+					{{ shortTitle ? physicianData.title.substring(0, 16) + '...' : physicianData.title }}
+				</span>
+			</div>
+
+			<div class="hospital-container col-3">
+				<span
+					class="additional-info"
+					[matTooltip]="physicianData.hospitalName"
+					[matTooltipPosition]="'above'"
+					matTooltipClass="tool-tip"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						class="mr-2"
+						viewBox="0 0 18 18"
+						fill="none"
+					>
+						<path
+							d="M11.25 5.25C11.0511 5.25 10.8603 5.32902 10.7197 5.46967C10.579 5.61032 10.5 5.80109 10.5 6V8.25H7.5V6C7.5 5.80109 7.42099 5.61032 7.28033 5.46967C7.13968 5.32902 6.94892 5.25 6.75 5.25C6.55109 5.25 6.36033 5.32902 6.21967 5.46967C6.07902 5.61032 6 5.80109 6 6V12C6 12.1989 6.07902 12.3897 6.21967 12.5303C6.36033 12.671 6.55109 12.75 6.75 12.75C6.94892 12.75 7.13968 12.671 7.28033 12.5303C7.42099 12.3897 7.5 12.1989 7.5 12V9.75H10.5V12C10.5 12.1989 10.579 12.3897 10.7197 12.5303C10.8603 12.671 11.0511 12.75 11.25 12.75C11.4489 12.75 11.6397 12.671 11.7803 12.5303C11.921 12.3897 12 12.1989 12 12V6C12 5.80109 11.921 5.61032 11.7803 5.46967C11.6397 5.32902 11.4489 5.25 11.25 5.25ZM9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.4978 7.01155 15.7069 5.10516 14.3009 3.69911C12.8948 2.29306 10.9885 1.50218 9 1.5ZM9 15C7.81332 15 6.65328 14.6481 5.66658 13.9888C4.67989 13.3295 3.91085 12.3925 3.45673 11.2961C3.0026 10.1997 2.88378 8.99334 3.11529 7.82946C3.3468 6.66557 3.91825 5.59647 4.75736 4.75736C5.59648 3.91824 6.66558 3.3468 7.82946 3.11529C8.99335 2.88378 10.1997 3.0026 11.2961 3.45672C12.3925 3.91085 13.3295 4.67988 13.9888 5.66658C14.6481 6.65327 15 7.81331 15 9C14.998 10.5907 14.3652 12.1157 13.2405 13.2404C12.1157 14.3652 10.5907 14.998 9 15Z"
+							fill="#040404"
+						/>
+					</svg>
+					{{ shortHospital ? physicianData.hospitalName.substring(0, 30) + '...' : physicianData.hospitalName }}
+				</span>
+			</div>
+
+			<div class="location-container col-2">
+				<span
+					class="additional-info"
+					[matTooltip]="location"
+					[matTooltipPosition]="'above'"
+					matTooltipClass="tool-tip"
+				>
+					<i class="fa fa-map-marker mr-2"></i>
+					{{ shortLocation ? location.substring(0, 15) + '...' : location }}
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<app-savelist
+	[saveListDiv]="saveDrawer"
+	[physicianId]="physicianData.physicianId"
+	[executiveId]="physicianData.executiveId"
+	(cancelBtnClick)="cancelBtnClick($event)"
+	(refreshedData)="refreshedData($event)"
+	[currentCredit]="currentCredit"
+	*ngIf="saveDrawer"
+></app-savelist>
+<app-notcorrect
+	[notCorrectDiv]="notCorrectDrawer"
+	[physicianId]="physicianData.physicianId"
+	[physicianName]="physicianData.fullName"
+	[executiveId]="physicianData.executiveId"
+	(cancelBtnClick)="cancelBtnClick($event)"
+	*ngIf="notCorrectDrawer"
+></app-notcorrect>
+
+<!-- Old design -->
+<!-- <div class="row">
       <div class="col-sm-12"
       [ngClass]="smallResolution?'col-md-8':'col-md-9'"
       >
         <div class="physician_card">
-          <!-- <div class="form-check " *ngIf="isPaid==true||isSpecialityUser==true"> -->
+
             <div class="form-check">
             <input 
             *ngIf="!checkboxDisabled"
@@ -81,18 +303,10 @@
             </div>
             <div class="physician_info">
               <span style="color: #999; cursor: text">{{
-                physicianData.title
+               c
               }}</span>
             </div>
-            <!-- <div class="physician_hospital" *ngIf="physicianData.executiveId">
-            <i class="fa fa-hospital-o  pr-2" aria-hidden="true"></i>
-            <span
-              class="clickable"
-              (click)="goToHospital(physicianData.hospitalId)"
-              >{{ physicianData.hospitalName }}</span
-            >
-
-          </div> -->
+      
           </div>
         </div>
       </div>
@@ -106,7 +320,6 @@
                 class="fa fa-envelope-o"
                 aria-hidden="true"
                 ></i>
-                <!-- *ngIf="email !== '' && email.length !== 1" -->
               <a
                 [href]="'mailto:' + email"
                 class="physican_email"
@@ -121,14 +334,12 @@
             </span>
           </ng-container>
 
-          <!-- If no email found -->
           <ng-container *ngIf="isRequestEmail && !showReqesutButton">
             <span>
               <i
                 class="fa fa-envelope-o"
                 aria-hidden="true"
                 ></i>
-                <!-- *ngIf="email !== '' && email.length !== 1" -->
                <span
                 class="disabled font-weight-normal font-13 requestInfo"
                 (click)="request('Request Email Access', physicianData.physicianId)"
@@ -168,7 +379,6 @@
               >Not correct</span
             >
           </div>
-          <!-- Request Contact Button -->
           <div class="saveBtn_wrp" *ngIf="!(isSpecialityUser === true && isPhysician==true) && (showReqesutButton==true)">
             <button
               class="physician_save"
@@ -181,23 +391,4 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<app-savelist
-  [saveListDiv]="saveDrawer"
-  [physicianId]="physicianData.physicianId"
-  [executiveId]="physicianData.executiveId"
-  (cancelBtnClick)="cancelBtnClick($event)"
-  (refreshedData)="refreshedData($event)"
-  [currentCredit]="currentCredit"
-  *ngIf="saveDrawer"
-></app-savelist>
-<app-notcorrect
-  [notCorrectDiv]="notCorrectDrawer"
-  [physicianId]="physicianData.physicianId"
-  [physicianName]="physicianData.fullName"
-  [executiveId]="physicianData.executiveId"
-  (cancelBtnClick)="cancelBtnClick($event)"
-  *ngIf="notCorrectDrawer"
-></app-notcorrect>
+    </div> -->

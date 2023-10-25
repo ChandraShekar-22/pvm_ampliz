@@ -14,7 +14,7 @@
 				[isSubscribed]="subscribed"
 			></app-filter-physician>
 			<div class="physician-content" style="position: relative">
-				<app-skeleton-loader *ngIf="showLoader" [loopCount]="10"></app-skeleton-loader>
+				<app-skeleton-loader *ngIf="showLoader" [compactLoader]="true" [loopCount]="10"></app-skeleton-loader>
 
 				<div class="physician-content-header">
 					<div class="toggle-container ml-2">

@@ -10,8 +10,8 @@
 
 .executive-content-header {
     border-bottom: 2px solid #e2e4e7;
-    padding: 0px 25px 0 30px;
-    height: 85px;
+    padding: 0px 5px;
+    height: 65px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -111,7 +111,7 @@
 }
 
 .big-txt {
-    font-size: 24px;
+    font-size: 16px !important;
     font-weight: 400;
     color: #000;
 }
@@ -133,7 +133,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    padding: 0 25px 0 30px;
+    /* padding: 0 25px 0 30px; */
 }
 
 .onoffswitch {
@@ -288,7 +288,7 @@
 }
 
 .big-txt {
-    font-size: 22px!important;
+    font-size: 16px !important;
     font-weight: 500;
     color: #000;
 }
@@ -313,7 +313,7 @@
         width: 85px;
     }
     .big-txt {
-        font-size: 18px !important; 
+        font-size: 14px !important; 
     }
     .sm-txt {
         font-size: 13px;

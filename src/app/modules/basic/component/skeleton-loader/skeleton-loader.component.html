@@ -1,46 +1,59 @@
-
 <div class="placeholder-item">
-    <div class="tabBox">
-        <div class="toggle-container pl-5">
-            <div class="toggle">
-                <div class="text-placeholder"></div>
-                <div class="text-placeholder w-50"></div>
-            </div>
-            <div class="toggle">
-                <div class="text-placeholder"></div>
-                <div class="text-placeholder w-50"></div>
-            </div>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="text-placeholder"></div>
-                <div class="text-placeholder w-50"></div>
-            </div>
-            <div class="toggle">
-                <div class="text-placeholder"></div>
-                <div class="text-placeholder w-50"></div>
-            </div>
-        </div>
-    </div>
-    <div class="loader_container row" *ngFor="let i of numSequence(loopCount)" >
-        <div class="col-sm-9">
-        <div class="image-box pull-left"></div>
-        <div class="">
-            <div class="text-placeholder"></div>
-            <div class="text-placeholder w-50"></div>
-            <div class="text-placeholder"></div>
-            <div class="text-placeholder w-50"></div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="">
-            <div class="text-placeholder"></div>
-            <div class="text-placeholder w-50"></div>
-        </div>
-        <div class="justify-content-start mt-3">
-            <div class="buttonskelton mr-2 pull-left"></div>
-            <div class="buttonskelton pull-left"></div>
-        </div>
-    </div>
-    </div>
+	<div class="tabBox">
+		<div class="toggle-container pl-5">
+			<div class="toggle">
+				<div class="text-placeholder"></div>
+				<div class="text-placeholder w-50"></div>
+			</div>
+			<div class="toggle">
+				<div class="text-placeholder"></div>
+				<div class="text-placeholder w-50"></div>
+			</div>
+		</div>
+		<div class="toggle-container">
+			<div class="toggle">
+				<div class="text-placeholder"></div>
+				<div class="text-placeholder w-50"></div>
+			</div>
+			<div class="toggle">
+				<div class="text-placeholder"></div>
+				<div class="text-placeholder w-50"></div>
+			</div>
+		</div>
+	</div>
+	<ng-container *ngIf="!compactLoader">
+		<div class="loader_container row" *ngFor="let i of numSequence(loopCount)">
+			<div class="col-sm-9">
+				<div class="image-box pull-left"></div>
+				<div class="">
+					<div class="text-placeholder"></div>
+					<div class="text-placeholder w-50"></div>
+					<div class="text-placeholder"></div>
+					<div class="text-placeholder w-50"></div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="">
+					<div class="text-placeholder"></div>
+					<div class="text-placeholder w-50"></div>
+				</div>
+				<div class="justify-content-start mt-3">
+					<div class="buttonskelton mr-2 pull-left"></div>
+					<div class="buttonskelton pull-left"></div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="compactLoader">
+		<div class="loader_container-compact row" *ngFor="let i of numSequence(loopCount)">
+			<div class="col-sm-12">
+				<div class="row justify-content-around">
+					<div class="text-placeholder-compact"></div>
+					<div class="text-placeholder-compact"></div>
+					<div class="text-placeholder-compact"></div>
+					<div class="text-placeholder-compact"></div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
 </div>

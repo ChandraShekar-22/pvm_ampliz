@@ -117,7 +117,7 @@ export class PhysicianImageCardComponent implements OnInit {
 			this.smallResolution = true;
 		} else {
 			this.smallResolution = false;
-		}
+		} 
 	}
 	ngAfterViewInit() {
 		setTimeout(() => {

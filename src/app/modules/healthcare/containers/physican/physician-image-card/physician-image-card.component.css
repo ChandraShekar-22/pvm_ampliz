@@ -36,6 +36,8 @@
 	padding: 0px;
 	font-weight: 400;
 	cursor: pointer;
+	margin-left: -60px;
+	font-size: 14px;
 }
 
 .physician_info {
@@ -151,15 +153,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.physician_name {
-	color: #2d8cff;
-	margin: 0px;
-	padding: 0px;
-	font-weight: 500;
-	cursor: pointer;
-	font-size: 14px;
 }
 
 .physician_info {

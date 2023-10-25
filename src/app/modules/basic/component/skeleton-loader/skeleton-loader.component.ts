@@ -1,19 +1,17 @@
 import { Component, Input, OnInit,  } from '@angular/core';
 @Component({
-  selector: 'app-skeleton-loader',
-  templateUrl: './skeleton-loader.component.html',
-  styleUrls: ['./skeleton-loader.component.css']
+	selector: 'app-skeleton-loader',
+	templateUrl: './skeleton-loader.component.html',
+	styleUrls: ['./skeleton-loader.component.css']
 })
 export class SkeletonLoaderComponent implements OnInit {
-  @Input() loopCount: number = 10;
-  Arr = Array; //Array type captured in a variable
-  
-  ngOnInit() {
-    
-  }
+	@Input() loopCount: number = 10;
+	@Input() compactLoader: boolean = false;
+	Arr = Array; //Array type captured in a variable
 
-  numSequence(number: number): Array<number> {
-    return this.Arr(number).fill(1)
-  }
+	ngOnInit() {}
 
+	numSequence(number: number): Array<number> {
+		return this.Arr(number).fill(1);
+	}
 }

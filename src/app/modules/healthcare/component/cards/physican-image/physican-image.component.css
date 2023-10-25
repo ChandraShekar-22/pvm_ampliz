@@ -1,5 +1,161 @@
+/* New css */
 .physican_container {
-    width: 99%;
+	width: 100%;
+	border-bottom: 1px solid #e2e4e7;
+	padding: 10px 0px;
+}
+.container {
+	padding: 0px !important;
+}
+.flex-container {
+	justify-content: space-between !important;
+}
+/* checkbox css */
+.form-check {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: -9px !important;
+}
+.insideContent {
+	background-color: #c2c2c2;
+	width: 10px;
+	height: 10px;
+	margin: auto;
+	cursor: default;
+}
+.partiallySelected {
+	content: '';
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 13px;
+	height: 13px;
+	border: 1px solid #c2c2c2;
+	border-radius: 2px;
+	transition: 240ms;
+	position: relative;
+	margin-bottom: -4px;
+	cursor: pointer;
+    margin-left: -27px;
+
+}
+/* checkbox css ends */
+
+/* name css */
+.physician_name {
+	color: #2d8cff;
+	margin: 0px;
+	padding: 0px;
+	font-weight: 500;
+	cursor: pointer;
+	font-size: 14px;
+	margin-left: -40px !important;
+}
+/* name css ends */
+
+/* additional css */
+.additional-info {
+	display: flex;
+	align-items: center;
+	font-weight: 400;
+	font-size: 13px !important;
+	color: #040404 !important;
+	cursor: pointer;
+}
+/* additional css ends */
+
+/* action css */
+.i-container {
+	display: flex;
+	justify-content: start;
+	padding: 0px !important;
+}
+.i-container button {
+	cursor: pointer;
+	color: #2d8cff;
+	font-weight: 500;
+	padding: 3px 10px;
+	font-size: 13px;
+	background: transparent;
+	border: 0.5px solid #2d8cff;
+	border-radius: 3px;
+}
+.email-container {
+	display: flex;
+	align-items: center;
+	color: #354054 !important;
+}
+.email-icon {
+	cursor: pointer;
+	font-size: 13px !important;
+	color: #040404 !important;
+}
+.email-title {
+	font-weight: 400;
+	font-size: 11px;
+}
+.email-subtitle {
+	color: #2d8cff;
+	font-size: 10px;
+	font-weight: 400;
+}
+.email-text {
+	text-align: start;
+	font-size: 14px;
+	font-weight: 400 !important;
+	cursor: pointer;
+	color: #040404 !important;
+}
+.close-icon {
+	cursor: pointer;
+	color: #354054;
+	font-size: 13px;
+}
+
+.saveBtn_wrp {
+	margin: 25px 0;
+}
+
+.physician_save {
+	border: 1px solid #2d8cff;
+	background: transparent;
+	outline: none;
+	color: #2d8cff;
+	border-radius: 5px;
+	padding: 5px 15px;
+	margin-right: 10px;
+	cursor: pointer;
+	text-align: center;
+	min-width: 55px;
+    font-size: 11px;
+}
+
+.notCorrect {
+	cursor: pointer;
+	border: 1px solid #ddd;
+	padding: 7px;
+	border-radius: 6px;
+    font-size: 11px;
+    font-weight: 400;
+    color: #999;
+}
+
+
+/* action css ends */
+
+/* Tooltip css */
+::ng-deep .mat-tooltip {
+	white-space: pre-line !important;
+	background-color: #040404;
+	color: white;
+	font-size: 11px !important;
+}
+/* Tooltip css ends */
+
+/* Old css */
+/* .physican_container {
+    width: 100%;
     min-height: 140px;
     border-bottom: 1px solid #e2e4e7;
     margin-top: 20px;
@@ -62,7 +218,6 @@
     align-items: center;
     padding-top: 10px;
     font-weight: 400;
-    /* cursor: pointer; */
 }
 
 .physician_hospital img {
@@ -129,18 +284,6 @@
 }
 
 
-/* .physican_cancel {
-  background: transparent;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 15px;
-  margin: 0px 5px;
-  border: 0px solid #2d8cff;
-  color: #86888a;
-} */
-
-
-/* addon css start */
 
 .physician_imgContainer {
     width: 90px !important;
@@ -238,7 +381,6 @@
 }
 
 
-/* addon css end */
 
 .physician_hospital .fa-hospital-o {
     color: #b5b5b5!important;
@@ -282,7 +424,7 @@
     height: 10px;
     margin:auto;
     cursor:default;
-    
+ 
   }
   
   .partiallySelected {
@@ -293,7 +435,6 @@
     width: 13px;
     height: 13px;
     margin-top: -2px;
-    /* margin-right: 5px; */
     border: 1px solid #c2c2c2;
     border-radius: 2px;
     transition: 240ms;
@@ -301,4 +442,4 @@
     margin-bottom: -4px;
     cursor: pointer;
   }
-  
+   */
