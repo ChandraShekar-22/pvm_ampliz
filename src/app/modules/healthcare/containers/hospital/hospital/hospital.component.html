@@ -11,13 +11,13 @@
 				[isSubscribed]="subscribed"
 			></app-filter-hospital>
 			<div class="physician-content" style="position: relative">
-				<app-skeleton-loader *ngIf="showLoader" [loopCount]="5"></app-skeleton-loader>
+				<app-skeleton-loader *ngIf="showLoader" [loopCount]="10"></app-skeleton-loader>
 				<div *ngIf="noResult === false">
 					<div class="physician-content-header" *ngIf="totalSize > 0">
-						<div class="toggle-container pl-5">
+						<div class="toggle-container">
 							<div class="toggle" [ngClass]="tab === 1 ? 'active' : ''">
-								<span class="big-txt">{{ totalCount | numberWithCommas }}</span>
-								<span class="sm-txt">Total Result</span>
+								<span class="sm-txt">{{ totalCount | numberWithCommas }}</span>
+								<span style="font-size: 14px">Total Result</span>
 							</div>
 							<!-- <div
                 class="toggle"

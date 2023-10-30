@@ -1,5 +1,190 @@
-<div class="hospital_container card-animate">
-  <div class="row">
+<div class="hospital_container card-animate mt-2">
+	<div class="row">
+		<div class="image-container col-1">
+			<img src="assets/img/hospital-hc.png" *ngIf="!hospitalData.iconLink" width="60%" height="60%" />
+			<img [src]="hospitalData.iconLink" *ngIf="hospitalData.iconLink" width="60%" height="60%" />
+		</div>
+
+		<div class="name-container col-2">
+			<a
+				[matTooltip]="hospitalData.hospitalName"
+				[matTooltipPosition]="'above'"
+				[href]="'/hospitalOverView/' + hospitalData.hospitalId"
+				target="_blank"
+				>{{
+					hospitalData.hospitalName.length > 24
+						? hospitalData.hospitalName.substring(0, 24) + '...'
+						: hospitalData.hospitalName
+				}}</a
+			>
+		</div>
+
+		<div class="action-container col-2">
+			<button [mat-menu-trigger-for]="contactPanel" #contactPanelTrigger="matMenuTrigger">
+				Contact information
+			</button>
+		</div>
+
+		<div class="physician-count-container col-1">
+			<span
+				><i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i>
+				<a
+					href="javascript:void(0)"
+					[matTooltip]="hospitalData.totalContacts + ' Physicians'"
+					[matTooltipPosition]="'above'"
+					(click)="gotoContacts(hospitalData.hospitalName)"
+					*ngIf="hospitalData.totalContacts > 0"
+					>{{ hospitalData.totalContacts | numberWithCommas }}
+				</a>
+				<!-- Physician -->
+				<span *ngIf="hospitalData.totalContacts == 0"> 0 Physician</span>
+			</span>
+		</div>
+
+		<div class="hospital-type-container col-2">
+			<i class="fa fa-heartbeat mr-2" aria-hidden="true"></i>
+
+			<span [matTooltip]="hospitalData.hospitalType" [matTooltipPosition]="'above'">{{
+				hospitalData.hospitalType.length > 18
+					? hospitalData.hospitalType.substring(0, 18) + '...'
+					: hospitalData.hospitalType
+			}}</span>
+		</div>
+
+		<div class="bed-count-container col-1">
+			<i class="fa fa-bed mr-2" aria-hidden="true"></i>
+			<span [matTooltip]="hospitalData.numberOFBeds + ' Beds'" [matTooltipPosition]="'above'"
+				>{{ hospitalData.numberOFBeds }}
+			</span>
+			<!-- {{ hospitalData.numberOFBeds > 1 ? 'Beds' : 'Bed' }} -->
+		</div>
+
+		<div class="location-container col-2">
+			<i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+
+			<span [matTooltip]="location" [matTooltipPosition]="'above'">{{
+				location.length > 18 ? location.substring(0, 18) + '...' : location
+			}}</span>
+		</div>
+		<!-- 
+		<div class="website-container col-1">
+			<span class="hospital_url" *ngIf="hospitalData.webAddress"
+				><a href="{{ 'http://' + hospitalData.webAddress }}" target="_blank" [title]="hospitalData.webAddress"
+					><i class="mdi mdi-web icon"></i></a
+			></span>
+		</div>
+	</div> -->
+
+		<mat-menu #contactPanel="matMenu" xPosition="before">
+			<div class="menu-div row" (click)="$event.stopPropagation()">
+				<div class="col-12 d-flex justify-content-end p-0 m-0">
+					<i
+						class="fa fa-times close-icon"
+						aria-hidden="true"
+						matTooltipClass="tool-tip"
+						(click)="handleAction('close')"
+					></i>
+				</div>
+				<!-- (click)="handleAction('close', 'email')" -->
+				<div class="col-12 d-flex flex-column align-items-start">
+					<span>Phone</span>
+					<span class="menu-value mt-2" *ngFor="let phone of hospitalData.hospitalPhone">
+						{{ phone }}
+						<i
+							[matTooltip]="'Copy phone number'"
+							[matTooltipPosition]="'above'"
+							class="fa fa-clone copy-icon ml-2"
+							aria-hidden="true"
+							matTooltipClass="tool-tip"
+							(click)="handleAction('copy', phone)"
+						></i>
+					</span>
+				</div>
+
+				<div class="col-12 d-flex flex-column align-items-start" *ngIf="hospitalData.webAddress">
+					<span>Website</span>
+					<span class="menu-value mt-2">
+						<a href="{{ 'http://' + hospitalData.webAddress }}" target="_blank" [title]="hospitalData.webAddress">{{
+							hospitalData.webAddress
+						}}</a>
+					</span>
+				</div>
+
+				<div class="col-12 d-flex flex-column align-items-start">
+					<span>Social</span>
+					<div class="social_icon_wrap mt-2">
+						<ul>
+							<li *ngIf="hospitalData.linkedInLink">
+								<img
+									src="assets/img/socialicons/linkedin.png"
+									width="15px"
+									height="15px"
+									(click)="openSocial(hospitalData.linkedInLink)"
+									class="clickable"
+								/>
+							</li>
+							<li *ngIf="hospitalData.twitterLink">
+								<img
+									src="assets/img/socialicons/twitter.png"
+									width="15px"
+									height="15px"
+									(click)="openSocial(hospitalData.twitterLink)"
+									class="clickable"
+								/>
+							</li>
+							<li *ngIf="hospitalData.facebookLink">
+								<img
+									src="assets/img/socialicons/facebook.png"
+									width="15px"
+									height="15px"
+									(click)="openSocial(hospitalData.facebookLink)"
+									class="clickable"
+								/>
+							</li>
+							<li *ngIf="hospitalData.instagramLink">
+								<img
+									src="assets/img/socialicons/instagram.png"
+									width="15px"
+									height="15px"
+									(click)="openSocial(hospitalData.instagramLink)"
+									class="clickable"
+								/>
+							</li>
+							<li *ngIf="hospitalData.googleLink">
+								<img
+									src="assets/img/socialicons/search.png"
+									width="15px"
+									height="15px"
+									(click)="openSocial(hospitalData.googleLink)"
+									class="clickable"
+								/>
+							</li>
+							<li *ngIf="hospitalData.pinterestLink">
+								<img
+									src="assets/img/socialicons/pinterest.png"
+									width="15px"
+									height="15px"
+									(click)="openSocial(hospitalData.pinterestLink)"
+									class="clickable"
+								/>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</mat-menu>
+
+		<app-hospital-notcorrect
+			[notCorrectDiv]="notCorrectDrawer"
+			(cancelBtnClick)="cancelBtnClick($event)"
+			[hospitalId]="hospitalData.hospitalId"
+			[hospitalName]="hospitalData.hospitalName"
+			*ngIf="notCorrectDrawer"
+		></app-hospital-notcorrect>
+	</div>
+
+	<!-- old Code  -->
+	<!-- <div class="row">
     <div class="col-sm-12 col-md-9">
       <div class="hospital_card">
         <div class="hospital_imgContainer">
@@ -88,13 +273,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- <app-savelist [saveListDiv]="saveDrawer" (cancelBtnClick)="cancelBtnClick($event)" *ngIf="saveDrawer"></app-savelist> -->
+  </div> -->
+	<!-- <app-savelist [saveListDiv]="saveDrawer" (cancelBtnClick)="cancelBtnClick($event)" *ngIf="saveDrawer"></app-savelist> -->
+	<!-- old Code ends -->
 </div>
-<app-hospital-notcorrect
-  [notCorrectDiv]="notCorrectDrawer"
-  (cancelBtnClick)="cancelBtnClick($event)"
-  [hospitalId]="hospitalData.hospitalId"
-  [hospitalName]="hospitalData.hospitalName"
-  *ngIf="notCorrectDrawer"
-></app-hospital-notcorrect>

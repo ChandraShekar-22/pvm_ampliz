@@ -12,7 +12,7 @@ export class HospitalComponent implements OnInit {
 	tab = 1;
 	hospitalSearchParameter: any = {};
 	offset: number = 0;
-	limit: number = 4;
+	limit: number = 10;
 	searchType: string;
 	searchResult: any;
 	totalSearchResult: any;
