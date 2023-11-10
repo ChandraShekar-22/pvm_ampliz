@@ -49,8 +49,8 @@
 		<mat-expansion-panel
 			#panelHospitalName
 			hideToggle="true"
-			[disabled]="isPaid"
 			(opened)="triggerAutoFocus('#hospitalNameInput')"
+			[disabled]="isPaid"
 		>
 			<mat-expansion-panel-header
 				[ngClass]="panelHospitalName.expanded ? 'expanded' : ''"
@@ -58,8 +58,10 @@
 				[expandedHeight]="'70px'"
 			>
 				<mat-panel-title>
-					<div><mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Hospital Name</div>
-					<div class="header-info" *ngIf="hospitalNames.length == 0">Enter hospital name</div>
+					<div><mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Hospital</div>
+					<div class="header-info" *ngIf="hospitalNames.length == 0">
+						Hospital name, Firm type, Hospital classification
+					</div>
 					<div class="selected" *ngIf="hospitalNames.length > 0">
 						<mat-chip-list #addedHospitals aria-label="Hospital name">
 							<mat-basic-chip *ngIf="hospitalNames?.length > 0" [ngClass]="'selected'">
@@ -82,6 +84,7 @@
 					<mat-icon class="matrl-plus">{{ panelHospitalName.expanded ? 'remove' : 'add' }} </mat-icon>
 				</mat-panel-description>
 			</mat-expansion-panel-header>
+			<span class="form-label">Hospital Name</span>
 			<mat-form-field>
 				<mat-chip-list #hospitalNameList aria-label="Hospital name input">
 					<mat-basic-chip
@@ -116,6 +119,57 @@
 						{{ hospital.hospitalName }}
 					</mat-option>
 				</mat-autocomplete>
+			</mat-form-field>
+			<span class="form-label">Select Firm Type</span>
+			<mat-form-field>
+				<mat-select panelClass="mat-custom-select" style="width: 100% !important">
+					<mat-select-trigger>
+						<mat-basic-chip
+							*ngIf="selectedFirms?.length > 0"
+							[selectable]="selectable"
+							[removable]="removable"
+							(removed)="onFirmDeselect(selectedFirms[0])"
+						>
+							{{ selectedFirms[0] }}
+							<mat-icon matChipRemove>close</mat-icon>
+						</mat-basic-chip>
+						<span *ngIf="selectedFirms?.length > 1" class="additional-selection">
+							(+{{ selectedFirms.length - 1 }} {{ selectedFirms?.length === 2 ? 'other' : 'others' }})
+						</span>
+					</mat-select-trigger>
+					<mat-option *ngFor="let level of firmListData" [value]="level" (click)="onFirmSelect(level)">
+						<app-checkbox [checked]="selectedFirms.includes(level)"></app-checkbox>
+						{{ level }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<span class="form-label">Select Hospital Classification</span>
+			<mat-form-field>
+				<mat-select panelClass="mat-custom-select" style="width: 100% !important">
+					<mat-select-trigger>
+						<mat-basic-chip
+							*ngIf="selecteClassification?.length > 0"
+							[selectable]="selectable"
+							[removable]="removable"
+							(removed)="onHospitalClassicationDeselect(selecteClassification[0])"
+						>
+							{{ selecteClassification[0] }}
+							<mat-icon matChipRemove>close</mat-icon>
+						</mat-basic-chip>
+						<span *ngIf="selecteClassification?.length > 1" class="additional-selection">
+							(+{{ selecteClassification.length - 1 }}
+							{{ selecteClassification?.length === 2 ? 'other' : 'others' }})
+						</span>
+					</mat-select-trigger>
+					<mat-option
+						*ngFor="let level of getListForHospitalClasification"
+						[value]="level"
+						(click)="onHospitalClassificationSelect(level)"
+					>
+						<app-checkbox [checked]="selecteClassification.includes(level)"></app-checkbox>
+						{{ level }}
+					</mat-option>
+				</mat-select>
 			</mat-form-field>
 		</mat-expansion-panel>
 		<!-- Hospital Name component end-->

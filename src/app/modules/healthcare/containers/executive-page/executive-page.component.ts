@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 import { SkeletonloaderService } from 'src/app/modules/healthcare/services/skeletonloader.service';
 import { ErrorService } from 'src/app/modules/healthcare/services/error.service';
@@ -131,6 +125,8 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
 		this.filterParams.titleExclude = event.titleExclude;
 		this.filterParams.levelID = event.levelID.map((level) => level.id);
 		this.filterParams.department = event.department;
+		this.filterParams.firmType = event.firmType;
+		this.filterParams.hospitalClassification = event.hospitalClassification;
 		if (event.city) {
 			this.filterParams.city = event.city.map((city) => city.city);
 		}
@@ -139,9 +135,9 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
 		}
 		// this.setPage(1);
 		if (event.cleared) {
-			this.setPage(1);
 			this.leadWithEmail = false;
 			this.leadWithPhone = false;
+			this.setPage(1);
 		} else {
 			// this.setPage(1);
 
@@ -342,12 +338,12 @@ export class ExecutivePageComponent implements OnInit, AfterViewInit {
 			this.executiveSearchParameter.limit = this.limit;
 			this.executiveSearchParameter.leadWithEmail = this.leadWithEmail;
 			this.executiveSearchParameter.leadWithPhone = this.leadWithPhone;
-			// this.executiveSearchParameter.clientIp = this.clientIp;
 			this.executiveSearchParameter.searchType = this.tab === 1 ? 'TOTAL' : 'NETNEW';
 			this.bulkSaveParams = {
 				...this.executiveSearchParameter,
 				...this.filterParams
 			};
+			console.log(this.executiveSearchParameter);
 			this.amplizService.searchExecutive(this.executiveSearchParameter, this.filterParams).subscribe(
 				(res) => {
 					//

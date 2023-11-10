@@ -67,6 +67,57 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		{ id: 5, level: 'Staff' },
 		{ id: 6, level: 'Others' }
 	];
+	firmListData = ['Health System', 'Hospital', 'Physician Group', 'Others'];
+
+	healthSystemList = [
+		'Childrens Hospital',
+		'Critical Access Hospital',
+		'Department of Defense Hospital',
+		'Long Term Acute Care Hospital',
+		'Psychiatric Hospital',
+		'Rehabilitation Hospital',
+		'Religious Non-Medical Health Care Institution',
+		'Short Term Acute Care Hospital',
+		'VA Hospital'
+	];
+
+	otherHospitalList = [
+		'Accountable Care Organization',
+		'Ambulatory Surgery Center',
+		'Ambulatory Surgery Center Corporation',
+		'Ambulatory Surgery Center Corporation',
+		'Assisted Living Facility',
+		'Assisted Living Facility Corporation',
+		'Clinically Integrated Network',
+		'Federally Qualified Health Center',
+		'Federally Qualified Health Center Look-alike',
+		'Federally Qualified Health Center Look-alike Service Site',
+		'Federally Qualified Health Center Service Site',
+		'Group Purchasing Organization',
+		'Health Information Exchange',
+		'Health Information Exchange',
+		'Home Health Agency',
+		'Home Health Agency Corporation',
+		'Hospice',
+		'Hospice Corporation',
+		'Hospice Corporation',
+		'Imaging Center',
+		'Imaging Center Corporation',
+		'Payor',
+		'Payor Subsidiary',
+		'Regional Purchasing Coalition',
+		'Renal Dialysis Corporation',
+		'Renal Dialysis Facility',
+		'Retail Clinic',
+		'Retail Clinic Corporation',
+		'Rural Health Clinic',
+		'Skilled Nursing Facility',
+		'Skilled Nursing Facility Corporation',
+		'Specialty Pharmacy',
+		'Specialty Pharmacy Corporation',
+		'Urgent Care Clinic',
+		'Urgent Care Corporation'
+	];
 	filteredStates: Observable<string[]>;
 	filteredCities: any = [];
 	departmentListData: any = [];
@@ -78,6 +129,8 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	excludedTitles: any = [];
 	personName: string = '';
 	selectedLevels: any = [];
+	selectedFirms: any = [];
+	selecteClassification: any = [];
 	selectedStates: any = [];
 	selectedCities: any = [];
 	selectedDepartment: any = [];
@@ -112,7 +165,9 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 			city: this.selectedCities,
 			stateList: this.selectedStates,
 			fullName: this.personName,
-			cleared: isCleared
+			cleared: isCleared,
+			firmType: this.selectedFirms.includes('Others') ? [] : this.selectedFirms,
+			hospitalClassification: this.selecteClassification
 		};
 		this.onFilterChange.emit(filterData);
 		this.changeSearchData();
@@ -178,6 +233,67 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		} else {
 			this.selectedLevels.push(lev);
 		}
+		this.omitChange();
+		this.storeFilterData();
+	}
+	get getListForHospitalClasification() {
+		if (this.selectedFirms.length === 0) {
+			return [
+				...this.healthSystemList,
+				'Health System',
+				'Single/Multi-Specialty Physician Group',
+				'Independent Practice Association',
+				'Academic/Faculty Practice',
+				...this.otherHospitalList
+			].sort();
+		}
+		if (this.selectedFirms.includes('Health System')) {
+			return ['Health System'];
+		}
+
+		if (this.selectedFirms.includes('Physician Group')) {
+			return [
+				'Single/Multi-Specialty Physician Group',
+				'Independent Practice Association',
+				'Academic/Faculty Practice'
+			];
+		}
+		if (this.selectedFirms.includes('Others')) {
+			return this.otherHospitalList;
+		}
+		return this.healthSystemList;
+	}
+	onFirmSelect(lev: any) {
+		const found = this.selectedFirms.findIndex((ele) => ele === lev);
+		//
+		if (found !== -1) {
+			this.selectedFirms = this.selectedFirms.filter((ele) => ele !== lev);
+			this.selecteClassification = [];
+		} else {
+			this.selectedFirms = [lev];
+			this.selecteClassification = [];
+		}
+		this.omitChange();
+		this.storeFilterData();
+	}
+	onFirmDeselect(lev: any) {
+		this.selectedFirms = this.selectedFirms.filter((ele) => ele !== lev);
+		this.omitChange();
+		this.storeFilterData();
+	}
+	onHospitalClassificationSelect(lev: any) {
+		const found = this.selecteClassification.findIndex((ele) => ele === lev);
+		//
+		if (found !== -1) {
+			this.selecteClassification = this.selecteClassification.filter((ele) => ele !== lev);
+		} else {
+			this.selecteClassification.push(lev);
+		}
+		this.omitChange();
+		this.storeFilterData();
+	}
+	onHospitalClassicationDeselect(lev: any) {
+		this.selecteClassification = this.selecteClassification.filter((ele) => ele !== lev);
 		this.omitChange();
 		this.storeFilterData();
 	}
@@ -344,6 +460,9 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.selectedDepartment = this.filterStorageService.get('executive_department') || [];
 		this.selectedCities = this.filterStorageService.get('executive_cityList') || [];
 		this.selectedStates = this.filterStorageService.get('executive_stateList') || [];
+		this.selectedFirms = this.filterStorageService.get('executive_firm') || [];
+		this.selecteClassification = this.filterStorageService.get('executive_hosipital_classification') || [];
+
 		// setTimeout(() => {
 		this.omitChange();
 		// }, 50);
@@ -361,6 +480,8 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.filteredCities = [];
 		// this.departmentListData = [];
 		this.searchCity = [];
+		this.selecteClassification = [];
+		this.selectedFirms = [];
 		this.stateControl.setValue(null);
 		this.omitChange(true);
 		this.storeFilterData();
@@ -368,6 +489,8 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	storeFilterData() {
 		this.filterStorageService.set('executive_hospital', this.hospitalNames);
 		this.filterStorageService.set('executive_includedTitle', this.includedTitles);
+		this.filterStorageService.set('executive_firm', this.selectedFirms);
+		this.filterStorageService.set('executive_hosipital_classification', this.selecteClassification);
 		this.filterStorageService.set('executive_excludedTitle', this.excludedTitles);
 		this.filterStorageService.set('executive_selectedLevels', this.selectedLevels);
 		this.filterStorageService.set('executive_personName', this.personName);
