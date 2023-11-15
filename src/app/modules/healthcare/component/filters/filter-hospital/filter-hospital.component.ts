@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
 import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { ImagingService } from 'src/app/modules/ImagingCenter/services/imaging.service';
 @Component({
 	selector: 'app-filter-hospital',
 	templateUrl: './filter-hospital.component.html',
@@ -54,6 +55,14 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 	toppingsControl = new FormControl([]);
 	isPaid: boolean = false;
 	selectedCode: any[] = [];
+	selectedImagingNumber: any = [];
+	imagingNumber: any = 0;
+	numberOfImagingEquipmentList: number[] = [];
+	imagingEqupmentsList: Array<any> = [];
+	selectedImagingEquipments: any = [];
+	@ViewChild('cptCodeInput', { static: false })
+	cptCodeInput: ElementRef<HTMLInputElement>;
+	cptControl = new FormControl();
 
 	// toppingList: number[] = [
 	//   124123456, 124236543, 12435433, 124664433, 1245778877, 124654333,
@@ -90,13 +99,42 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 		private healthCareDataService: DataService,
 		private loaderService: LoaderService,
 		private messageService: MessageService,
-		private renderer: Renderer2
+		private renderer: Renderer2,
+		private b2bService: ImagingService
 	) {}
-	ngOnInit() {}
+	ngOnInit() {
+		this.makeImagingEqipmentList();
+	}
 	ngAfterViewInit() {
 		this.getCpdtList();
 		this.getPersistData();
 		this.getAllListData();
+		this.getImagingCenterEquipment();
+	}
+	getImagingCenterEquipment(searchPhase = '') {
+		this.b2bService.getImagingCenterEquipment(searchPhase, 'Company').subscribe((res) => {
+			this.imagingEqupmentsList = res.icEquipmentList;
+		});
+	}
+	removeImagingEquiment(code: string) {
+		this.selectedImagingEquipments = this.selectedImagingEquipments.filter((el) => el !== code);
+		this.getImagingCenterEquipment();
+		this.omitChange();
+		this.storeFilterData();
+	}
+	makeImagingEqipmentList() {
+		this.numberOfImagingEquipmentList = [];
+		for (let i = 0; i < 25; i++) {
+			this.numberOfImagingEquipmentList.push(i + 1);
+		}
+	}
+	onCodeSelect(event: MatAutocompleteSelectedEvent) {
+		this.selectedImagingEquipments = [...new Set([...this.selectedImagingEquipments, event.option.value])];
+		this.cptCodeInput.nativeElement.value = '';
+		setTimeout(() => {
+			this.getImagingCenterEquipment();
+		}, 500);
+		this.omitChange();
 	}
 	ngOnChanges() {
 		// this.isPaid = false;
@@ -205,6 +243,17 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 		this.selectedCode = this.selectedCode.filter((name) => name !== val);
 		this.omitChange();
 		this.storeFilterData();
+	}
+	removeImagingNumber() {
+		this.selectedImagingNumber = [];
+		this.imagingNumber = 0;
+		this.storeFilterData();
+		this.omitChange();
+	}
+	imagingNumberSelected() {
+		this.selectedImagingNumber[0] = this.imagingNumber;
+		this.storeFilterData();
+		this.omitChange();
 	}
 	// addIncludeSpeciality(event: MatChipInputEvent): void {
 	//   const value = (event.value || "").trim();
@@ -407,6 +456,12 @@ export class FilterHospitalComponent implements OnInit, OnChanges, AfterViewInit
 		return selectedState.stateId;
 	}
 	getAllListData() {
+		this.cptControl.valueChanges.subscribe((value) => {
+			let hv = value !== null ? value : '';
+			if (hv) {
+				this.getImagingCenterEquipment(hv);
+			}
+		});
 		// change control for hospital name
 		this.hospitalControl.valueChanges.subscribe((value) => {
 			let hv = value !== null ? value : '';

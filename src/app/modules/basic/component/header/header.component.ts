@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 					icon: 'fa fa-user-circle',
 					active: false,
 					url: 'executive',
-					description: 'nearly 230,000 executives detailed title and contact information.'
+					description: 'nearly 1.7 Million executives detailed title and contact information.'
 				},
 				{
 					name: 'LTC',

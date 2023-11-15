@@ -253,72 +253,7 @@
       ></angular2-multiselect> -->
 		</mat-expansion-panel>
 		<!-- Number of beds  component end -->
-		<mat-expansion-panel
-			#panelCode
-			hideToggle="true"
-			[disabled]="isPaid"
-			(opened)="triggerAutoFocus('#hospitalNameInput')"
-		>
-			<mat-expansion-panel-header
-				[ngClass]="panelCode.expanded ? 'expanded' : ''"
-				[collapsedHeight]="'70px'"
-				[expandedHeight]="'70px'"
-			>
-				<mat-panel-title>
-					<div><mat-icon class="filter-title" *ngIf="isPaid">lock</mat-icon>Code</div>
-					<div class="header-info" *ngIf="selectedCode.length == 0">select ICD 10 code</div>
-					<div class="selected" *ngIf="selectedCode.length > 0">
-						<mat-chip-list #addedHospitals aria-label="Hospital name">
-							<mat-basic-chip *ngIf="selectedCode?.length > 0" [ngClass]="'selected'">
-								{{ selectedCode[0] }}
-							</mat-basic-chip>
-							<span *ngIf="selectedCode?.length > 1" class="additional-selection">
-								+ {{ selectedCode.length - 1 }} more
-							</span>
-						</mat-chip-list>
-					</div>
-				</mat-panel-title>
-				<mat-panel-description>
-					<mat-icon class="matrl-plus">{{ panelCode.expanded ? 'remove' : 'add' }}</mat-icon>
-				</mat-panel-description>
-			</mat-expansion-panel-header>
-			<mat-form-field>
-				<mat-chip-list #hospitalNameList aria-label="Code Input">
-					<mat-basic-chip
-						*ngFor="let name of selectedCode"
-						[selectable]="selectable"
-						[removable]="removable"
-						(removed)="removeCode(name)"
-					>
-						{{ name }}
-						<mat-icon matChipRemove>close</mat-icon>
-					</mat-basic-chip>
-					<input
-						id="codeInput"
-						#codeInput
-						placeholder=""
-						aria-label="Number"
-						matInput
-						[formControl]="codeControl"
-						[matAutocomplete]="codeNameAuto"
-						floatPlaceholder="never"
-						[matChipInputFor]="hospitalNameList"
-						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-					/>
-					<app-circle-loader class="px-1" [radius]="22" *ngIf="icdLoader"></app-circle-loader>
-				</mat-chip-list>
-
-				<mat-autocomplete
-					#codeNameAuto="matAutocomplete"
-					(optionSelected)="selectCode($event)"
-					class="app-autocomplete"
-				>
-					<mat-option *ngFor="let hospital of icptCodeList" [value]="hospital.code">
-						{{ hospital.code }} - {{ hospital.description }}
-					</mat-option>
-				</mat-autocomplete>
-			</mat-form-field>
-		</mat-expansion-panel>
+		
 
 		<!-- Location component -->
 		<mat-expansion-panel #panelLocation hideToggle="true" [disabled]="isPaid">

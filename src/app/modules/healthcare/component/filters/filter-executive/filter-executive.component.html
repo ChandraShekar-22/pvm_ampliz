@@ -122,30 +122,37 @@
 			</mat-form-field>
 			<span class="form-label">Select Firm Type</span>
 			<mat-form-field>
-				<mat-select panelClass="mat-custom-select" style="width: 100% !important">
+				<mat-select
+					panelClass="mat-custom-select"
+					style="width: 100% !important"
+					[formControl]="firmsControl"
+					[(value)]="selectedFirms"
+				>
 					<mat-select-trigger>
 						<mat-basic-chip
 							*ngIf="selectedFirms?.length > 0"
 							[selectable]="selectable"
 							[removable]="removable"
-							(removed)="onFirmDeselect(selectedFirms[0])"
+							(removed)="onFirmDeselect(selectedFirms)"
 						>
-							{{ selectedFirms[0] }}
+							{{ selectedFirms }}
 							<mat-icon matChipRemove>close</mat-icon>
 						</mat-basic-chip>
-						<span *ngIf="selectedFirms?.length > 1" class="additional-selection">
-							(+{{ selectedFirms.length - 1 }} {{ selectedFirms?.length === 2 ? 'other' : 'others' }})
-						</span>
 					</mat-select-trigger>
 					<mat-option *ngFor="let level of firmListData" [value]="level" (click)="onFirmSelect(level)">
-						<app-checkbox [checked]="selectedFirms.includes(level)"></app-checkbox>
 						{{ level }}
 					</mat-option>
 				</mat-select>
 			</mat-form-field>
 			<span class="form-label">Select Hospital Classification</span>
 			<mat-form-field>
-				<mat-select panelClass="mat-custom-select" style="width: 100% !important">
+				<mat-select
+					panelClass="mat-custom-select"
+					style="width: 100% !important"
+					[formControl]="classificationControl"
+					multiple
+					[(value)]="selecteClassification"
+				>
 					<mat-select-trigger>
 						<mat-basic-chip
 							*ngIf="selecteClassification?.length > 0"
@@ -166,7 +173,6 @@
 						[value]="level"
 						(click)="onHospitalClassificationSelect(level)"
 					>
-						<app-checkbox [checked]="selecteClassification.includes(level)"></app-checkbox>
 						{{ level }}
 					</mat-option>
 				</mat-select>
@@ -368,6 +374,7 @@
 				</mat-autocomplete>
 			</mat-form-field>
 		</mat-expansion-panel>
+
 		<!-- Title component end -->
 
 		<!-- Level component -->
@@ -450,7 +457,12 @@
 				</mat-panel-description>
 			</mat-expansion-panel-header>
 			<mat-form-field>
-				<mat-select panelClass="mat-custom-select" style="width: 100% !important" multiple>
+				<mat-select
+					panelClass="mat-custom-select"
+					style="width: 100% !important"
+					multiple
+					[formControl]="DepartmentFormControl"
+				>
 					<mat-select-trigger>
 						<mat-basic-chip
 							*ngIf="selectedDepartment?.length > 0"

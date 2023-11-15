@@ -28,6 +28,7 @@ import { debounceTime } from 'rxjs/operators';
 import { DataService } from '../../../services/data.service';
 import { LoaderService } from 'src/app/modules/healthcare/services/loader.service';
 import { MessageService } from 'src/app/modules/B2B/services/message.service';
+import { ImagingService } from 'src/app/modules/ImagingCenter/services/imaging.service';
 @Component({
 	selector: 'app-filter-executive',
 	templateUrl: './filter-executive.component.html',
@@ -57,6 +58,9 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	levelFormControl = new FormControl();
 	titleControl = new FormControl();
 	exTitleControl = new FormControl();
+	DepartmentFormControl = new FormControl();
+	firmsControl = new FormControl();
+	classificationControl = new FormControl();
 	hideHospitalNamePlaceholder: boolean = false;
 	// Data for filter component
 	levelListData: any = [
@@ -80,11 +84,11 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		'Short Term Acute Care Hospital',
 		'VA Hospital'
 	];
+	healthSystem1List = ['Health System'];
 
 	otherHospitalList = [
 		'Accountable Care Organization',
 		'Ambulatory Surgery Center',
-		'Ambulatory Surgery Center Corporation',
 		'Ambulatory Surgery Center Corporation',
 		'Assisted Living Facility',
 		'Assisted Living Facility Corporation',
@@ -94,7 +98,6 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		'Federally Qualified Health Center Look-alike Service Site',
 		'Federally Qualified Health Center Service Site',
 		'Group Purchasing Organization',
-		'Health Information Exchange',
 		'Health Information Exchange',
 		'Home Health Agency',
 		'Home Health Agency Corporation',
@@ -118,6 +121,11 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		'Urgent Care Clinic',
 		'Urgent Care Corporation'
 	];
+	physicianGroupList = [
+		'Single/Multi-Specialty Physician Group',
+		'Independent Practice Association',
+		'Academic/Faculty Practice'
+	];
 	filteredStates: Observable<string[]>;
 	filteredCities: any = [];
 	departmentListData: any = [];
@@ -129,7 +137,7 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	excludedTitles: any = [];
 	personName: string = '';
 	selectedLevels: any = [];
-	selectedFirms: any = [];
+	selectedFirms: any = '';
 	selecteClassification: any = [];
 	selectedStates: any = [];
 	selectedCities: any = [];
@@ -137,6 +145,20 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	selectedTitles: any = [];
 	searchCity: any = [];
 	isPaid: boolean = false;
+	selectedCode: any[] = [];
+	selectedImagingNumber: any = [];
+	imagingNumber: any = 0;
+	numberOfImagingEquipmentList: number[] = [];
+	imagingEqupmentsList: Array<any> = [];
+	selectedImagingEquipments: any = [];
+	@ViewChild('cptCodeInput', { static: false })
+	cptCodeInput: ElementRef<HTMLInputElement>;
+	cptControl = new FormControl();
+	icptCodeList: any = [];
+	@ViewChild('codeInput', { static: false })
+	codeInput: ElementRef<HTMLInputElement>;
+	codeControl = new FormControl();
+	icdLoader: boolean = false;
 
 	constructor(
 		public router: Router,
@@ -147,7 +169,8 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		private healthCareDataService: DataService,
 		private loaderService: LoaderService,
 		private messageService: MessageService,
-		private renderer: Renderer2
+		private renderer: Renderer2,
+		private b2bService: ImagingService
 	) {}
 
 	ngOnChanges() {
@@ -166,7 +189,7 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 			stateList: this.selectedStates,
 			fullName: this.personName,
 			cleared: isCleared,
-			firmType: this.selectedFirms.includes('Others') ? [] : this.selectedFirms,
+			firmType: this.selectedFirms ? [this.selectedFirms] : [],
 			hospitalClassification: this.selecteClassification
 		};
 		this.onFilterChange.emit(filterData);
@@ -237,57 +260,51 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.storeFilterData();
 	}
 	get getListForHospitalClasification() {
-		if (this.selectedFirms.length === 0) {
+		const firms = [this.selectedFirms];
+		if (!this.selectedFirms) {
 			return [
 				...this.healthSystemList,
-				'Health System',
-				'Single/Multi-Specialty Physician Group',
-				'Independent Practice Association',
-				'Academic/Faculty Practice',
+				...this.healthSystem1List,
+				...this.physicianGroupList,
 				...this.otherHospitalList
 			].sort();
 		}
-		if (this.selectedFirms.includes('Health System')) {
-			return ['Health System'];
+		if (firms.includes('Health System')) {
+			return this.healthSystem1List;
 		}
 
-		if (this.selectedFirms.includes('Physician Group')) {
-			return [
-				'Single/Multi-Specialty Physician Group',
-				'Independent Practice Association',
-				'Academic/Faculty Practice'
-			];
+		if (firms.includes('Physician Group')) {
+			return this.physicianGroupList;
 		}
-		if (this.selectedFirms.includes('Others')) {
+		if (firms.includes('Others')) {
 			return this.otherHospitalList;
 		}
 		return this.healthSystemList;
 	}
 	onFirmSelect(lev: any) {
-		const found = this.selectedFirms.findIndex((ele) => ele === lev);
+		this.selectedFirms = lev;
 		//
-		if (found !== -1) {
-			this.selectedFirms = this.selectedFirms.filter((ele) => ele !== lev);
-			this.selecteClassification = [];
-		} else {
-			this.selectedFirms = [lev];
-			this.selecteClassification = [];
-		}
+		this.selecteClassification = [];
 		this.omitChange();
 		this.storeFilterData();
 	}
 	onFirmDeselect(lev: any) {
-		this.selectedFirms = this.selectedFirms.filter((ele) => ele !== lev);
+		this.selectedFirms = '';
+		this.selecteClassification = [];
 		this.omitChange();
 		this.storeFilterData();
 	}
 	onHospitalClassificationSelect(lev: any) {
-		const found = this.selecteClassification.findIndex((ele) => ele === lev);
-		//
-		if (found !== -1) {
-			this.selecteClassification = this.selecteClassification.filter((ele) => ele !== lev);
-		} else {
-			this.selecteClassification.push(lev);
+		if (!this.selectedFirms) {
+			if (this.physicianGroupList.includes(lev)) {
+				this.selectedFirms = 'Physician Group';
+			} else if (this.healthSystem1List.includes(lev)) {
+				this.selectedFirms = 'Health System';
+			} else if (this.healthSystemList.includes(lev)) {
+				this.selectedFirms = 'Hospital';
+			} else if (this.otherHospitalList.includes(lev)) {
+				this.selectedFirms = 'Others';
+			}
 		}
 		this.omitChange();
 		this.storeFilterData();
@@ -451,6 +468,7 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.getPersistData();
 		this.cdRef.detectChanges();
 	}
+
 	getPersistData() {
 		this.hospitalNames = this.filterStorageService.get('executive_hospital') || [];
 		this.includedTitles = this.filterStorageService.get('executive_includedTitle') || [];
@@ -460,9 +478,10 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.selectedDepartment = this.filterStorageService.get('executive_department') || [];
 		this.selectedCities = this.filterStorageService.get('executive_cityList') || [];
 		this.selectedStates = this.filterStorageService.get('executive_stateList') || [];
-		this.selectedFirms = this.filterStorageService.get('executive_firm') || [];
+		this.selectedFirms = this.filterStorageService.get('executive_firm') || '';
 		this.selecteClassification = this.filterStorageService.get('executive_hosipital_classification') || [];
-
+		this.firmsControl.setValue(this.selectedFirms);
+		this.classificationControl.setValue(this.selecteClassification);
 		// setTimeout(() => {
 		this.omitChange();
 		// }, 50);
@@ -478,10 +497,11 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.selectedStates = [];
 		this.filteredStates = of([]);
 		this.filteredCities = [];
+		this.DepartmentFormControl.setValue([]);
 		// this.departmentListData = [];
 		this.searchCity = [];
 		this.selecteClassification = [];
-		this.selectedFirms = [];
+		this.selectedFirms = '';
 		this.stateControl.setValue(null);
 		this.omitChange(true);
 		this.storeFilterData();
@@ -497,6 +517,8 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.filterStorageService.set('executive_department', this.selectedDepartment);
 		this.filterStorageService.set('executive_cityList', this.selectedCities);
 		this.filterStorageService.set('executive_stateList', this.selectedStates);
+		this.firmsControl.setValue(this.selectedFirms);
+		this.classificationControl.setValue(this.selecteClassification);
 	}
 	addHospitalName(event: MatChipInputEvent): void {
 		const value = (event.value || '').trim();
@@ -534,6 +556,10 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	getAllListData() {
 		this.amplizService.getDepartmentList(null).subscribe((response) => {
 			this.departmentListData = response.departmentList;
+		});
+		this.codeControl.valueChanges.subscribe((value) => {
+			let hv = value !== null ? value : '';
+			this.getCpdtList(hv);
 		});
 		// change control for hospital name
 		this.hospitalControl.valueChanges.subscribe((value) => {
@@ -648,5 +674,65 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		console.log(eleId);
 		const element = this.renderer.selectRootElement(eleId);
 		setTimeout(() => element.focus(), 100);
+	}
+	getImagingCenterEquipment(searchPhase = '') {
+		this.b2bService.getImagingCenterEquipment(searchPhase, 'Company').subscribe((res) => {
+			this.imagingEqupmentsList = res.icEquipmentList;
+		});
+	}
+	removeImagingEquiment(code: string) {
+		this.selectedImagingEquipments = this.selectedImagingEquipments.filter((el) => el !== code);
+		this.getImagingCenterEquipment();
+		this.omitChange();
+		this.storeFilterData();
+	}
+	makeImagingEqipmentList() {
+		this.numberOfImagingEquipmentList = [];
+		for (let i = 0; i < 25; i++) {
+			this.numberOfImagingEquipmentList.push(i + 1);
+		}
+	}
+	onCodeSelect(event: MatAutocompleteSelectedEvent) {
+		this.selectedImagingEquipments = [...new Set([...this.selectedImagingEquipments, event.option.value])];
+		this.cptCodeInput.nativeElement.value = '';
+		setTimeout(() => {
+			this.getImagingCenterEquipment();
+		}, 500);
+		this.omitChange();
+	}
+	removeCode(val: any): void {
+		this.selectedCode = this.selectedCode.filter((name) => name !== val);
+		this.omitChange();
+		this.storeFilterData();
+	}
+	removeImagingNumber() {
+		this.selectedImagingNumber = [];
+		this.imagingNumber = 0;
+		this.storeFilterData();
+		this.omitChange();
+	}
+	imagingNumberSelected() {
+		this.selectedImagingNumber[0] = this.imagingNumber;
+		this.storeFilterData();
+		this.omitChange();
+	}
+	selectCode(event: MatAutocompleteSelectedEvent): void {
+		if (this.selectedCode.findIndex((hospital) => hospital === event.option.viewValue) === -1) {
+			this.selectedCode.push(event.option.value);
+			this.codeInput.nativeElement.value = '';
+			this.codeControl.setValue(null);
+			this.getCpdtList();
+			this.omitChange();
+			this.storeFilterData();
+		}
+	}
+	getCpdtList(searchPhrase = '') {
+		if (searchPhrase.length >= 3) {
+			this.icdLoader = true;
+			this.amplizService.getAllicdtenCodes({ searchPhrase }).subscribe((response: any) => {
+				this.icptCodeList = response.icdtenCodes;
+				this.icdLoader = false;
+			});
+		}
 	}
 }
