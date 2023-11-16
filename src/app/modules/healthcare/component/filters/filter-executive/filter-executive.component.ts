@@ -15,7 +15,7 @@ import {
 import { MatChipInputEvent } from '@angular/material/chips';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
+import { FormControl, UntypedFormControl } from '@angular/forms';
 import { AmplizService } from 'src/app/modules/healthcare/services/ampliz.service';
 
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -62,6 +62,7 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	firmsControl = new FormControl();
 	classificationControl = new FormControl();
 	hideHospitalNamePlaceholder: boolean = false;
+	totalItemsExcludeControl = new UntypedFormControl();
 	// Data for filter component
 	levelListData: any = [
 		{ id: 1, level: 'C Level' },
@@ -132,6 +133,7 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	titleListData: any = [];
 	hospitalNames: any = [];
 	filteredHospitals: Observable<string[]>;
+	recentIncludeItems = [];
 	// Variable to be used for filter API call
 	includedTitles: any = [];
 	excludedTitles: any = [];
@@ -153,6 +155,8 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 	selectedImagingEquipments: any = [];
 	@ViewChild('cptCodeInput', { static: false })
 	cptCodeInput: ElementRef<HTMLInputElement>;
+	@ViewChild('excludeItemInput')
+	excludeItemInput: ElementRef<HTMLInputElement>;
 	cptControl = new FormControl();
 	icptCodeList: any = [];
 	@ViewChild('codeInput', { static: false })
@@ -194,6 +198,42 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		};
 		this.onFilterChange.emit(filterData);
 		this.changeSearchData();
+	}
+	selectText(item, selectionType = 'auto') {
+		let val = '';
+		console.log(item);
+		if (selectionType == 'auto') {
+			val = item.value;
+		} else {
+			val = item.option.value;
+		}
+		const found = this.excludedTitles.indexOf(val);
+		if (found == -1) {
+			this.excludedTitles.push(val);
+		}
+		this.storeFilterData();
+		this.omitChange();
+		this.reset();
+	}
+	removeItem(content, type = 'include') {
+		const index = this.excludedTitles.indexOf(content);
+		this.excludedTitles.splice(index, 1);
+		this.storeFilterData();
+		this.omitChange();
+		// this.removePressed.emit({ content, type });
+	}
+	clearItems() {
+		this.excludedTitles = [];
+		this.storeFilterData();
+		this.omitChange();
+	}
+	public reset() {
+		this.excludedTitles.nativeElement.value = '';
+		this.totalItemsExcludeControl.setValue('', { emitEvent: true });
+		if (this.excludeItemInput) {
+			this.excludeItemInput.nativeElement.value = '';
+			this.totalItemsExcludeControl.setValue('', { emitEvent: true });
+		}
 	}
 	removeHospital(val: any): void {
 		this.hospitalNames = this.hospitalNames.filter((name) => name !== val);
@@ -560,6 +600,10 @@ export class FilterExecutiveComponent implements OnInit, AfterViewInit, OnChange
 		this.codeControl.valueChanges.subscribe((value) => {
 			let hv = value !== null ? value : '';
 			this.getCpdtList(hv);
+		});
+		this.totalItemsExcludeControl.valueChanges.subscribe((value: string) => {
+			
+			this.selectText(value);
 		});
 		// change control for hospital name
 		this.hospitalControl.valueChanges.subscribe((value) => {

@@ -344,32 +344,41 @@
 				</mat-autocomplete>
 			</mat-form-field>
 			<span class="form-label">Exclude title</span>
-			<mat-form-field>
-				<mat-chip-list #cityList aria-label="city name input">
+			<mat-form-field class="example-chip-list mt-3">
+				<mat-chip-list #includedItem aria-label="includedItem">
 					<mat-basic-chip
-						*ngFor="let city of selectedCities"
+						*ngFor="let content of excludedTitles"
 						[selectable]="selectable"
-						[removable]="removable"
-						(removed)="onCityDeselect(city)"
+						[removable]="true"
+						(removed)="removeItem(content)"
+						class="chip-list"
 					>
-						{{ city.city }}
-						<mat-icon matChipRemove>close</mat-icon>
+						{{ content }}
+						<mat-icon matChipRemove class="chip-list">close</mat-icon>
 					</mat-basic-chip>
 					<input
-						#cityInput
-						aria-label="Search city"
+						placeholder="Exclude Title"
+						#includeItemInput
 						matInput
-						[formControl]="cityControl"
-						[matAutocomplete]="cityAuto"
-						floatPlaceholder="never"
-						[matChipInputFor]="cityList"
-						[matChipInputSeparatorKeyCodes]="[]"
+						[formControl]="totalItemsExcludeControl"
+						[matAutocomplete]="excludeItemAuto"
+						[matChipInputFor]="includedItem"
+						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						(matChipInputTokenEnd)="selectText($event)"
 					/>
 				</mat-chip-list>
-
-				<mat-autocomplete #cityAuto="matAutocomplete" class="app-autocomplete">
-					<mat-option *ngFor="let city of searchCity" [value]="city" (click)="onCitySelect(city)">
-						{{ city.city }}
+				<mat-icon matSuffix class="closeIcon" *ngIf="excludedTitles.length > 0" (click)="clearItems()"
+					>close</mat-icon
+				>
+				<mat-autocomplete
+					#excludeItemAuto="matAutocomplete"
+					(optionSelected)="selectText($event, 'recent')"
+					class="app-autocomplete"
+				>
+					<mat-option style="color: #c2c2c2" *ngIf="recentIncludeItems.length > 0">RECENTLY USED</mat-option>
+					<mat-option *ngFor="let contact of recentIncludeItems" [value]="contact">
+						<mat-icon style="color: #c2c2c2">access_time</mat-icon>
+						{{ contact }}
 					</mat-option>
 				</mat-autocomplete>
 			</mat-form-field>
@@ -469,7 +478,7 @@
 							[selectable]="selectable"
 							[removable]="removable"
 							(removed)="onDepartmentDeselect(selectedDepartment[0])"
-						>
+						>	
 							{{ selectedDepartment[0] }}
 							<mat-icon matChipRemove>close</mat-icon>
 						</mat-basic-chip>

@@ -24,13 +24,6 @@
 							<span *ngIf="hospitalNames?.length > 1" class="additional-selection">
 								+ {{ hospitalNames.length - 1 }} more
 							</span>
-							<!-- <mat-basic-chip
-                #selectedHospitalNameList
-                *ngFor="let name of hospitalNames"
-                [ngClass]="'selected'"
-              >
-                {{ name }}
-              </mat-basic-chip> -->
 						</mat-chip-list>
 					</div>
 				</mat-panel-title>
@@ -73,12 +66,6 @@
 						{{ hospital.hospitalName }}
 					</mat-option>
 				</mat-autocomplete>
-				<!-- <input
-          [matChipInputAddOnBlur]="addOnBlur"
-          [matChipInputFor]="includedTitle"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)"
-        /> -->
 			</mat-form-field>
 		</mat-expansion-panel>
 		<!-- Hospital Name component end-->
@@ -253,7 +240,6 @@
       ></angular2-multiselect> -->
 		</mat-expansion-panel>
 		<!-- Number of beds  component end -->
-		
 
 		<!-- Location component -->
 		<mat-expansion-panel #panelLocation hideToggle="true" [disabled]="isPaid">
@@ -407,53 +393,6 @@
         </mat-autocomplete> -->
 			<!-- </mat-form-field> -->
 		</mat-expansion-panel>
-
-		<!-- added by Rupesh start-->
-		<!-- <mat-expansion-panel>
-      <mat-expansion-panel-header collapsedHeight="70px" expandedHeight="100px">
-        <div class="mat-panel-wrapper py-2">
-          <mat-panel-title> NPI Number </mat-panel-title>
-          <mat-panel-description
-            class="pt-1"
-            *ngIf="this.toppingsControl.value.length == 0"
-          >
-            NPI Number Search
-          </mat-panel-description>
-          <div class="" *ngIf="this.toppingsControl.value.length > 0">
-            <span
-              class="spanLabel"
-              *ngFor="let item of this.toppingsControl.value"
-              >{{ item }}</span
-            >
-          </div>
-        </div>
-      </mat-expansion-panel-header>
-
-      <mat-form-field>
-        <mat-select
-          [formControl]="toppingsControl"
-          multiple
-          (selectionChange)="testdrop()"
-        >
-          <mat-select-trigger>
-            <mat-chip-list>
-              <mat-chip
-                *ngFor="let topping of toppingsControl.value"
-                [removable]="true"
-                (removed)="onToppingRemoved(topping)"
-              >
-                {{ topping }}
-                <mat-icon matChipRemove>cancel</mat-icon>
-              </mat-chip>
-            </mat-chip-list>
-          </mat-select-trigger>
-
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-            topping
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-expansion-panel> -->
 	</mat-accordion>
 
 	<!-- added by Rupesh end-->
